@@ -2,6 +2,7 @@ import './App.css'
 import NavBar from './components/NavBar'
 import "@fontsource/roboto/400.css";
 import CssBaseline from "@mui/material/CssBaseline";
+import ProductCard from './components/ProductCard';
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
     <>
       <CssBaseline/>
       <NavBar/>
+      <ProductCard/>
     </>
   )
 }
