@@ -9,7 +9,9 @@ import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
-const ProductCard = () => {
+const ProductCard = (props) => {
+  const { product } = props;
+
   return (
     <Card sx={{ width: 320, maxWidth: "100%", boxShadow: "lg" }}>
       <CardOverflow>
@@ -32,7 +34,7 @@ const ProductCard = () => {
           overlay
           endDecorator={<ArrowOutwardIcon />}
         >
-          Super Rockez A400
+          {product.name}
         </Link>
 
         <Typography
@@ -44,7 +46,7 @@ const ProductCard = () => {
             </Chip>
           }
         >
-          2,900 THB
+          {product.price} LKR
         </Typography>
         <Typography level="body-sm">
           (Only <b>7</b> left in stock!)
@@ -57,6 +59,6 @@ const ProductCard = () => {
       </CardOverflow>
     </Card>
   );
-}
+};
 
 export default ProductCard;
