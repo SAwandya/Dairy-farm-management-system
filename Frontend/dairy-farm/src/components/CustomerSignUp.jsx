@@ -12,6 +12,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useForm } from "react-hook-form";
+import InputField from "./InputField";
 
 function Copyright(props) {
   return (
@@ -35,18 +37,15 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 const CustomerSignUp = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+ 
+
+
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box
           sx={{
@@ -69,48 +68,92 @@ const CustomerSignUp = () => {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
+              <Grid item md={6} sm={6}>
+                <InputField
+                  id="name"
+                  label="Company name"
+                  type="text"
+                  signup={{
+                    ...register("name", { required: true, minLength: 3 }),
+                  }}
+                  errors={errors.name}
+                  minLength="3"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+              <Grid item md={6} sm={6}>
+                <InputField
+                  id="type"
+                  label="Company type eg: corporation, partnership"
+                  type="text"
+                  signup={{
+                    ...register("type", { required: true, minLength: 3 }),
+                  }}
+                  errors={errors.type}
+                  minLength="3"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
+              <Grid item md={6} sm={6}>
+                <InputField
+                  id="address"
+                  label="Business Address"
+                  type="text"
+                  signup={{
+                    ...register("address", { required: true }),
+                  }}
+                  errors={errors.address}
+                />
+              </Grid>
+
+              <Grid item md={6} sm={6}>
+                <InputField
+                  id="phone"
+                  label="Contact number"
+                  type="number"
+                  signup={{
+                    ...register("phone", { required: true, minLength: 10 }),
+                  }}
+                  errors={errors.phone}
+                  minLength="10"
+                />
+              </Grid>
+
+              <Grid item md={6} sm={6}>
+                <InputField
+                  id="rep"
+                  label="Company Representative"
+                  type="text"
+                  signup={{
+                    ...register("rep", { required: true, minLength: 5 }),
+                  }}
+                  errors={errors.rep}
+                  minLength="5"
+                />
+              </Grid>
+              <Grid item md={6} sm={6}>
+                <InputField
+                  id="licenseNo"
+                  label="Business License No"
+                  type="text"
+                  signup={{
+                    ...register("licenseNo", { required: true, minLength: 10 }),
+                  }}
+                  errors={errors.licenseNo}
+                  minLength="10"
+                />
+              </Grid>
+
+              <Grid item md={6} sm={6}>
+                <InputField
                   id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  label="Email"
+                  type="email"
+                  signup={{
+                    ...register("email", { required: true }),
+                  }}
+                  errors={errors.email}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
