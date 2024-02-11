@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import InputField from "../components/InputField";
 import { useForm } from "react-hook-form";
+import authService from "../services/authService";
 
 function Copyright(props) {
   return (
@@ -33,11 +34,11 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 const CustomerSignIn = () => {
+  const [error, setError] = React.useState();
+
   const {
     register,
     handleSubmit,
@@ -45,6 +46,15 @@ const CustomerSignIn = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    authService
+      .AuthenticateUser(data)
+      .then((res) => {
+        localStorage.setItem("token", res);
+        setError("");
+      })
+      .catch((err) => {
+        setError(err.response.data);
+      });
     console.log(data);
   };
 
