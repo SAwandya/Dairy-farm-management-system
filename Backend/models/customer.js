@@ -39,6 +39,11 @@ const Customer = mongoose.model(
       required: true,
     },
 
+    password: {
+      type: String,
+      required: true,
+    }
+
   })
 );
 
@@ -51,6 +56,7 @@ function validateCustomer(customer) {
     rep: Joi.string().required(),
     licenseNo: Joi.string().required(),
     email: Joi.string().required(),
+    password: Joi.string().required()
   });
 
   var result = schema.validate(customer);
