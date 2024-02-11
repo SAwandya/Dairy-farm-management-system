@@ -50,7 +50,7 @@ function validateCustomer(customer) {
     phone: Joi.number().required(),
     rep: Joi.string().required(),
     licenseNo: Joi.string().required(),
-    email: Joi.email().required(),
+    email: Joi.string().required(),
   });
 
   var result = schema.validate(customer);
