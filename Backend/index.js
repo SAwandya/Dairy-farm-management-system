@@ -4,6 +4,12 @@ const app = express();
 const products = require("./routes/products");
 const customers = require("./routes/customers");
 const cors = require("cors");
+const config = require("config");
+
+if(!config.get("jwtPrivateKey")) {
+  console.log("FATA ERROR: jwtPrivateKey is not defined");
+  process.exit(1);
+}
 
 mongoose
   .connect("mongodb://localhost/dairydb")
