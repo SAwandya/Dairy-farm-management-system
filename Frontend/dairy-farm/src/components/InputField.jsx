@@ -17,6 +17,7 @@ const InputField = (props) => {
         type={type}
         {...signup}
         autoFocus
+        margin="normal"
       />
 
       {errors?.type === "required" && (

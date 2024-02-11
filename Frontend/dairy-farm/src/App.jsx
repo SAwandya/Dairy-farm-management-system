@@ -4,6 +4,7 @@ import "@fontsource/roboto/400.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import ProductGrid from './components/ProductGrid';
 import CustomerSignUp from './components/CustomerSignUp';
+import CustomerSignIn from './components/CustomerSignIn';
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
     <>
       <CssBaseline/>
       
-      <CustomerSignUp/>
+      <CustomerSignIn/>
     </>
   )
 }
