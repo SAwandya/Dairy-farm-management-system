@@ -11,7 +11,11 @@ class APIClient {
     this.endpoint = endpoint;
   }
 
-  getAll = (config) => {
+  post = (config) => {
+    return axiosInstance.post(this.endpoint, config).then((res) => res.data);
+  }
+
+  getAll = () => {
     return axiosInstance.get(this.endpoint, config).then((res) => res.data);
   };
 }

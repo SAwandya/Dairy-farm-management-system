@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import InputField from "./InputField";
+import userService from "../services/userService";
 
 function Copyright(props) {
   return (
@@ -38,10 +39,22 @@ const defaultTheme = createTheme();
 
 const CustomerSignUp = () => {
  
-
-
-
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [user, setUser] = React.useState();
+  const [message, setMessage] = React.useState();
+
+  const onSubmit = (data) => {
+    userService
+    .CreateUser(data)
+    .then((res) => {
+      setUser(res.data);
+      setMessage("Register success");
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+      setMessage(err);
+    })
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -64,7 +77,7 @@ const CustomerSignUp = () => {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
