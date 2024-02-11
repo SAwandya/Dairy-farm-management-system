@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import InputField from "./InputField";
+import userService from "../services/userService";
 
 function Copyright(props) {
   return (
@@ -37,11 +38,28 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 const CustomerSignUp = () => {
- 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [user, setUser] = React.useState();
+  const [message, setMessage] = React.useState();
 
-
-
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = (data) => {
+    userService
+      .CreateUser(data)
+      .then((res) => {
+        setUser(res.data);
+        setMessage("Register success");
+        console.log(res.headers);
+        // localStorage.setItem("token", res.headers["x-auth-token"]);
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessage(err);
+      });
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -64,7 +82,7 @@ const CustomerSignUp = () => {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -151,6 +169,18 @@ const CustomerSignUp = () => {
                     ...register("email", { required: true }),
                   }}
                   errors={errors.email}
+                />
+              </Grid>
+
+              <Grid item md={6} sm={6}>
+                <InputField
+                  id="password"
+                  label="New password"
+                  type="password"
+                  signup={{
+                    ...register("password", { required: true }),
+                  }}
+                  errors={errors.password}
                 />
               </Grid>
 

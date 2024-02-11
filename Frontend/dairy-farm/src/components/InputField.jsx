@@ -1,5 +1,6 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
+import { Alert } from "@mui/material";
 
 const InputField = (props) => {
 
@@ -16,6 +17,7 @@ const InputField = (props) => {
         type={type}
         {...signup}
         autoFocus
+        margin="normal"
       />
 
       {errors?.type === "required" && (
