@@ -5,12 +5,15 @@ import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import CardOverflow from "@mui/joy/CardOverflow";
 import Chip from "@mui/joy/Chip";
-import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import { Link } from "react-router-dom";
 
 const ProductCard = (props) => {
   const { product } = props;
+
+  const handleSubmit = (event) => {
+    console.log("submited")
+  };
 
   return (
     <Card sx={{ width: 320, maxWidth: "100%", boxShadow: "lg" }}>
@@ -26,16 +29,7 @@ const ProductCard = (props) => {
       </CardOverflow>
       <CardContent>
         <Typography level="body-xs">Bluetooth Headset</Typography>
-        <Link
-          href="#product-card"
-          fontWeight="md"
-          color="neutral"
-          textColor="text.primary"
-          overlay
-          endDecorator={<ArrowOutwardIcon />}
-        >
-          {product.name}
-        </Link>
+        <Link>{product.name}</Link>
 
         <Typography
           level="title-lg"
@@ -53,9 +47,17 @@ const ProductCard = (props) => {
         </Typography>
       </CardContent>
       <CardOverflow>
-        <Button variant="solid" color="danger" size="lg">
-          Buy
-        </Button>
+        <Link to="/productdetails">
+          <Button
+            onClick={(event) => handleSubmit(event)}
+            type="submit"
+            variant="solid"
+            color="danger"
+            size="lg"
+          >
+            Buy
+          </Button>
+        </Link>
       </CardOverflow>
     </Card>
   );
