@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import CustomerSignUp from "./pages/CustomerSignUp";
 import CustomerSignIn from "./pages/CustomerSignIn";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProductDetails from "./components/ProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <HomePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/productdetails",
+        element: (
+          <ProtectedRoute>
+            <ProductDetails/>
           </ProtectedRoute>
         ),
       },
