@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import InputField from "../components/InputField";
 import { useForm } from "react-hook-form";
 import authService from "../services/authService";
+import { useAuth } from "../contexts/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -39,6 +41,8 @@ const defaultTheme = createTheme();
 const CustomerSignIn = () => {
   const [error, setError] = React.useState();
 
+  const { login, authToken } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -49,7 +53,7 @@ const CustomerSignIn = () => {
     authService
       .AuthenticateUser(data)
       .then((res) => {
-        localStorage.setItem("token", res);
+        login(res);
         setError("");
       })
       .catch((err) => {
@@ -61,6 +65,7 @@ const CustomerSignIn = () => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
+        {authToken && <Navigate to="/" replace={true} />}
         <CssBaseline />
         <Box
           sx={{
