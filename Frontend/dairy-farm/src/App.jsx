@@ -1,20 +1,23 @@
-import './App.css'
-import NavBar from './components/NavBar'
+import "./App.css";
+import NavBar from "./components/NavBar";
 import "@fontsource/roboto/400.css";
 import CssBaseline from "@mui/material/CssBaseline";
-import ProductGrid from './components/ProductGrid';
-import CustomerSignUp from './components/CustomerSignUp';
-import CustomerSignIn from './components/CustomerSignIn';
+import ProductGrid from "./components/ProductGrid";
+import CustomerSignUp from "./pages/CustomerSignUp";
+import CustomerSignIn from "./pages/CustomerSignIn";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
-
   return (
     <>
-      <CssBaseline/>
-      
-      <CustomerSignIn/>
+      <AuthProvider>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </AuthProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

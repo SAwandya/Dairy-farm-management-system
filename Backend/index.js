@@ -17,12 +17,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("Could not connect to MongoDB"));
 
-const corsOptions = {
-  origin: "http://127.0.0.1:5173",
-  credentials: true,
-};
-
-app.use(cors(corsOptions)); //Enable CORS for all routes
+app.use(cors()); //Enable CORS for all routes
 
 app.use(express.json());
 

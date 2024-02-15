@@ -17,7 +17,7 @@ const ProductGrid = () => {
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
         >
           {data?.map((product) => (
-            <Grid item xs={3}>
+            <Grid key={product._id} item xs={3}>
               <ProductCard 
                 product={product}
               />
