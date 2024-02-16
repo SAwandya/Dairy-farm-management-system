@@ -3,8 +3,8 @@ const Joi = require("joi");
 const { productSchema } = require("../models/product");
 const { customerSchema } = require("../models/customer");
 
-const Product = mongoose.model(
-  "Products",
+const Purchase = mongoose.model(
+  "Purchase",
   new mongoose.Schema({
     quantity: {
       type: String,
@@ -26,12 +26,14 @@ const Product = mongoose.model(
 function validatePurchase(purchase) {
   const schema = Joi.object({
     quantity: Joi.number().required(),
+    customerId: Joi.string().required(),
+    productId: Joi.string().required()
   });
 
-  var result = schema.validate(movie);
+  var result = schema.validate(purchase);
 
   return result;
 }
 
 exports.validate = validatePurchase;
-exports.Product = Product;
+exports.Purchase = Purchase;
