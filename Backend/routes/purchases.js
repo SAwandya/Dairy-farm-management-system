@@ -29,8 +29,8 @@ router.post("/", async (req, res) => {
     quantity: req.body.quantity,
     customer: customer,
     product: product,
-    deliveryAddress: deliveryAddress,
-    paymentDetails: paymentDetails,
+    deliveryDetails: req.body.deliveryDetails,
+    paymentDetails: req.body.paymentDetails,
   });
 
   purchase = await purchase.save();

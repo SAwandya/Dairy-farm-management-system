@@ -15,6 +15,9 @@ import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import { useForm } from "react-hook-form";
+import useGameQueryStore from "../store";
+import { useAuth } from "../contexts/AuthContext";
+import purchaseService from "../services/purchaseService";
 
 function Copyright() {
   return (
@@ -47,26 +50,42 @@ function getStepContent(step, register, errors) {
 const CheckOut = () => {
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const [address, setAddress] = React.useState(null);
-
-  const [payment, setPayment] = React.useState(null);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleNext = () => {
-  };
+  const handleNext = () => {};
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
+  const selectedProduct = useGameQueryStore((s) => s.selectedProduct);
+  const selectedQuantity = useGameQueryStore((s) => s.selectedQuantity);
+
+  const { getCurrentUser } = useAuth();
+
   const onSubmit = (data) => {
-  
-    console.log(data);
+
+    const newData = {
+      ...data,
+      productId: selectedProduct._id,
+      customerId: getCurrentUser()._id,
+    };
+
+    console.log(newData);
+
+    // purchaseService
+    //   .Purchase(newData)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
     setActiveStep(activeStep + 1);
   };
 

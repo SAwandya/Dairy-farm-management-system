@@ -14,7 +14,7 @@ import InputField from "./InputField";
 import { Alert } from "@mui/material";
 import purchaseService from "../services/purchaseService";
 import { useAuth } from "../contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
   const {
@@ -27,28 +27,19 @@ const ProductDetails = () => {
 
   const SetSelectedQuantity = useGameQueryStore((s) => s.SetSelectedQuantity);
 
+  let navigate = useNavigate();
+
   const onSubmit = (data) => {
 
     SetSelectedQuantity(data);
+    navigate("/checkout");
 
-    // const newData = {
-    //   ...data,
-    //   productId: selectedProduct._id,
-    //   customerId: getCurrentUser()._id,
-    // };
-
-    // purchaseService
-    //   .Purchase(newData)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    
   };
 
   return (
     <>
+      {!errors && <Navigate to="/checkout" replace={true} />}
       <Container
         maxWidth="lg"
         sx={{
@@ -99,11 +90,9 @@ const ProductDetails = () => {
                 {errors.quantity?.message && (
                   <Alert severity="warning">{errors.quantity.message}</Alert>
                 )}
-                <Link to='/checkout'>
                   <Button type="submit" variant="outlined">
                     Buy
                   </Button>
-                </Link>
               </Box>
             </Grid>
           </Grid>

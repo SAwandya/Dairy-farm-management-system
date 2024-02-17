@@ -50,15 +50,7 @@ const PaymentForm = (props) => {
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cvv"
-            label="CVV"
-            helperText="Last three digits on signature strip"
-            fullWidth
-            autoComplete="cc-csc"
-            variant="standard"
-          />
+          
           <InputField
             id="cvv"
             label="CVV"

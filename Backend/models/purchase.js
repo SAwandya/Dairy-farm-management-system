@@ -3,6 +3,52 @@ const Joi = require("joi");
 const { productSchema } = require("../models/product");
 const { customerSchema } = require("../models/customer");
 
+const paymentschema = new mongoose.Schema({
+
+  cardNumber: {
+    type: Number,
+  },
+
+  cardName: {
+    type: String
+  },
+
+  cvv: {
+    type: Number
+  },
+
+  expDate: {
+    type: Date,
+  }
+
+});
+
+const deliverySchema = new mongoose.Schema({
+  address1: {
+    type: String
+  },
+
+  address2: {
+    type: String
+  },
+
+  city: {
+    type: String
+  },
+
+  state: {
+    type: String
+  },
+
+  firstName: {
+    type: String
+  },
+
+  lastName: {
+    type: String
+  }
+})
+
 const Purchase = mongoose.model(
   "Purchase",
   new mongoose.Schema({
@@ -21,13 +67,9 @@ const Purchase = mongoose.model(
       required: true,
     },
 
-    deliveryAddress: {
-      type: String,
-    },
+    paymentDetails: paymentschema,
 
-    paymentDetails: {
-      type: String
-    }
+    deliveryDetails: deliverySchema,
   })
 );
 
@@ -36,8 +78,16 @@ function validatePurchase(purchase) {
     quantity: Joi.number().required(),
     customerId: Joi.string().required(),
     productId: Joi.string().required(),
-    deliveryAddress: Joi.string(),
-    paymentDetails: Joi.String()
+    cardNumber: Joi.number().required(),
+    cardName: Joi.string().required(),
+    cvv: Joi.number().required(),
+    state: Joi.string().required(),
+    expDate: Joi.date().required(),
+    address1: Joi.string().required(),
+    address2: Joi.string().required(),
+    city: Joi.string().required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
   });
 
   var result = schema.validate(purchase);
