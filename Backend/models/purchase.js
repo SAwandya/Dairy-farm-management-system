@@ -47,7 +47,7 @@ const deliverySchema = new mongoose.Schema({
   lastName: {
     type: String
   }
-})
+});
 
 const Purchase = mongoose.model(
   "Purchase",

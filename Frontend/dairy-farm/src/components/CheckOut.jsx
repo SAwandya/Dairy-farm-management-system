@@ -70,22 +70,41 @@ const CheckOut = () => {
   const onSubmit = (data) => {
 
     const newData = {
-      ...data,
+      quantity: selectedQuantity.quantity,
+      deliveryDetails: {
+        address1: data.address1,
+        address2: data.address2,
+        city: data.city,
+        state: data.state,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      },
+      paymentDetails: {
+        cardNumber: data.cardNumber,
+        cardName: data.cardName,
+        cvv: data.cvv,
+        expDate: data.expDate,
+      },
       productId: selectedProduct._id,
       customerId: getCurrentUser()._id,
     };
 
-    console.log(newData);
+    if (activeStep !== 0) {
 
-    // purchaseService
-    //   .Purchase(newData)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+      console.log(newData);
 
+       purchaseService
+         .Purchase(newData)
+         .then((res) => {
+           console.log(res);
+         })
+         .catch((err) => {
+           console.log(err);
+         });
+
+    }
+
+   
     setActiveStep(activeStep + 1);
   };
 

@@ -29,8 +29,20 @@ router.post("/", async (req, res) => {
     quantity: req.body.quantity,
     customer: customer,
     product: product,
-    deliveryDetails: req.body.deliveryDetails,
-    paymentDetails: req.body.paymentDetails,
+    deliveryDetails: {
+      address1: req.body.address1,
+      address2: req.body.address2,
+      city: req.body.city,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      state: req.body.state,
+    },
+    paymentDetails: {
+      cardName: req.body.cardName,
+      cardNumber: req.body.cardNumber,
+      cvv: req.body.cvv,
+      expDate: req.body.expDate,
+    },
   });
 
   purchase = await purchase.save();
