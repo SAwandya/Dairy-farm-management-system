@@ -5,6 +5,7 @@ import CustomerSignUp from "./pages/CustomerSignUp";
 import CustomerSignIn from "./pages/CustomerSignIn";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProductDetails from "./components/ProductDetails";
+import CheckOut from "./components/CheckOut";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/checkout",
+        element: (
+          <ProtectedRoute>
+            <CheckOut/>
+          </ProtectedRoute>
+        )
+      }
     ],
   },
   {

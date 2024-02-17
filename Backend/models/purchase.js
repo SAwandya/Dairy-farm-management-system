@@ -20,6 +20,14 @@ const Purchase = mongoose.model(
       type: customerSchema,
       required: true,
     },
+
+    deliveryAddress: {
+      type: String,
+    },
+
+    paymentDetails: {
+      type: String
+    }
   })
 );
 
@@ -27,7 +35,9 @@ function validatePurchase(purchase) {
   const schema = Joi.object({
     quantity: Joi.number().required(),
     customerId: Joi.string().required(),
-    productId: Joi.string().required()
+    productId: Joi.string().required(),
+    deliveryAddress: Joi.string(),
+    paymentDetails: Joi.String()
   });
 
   var result = schema.validate(purchase);
