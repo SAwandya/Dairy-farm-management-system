@@ -29,13 +29,13 @@ const AddressForm = (props) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <InputField
-            id="lastname"
+            id="lastName"
             label="Last name"
             type="text"
             signup={{
-              ...register("lastname", { required: true }),
+              ...register("lastName", { required: true }),
             }}
-            errors={errors.lastname}
+            errors={errors.lastName}
           />
         </Grid>
         <Grid item xs={12}>

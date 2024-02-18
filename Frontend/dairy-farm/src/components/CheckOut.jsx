@@ -68,43 +68,35 @@ const CheckOut = () => {
   const { getCurrentUser } = useAuth();
 
   const onSubmit = (data) => {
-
     const newData = {
       quantity: selectedQuantity.quantity,
-      deliveryDetails: {
-        address1: data.address1,
-        address2: data.address2,
-        city: data.city,
-        state: data.state,
-        firstName: data.firstName,
-        lastName: data.lastName,
-      },
-      paymentDetails: {
-        cardNumber: data.cardNumber,
-        cardName: data.cardName,
-        cvv: data.cvv,
-        expDate: data.expDate,
-      },
-      productId: selectedProduct._id,
       customerId: getCurrentUser()._id,
+      productId: selectedProduct._id,
+      cardNumber: data.cardNumber,
+      cardName: data.cardName,
+      cvv: data.cvv,
+      state: data.state,
+      expDate: data.expDate,
+      address1: data.address1,
+      address2: data.address2,
+      city: data.city,
+      firstName: data.firstName,
+      lastName: data.lastName,
     };
 
-    if (activeStep !== 0) {
-
+    if (activeStep == 2) {
       console.log(newData);
 
-       purchaseService
-         .Purchase(newData)
-         .then((res) => {
-           console.log(res);
-         })
-         .catch((err) => {
-           console.log(err);
-         });
-
+      purchaseService
+        .Purchase(newData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
 
-   
     setActiveStep(activeStep + 1);
   };
 
