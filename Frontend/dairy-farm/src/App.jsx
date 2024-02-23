@@ -10,14 +10,17 @@ import router from "./routes";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProductDetails from "./components/ProductDetails";
 import CheckOut from "./components/CheckOut";
+import SalesDashboard from "./pages/SalesDashboard";
 
 function App() {
   return (
     <>
-      <AuthProvider>
+      {/* <AuthProvider>
         <CssBaseline />
         <RouterProvider router={router} />
-      </AuthProvider>
+      </AuthProvider> */}
+      <CssBaseline />
+      <SalesDashboard />
     </>
   );
 }
