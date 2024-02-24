@@ -9,6 +9,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./routes";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProductDetails from "./components/ProductDetails";
+import CheckOut from "./components/CheckOut";
 
 function App() {
   return (
@@ -17,7 +18,6 @@ function App() {
         <CssBaseline />
         <RouterProvider router={router} />
       </AuthProvider>
-      
     </>
   );
 }

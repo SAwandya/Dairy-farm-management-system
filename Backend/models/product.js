@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 
-const Product = mongoose.model(
-  "Products",
-  new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     name: {
       type: String,
       required: true,
@@ -44,7 +42,8 @@ const Product = mongoose.model(
       required: true,
     },
   })
-);
+
+const Product = mongoose.model("Products", productSchema);
 
 function validateProduct(product) {
   const schema = Joi.object({
@@ -65,3 +64,4 @@ function validateProduct(product) {
 
 exports.validate = validateProduct;
 exports.Product = Product;
+exports.productSchema = productSchema; 

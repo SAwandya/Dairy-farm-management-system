@@ -1,51 +1,49 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 
-const Customer = mongoose.model(
-  "Customers",
-  new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-    },
+const customerSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
 
-    type: {
-      type: String,
-      required: true,
-    },
+  type: {
+    type: String,
+    required: true,
+  },
 
-    address: {
-      type: String,
-      required: true,
-    },
+  address: {
+    type: String,
+    required: true,
+  },
 
-    phone: {
-      type: Number,
-      required: true,
-    },
+  phone: {
+    type: Number,
+    required: true,
+  },
 
-    rep: {
-      type: String,
-      required: true,
-    },
+  rep: {
+    type: String,
+    required: true,
+  },
 
-    licenseNo: {
-      type: String,
-      required: true,
-    },
+  licenseNo: {
+    type: String,
+    required: true,
+  },
 
-    email: {
-      type: String,
-      required: true,
-    },
+  email: {
+    type: String,
+    required: true,
+  },
 
-    password: {
-      type: String,
-      required: true,
-    }
+  password: {
+    type: String,
+    required: true,
+  },
+});
 
-  })
-);
+const Customer = mongoose.model("Customers", customerSchema);
 
 function validateCustomer(customer) {
   const schema = Joi.object({
@@ -66,3 +64,4 @@ function validateCustomer(customer) {
 
 exports.validate = validateCustomer;
 exports.Customer = Customer;
+exports.customerSchema = customerSchema;
