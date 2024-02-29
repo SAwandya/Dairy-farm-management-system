@@ -14,7 +14,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import InputField from "../components/InputField";
-import userService from "../services/userService";
+import productService from "../services/productService";
+import useGameQueryStore from "../store";
 
 function Copyright(props) {
   return (
@@ -38,6 +39,11 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 const ProductUpdate = () => {
+
+  const selectedProductUpdate = useGameQueryStore(
+    (s) => s.selectedProductUpdate
+  );
+
   const {
     register,
     handleSubmit,
@@ -47,13 +53,11 @@ const ProductUpdate = () => {
   const [message, setMessage] = React.useState();
 
   const onSubmit = (data) => {
-    userService
-      .CreateUser(data)
+    productService
+      .Update(selectedProductUpdate, data)
       .then((res) => {
         setUser(res.data);
-        setMessage("Register success");
-        console.log(res.headers);
-        // localStorage.setItem("token", res.headers["x-auth-token"]);
+        setMessage("Update success");
       })
       .catch((err) => {
         console.log(err);
@@ -92,7 +96,7 @@ const ProductUpdate = () => {
                   label="Product name"
                   type="text"
                   signup={{
-                    ...register("name", { required: true, minLength: 3 }),
+                    ...register("name", { required: true }),
                   }}
                   errors={errors.name}
                   minLength="3"
@@ -131,7 +135,7 @@ const ProductUpdate = () => {
                   label="Unit price"
                   type="number"
                   signup={{
-                    ...register("price", { required: true, minLength: 10 }),
+                    ...register("price", { required: true }),
                   }}
                   errors={errors.price}
                   minLength="10"
@@ -144,7 +148,7 @@ const ProductUpdate = () => {
                   label="Quantity"
                   type="text"
                   signup={{
-                    ...register("quantity", { required: true, minLength: 5 }),
+                    ...register("quantity", { required: true }),
                   }}
                   errors={errors.quantity}
                   minLength="5"
@@ -158,7 +162,7 @@ const ProductUpdate = () => {
                   signup={{
                     ...register("unitOfMeasurement", {
                       required: true,
-                      minLength: 10,
+                    
                     }),
                   }}
                   errors={errors.unitOfMeasurement}
