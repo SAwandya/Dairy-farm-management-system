@@ -22,6 +22,7 @@ import MainListItems from "../components/MainListItems";
 import SalesChart from "../components/SalesChart";
 import SalesDeposits from "../components/SalesDeposits";
 import SalesOrders from "../components/SalesOrders";
+import ProductList from "../components/ProductList";
 
 function Copyright(props) {
   return (
@@ -105,6 +106,8 @@ const SalesDashboard = () => {
       setSeleceted("report");
     }else if(select == "deposit") {
       setSeleceted("deposit");
+    }else if(select == 'product'){
+      setSeleceted("product")
     }
   };
 
@@ -224,6 +227,18 @@ const SalesDashboard = () => {
                 ) : null}
               </Grid>
             </Grid>
+
+            {/* Recent Orders */}
+              <Grid item xs={12}>
+                {selected == "product" ? (
+                  <Paper
+                    sx={{ p: 2, display: "flex", flexDirection: "column" }}
+                  >
+                    <ProductList/>
+                  </Paper>
+                ) : null}
+              </Grid>
+            
 
             <Copyright sx={{ pt: 4 }} />
           </Container>

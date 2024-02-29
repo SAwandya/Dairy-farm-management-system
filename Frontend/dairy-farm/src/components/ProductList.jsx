@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import SalesTitle from "./SalesTitle";
 import usePurcahse from "../hooks/usePurcahse";
 import Button from "@mui/material/Button";
+import useProducts from "../hooks/useProducts";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -62,7 +63,7 @@ function preventDefault(event) {
 }
 
 const ProductList = () => {
-  const { data, error, isLoading } = usePurcahse();
+  const { data, error, isLoading } = useProducts();
 
   console.log(data);
 
@@ -75,30 +76,34 @@ const ProductList = () => {
             <TableCell>Id</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Quantity</TableCell>
-            <TableCell>Customer name</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
-            <TableCell>Approve</TableCell>
-            <TableCell>Cancel</TableCell>
+            <TableCell>Category</TableCell>
+            <TableCell align="right">Unit Price</TableCell>
+            <TableCell>Update</TableCell>
+            <TableCell>Publish</TableCell>
+            <TableCell>Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((purchase) => (
-            <TableRow key={purchase._id}>
-              <TableCell>{purchase._id}</TableCell>
-              <TableCell>{purchase.product.name}</TableCell>
-              <TableCell>{purchase.quantity}</TableCell>
-              <TableCell>{purchase.customer.name}</TableCell>
-              <TableCell align="right">
-                {`$${purchase.product.price * purchase.quantity * 100}`}
-              </TableCell>
+          {data?.map((product) => (
+            <TableRow key={product._id}>
+              <TableCell>{product._id}</TableCell>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.quantity}</TableCell>
+              <TableCell>{product.category}</TableCell>
+              <TableCell align="right">{`$${product.price}`}</TableCell>
               <TableCell>
                 <Button variant="contained" size="medium" color="success">
-                  Approve
+                  Update
                 </Button>
               </TableCell>
               <TableCell>
                 <Button variant="outlined" size="medium" color="error">
-                  Cancel
+                  Publish
+                </Button>
+              </TableCell>
+              <TableCell>
+                <Button variant="outlined" size="medium" color="error">
+                  Delete
                 </Button>
               </TableCell>
             </TableRow>
