@@ -61,7 +61,7 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-const SalesOrders = () => {
+const ProductList = () => {
   const { data, error, isLoading } = usePurcahse();
 
   console.log(data);
@@ -112,4 +112,4 @@ const SalesOrders = () => {
   );
 };
 
-export default SalesOrders;
+export default ProductList;

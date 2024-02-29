@@ -17,7 +17,8 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems, secondaryListItems } from "../components/SalesListItems";
+import SecondaryListItems from "../components/SecondaryListItems";
+import MainListItems from "../components/MainListItems";
 import SalesChart from "../components/SalesChart";
 import SalesDeposits from "../components/SalesDeposits";
 import SalesOrders from "../components/SalesOrders";
@@ -95,6 +96,18 @@ const SalesDashboard = () => {
     setOpen(!open);
   };
 
+  const [selected, setSeleceted] = React.useState();
+
+  const handleClick = (select) => {
+    if (select == "order") {
+      setSeleceted("order");
+    } else if (select == "report") {
+      setSeleceted("report");
+    }else if(select == "deposit") {
+      setSeleceted("deposit");
+    }
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
@@ -148,9 +161,9 @@ const SalesDashboard = () => {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            <MainListItems onSelect={handleClick} />
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            <SecondaryListItems />
           </List>
         </Drawer>
         <Box
@@ -169,21 +182,26 @@ const SalesDashboard = () => {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
+
               <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <SalesChart />
-                </Paper>
+                {selected == "report" ? (
+                  <Paper
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      height: 240,
+                    }}
+                  >
+                    <SalesChart />
+                  </Paper>
+                ) : null}
               </Grid>
+
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
-                <Paper
+
+                { selected == 'deposit' ?  <Paper
                   sx={{
                     p: 2,
                     display: "flex",
@@ -191,22 +209,28 @@ const SalesDashboard = () => {
                     height: 240,
                   }}
                 >
-                  <SalesDeposits />
-                </Paper>
+                  <SalesDeposits /> 
+                </Paper> : null}
               </Grid>
+
               {/* Recent Orders */}
               <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <SalesOrders />
-                </Paper>
+                {selected == "order" ? (
+                  <Paper
+                    sx={{ p: 2, display: "flex", flexDirection: "column" }}
+                  >
+                    <SalesOrders />
+                  </Paper>
+                ) : null}
               </Grid>
             </Grid>
+
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>
     </ThemeProvider>
   );
-}
+};
 
 export default SalesDashboard;
