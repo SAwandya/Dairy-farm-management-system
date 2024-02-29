@@ -6,6 +6,8 @@ import CustomerSignIn from "./pages/CustomerSignIn";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProductDetails from "./components/ProductDetails";
 import CheckOut from "./components/CheckOut";
+import ProductUpdate from "./pages/ProductUpdate";
+import SalesDashboard from "./pages/SalesDashboard";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
     path: "/signin",
     element: <CustomerSignIn />,
   },
+  {
+    path: "/productupdate",
+    element: <ProductUpdate/>
+  },
+  {
+    path: "/salesdashboard",
+    element: <SalesDashboard/>
+  }
 ]);
 
 export default router;

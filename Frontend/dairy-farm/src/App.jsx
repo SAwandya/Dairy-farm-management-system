@@ -15,12 +15,11 @@ import SalesDashboard from "./pages/SalesDashboard";
 function App() {
   return (
     <>
-      {/* <AuthProvider>
+      <AuthProvider>
         <CssBaseline />
         <RouterProvider router={router} />
-      </AuthProvider> */}
+      </AuthProvider>
       <CssBaseline />
-      <SalesDashboard />
     </>
   );
 }

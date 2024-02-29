@@ -1,5 +1,4 @@
 import * as React from "react";
-import Link from "@mui/material/Link";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,6 +8,8 @@ import SalesTitle from "./SalesTitle";
 import usePurcahse from "../hooks/usePurcahse";
 import Button from "@mui/material/Button";
 import useProducts from "../hooks/useProducts";
+import useGameQueryStore from "../store";
+import { Link } from "react-router-dom";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -65,7 +66,16 @@ function preventDefault(event) {
 const ProductList = () => {
   const { data, error, isLoading } = useProducts();
 
+  const SetSelectedProductUpdate = useGameQueryStore(
+    (s) => s.SetSelectedProductUpdate
+  );
+
   console.log(data);
+
+  const handleUpdate = (id) => {
+    SetSelectedProductUpdate(id);
+    
+  };
 
   return (
     <React.Fragment>
@@ -92,9 +102,16 @@ const ProductList = () => {
               <TableCell>{product.category}</TableCell>
               <TableCell align="right">{`$${product.price}`}</TableCell>
               <TableCell>
-                <Button variant="contained" size="medium" color="success">
-                  Update
-                </Button>
+                <Link to="/productupdate">
+                  <Button
+                    onClick={() => handleUpdate(product._id)}
+                    variant="contained"
+                    size="medium"
+                    color="success"
+                  >
+                    Update
+                  </Button>
+                </Link>
               </TableCell>
               <TableCell>
                 <Button variant="outlined" size="medium" color="error">

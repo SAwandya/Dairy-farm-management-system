@@ -16,6 +16,10 @@ const useGameQueryStore = create((set) => ({
   selectedQuantity: null,
   SetSelectedQuantity: (selectedQuantity) =>
     set({ selectedQuantity: selectedQuantity }),
+
+  selectedProductUpdate: null,
+  SetSelectedProductUpdate: (selectedProductUpdate) =>
+    set({ selectedProductUpdate: selectedProductUpdate }),
 }));
 
 export default useGameQueryStore;
