@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import useProducts from "../hooks/useProducts";
 import useGameQueryStore from "../store";
 import { Link } from "react-router-dom";
+import publishService from "../services/publishService";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -64,7 +65,7 @@ function preventDefault(event) {
 }
 
 const ProductList = () => {
-  const { data, error, isLoading } = useProducts();
+  const { data, error, isLoading, refetch } = useProducts();
 
   const SetSelectedProductUpdate = useGameQueryStore(
     (s) => s.SetSelectedProductUpdate
@@ -78,12 +79,23 @@ const ProductList = () => {
 
   const handleUpdate = (id) => {
     SetSelectedProductUpdate(id);
-    
   };
 
-  const handlePublish = (id) => {
-    
-  }
+  const handlePublish = (id, publish) => {
+
+    const data = { publish: publish }
+
+    publishService
+      .Publish(id, data)
+      .then((res) => {
+        console.log(res.data);
+        console.log("success");
+        refetch();
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
   return (
     <React.Fragment>
@@ -122,9 +134,25 @@ const ProductList = () => {
                 </Link>
               </TableCell>
               <TableCell>
-                <Button onClick={() => handlePublish(product._id)} variant="outlined" size="medium" color="error">
-                  Publish
-                </Button>
+                {product.publish == false ? (
+                  <Button
+                    onClick={() => handlePublish(product._id, true)}
+                    variant="outlined"
+                    size="medium"
+                    color="error"
+                  >
+                    Publish
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => handlePublish(product._id, false)}
+                    variant="outlined"
+                    size="medium"
+                    color="error"
+                  >
+                    Unpublish
+                  </Button>
+                )}
               </TableCell>
               <TableCell>
                 <Button variant="outlined" size="medium" color="error">
