@@ -16,7 +16,7 @@ const managerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  adminType: {
+  managerType: {
     type: String,
     required: true,
   },
@@ -29,7 +29,7 @@ function validateManager(manager) {
     name: Joi.string().required(),
     email: Joi.string().required(),
     password: Joi.string().required(),
-    adminType: Joi.string().required(),
+    managerType: Joi.string().required(),
   });
 
   var result = schema.validate(manager);
