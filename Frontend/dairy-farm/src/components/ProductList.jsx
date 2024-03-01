@@ -70,12 +70,20 @@ const ProductList = () => {
     (s) => s.SetSelectedProductUpdate
   );
 
+  const SetSelectedProductPublish = useGameQueryStore(
+    (s) => s.SetSelectedProductPublish
+  );
+
   console.log(data);
 
   const handleUpdate = (id) => {
     SetSelectedProductUpdate(id);
     
   };
+
+  const handlePublish = (id) => {
+    
+  }
 
   return (
     <React.Fragment>
@@ -114,7 +122,7 @@ const ProductList = () => {
                 </Link>
               </TableCell>
               <TableCell>
-                <Button variant="outlined" size="medium" color="error">
+                <Button onClick={() => handlePublish(product._id)} variant="outlined" size="medium" color="error">
                   Publish
                 </Button>
               </TableCell>
