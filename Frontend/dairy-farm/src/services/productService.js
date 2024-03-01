@@ -1,6 +1,6 @@
 import APIClient from "./api-client";
 
-const apiClient = new APIClient("/product");
+const apiClient = new APIClient("/products");
 
 class ProductService {
   Update(params, product) {

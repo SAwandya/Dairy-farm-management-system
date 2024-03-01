@@ -44,6 +44,8 @@ const ProductUpdate = () => {
     (s) => s.selectedProductUpdate
   );
 
+  
+
   const {
     register,
     handleSubmit,
@@ -53,10 +55,11 @@ const ProductUpdate = () => {
   const [message, setMessage] = React.useState();
 
   const onSubmit = (data) => {
+
     productService
       .Update(selectedProductUpdate, data)
       .then((res) => {
-        setUser(res.data);
+        console.log("Updated successfuly");
         setMessage("Update success");
       })
       .catch((err) => {
