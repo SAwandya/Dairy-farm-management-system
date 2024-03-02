@@ -5,6 +5,13 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
+router.get('/', async (req, res) => {
+
+  const customers = await Customer.find();
+
+  res.send(customers);
+})
+
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) res.status(400).send(error.details[0].message);

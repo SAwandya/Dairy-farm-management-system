@@ -32,7 +32,7 @@ const { onSelect } = props;
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Customers" />
+        <ListItemText primary="Customers" onClick={() => onSelect("customer")} />
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
