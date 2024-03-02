@@ -4,49 +4,47 @@ const { productSchema } = require("../models/product");
 const { customerSchema } = require("../models/customer");
 
 const paymentschema = new mongoose.Schema({
-
   cardNumber: {
     type: Number,
   },
 
   cardName: {
-    type: String
+    type: String,
   },
 
   cvv: {
-    type: Number
+    type: Number,
   },
 
   expDate: {
     type: Date,
-  }
-
+  },
 });
 
 const deliverySchema = new mongoose.Schema({
   address1: {
-    type: String
+    type: String,
   },
 
   address2: {
-    type: String
+    type: String,
   },
 
   city: {
-    type: String
+    type: String,
   },
 
   state: {
-    type: String
+    type: String,
   },
 
   firstName: {
-    type: String
+    type: String,
   },
 
   lastName: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 const Purchase = mongoose.model(
@@ -55,6 +53,11 @@ const Purchase = mongoose.model(
     quantity: {
       type: String,
       required: true,
+    },
+
+    orderDate: {
+      type: Date,
+      default: Date.now,
     },
 
     product: {

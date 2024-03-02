@@ -201,7 +201,8 @@ const SalesDashboard = () => {
                       p: 2,
                       display: "flex",
                       flexDirection: "column",
-                      height: 500,
+                      height: 600,
+                      width: 1000
                     }}
                   >
                     <SalesChart2 />
