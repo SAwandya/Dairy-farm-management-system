@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 import publishService from "../services/publishService";
 import useCustomers from "../hooks/useCustomers";
 import approveService from "../services/approveService";
+import Box from "@mui/material/Box";
+import Skeleton from "@mui/material/Skeleton";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -98,7 +100,7 @@ const CustomerList = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <SalesTitle>Customers</SalesTitle>
       <Table size="small">
         <TableHead>
@@ -123,7 +125,6 @@ const CustomerList = () => {
               <TableCell align="right">{customer.rep}</TableCell>
               <TableCell>{customer.email}</TableCell>
 
-              
               <TableCell>
                 {customer.approvel == false ? (
                   <Button
@@ -154,10 +155,20 @@ const CustomerList = () => {
           ))}
         </TableBody>
       </Table>
+
+      {!isLoading ? (
+        <Box sx={{ width: 1100 }}>
+          <Skeleton sx={{ height: 80, marginTop: -1 }} />
+          <Skeleton sx={{ height: 80, marginTop: -3 }} animation="wave" />
+          <Skeleton sx={{ height: 80, marginTop: -3 }} animation="wave" />
+          <Skeleton sx={{ height: 80, marginTop: -3 }} animation={false} />
+          <Skeleton sx={{ height: 80, marginTop: -3 }} animation={false} />
+        </Box>
+      ) : null}
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more orders
       </Link>
-    </React.Fragment>
+    </>
   );
 };
 

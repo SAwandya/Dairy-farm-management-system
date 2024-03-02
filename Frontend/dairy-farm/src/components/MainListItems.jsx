@@ -11,30 +11,40 @@ import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
 const MainListItems = (props) => {
-
-const { onSelect } = props;
+  const { onSelect, selectedTab } = props;
 
   return (
     <React.Fragment>
-      <ListItemButton>
+      <ListItemButton
+        sx={{ backgroundColor: selectedTab === "product" ? "#4FFFB0" : null }}
+      >
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" onClick={() => onSelect("product")} />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton
+        sx={{ backgroundColor: selectedTab === "order" ? "#4FFFB0" : null }}
+      >
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
         <ListItemText primary="Orders" onClick={() => onSelect("order")} />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton
+        sx={{ backgroundColor: selectedTab === "customer" ? "#4FFFB0" : null }}
+      >
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Customers" onClick={() => onSelect("customer")} />
+        <ListItemText
+          primary="Customers"
+          onClick={() => onSelect("customer")}
+        />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton
+        sx={{ backgroundColor: selectedTab === "report" ? "#4FFFB0" : null }}
+      >
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
