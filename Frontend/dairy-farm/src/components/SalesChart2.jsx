@@ -27,7 +27,52 @@ const SalesChart2 = () => {
 
   const { data, error, isLoading } = usePurcahse();
 
-  console.log(data);
+  const orders = data?.map((order) => ({
+    _id: order._id,
+    quantity: parseInt(order.quantity),
+    product: {
+      name: order.product.name,
+      price: order.product.price,
+    },
+    orderDate: new Date(order.orderDate),
+  }));
+
+  const groupedData = {};
+  orders?.forEach((order) => {
+    const month = order.orderDate.getMonth() + 1; // Months are zero-indexed, so add 1
+    const year = order.orderDate.getFullYear();
+    const productType = order.product.name;
+
+    if (!groupedData[productType]) {
+      groupedData[productType] = {};
+    }
+    if (!groupedData[productType][year]) {
+      groupedData[productType][year] = {};
+    }
+    if (!groupedData[productType][year][month]) {
+      groupedData[productType][year][month] = 0;
+    }
+
+    groupedData[productType][year][month] +=
+      order.quantity * order.product.price * 100;
+  });
+
+
+  // Step 3: Create the series array
+  const series = [];
+  for (const productType in groupedData) {
+    const data = [];
+    for (const year in groupedData[productType]) {
+      for (const month in groupedData[productType][year]) {
+        data.push(groupedData[productType][year][month]);
+      }
+    }
+    series.push({ label: productType, data });
+  }
+
+  console.log(series);
+
+  const [seriesData, setSeriesData] = React.useState([]);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -81,8 +126,7 @@ const highlightScope = {
 };
 
 const series = [
-    
-  { 
+  {
     label: "series 1",
     data: [
       2423, 2210, 764, 1879, 1478, 1373, 1891, 2171, 620, 1269, 724, 1707, 1188,
