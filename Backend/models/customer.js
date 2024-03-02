@@ -41,6 +41,16 @@ const customerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
+
+  approvel: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const Customer = mongoose.model("Customers", customerSchema);

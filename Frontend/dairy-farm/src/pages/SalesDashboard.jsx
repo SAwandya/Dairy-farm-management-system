@@ -23,6 +23,7 @@ import SalesChart from "../components/SalesChart";
 import SalesDeposits from "../components/SalesDeposits";
 import SalesOrders from "../components/SalesOrders";
 import ProductList from "../components/ProductList";
+import CustomerList from "../components/CustomerList";
 
 function Copyright(props) {
   return (
@@ -108,6 +109,8 @@ const SalesDashboard = () => {
       setSeleceted("deposit");
     }else if(select == 'product'){
       setSeleceted("product")
+    }else if(select == 'customer'){
+      setSeleceted("customer")
     }
   };
 
@@ -203,17 +206,18 @@ const SalesDashboard = () => {
 
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
-
-                { selected == 'deposit' ?  <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <SalesDeposits /> 
-                </Paper> : null}
+                {selected == "deposit" ? (
+                  <Paper
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      height: 240,
+                    }}
+                  >
+                    <SalesDeposits />
+                  </Paper>
+                ) : null}
               </Grid>
 
               {/* Recent Orders */}
@@ -229,16 +233,22 @@ const SalesDashboard = () => {
             </Grid>
 
             {/* Recent Orders */}
-              <Grid item xs={12}>
-                {selected == "product" ? (
-                  <Paper
-                    sx={{ p: 2, display: "flex", flexDirection: "column" }}
-                  >
-                    <ProductList/>
-                  </Paper>
-                ) : null}
-              </Grid>
-            
+            <Grid item xs={12}>
+              {selected == "product" ? (
+                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+                  <ProductList />
+                </Paper>
+              ) : null}
+            </Grid>
+
+            {/* Customer List */}
+            <Grid item xs={12}>
+              {selected == "customer" ? (
+                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+                  <CustomerList/>
+                </Paper>
+              ) : null}
+            </Grid>
 
             <Copyright sx={{ pt: 4 }} />
           </Container>

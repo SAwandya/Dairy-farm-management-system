@@ -3,7 +3,7 @@ const router = express.Router();
 const { Product, validate } = require("../models/product");
 
 router.get("/", async (req, res) => {
-  const products = await Product.find().sort("name");
+  const products = await Product.find();
   res.send(products);
 });
 
@@ -44,7 +44,21 @@ router.put("/:id", async (req, res) => {
 
   product = await product.save();
 
-  if(!product) return res.status(400).send("The product wit the given id not found");
+  if (!product)
+    return res.status(400).send("The product wit the given id not found");
+
+  res.send(product);
+});
+
+router.put("/publish/:id", async (req, res) => {
+  let product = await Product.findByIdAndUpdate(req.params.id, {
+    publish: req.body.publish,
+  });
+
+  product = await product.save();
+
+  if (!product)
+    return res.status(400).send("The product wit the given id not found");
 
   res.send(product);
 });

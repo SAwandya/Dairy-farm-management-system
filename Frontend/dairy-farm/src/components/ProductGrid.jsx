@@ -7,6 +7,8 @@ import useProducts from "../hooks/useProducts";
 const ProductGrid = () => {
   const { data, error, isLoading } = useProducts();
 
+  const filteredData = data?.filter(product => product.publish == false);
+
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -16,11 +18,9 @@ const ProductGrid = () => {
           rowSpacing={1}
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
         >
-          {data?.map((product) => (
+          {filteredData?.map((product) => (
             <Grid key={product._id} item xs={3}>
-              <ProductCard 
-                product={product}
-              />
+              <ProductCard product={product} />
             </Grid>
           ))}
         </Grid>

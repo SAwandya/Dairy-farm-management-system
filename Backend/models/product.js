@@ -2,46 +2,51 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const productSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-    },
+  name: {
+    type: String,
+    required: true,
+  },
 
-    description: {
-      type: String,
-      required: true,
-    },
+  description: {
+    type: String,
+    required: true,
+  },
 
-    category: {
-      type: String,
-      required: true,
-    },
+  category: {
+    type: String,
+    required: true,
+  },
 
-    price: {
-      type: Number,
-      required: true,
-    },
+  price: {
+    type: Number,
+    required: true,
+  },
 
-    quantity: {
-      type: Number,
-      required: true,
-    },
+  quantity: {
+    type: Number,
+    required: true,
+  },
 
-    unitOfMeasurement: {
-      type: String,
-      required: true,
-    },
+  unitOfMeasurement: {
+    type: String,
+    required: true,
+  },
 
-    expirationDate: {
-      type: Date,
-      required: true,
-    },
+  expirationDate: {
+    type: Date,
+    required: true,
+  },
 
-    manufacDtae: {
-      type: Date,
-      required: true,
-    },
-  })
+  manufacDtae: {
+    type: Date,
+    required: true,
+  },
+
+  publish: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const Product = mongoose.model("Products", productSchema);
 
@@ -55,6 +60,7 @@ function validateProduct(product) {
     unitOfMeasurement: Joi.string().required(),
     expirationDate: Joi.date().required(),
     manufacDtae: Joi.date().required(),
+    publish: Joi.boolean(),
   });
 
   var result = schema.validate(product);
@@ -64,4 +70,4 @@ function validateProduct(product) {
 
 exports.validate = validateProduct;
 exports.Product = Product;
-exports.productSchema = productSchema; 
+exports.productSchema = productSchema;
