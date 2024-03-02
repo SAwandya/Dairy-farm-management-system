@@ -10,6 +10,7 @@ import useGameQueryStore from "../store";
 import { Link } from "react-router-dom";
 import publishService from "../services/publishService";
 import useCustomers from "../hooks/useCustomers";
+import approveService from "../services/approveService";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -80,19 +81,20 @@ const CustomerList = () => {
     SetSelectedProductUpdate(id);
   };
 
-  const handlePublish = (id, publish) => {
+  const handleApprove = (id, approvel) => {
     
+    const Approvedata = { approvel: approvel };
 
-    // publishService
-    //   .Publish(id, data)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     console.log("success");
-    //     refetch();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   });
+    approveService
+      .Approve(id, Approvedata)
+      .then((res) => {
+        console.log(res.data);
+        console.log("success");
+        refetch();
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (
@@ -125,7 +127,7 @@ const CustomerList = () => {
               <TableCell>
                 {customer.approvel == false ? (
                   <Button
-                    onClick={() => handlePublish(customer._id, true)}
+                    onClick={() => handleApprove(customer._id, true)}
                     variant="outlined"
                     size="medium"
                     color="error"
@@ -134,7 +136,7 @@ const CustomerList = () => {
                   </Button>
                 ) : (
                   <Button
-                    onClick={() => handlePublish(customer._id, false)}
+                    onClick={() => handleApprove(customer._id, false)}
                     variant="outlined"
                     size="medium"
                     color="error"

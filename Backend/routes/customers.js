@@ -42,4 +42,17 @@ router.post("/", async (req, res) => {
   });
 });
 
+router.put("/approve/:id", async (req, res) => {
+  let customer = await Customer.findByIdAndUpdate(req.params.id, {
+    approvel: req.body.approvel,
+  });
+
+  customer = await customer.save();
+
+  if (!customer)
+    return res.status(400).send("The customer with the given id is not found");
+
+  res.send(customer);
+});
+
 module.exports = router;
