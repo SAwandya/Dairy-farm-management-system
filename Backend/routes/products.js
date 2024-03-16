@@ -58,7 +58,16 @@ router.put("/publish/:id", async (req, res) => {
   product = await product.save();
 
   if (!product)
-    return res.status(400).send("The product wit the given id not found");
+    return res.status(400).send("The product with the given id not found");
+
+  res.send(product);
+});
+
+router.delete("/:id", async (req, res) => {
+  let product = await Product.findByIdAndDelete(req.params.id);
+
+  if (!product)
+    return res.status(400).send("The product with the given id not found");
 
   res.send(product);
 });
