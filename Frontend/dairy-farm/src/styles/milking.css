@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.css-10hburv-MuiTypography-root {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.main-container {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Side Bar */
+.sidebar {
+    background-color: #38775B;
+    width: 130px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-logo-container {
+    margin-top: 12px;
+}
+
+.navigation-links {
+    margin-top: 24px;
+}
+
+.user-actions {
+    margin-top: 96px;
+}
+
+.nav-btn, .nav-btnactive {
+    width: 106px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.MuiListItemIcon-root {
+    min-width: 20px !important;
+}
+.nav-bar-icon {
+    width: 20px;
+    height: 20px;
+}
+.nav-bar-text {
+    font-size: 16px;
+}

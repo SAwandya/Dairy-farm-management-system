@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import NavigationLink from './NavigationLink';
+import NavigationLink from '../NavigationLink';
 import Box from "@mui/material/Box";
 import List from '@mui/material/List';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
@@ -20,7 +20,7 @@ function Sidebar() {
     return (
         <Box className="sidebar">
             
-            <Box className="sidebar-logo">
+            <Box className="sidebar-logo-container">
                 <img className="sidebar-logo" src="../../src/assets/sidebar-logo.png" alt="Logo" />
             </Box>
             
@@ -41,7 +41,7 @@ function Sidebar() {
                     />
                     <NavigationLink
                         icon={<DonutSmallIcon />}
-                        text="Milking Data"
+                        text="Data"
                         isActive={activeSection === 'milking-data'}
                         onClick={() => handleNavigation('milking-data')}
                     />

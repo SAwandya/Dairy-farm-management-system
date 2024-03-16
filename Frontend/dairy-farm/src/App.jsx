@@ -11,7 +11,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ProductDetails from "./components/ProductDetails";
 import CheckOut from "./components/CheckOut";
 import SalesDashboard from "./pages/SalesDashboard";
-import MilkingDashboard from "./pages/MilkingDashboard";
+import MilkingDashboard from "./pages/Milking/MilkingDashboard";
 
 function App() {
   return (
