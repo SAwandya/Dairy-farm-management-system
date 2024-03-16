@@ -7,11 +7,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import SalesTitle from "./SalesTitle";
 import usePurcahse from "../hooks/usePurcahse";
-import Button from "@mui/material/Button";
 import purchaseService from "../services/purchaseService";
+import { Button } from "@mui/material";
+import Popup from "./Popup";
 
 const SalesOrders = () => {
   const { data, error, isLoading, refetch } = usePurcahse();
+
+  const [open, openchange] = React.useState(false);
+
+  const functionopenpopup = () => {
+    openchange(true);
+  };
 
   const handleApprove = (id, approve) => {
     const data = { approve: approve };
@@ -19,7 +26,7 @@ const SalesOrders = () => {
     purchaseService
       .Approve(id, data)
       .then((res) => {
-        refetch()
+        refetch();
         console.log(res.data);
       })
       .catch((err) => {
@@ -72,8 +79,13 @@ const SalesOrders = () => {
                 )}
               </TableCell>
               <TableCell>
-                <Button variant="outlined" size="medium" color="error">
-                  Cancel
+                <Button
+                  onClick={functionopenpopup}
+                  variant="outlined"
+                  size="medium"
+                  color="error"
+                >
+                  Delete
                 </Button>
               </TableCell>
             </TableRow>
@@ -83,6 +95,8 @@ const SalesOrders = () => {
       <Link color="primary" href="#" sx={{ mt: 3 }}>
         See more orders
       </Link>
+
+      <Popup open={open} openchange={openchange} />
     </React.Fragment>
   );
 };
