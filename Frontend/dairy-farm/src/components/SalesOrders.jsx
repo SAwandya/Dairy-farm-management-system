@@ -16,7 +16,10 @@ const SalesOrders = () => {
 
   const [open, openchange] = React.useState(false);
 
-  const functionopenpopup = () => {
+  const [ selectedDeleteId, setSelecetdDeleteId ] = React.useState(null);
+
+  const functionopenpopup = (id) => {
+    setSelecetdDeleteId(id)
     openchange(true);
   };
 
@@ -80,7 +83,7 @@ const SalesOrders = () => {
               </TableCell>
               <TableCell>
                 <Button
-                  onClick={functionopenpopup}
+                  onClick={() => functionopenpopup(purchase._id)}
                   variant="outlined"
                   size="medium"
                   color="error"

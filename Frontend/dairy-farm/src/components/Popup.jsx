@@ -14,7 +14,7 @@ import {
 
 const Popup = (props) => {
 
-    const { open, openchange } = props;
+    const { open, openchange, id } = props;
 
      const blue = {
        100: "#DAECFF",
