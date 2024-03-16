@@ -24,6 +24,7 @@ import SalesDeposits from "../components/SalesDeposits";
 import SalesOrders from "../components/SalesOrders";
 import ProductList from "../components/ProductList";
 import CustomerList from "../components/CustomerList";
+import SalesChart2 from "../components/SalesChart2";
 
 function Copyright(props) {
   return (
@@ -98,7 +99,7 @@ const SalesDashboard = () => {
     setOpen(!open);
   };
 
-  const [selected, setSeleceted] = React.useState();
+  const [selected, setSeleceted] = React.useState('product');
 
   const handleClick = (select) => {
     if (select == "order") {
@@ -118,7 +119,11 @@ const SalesDashboard = () => {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar
+          position="absolute"
+          open={open}
+          sx={{ backgroundColor: "#17B169" }}
+        >
           <Toolbar
             sx={{
               pr: "24px", // keep right padding when drawer closed
@@ -167,7 +172,7 @@ const SalesDashboard = () => {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <MainListItems onSelect={handleClick} />
+            <MainListItems onSelect={handleClick} selectedTab = {selected} />
             <Divider sx={{ my: 1 }} />
             <SecondaryListItems />
           </List>
@@ -196,10 +201,11 @@ const SalesDashboard = () => {
                       p: 2,
                       display: "flex",
                       flexDirection: "column",
-                      height: 240,
+                      height: 600,
+                      width: 1000
                     }}
                   >
-                    <SalesChart />
+                    <SalesChart2 />
                   </Paper>
                 ) : null}
               </Grid>
@@ -245,7 +251,7 @@ const SalesDashboard = () => {
             <Grid item xs={12}>
               {selected == "customer" ? (
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <CustomerList/>
+                  <CustomerList />
                 </Paper>
               ) : null}
             </Grid>

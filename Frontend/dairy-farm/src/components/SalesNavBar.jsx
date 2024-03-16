@@ -11,11 +11,11 @@ const SalesNavBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="transparent">
-        <Toolbar>
+        <Toolbar sx={{ color: 'red' }}>
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
+            
             aria-label="menu"
             sx={{ mr: 2 }}
           >

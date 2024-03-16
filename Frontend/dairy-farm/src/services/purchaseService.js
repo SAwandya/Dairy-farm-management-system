@@ -6,6 +6,10 @@ class PurchaseService {
   Purchase(purchase) {
     return apiClient.post(purchase);
   }
+
+  Approve(params, approve){
+      return apiClient.put(params, approve);
+  }
 }
 
 export default new PurchaseService();

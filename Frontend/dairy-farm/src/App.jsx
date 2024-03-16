@@ -12,6 +12,7 @@ import ProductDetails from "./components/ProductDetails";
 import CheckOut from "./components/CheckOut";
 import SalesDashboard from "./pages/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
+import ProductList from "./components/ProductList";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <CssBaseline /> */}
 
       <MilkingDashboard />
+
     </>
   );
 }
