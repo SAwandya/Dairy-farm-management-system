@@ -11,15 +11,18 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ProductDetails from "./components/ProductDetails";
 import CheckOut from "./components/CheckOut";
 import SalesDashboard from "./pages/SalesDashboard";
+import ProductList from "./components/ProductList";
 
 function App() {
   return (
     <>
+
       <AuthProvider>
         <CssBaseline />
         <RouterProvider router={router} />
       </AuthProvider>
       <CssBaseline />
+
     </>
   );
 }

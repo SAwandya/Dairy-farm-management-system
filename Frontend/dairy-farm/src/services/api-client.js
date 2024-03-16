@@ -24,6 +24,10 @@ class APIClient {
   getAll = () => {
     return axiosInstance.get(this.endpoint).then((res) => res.data);
   };
+
+  delete = (param) => {
+    return axiosInstance.delete(this.endpoint + "/" + param).then(res => res.data);
+  }
 }
 
 export default APIClient;

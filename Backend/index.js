@@ -14,9 +14,10 @@ if (!config.get("jwtPrivateKey")) {
 }
 
 mongoose
-  .connect("mongodb://localhost/dairydb")
+  .connect(
+    "mongodb+srv://sachilaawandya:PvBJDLO7Df1PvBVU@dfms.zgzy5mn.mongodb.net/?retryWrites=true&w=majority&appName=DFMS")
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log("Could not connect to MongoDB"));
+  .catch((err) => console.log(err + ", Could not connect to MongoDB"));
 
 app.use(cors()); //Enable CORS for all routes
 
