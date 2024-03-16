@@ -63,4 +63,15 @@ router.put("/:id", async (req, res) => {
   res.send(purchase);
 });
 
+router.delete("/:id", async (req, res) => {
+
+  let purchase = await Purchase.findByIdAndDelete(req.params.id);
+
+  if(!purchase)
+      return res.status(400).send("The purchase with the given id not found");
+
+  res.send(purchase);
+
+})
+
 module.exports = router;

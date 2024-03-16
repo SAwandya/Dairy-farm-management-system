@@ -10,6 +10,10 @@ class PurchaseService {
   Approve(params, approve){
       return apiClient.put(params, approve);
   }
+
+  Delete(params){
+    return apiClient.delete(params);
+  }
 }
 
 export default new PurchaseService();

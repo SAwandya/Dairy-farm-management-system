@@ -47,39 +47,38 @@ const deliverySchema = new mongoose.Schema({
   },
 });
 
-const Purchase = mongoose.model(
-  "Purchase",
-  new mongoose.Schema({
-    quantity: {
-      type: String,
-      required: true,
-    },
+const purchaseSchema = new mongoose.Schema({
+  quantity: {
+    type: String,
+    required: true,
+  },
 
-    approve: {
-      type: Boolean,
-      default: false
-    },
+  approve: {
+    type: Boolean,
+    default: false,
+  },
 
-    orderDate: {
-      type: Date,
-      default: Date.now,
-    },
+  orderDate: {
+    type: Date,
+    default: Date.now,
+  },
 
-    product: {
-      type: productSchema,
-      required: true,
-    },
+  product: {
+    type: productSchema,
+    required: true,
+  },
 
-    customer: {
-      type: customerSchema,
-      required: true,
-    },
+  customer: {
+    type: customerSchema,
+    required: true,
+  },
 
-    paymentDetails: paymentschema,
+  paymentDetails: paymentschema,
 
-    deliveryDetails: deliverySchema,
-  })
-);
+  deliveryDetails: deliverySchema,
+});
+
+const Purchase = mongoose.model("Purchase", purchaseSchema);
 
 function validatePurchase(purchase) {
   const schema = Joi.object({
@@ -104,4 +103,5 @@ function validatePurchase(purchase) {
 }
 
 exports.validate = validatePurchase;
+exports.purchaseSchema = purchaseSchema;
 exports.Purchase = Purchase;

@@ -44,7 +44,7 @@ function Copyright(props) {
   );
 }
 
-const drawerWidth = 240;
+const drawerWidth = 130;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -157,26 +157,45 @@ const SalesDashboard = () => {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
+
+        
+          <Drawer
+            variant="permanent"
+            open={open}
+            sx={{ backgroundColor: "#E37400" }}
           >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            <MainListItems onSelect={handleClick} selectedTab = {selected} />
-            <Divider sx={{ my: 1 }} />
-            <SecondaryListItems />
-          </List>
-        </Drawer>
+            <Toolbar
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                px: [5],
+                borderRadius: "0 40px 0 0",
+                backgroundColor: "#E37400",
+                width: "130px",
+              }}
+            >
+              <IconButton onClick={toggleDrawer}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Toolbar>
+            <Divider />
+            <List
+              component="nav"
+              sx={{
+                backgroundColor: "#E37400",
+                height: "92vh",
+                borderRadius: "0 0 50px 0",
+                width: "130px",
+              }}
+            >
+              <MainListItems onSelect={handleClick} selectedTab={selected} />
+              <Divider sx={{ my: 1 }} />
+              <SecondaryListItems />
+            </List>
+          </Drawer>
+        
+
         <Box
           component="main"
           sx={{
@@ -189,7 +208,7 @@ const SalesDashboard = () => {
             overflow: "auto",
           }}
         >
-          <Toolbar />
+          <Toolbar sx={{ backgroundColor: "#E37400" }} />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
@@ -202,7 +221,7 @@ const SalesDashboard = () => {
                       display: "flex",
                       flexDirection: "column",
                       height: 600,
-                      width: 1000
+                      width: 1000,
                     }}
                   >
                     <SalesChart2 />
