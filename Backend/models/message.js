@@ -19,6 +19,7 @@ const Message = mongoose.model("Message", messageSchema);
 function validateMessage(message) {
   const schema = Joi.object({
     message: Joi.string().required(),
+    purchaseId: Joi.string().required(),
   });
 
   var result = schema.validate(message);

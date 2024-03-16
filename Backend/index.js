@@ -7,6 +7,7 @@ const cors = require("cors");
 const config = require("config");
 const auth = require("./routes/customerAuth");
 const purchase = require("./routes/purchases");
+const message = require("./routes/messages");
 
 if (!config.get("jwtPrivateKey")) {
   console.log("FATA ERROR: jwtPrivateKey is not defined");
@@ -30,6 +31,8 @@ app.use("/api/customers", customers);
 app.use("/api/auth", auth);
 
 app.use("/api/purchase", purchase);
+
+app.use("/api/message", message)
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
