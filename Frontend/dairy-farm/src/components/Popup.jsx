@@ -1,7 +1,8 @@
-import React from 'react'
+import React from "react";
 import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
 import CloseIcon from "@mui/icons-material/Close";
 import { styled } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Dialog,
@@ -11,35 +12,45 @@ import {
   IconButton,
   Stack,
 } from "@mui/material";
+import { Alert } from "@mui/material";
+import { useForm } from "react-hook-form";
+import messageService from "../services/messageService";
 
 const Popup = (props) => {
+  const navigate = useNavigate();
 
-    const { open, openchange, id } = props;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-     const blue = {
-       100: "#DAECFF",
-       200: "#b6daff",
-       400: "#3399FF",
-       500: "#007FFF",
-       600: "#0072E5",
-       900: "#003A75",
-     };
+  const { open, openchange, purchaseId } = props;
 
-     const grey = {
-       50: "#F3F6F9",
-       100: "#E5EAF2",
-       200: "#DAE2ED",
-       300: "#C7D0DD",
-       400: "#B0B8C4",
-       500: "#9DA8B7",
-       600: "#6B7A90",
-       700: "#434D5B",
-       800: "#303740",
-       900: "#1C2025",
-     };
+  const blue = {
+    100: "#DAECFF",
+    200: "#b6daff",
+    400: "#3399FF",
+    500: "#007FFF",
+    600: "#0072E5",
+    900: "#003A75",
+  };
 
-    const Textarea = styled(BaseTextareaAutosize)(
-      ({ theme }) => `
+  const grey = {
+    50: "#F3F6F9",
+    100: "#E5EAF2",
+    200: "#DAE2ED",
+    300: "#C7D0DD",
+    400: "#B0B8C4",
+    500: "#9DA8B7",
+    600: "#6B7A90",
+    700: "#434D5B",
+    800: "#303740",
+    900: "#1C2025",
+  };
+
+  const Textarea = styled(BaseTextareaAutosize)(
+    ({ theme }) => `
     box-sizing: border-box;
     width: 510px;
     font-family: 'IBM Plex Sans', sans-serif;
@@ -71,13 +82,27 @@ const Popup = (props) => {
       outline: 0;
     }
   `
-    );
-     
-     const closepopup = () => {
-       openchange(false);
-     };
+  );
 
+  const closepopup = () => {
+    openchange(false);
+  };
 
+  const onSubmit = (data) => {
+    const newdata = { purchaseId: purchaseId, ...data };
+
+    messageService
+      .send(newdata)
+      .then((res) => {
+        console.log(res.data);
+        openchange(false);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+      
+  };
 
   return (
     <>
@@ -85,6 +110,8 @@ const Popup = (props) => {
 
       <Dialog
         // fullScreen
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
         open={open}
         onClose={closepopup}
         fullWidth
@@ -100,11 +127,20 @@ const Popup = (props) => {
           {/* <DialogContentText>Do you want remove this user?</DialogContentText> */}
           <Stack spacing={2} margin={2}>
             <Textarea
+              id="message"
+              {...register("message", { required: true })}
               aria-label="minimum height"
               minRows={3}
               placeholder="Enter your message"
-            ></Textarea>
-            <Button color="primary" variant="contained">
+            />
+
+            {errors?.message && (
+              <Alert severity="warning">
+                The message filed is canot be empty{" "}
+              </Alert>
+            )}
+
+            <Button type="submit" color="primary" variant="contained">
               Send
             </Button>
           </Stack>
@@ -116,6 +152,6 @@ const Popup = (props) => {
       </Dialog>
     </>
   );
-}
+};
 
-export default Popup
+export default Popup;

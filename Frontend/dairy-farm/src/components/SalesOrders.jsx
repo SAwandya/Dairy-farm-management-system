@@ -99,7 +99,11 @@ const SalesOrders = () => {
         See more orders
       </Link>
 
-      <Popup open={open} openchange={openchange} />
+      <Popup
+        open={open}
+        openchange={openchange}
+        purchaseId={selectedDeleteId}
+      />
     </React.Fragment>
   );
 };
