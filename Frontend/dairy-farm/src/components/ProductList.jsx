@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import publishService from "../services/publishService";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
+import productService from "../services/productService";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -84,8 +85,7 @@ const ProductList = () => {
   };
 
   const handlePublish = (id, publish) => {
-
-    const data = { publish: publish }
+    const data = { publish: publish };
 
     publishService
       .Publish(id, data)
@@ -99,13 +99,24 @@ const ProductList = () => {
       });
   };
 
+  const handleDelete = (id) => {
+    productService
+      .Delete(id)
+      .then((res) => {
+        console.log(res.data);
+        refetch();
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
   return (
     <React.Fragment>
       <SalesTitle>Recent Products</SalesTitle>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Quantity</TableCell>
             <TableCell>Category</TableCell>
@@ -118,7 +129,6 @@ const ProductList = () => {
         <TableBody>
           {data?.map((product) => (
             <TableRow key={product._id}>
-              <TableCell>{product._id}</TableCell>
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.quantity}</TableCell>
               <TableCell>{product.category}</TableCell>
@@ -157,7 +167,12 @@ const ProductList = () => {
                 )}
               </TableCell>
               <TableCell>
-                <Button variant="outlined" size="medium" color="error">
+                <Button
+                  onClick={() => handleDelete(product._id)}
+                  variant="outlined"
+                  size="medium"
+                  color="error"
+                >
                   Delete
                 </Button>
               </TableCell>
@@ -165,7 +180,7 @@ const ProductList = () => {
           ))}
         </TableBody>
       </Table>
-      {!isLoading ? (
+      {isLoading ? (
         <Box sx={{ width: 1100 }}>
           <Skeleton sx={{ height: 80, marginTop: -1 }} />
           <Skeleton sx={{ height: 80, marginTop: -3 }} animation="wave" />

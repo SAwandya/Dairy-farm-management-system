@@ -55,6 +55,11 @@ const Purchase = mongoose.model(
       required: true,
     },
 
+    approve: {
+      type: Boolean,
+      default: false
+    },
+
     orderDate: {
       type: Date,
       default: Date.now,
