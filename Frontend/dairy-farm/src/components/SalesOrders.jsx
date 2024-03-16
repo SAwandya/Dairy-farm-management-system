@@ -103,6 +103,7 @@ const SalesOrders = () => {
         open={open}
         openchange={openchange}
         purchaseId={selectedDeleteId}
+        refetch={refetch}
       />
     </React.Fragment>
   );

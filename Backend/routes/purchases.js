@@ -70,8 +70,6 @@ router.delete("/:id", async (req, res) => {
   if(!purchase)
       return res.status(400).send("The purchase with the given id not found");
 
-  purchase = await purchase.save();
-
   res.send(purchase);
 
 })

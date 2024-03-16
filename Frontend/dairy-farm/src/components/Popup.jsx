@@ -15,6 +15,7 @@ import {
 import { Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
 import messageService from "../services/messageService";
+import purchaseService from "../services/purchaseService";
 
 const Popup = (props) => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Popup = (props) => {
     formState: { errors },
   } = useForm();
 
-  const { open, openchange, purchaseId } = props;
+  const { open, openchange, purchaseId, refetch } = props;
 
   const blue = {
     100: "#DAECFF",
@@ -95,13 +96,26 @@ const Popup = (props) => {
       .send(newdata)
       .then((res) => {
         console.log(res.data);
+
+        purchaseService
+          .Delete(purchaseId)
+          .then((res) => {
+            console.log(res.data);
+            refetch()
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+
         openchange(false);
       })
       .catch((err) => {
         console.log(err.message);
       });
 
-      
+    
+
+
   };
 
   return (

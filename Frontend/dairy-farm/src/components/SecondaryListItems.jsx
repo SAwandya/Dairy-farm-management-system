@@ -9,9 +9,10 @@ import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import Box from "@mui/material/Box";
 
-export const SecondaryListItems = () => { (
-  <React.Fragment>
+export const SecondaryListItems = () => { <React.Fragment>
+  <Box sx={{ width: '100px' }}>
     <ListSubheader component="div" inset>
       Saved reports
     </ListSubheader>
@@ -33,8 +34,8 @@ export const SecondaryListItems = () => { (
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
     </ListItemButton>
-  </React.Fragment>
-);
+  </Box>
+</React.Fragment>;
 }
 
 export default SecondaryListItems;
