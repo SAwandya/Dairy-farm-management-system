@@ -3,7 +3,7 @@ import React from 'react';
 import Welcome from './Welcome'
 import MainStatistics from './MainStatistics';
 import ChartCard from './ChartCard';
-import TankStausCard from './TankStatusCard';
+import TankStatusCard from './TankStatusCard';
 
 function DashboardContent() {
     return (
@@ -12,7 +12,7 @@ function DashboardContent() {
             <MainStatistics/>
             <Box className="dashboard-below-container">
                 <ChartCard/>
-                <TankStausCard/>
+                <TankStatusCard/>
             </Box>
         </Box>
     );

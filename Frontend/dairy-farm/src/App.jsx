@@ -12,6 +12,7 @@ import ProductDetails from "./components/ProductDetails";
 import CheckOut from "./components/CheckOut";
 import SalesDashboard from "./pages/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
+import MilkingSessions from "./pages/Milking/MilkingSessions";
 import ProductList from "./components/ProductList";
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
       </AuthProvider>
       <CssBaseline /> */}
 
-      <MilkingDashboard />
+      <MilkingSessions />
 
     </>
   );
