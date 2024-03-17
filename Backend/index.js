@@ -7,6 +7,7 @@ const cors = require("cors");
 const config = require("config");
 const auth = require("./routes/customerAuth");
 const purchase = require("./routes/purchases");
+const animalReg =require("./routes/animalRegister");
 const messages = require("./routes/messages");
 
 if (!config.get("jwtPrivateKey")) {
@@ -31,6 +32,8 @@ app.use("/api/customers", customers);
 app.use("/api/auth", auth);
 
 app.use("/api/purchase", purchase);
+
+app.use("/api/animalReg",animalReg);
 
 app.use("/api/messages", messages)
 
