@@ -14,6 +14,8 @@ import SalesDashboard from "./pages/Sales/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
 import MilkingSessions from "./pages/Milking/MilkingSessions";
 import ProductList from "./components/ProductList";
+import VetDashboard from "./pages/Veterinary/AnimmalDash";
+import AnimalRegistry from "./pages/Veterinary/AnimalReg";
 import ProductList from "./components/Sales/ProductList";
 
 function App() {
@@ -23,8 +25,6 @@ function App() {
         <CssBaseline />
         <RouterProvider router={router} />
       </AuthProvider>
-      <CssBaseline /> 
-
     </>
   );
 }

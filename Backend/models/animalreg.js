@@ -27,7 +27,6 @@ var Animalschema = new mongoose.Schema({
     color: String,
     birthDate: {
         type: String,
-        required: true,
         
     },
     weight:Number,

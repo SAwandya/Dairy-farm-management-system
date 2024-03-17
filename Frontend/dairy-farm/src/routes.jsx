@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import VetDashboard from "./pages/Veterinary/AnimmalDash";
+import AnimalRegistry from "./pages/Veterinary/AnimalReg";
 import Layout from "./pages/Sales/Layout";
 import HomePage from "./pages/Sales/HomePage";
 import CustomerSignUp from "./pages/Sales/CustomerSignUp";
@@ -55,7 +57,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/salesdashboard",
-    element: <SalesDashboard />,
+    element: <SalesDashboard/>
+  },
+  {
+    path:"/vetdashboard",
+    element:<VetDashboard/>
+  },
+  {
+    path:"/animalReg",
+    element:<AnimalRegistry/>
   },
   {
     path: "/milkingdashboard",
