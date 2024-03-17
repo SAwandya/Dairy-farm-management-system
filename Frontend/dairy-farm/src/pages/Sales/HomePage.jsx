@@ -1,6 +1,6 @@
-import React from 'react'
-import ProductGrid from '../components/ProductGrid'
-import { Box } from '@mui/material'
+import React from "react";
+import ProductGrid from "../../components/Sales/ProductGrid";
+import { Box } from "@mui/material";
 
 const HomePage = () => {
   return (
@@ -18,6 +18,6 @@ const HomePage = () => {
       <ProductGrid />
     </>
   );
-}
+};
 
-export default HomePage
+export default HomePage;

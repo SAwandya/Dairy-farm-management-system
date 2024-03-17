@@ -13,9 +13,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
-import InputField from "../components/InputField";
-import productService from "../services/productService";
-import useGameQueryStore from "../store";
+import InputField from "../../components/Sales/InputField";
+import productService from "../../services/Sales/productService";
+import useGameQueryStore from "../../store";
 
 function Copyright(props) {
   return (
@@ -39,12 +39,9 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 const ProductUpdate = () => {
-
   const selectedProductUpdate = useGameQueryStore(
     (s) => s.selectedProductUpdate
   );
-
-  
 
   const {
     register,
@@ -55,7 +52,6 @@ const ProductUpdate = () => {
   const [message, setMessage] = React.useState();
 
   const onSubmit = (data) => {
-
     productService
       .Update(selectedProductUpdate, data)
       .then((res) => {
@@ -165,7 +161,6 @@ const ProductUpdate = () => {
                   signup={{
                     ...register("unitOfMeasurement", {
                       required: true,
-                    
                     }),
                   }}
                   errors={errors.unitOfMeasurement}

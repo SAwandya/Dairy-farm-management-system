@@ -6,8 +6,8 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import SalesTitle from "./SalesTitle";
-import usePurcahse from "../hooks/usePurcahse";
-import purchaseService from "../services/purchaseService";
+import usePurcahse from "../../hooks/usePurcahse";
+import purchaseService from "../../services/Sales/purchaseService";
 import { Button } from "@mui/material";
 import Popup from "./Popup";
 
@@ -16,10 +16,10 @@ const SalesOrders = () => {
 
   const [open, openchange] = React.useState(false);
 
-  const [ selectedDeleteId, setSelecetdDeleteId ] = React.useState(null);
+  const [selectedDeleteId, setSelecetdDeleteId] = React.useState(null);
 
   const functionopenpopup = (id) => {
-    setSelecetdDeleteId(id)
+    setSelecetdDeleteId(id);
     openchange(true);
   };
 

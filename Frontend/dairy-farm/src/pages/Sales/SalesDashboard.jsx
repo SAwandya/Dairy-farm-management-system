@@ -17,14 +17,14 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import SecondaryListItems from "../components/SecondaryListItems";
-import MainListItems from "../components/MainListItems";
-import SalesChart from "../components/SalesChart";
-import SalesDeposits from "../components/SalesDeposits";
-import SalesOrders from "../components/SalesOrders";
-import ProductList from "../components/ProductList";
-import CustomerList from "../components/CustomerList";
-import SalesChart2 from "../components/SalesChart2";
+import SecondaryListItems from "../../components/Sales/SecondaryListItems";
+import MainListItems from "../../components/Sales/MainListItems";
+import SalesChart from "../../components/Sales/SalesChart";
+import SalesDeposits from "../../components/Sales/SalesDeposits";
+import SalesOrders from "../../components/Sales/SalesOrders";
+import ProductList from "../../components/Sales/ProductList";
+import CustomerList from "../../components/Sales/CustomerList";
+import SalesChart2 from "../../components/Sales/SalesChart2";
 
 function Copyright(props) {
   return (
@@ -33,9 +33,7 @@ function Copyright(props) {
       color="text.secondary"
       align="center"
       {...props}
-    >
-     
-    </Typography>
+    ></Typography>
   );
 }
 
@@ -96,13 +94,10 @@ const customTheme = createTheme({
     secondary: {
       main: "#f44336",
     },
-    
   },
   typography: {
-    fontFamily: "Arial, sans-serif", 
-    
+    fontFamily: "Arial, sans-serif",
   },
-  
 });
 
 const SalesDashboard = () => {

@@ -5,14 +5,16 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import SalesTitle from "./SalesTitle";
+import usePurcahse from "../../hooks/usePurcahse";
 import Button from "@mui/material/Button";
-import useGameQueryStore from "../store";
+import useProducts from "../../hooks/useProducts";
+import useGameQueryStore from "../../store";
 import { Link } from "react-router-dom";
-import publishService from "../services/publishService";
-import useCustomers from "../hooks/useCustomers";
-import approveService from "../services/approveService";
+import publishService from "../../services/Sales/publishService";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
+import productService from "../../services/Sales/productService";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -66,8 +68,8 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-const CustomerList = () => {
-  const { data, error, isLoading, refetch } = useCustomers();
+const ProductList = () => {
+  const { data, error, isLoading, refetch } = useProducts();
 
   const SetSelectedProductUpdate = useGameQueryStore(
     (s) => s.SetSelectedProductUpdate
@@ -83,12 +85,11 @@ const CustomerList = () => {
     SetSelectedProductUpdate(id);
   };
 
-  const handleApprove = (id, approvel) => {
-    
-    const Approvedata = { approvel: approvel };
+  const handlePublish = (id, publish) => {
+    const data = { publish: publish };
 
-    approveService
-      .Approve(id, Approvedata)
+    publishService
+      .Publish(id, data)
       .then((res) => {
         console.log(res.data);
         console.log("success");
@@ -99,55 +100,81 @@ const CustomerList = () => {
       });
   };
 
+  const handleDelete = (id) => {
+    productService
+      .Delete(id)
+      .then((res) => {
+        console.log(res.data);
+        refetch();
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
   return (
-    <>
-      <SalesTitle>Customers</SalesTitle>
+    <React.Fragment>
+      <SalesTitle>Recent Products</SalesTitle>
       <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>address</TableCell>
-            <TableCell>Phone</TableCell>
-            <TableCell>license No </TableCell>
-            <TableCell align="right">Rep</TableCell>
-            <TableCell>email</TableCell>
-            <TableCell>Approve</TableCell>
-            <TableCell>Cancel</TableCell>
+            <TableCell>Quantity</TableCell>
+            <TableCell>Category</TableCell>
+            <TableCell align="right">Unit Price</TableCell>
+            <TableCell>Update</TableCell>
+            <TableCell>Publish</TableCell>
+            <TableCell>Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((customer) => (
-            <TableRow key={customer._id}>
-              <TableCell>{customer.name}</TableCell>
-              <TableCell>{customer.address}</TableCell>
-              <TableCell>{customer.phone}</TableCell>
-              <TableCell>{customer.licenseNo}</TableCell>
-              <TableCell align="right">{customer.rep}</TableCell>
-              <TableCell>{customer.email}</TableCell>
-
+          {data?.map((product) => (
+            <TableRow key={product._id}>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.quantity}</TableCell>
+              <TableCell>{product.category}</TableCell>
+              <TableCell align="right">{`$${product.price}`}</TableCell>
               <TableCell>
-                {customer.approvel == false ? (
+                <Link to="/productupdate">
                   <Button
-                    onClick={() => handleApprove(customer._id, true)}
+                    onClick={() => handleUpdate(product._id)}
+                    variant="contained"
+                    size="medium"
+                    color="success"
+                  >
+                    Update
+                  </Button>
+                </Link>
+              </TableCell>
+              <TableCell>
+                {product.publish == false ? (
+                  <Button
+                    onClick={() => handlePublish(product._id, true)}
                     variant="outlined"
                     size="medium"
                     color="error"
                   >
-                    Approve
+                    Unpublish
                   </Button>
                 ) : (
                   <Button
-                    onClick={() => handleApprove(customer._id, false)}
+                    onClick={() => handlePublish(product._id, false)}
                     variant="outlined"
                     size="medium"
                     color="error"
                   >
-                    Cancel
+                    Publish
                   </Button>
                 )}
               </TableCell>
               <TableCell>
-                <Button variant="outlined" size="medium" color="error">
+                <Button
+                  onClick={() => handleDelete(product._id)}
+                  variant="outlined"
+                  size="medium"
+                  color="error"
+                  startIcon={<DeleteIcon />}
+                >
                   Delete
                 </Button>
               </TableCell>
@@ -155,7 +182,6 @@ const CustomerList = () => {
           ))}
         </TableBody>
       </Table>
-
       {isLoading ? (
         <Box sx={{ width: 1100 }}>
           <Skeleton sx={{ height: 80, marginTop: -1 }} />
@@ -168,8 +194,8 @@ const CustomerList = () => {
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more orders
       </Link>
-    </>
+    </React.Fragment>
   );
 };
 
-export default CustomerList;
+export default ProductList;

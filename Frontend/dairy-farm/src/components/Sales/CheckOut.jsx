@@ -15,9 +15,9 @@ import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import { useForm } from "react-hook-form";
-import useGameQueryStore from "../store";
-import { useAuth } from "../contexts/AuthContext";
-import purchaseService from "../services/purchaseService";
+import useGameQueryStore from "../../store";
+import { useAuth } from "../../contexts/AuthContext";
+import purchaseService from "../../services/Sales/purchaseService";
 
 function Copyright() {
   return (
