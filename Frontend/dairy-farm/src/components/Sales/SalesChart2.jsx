@@ -5,7 +5,7 @@ import Slider from "@mui/material/Slider";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { BarChart } from "@mui/x-charts/BarChart";
-import usePurcahse from "../hooks/usePurcahse";
+import usePurcahse from "../../hooks/usePurcahse";
 
 const SalesChart2 = () => {
   const [seriesNb, setSeriesNb] = React.useState(2);
@@ -56,7 +56,6 @@ const SalesChart2 = () => {
     groupedData[productType][year][month] +=
       order.quantity * order.product.price * 100;
   });
-
 
   // Step 3: Create the series array
   const series = [];

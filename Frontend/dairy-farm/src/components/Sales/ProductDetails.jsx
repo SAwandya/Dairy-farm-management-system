@@ -8,12 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import Button from "@mui/material-next/Button";
-import useGameQueryStore from "../store";
+import useGameQueryStore from "../../store";
 import { useForm } from "react-hook-form";
 import InputField from "./InputField";
 import { Alert } from "@mui/material";
-import purchaseService from "../services/purchaseService";
-import { useAuth } from "../contexts/AuthContext";
+import purchaseService from "../../services/Sales/purchaseService";
+import { useAuth } from "../../contexts/AuthContext";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
@@ -30,11 +30,8 @@ const ProductDetails = () => {
   let navigate = useNavigate();
 
   const onSubmit = (data) => {
-
     SetSelectedQuantity(data);
     navigate("/checkout");
-
-    
   };
 
   return (
@@ -90,9 +87,9 @@ const ProductDetails = () => {
                 {errors.quantity?.message && (
                   <Alert severity="warning">{errors.quantity.message}</Alert>
                 )}
-                  <Button type="submit" variant="outlined">
-                    Buy
-                  </Button>
+                <Button type="submit" variant="outlined">
+                  Buy
+                </Button>
               </Box>
             </Grid>
           </Grid>

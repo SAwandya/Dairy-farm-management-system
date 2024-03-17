@@ -15,6 +15,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -167,7 +169,7 @@ const NavBar = () => {
           display: "flex",
           justifyContent: "center",
           color: "#1E5128",
-          marginRight: "56px"
+          marginRight: "56px",
         }}
       >
         <Toolbar>
@@ -197,6 +199,46 @@ const NavBar = () => {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
+
+          <Stack direction="row" spacing={2}>
+            <Button
+              sx={{
+                backgroundColor: "rgba(155, 207, 83, 0.8)",
+                fontSize: "17px",
+                fontWeight: "bold",
+                width: "150px",
+                color: "#191919",
+                borderRadius: "10px",
+              }}
+            >
+              HOME
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "rgba(155, 207, 83, 0.8)",
+                fontSize: "17px",
+                fontWeight: "bold",
+                width: "150px",
+                color: "#191919",
+                borderRadius: "10px",
+              }}
+            >
+              MY ORDERS
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "rgba(155, 207, 83, 0.8)",
+                fontSize: "17px",
+                fontWeight: "bold",
+                width: "150px",
+                color: "#191919",
+                borderRadius: "10px",
+              }}
+            >
+              CART
+            </Button>
+          </Stack>
+
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton

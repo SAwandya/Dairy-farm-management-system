@@ -19,7 +19,6 @@ const MainListItems = (props) => {
       <Box sx={{ marginLeft: "10px" }}>
         <ListItemButton
           sx={{
-            backgroundColor: "#4FFFB0",
             height: "60px",
             width: "106px",
             marginTop: "24px",
@@ -32,15 +31,22 @@ const MainListItems = (props) => {
           }}
           onClick={() => onSelect("product")}
         >
-          <ListItemIcon sx={{ marginLeft: "30px", marginTop: "8px" }}>
+          <ListItemIcon
+            sx={{
+              marginTop: "8px",
+              color: selectedTab === "product" ? "black" : "white",
+            }}
+          >
             <DashboardIcon />
           </ListItemIcon>
-          <ListItemText primary="Dashboard" />
+          <ListItemText
+            primary="Dashboard"
+            sx={{ color: selectedTab === "product" ? "black" : "white" }}
+          />
         </ListItemButton>
 
         <ListItemButton
           sx={{
-            backgroundColor: "#4FFFB0",
             height: "60px",
             width: "106px",
             marginTop: "24px",
@@ -53,19 +59,25 @@ const MainListItems = (props) => {
           }}
           onClick={() => onSelect("order")}
         >
-          <ListItemIcon sx={{ marginLeft: "30px", marginTop: "8px" }}>
+          <ListItemIcon
+            sx={{
+              marginTop: "8px",
+              color: selectedTab === "order" ? "black" : "white",
+            }}
+          >
             <ShoppingCartIcon />
           </ListItemIcon>
-          <ListItemText primary="Orders" />
+          <ListItemText
+            primary="Orders"
+            sx={{ color: selectedTab === "order" ? "black" : "white" }}
+          />
         </ListItemButton>
 
         <ListItemButton
           sx={{
-            backgroundColor: "#4FFFB0",
             height: "60px",
             width: "106px",
             marginTop: "24px",
-
             borderRadius: "20px",
             display: "flex",
             justifyContent: "center",
@@ -75,15 +87,22 @@ const MainListItems = (props) => {
           }}
           onClick={() => onSelect("customer")}
         >
-          <ListItemIcon sx={{ marginLeft: "30px", marginTop: "8px" }}>
+          <ListItemIcon
+            sx={{
+              marginTop: "8px",
+              color: selectedTab === "customer" ? "black" : "white",
+            }}
+          >
             <PeopleIcon />
           </ListItemIcon>
-          <ListItemText primary="Customers" />
+          <ListItemText
+            primary="Customers"
+            sx={{ color: selectedTab === "customer" ? "black" : "white" }}
+          />
         </ListItemButton>
 
         <ListItemButton
           sx={{
-            backgroundColor: "#4FFFB0",
             height: "60px",
             width: "106px",
             borderRadius: "20px",
@@ -96,10 +115,18 @@ const MainListItems = (props) => {
           }}
           onClick={() => onSelect("report")}
         >
-          <ListItemIcon sx={{ marginLeft: "30px", marginTop: "8px" }}>
+          <ListItemIcon
+            sx={{
+              marginTop: "8px",
+              color: selectedTab === "report" ? "black" : "white",
+            }}
+          >
             <BarChartIcon />
           </ListItemIcon>
-          <ListItemText primary="Reports" />
+          <ListItemText
+            primary="Reports"
+            sx={{ color: selectedTab === "report" ? "black" : "white" }}
+          />
         </ListItemButton>
       </Box>
     </React.Fragment>
