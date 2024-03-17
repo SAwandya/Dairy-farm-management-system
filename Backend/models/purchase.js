@@ -4,74 +4,81 @@ const { productSchema } = require("../models/product");
 const { customerSchema } = require("../models/customer");
 
 const paymentschema = new mongoose.Schema({
-
   cardNumber: {
     type: Number,
   },
 
   cardName: {
-    type: String
+    type: String,
   },
 
   cvv: {
-    type: Number
+    type: Number,
   },
 
   expDate: {
     type: Date,
-  }
-
+  },
 });
 
 const deliverySchema = new mongoose.Schema({
   address1: {
-    type: String
+    type: String,
   },
 
   address2: {
-    type: String
+    type: String,
   },
 
   city: {
-    type: String
+    type: String,
   },
 
   state: {
-    type: String
+    type: String,
   },
 
   firstName: {
-    type: String
+    type: String,
   },
 
   lastName: {
-    type: String
-  }
+    type: String,
+  },
 });
 
-const Purchase = mongoose.model(
-  "Purchase",
-  new mongoose.Schema({
-    quantity: {
-      type: String,
-      required: true,
-    },
+const purchaseSchema = new mongoose.Schema({
+  quantity: {
+    type: String,
+    required: true,
+  },
 
-    product: {
-      type: productSchema,
-      required: true,
-    },
+  approve: {
+    type: Boolean,
+    default: false,
+  },
 
-    customer: {
-      type: customerSchema,
-      required: true,
-    },
+  orderDate: {
+    type: Date,
+    default: Date.now,
+  },
 
-    paymentDetails: paymentschema,
+  product: {
+    type: productSchema,
+    required: true,
+  },
 
-    deliveryDetails: deliverySchema,
-  })
-);
+  customer: {
+    type: customerSchema,
+    required: true,
+  },
+
+  paymentDetails: paymentschema,
+
+  deliveryDetails: deliverySchema,
+});
+
+const Purchase = mongoose.model("Purchase", purchaseSchema);
 
 function validatePurchase(purchase) {
   const schema = Joi.object({
@@ -96,4 +103,5 @@ function validatePurchase(purchase) {
 }
 
 exports.validate = validatePurchase;
+exports.purchaseSchema = purchaseSchema;
 exports.Purchase = Purchase;
