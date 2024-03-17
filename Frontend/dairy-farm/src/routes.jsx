@@ -11,9 +11,9 @@ import CheckOut from "./components/Sales/CheckOut";
 import ProductUpdate from "./pages/Sales/ProductUpdate";
 import SalesDashboard from "./pages/Sales/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
-import Employee from "./pages/Employee";
-import CreateEmployee from "./pages/CreateEmployee";
-import UpdateEmployee from "./pages/UpdateEmployee"
+import Employee from "./pages/Employees/Employee";
+import CreateEmployee from "./pages/Employees/CreateEmployee";
+import UpdateEmployee from "./pages/Employees/UpdateEmployee"
 const router = createBrowserRouter([
   {
     path: "/",

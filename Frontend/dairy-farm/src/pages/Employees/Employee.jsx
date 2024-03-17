@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import CustomizedTables from '../components/table';
+import CustomizedTables from '../../components/Veterinary/table';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom'; 
 import { Box, Typography } from '@mui/material'; 
-import BgCards from "../components/bgcards";
+import BgCards from "../../components/Employees/bgcards";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import TableCard from '../components/tablecards';
+import TableCard from '../../components/Employees/tablecards';
 
 import axios from 'axios';
 

@@ -4,8 +4,8 @@ import axios from "axios";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import CustomTextField from '../components/textfield'; 
-import em1 from '../assets/em1.png';
+import CustomTextField from '../../components/Employees/textfield'; 
+import em1 from '../../assets/em1.png';
 
 
 function UpdateEmployee() {
