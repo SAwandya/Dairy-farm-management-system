@@ -13,8 +13,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
-import InputField from "../components/InputField";
-import userService from "../services/userService";
+import InputField from "../../components/Sales/InputField";
+import userService from "../../services/Sales/userService";
 
 function Copyright(props) {
   return (

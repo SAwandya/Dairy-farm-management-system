@@ -1,15 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "./pages/Layout";
-import HomePage from "./pages/HomePage";
-import CustomerSignUp from "./pages/CustomerSignUp";
-import CustomerSignIn from "./pages/CustomerSignIn";
-import ProtectedRoute from "./components/ProtectedRoute";
-import ProductDetails from "./components/ProductDetails";
-import CheckOut from "./components/CheckOut";
-import ProductUpdate from "./pages/ProductUpdate";
-import SalesDashboard from "./pages/SalesDashboard";
 import VetDashboard from "./pages/Veterinary/AnimmalDash";
 import AnimalRegistry from "./pages/Veterinary/AnimalReg";
+import Layout from "./pages/Sales/Layout";
+import HomePage from "./pages/Sales/HomePage";
+import CustomerSignUp from "./pages/Sales/CustomerSignUp";
+import CustomerSignIn from "./pages/Sales/CustomerSignIn";
+import ProtectedRoute from "./components/Sales/ProtectedRoute";
+import ProductDetails from "./components/Sales/ProductDetails";
+import CheckOut from "./components/Sales/CheckOut";
+import ProductUpdate from "./pages/Sales/ProductUpdate";
+import SalesDashboard from "./pages/Sales/SalesDashboard";
+import MilkingDashboard from "./pages/Milking/MilkingDashboard";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
         path: "/productdetails",
         element: (
           <ProtectedRoute>
-            <ProductDetails/>
+            <ProductDetails />
           </ProtectedRoute>
         ),
       },
@@ -36,10 +37,10 @@ const router = createBrowserRouter([
         path: "/checkout",
         element: (
           <ProtectedRoute>
-            <CheckOut/>
+            <CheckOut />
           </ProtectedRoute>
-        )
-      }
+        ),
+      },
     ],
   },
   {
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/productupdate",
-    element: <ProductUpdate/>
+    element: <ProductUpdate />,
   },
   {
     path: "/salesdashboard",
@@ -65,7 +66,11 @@ const router = createBrowserRouter([
   {
     path:"/animalReg",
     element:<AnimalRegistry/>
-  }
+  },
+  {
+    path: "/milkingdashboard",
+    element: <MilkingDashboard/>,
+  },
 ]);
 
 export default router;

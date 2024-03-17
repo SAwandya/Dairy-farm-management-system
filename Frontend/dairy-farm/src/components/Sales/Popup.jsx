@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 import { Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
-import messageService from "../services/messageService";
-import purchaseService from "../services/purchaseService";
+import messageService from "../../services/Sales/messageService";
+import purchaseService from "../../services/Sales/purchaseService";
 
 const Popup = (props) => {
   const navigate = useNavigate();
@@ -101,7 +101,7 @@ const Popup = (props) => {
           .Delete(purchaseId)
           .then((res) => {
             console.log(res.data);
-            refetch()
+            refetch();
           })
           .catch((err) => {
             console.log(err.message);
@@ -112,10 +112,6 @@ const Popup = (props) => {
       .catch((err) => {
         console.log(err.message);
       });
-
-    
-
-
   };
 
   return (

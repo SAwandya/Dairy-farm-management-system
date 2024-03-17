@@ -1,13 +1,13 @@
-import React from 'react'
-import ProductGrid from '../components/ProductGrid'
-import { Box } from '@mui/material'
+import React from "react";
+import ProductGrid from "../../components/Sales/ProductGrid";
+import { Box } from "@mui/material";
 
 const HomePage = () => {
   return (
     <>
       <Box
         sx={{
-          backgroundImage: "url(../src/assets/farmhouse.jpeg)",
+          backgroundImage: "url(../src/assets/mainbgw.png)",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
@@ -18,6 +18,6 @@ const HomePage = () => {
       <ProductGrid />
     </>
   );
-}
+};
 
-export default HomePage
+export default HomePage;

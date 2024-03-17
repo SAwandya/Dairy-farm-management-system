@@ -1,4 +1,4 @@
-import APIClient from "../services/api-client";
+import APIClient from "../services/Sales/api-client";
 import { useQuery } from "@tanstack/react-query";
 
 const apiClient = new APIClient("/purchase");

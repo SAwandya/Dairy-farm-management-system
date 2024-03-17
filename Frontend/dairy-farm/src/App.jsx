@@ -1,32 +1,30 @@
 import "./App.css";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Sales/NavBar";
 import "@fontsource/roboto/400.css";
 import CssBaseline from "@mui/material/CssBaseline";
-import ProductGrid from "./components/ProductGrid";
-import CustomerSignUp from "./pages/CustomerSignUp";
-import CustomerSignIn from "./pages/CustomerSignIn";
+import ProductGrid from "./components/Sales/ProductGrid";
+import CustomerSignUp from "./pages/Sales/CustomerSignUp";
+import CustomerSignIn from "./pages/Sales/CustomerSignIn";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes";
 import { AuthProvider } from "./contexts/AuthContext";
-import ProductDetails from "./components/ProductDetails";
-import CheckOut from "./components/CheckOut";
-import SalesDashboard from "./pages/SalesDashboard";
+import ProductDetails from "./components/Sales/ProductDetails";
+import CheckOut from "./components/Sales/CheckOut";
+import SalesDashboard from "./pages/Sales/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
+import MilkingSessions from "./pages/Milking/MilkingSessions";
 import ProductList from "./components/ProductList";
 import VetDashboard from "./pages/Veterinary/AnimmalDash";
 import AnimalRegistry from "./pages/Veterinary/AnimalReg";
+import ProductList from "./components/Sales/ProductList";
 
 function App() {
   return (
     <>
-       <AuthProvider>
+      <AuthProvider>
         <CssBaseline />
         <RouterProvider router={router} />
       </AuthProvider>
-      <CssBaseline /> 
-
-      
-
     </>
   );
 }
