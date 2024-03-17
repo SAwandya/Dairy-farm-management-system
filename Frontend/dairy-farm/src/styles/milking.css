@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('../../src/assets/bg.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.css-10hburv-MuiTypography-root {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.main-container {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.dashboard-content {
+    margin: 40px 57px;
+}
+
+/* Side Bar */
+.sidebar {
+    background-color: #38775B;
+    width: 130px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-logo-container {
+    margin-top: 12px;
+}
+
+.navigation-links {
+    margin-top: 24px;
+}
+
+.user-actions {
+    margin-top: 96px;
+}
+
+.nav-btn, .nav-btnactive {
+    width: 106px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.MuiListItemIcon-root {
+    min-width: 20px !important;
+}
+.nav-bar-icon {
+    width: 20px;
+    height: 20px;
+}
+.nav-bar-text {
+    font-size: 16px;
+}
+
+/* Welcome Container */
+.welcome-header {
+    display: flex;
+    justify-content: space-between;
+    width: 85vw;
+}
+
+/* Welcome */
+.welcome-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.welcome-name .welcome-text {
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600;
+}
+.welcome-name .welcome-name-value {
+    font-size: 32px;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* Date */
+.date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.date-container .calendar-container {
+    display: flex;
+    align-items: center;
+}
+.date-container .date-text {
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600;
+}
+.date-container .date-value {
+    font-size: 32px;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* Stat Cards */
+.main-stats-title {
+    font-family: 'Poppins', sans-serif !important;
+}
+.stat-cards-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+.stat-card-texts {
+    display: flex;
+    flex-direction: column;
+}
+.stat-card-title, .stat-card-value {
+    font-family: 'Poppins', sans-serif !important;
+}
+.stat-card-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    height: 80px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+}

@@ -9,6 +9,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import { Box, Container } from "@mui/material";
 
 const MainListItems = (props) => {
   const { onSelect, selectedTab } = props;
@@ -16,45 +17,83 @@ const MainListItems = (props) => {
   return (
     <React.Fragment>
       <ListItemButton
-        sx={{ backgroundColor: selectedTab === "product" ? "#4FFFB0" : null }}
+        sx={{
+          backgroundColor: "#4FFFB0",
+          height: "60px",
+          width: "106px",
+          borderRadius: "20px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          backgroundColor: selectedTab === "product" ? "#4FFFB0" : null,
+        }}
+        onClick={() => onSelect("product")}
       >
-        <ListItemIcon>
+        <ListItemIcon sx={{ marginLeft: "30px", marginTop: "8px" }}>
           <DashboardIcon />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" onClick={() => onSelect("product")} />
+        <ListItemText primary="Dashboard" />
       </ListItemButton>
+
       <ListItemButton
-        sx={{ backgroundColor: selectedTab === "order" ? "#4FFFB0" : null }}
+        sx={{
+          backgroundColor: "#4FFFB0",
+          height: "60px",
+          width: "106px",
+          borderRadius: "20px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          backgroundColor: selectedTab === "order" ? "#4FFFB0" : null,
+        }}
+        onClick={() => onSelect("order")}
       >
-        <ListItemIcon>
+        <ListItemIcon sx={{ marginLeft: "30px", marginTop: "8px" }}>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText primary="Orders" onClick={() => onSelect("order")} />
+        <ListItemText primary="Orders" />
       </ListItemButton>
+
       <ListItemButton
-        sx={{ backgroundColor: selectedTab === "customer" ? "#4FFFB0" : null }}
+        sx={{
+          backgroundColor: "#4FFFB0",
+          height: "60px",
+          width: "106px",
+          borderRadius: "20px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          backgroundColor: selectedTab === "customer" ? "#4FFFB0" : null,
+        }}
+        onClick={() => onSelect("customer")}
       >
-        <ListItemIcon>
+        <ListItemIcon sx={{ marginLeft: "30px", marginTop: "8px" }}>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText
-          primary="Customers"
-          onClick={() => onSelect("customer")}
-        />
+        <ListItemText primary="Customers" />
       </ListItemButton>
+
       <ListItemButton
-        sx={{ backgroundColor: selectedTab === "report" ? "#4FFFB0" : null }}
+        sx={{
+          backgroundColor: "#4FFFB0",
+          height: "60px",
+          width: "106px",
+          borderRadius: "20px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          backgroundColor: selectedTab === "report" ? "#4FFFB0" : null,
+        }}
+        onClick={() => onSelect("report")}
       >
-        <ListItemIcon>
+        <ListItemIcon sx={{ marginLeft: "30px", marginTop: "8px" }}>
           <BarChartIcon />
         </ListItemIcon>
-        <ListItemText primary="Reports" onClick={() => onSelect("report")} />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <LayersIcon />
-        </ListItemIcon>
-        <ListItemText primary="Integrations" />
+        <ListItemText primary="Reports" />
       </ListItemButton>
     </React.Fragment>
   );
