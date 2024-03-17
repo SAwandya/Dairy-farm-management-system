@@ -13,17 +13,19 @@ import CheckOut from "./components/CheckOut";
 import SalesDashboard from "./pages/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
 import ProductList from "./components/ProductList";
+import VetDashboard from "./pages/Veterinary/AnimmalDash";
+import AnimalRegistry from "./pages/Veterinary/AnimalReg";
 
 function App() {
   return (
     <>
-      {/* <AuthProvider>
+       <AuthProvider>
         <CssBaseline />
         <RouterProvider router={router} />
       </AuthProvider>
-      <CssBaseline /> */}
+      <CssBaseline /> 
 
-      <MilkingDashboard />
+      
 
     </>
   );

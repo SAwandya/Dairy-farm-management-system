@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body{
+  font-family: 'Poppins', sans-serif;
+    background-image: url('../assets/bg.png'); /* Replace 'path/to/your/background-image.jpg' with the actual path to your background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.container {
+  padding: 10px;
+  margin: 50px auto;
+  position: relative;
+  margin-left: 1100px;
+  margin-bottom: -40px;
+  font-family: 'Poppins', sans-serif
+}
+.form{
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0);
+  margin: 50px auto;
+  position: relative;
+  font-family: 'Poppins', sans-serif
+  
+}
+
+button, .abbbtn {
+  border: none;
+  background-color: #31B926;
+  padding: 7px 15px;
+  font-size: 15px;
+  color: whitesmoke;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.addCon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align items to the right */
+  top: 0;
+  right: 0;
+  margin: 10px; /* Adjust margin as needed */
+}

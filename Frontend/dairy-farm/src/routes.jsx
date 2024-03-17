@@ -8,6 +8,8 @@ import ProductDetails from "./components/ProductDetails";
 import CheckOut from "./components/CheckOut";
 import ProductUpdate from "./pages/ProductUpdate";
 import SalesDashboard from "./pages/SalesDashboard";
+import VetDashboard from "./pages/Veterinary/AnimmalDash";
+import AnimalRegistry from "./pages/Veterinary/AnimalReg";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +57,14 @@ const router = createBrowserRouter([
   {
     path: "/salesdashboard",
     element: <SalesDashboard/>
+  },
+  {
+    path:"/vetdashboard",
+    element:<VetDashboard/>
+  },
+  {
+    path:"/animalReg",
+    element:<AnimalRegistry/>
   }
 ]);
 
