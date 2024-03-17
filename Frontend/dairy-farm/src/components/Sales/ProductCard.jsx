@@ -21,7 +21,7 @@ const ProductCard = (props) => {
   };
 
   return (
-    <Card sx={{ width: 320, maxWidth: "100%", boxShadow: "lg" }}>
+    <Card sx={{ width: 320, maxWidth: "100%", boxShadow: "lg", borderRadius: "20px" }}>
       <CardOverflow>
         <AspectRatio sx={{ minWidth: 200 }}>
           <img
@@ -33,8 +33,8 @@ const ProductCard = (props) => {
         </AspectRatio>
       </CardOverflow>
       <CardContent>
-        <Typography level="body-xs">Bluetooth Headset</Typography>
-        <Link>{product.name}</Link>
+        
+        <Typography sx={{ fontSize: "20px" }}>{product.name}</Typography>
 
         <Typography
           level="title-lg"
