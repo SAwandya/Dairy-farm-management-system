@@ -11,7 +11,9 @@ import CheckOut from "./components/Sales/CheckOut";
 import ProductUpdate from "./pages/Sales/ProductUpdate";
 import SalesDashboard from "./pages/Sales/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
-
+import Employee from "./pages/Employee";
+import CreateEmployee from "./pages/CreateEmployee";
+import UpdateEmployee from "./pages/UpdateEmployee"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -71,6 +73,19 @@ const router = createBrowserRouter([
     path: "/milkingdashboard",
     element: <MilkingDashboard/>,
   },
+  {
+    path: "/employeedashboard",
+    element: <Employee/>,
+  },
+  {
+    path: "/createEmployee",
+    element: <CreateEmployee/>,
+  },
+  {
+    path: "/updateEmployee/:id",
+    element: <UpdateEmployee/>,
+  },
+
 ]);
 
 export default router;
