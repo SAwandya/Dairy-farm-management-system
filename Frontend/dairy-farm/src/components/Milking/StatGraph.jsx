@@ -17,7 +17,7 @@ export default function StatGraph() {
   return (
     <BarChart
       className='barchart'
-      width={664}
+      width={750}
       height={355}
       series={[{ data: uData, label: 'Milk Collected', type: 'bar'}]}
       xAxis={[{ scaleType: 'band', data: xLabels }]}

@@ -12,6 +12,8 @@ import ProductDetails from "./components/Sales/ProductDetails";
 import CheckOut from "./components/Sales/CheckOut";
 import SalesDashboard from "./pages/Sales/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
+import MilkingSessions from "./pages/Milking/MilkingSessions";
+import ProductList from "./components/ProductList";
 import ProductList from "./components/Sales/ProductList";
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
         <CssBaseline />
         <RouterProvider router={router} />
       </AuthProvider>
-      <CssBaseline />
+      <CssBaseline /> 
 
     </>
   );
