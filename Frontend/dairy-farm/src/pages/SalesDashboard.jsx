@@ -34,12 +34,7 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
+     
     </Typography>
   );
 }
@@ -93,36 +88,61 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+const customTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#5dbea3",
+    },
+    secondary: {
+      main: "#f44336",
+    },
+    
+  },
+  typography: {
+    fontFamily: "Arial, sans-serif", 
+    
+  },
+  
+});
+
 const SalesDashboard = () => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  const [selected, setSeleceted] = React.useState('product');
+  const [selected, setSeleceted] = React.useState("product");
 
   const handleClick = (select) => {
     if (select == "order") {
       setSeleceted("order");
     } else if (select == "report") {
       setSeleceted("report");
-    }else if(select == "deposit") {
+    } else if (select == "deposit") {
       setSeleceted("deposit");
-    }else if(select == 'product'){
-      setSeleceted("product")
-    }else if(select == 'customer'){
-      setSeleceted("customer")
+    } else if (select == "product") {
+      setSeleceted("product");
+    } else if (select == "customer") {
+      setSeleceted("customer");
     }
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
         <CssBaseline />
         <AppBar
           position="absolute"
           open={open}
-          sx={{ backgroundColor: "#17B169" }}
+          sx={{
+            background: "url(../src/assets/background.png)",
+            backgroundColor: "#D2EBE6",
+            backgroundSize: "cover",
+          }}
         >
           <Toolbar
             sx={{
@@ -142,13 +162,13 @@ const SalesDashboard = () => {
               <MenuIcon />
             </IconButton>
             <Typography
-              component="h1"
+              component="h2"
               variant="h6"
-              color="inherit"
+              color="#191A19"
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Sales Dashboard
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -158,57 +178,61 @@ const SalesDashboard = () => {
           </Toolbar>
         </AppBar>
 
-        
-          <Drawer
-            variant="permanent"
-            open={open}
-            sx={{ backgroundColor: "#E37400" }}
+        <Drawer
+          variant="permanent"
+          open={open}
+          sx={{ backgroundColor: "#38775B" }}
+        >
+          <Toolbar
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              px: [5],
+              borderRadius: "0 40px 0 0",
+              backgroundColor: "#38775B",
+              width: "130px",
+            }}
           >
-            <Toolbar
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                px: [5],
-                borderRadius: "0 40px 0 0",
-                backgroundColor: "#E37400",
-                width: "130px",
-              }}
-            >
-              <IconButton onClick={toggleDrawer}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </Toolbar>
-            <Divider />
-            <List
-              component="nav"
-              sx={{
-                backgroundColor: "#E37400",
-                height: "92vh",
-                borderRadius: "0 0 50px 0",
-                width: "130px",
-              }}
-            >
-              <MainListItems onSelect={handleClick} selectedTab={selected} />
-              <Divider sx={{ my: 1 }} />
-              <SecondaryListItems />
-            </List>
-          </Drawer>
-        
+            <IconButton onClick={toggleDrawer}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </Toolbar>
+          {/* <Divider /> */}
+          <List
+            component="nav"
+            sx={{
+              backgroundColor: "#38775B",
+              height: "92vh",
+              borderRadius: "0 0 50px 0",
+              width: "130px",
+            }}
+          >
+            <MainListItems onSelect={handleClick} selectedTab={selected} />
+            {/* <Divider sx={{ my: 1 }} /> */}
+            <SecondaryListItems />
+          </List>
+        </Drawer>
 
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            // backgroundColor: (theme) =>
+            //   theme.palette.mode === "light"
+            //     ? theme.palette.grey[100]
+            //     : theme.palette.grey[900],
+            background: "url(../src/assets/background.png)",
+            backgroundColor: "#D2EBE6",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
             flexGrow: 1,
             height: "100vh",
+            width: "100vw",
             overflow: "auto",
           }}
         >
-          <Toolbar sx={{ backgroundColor: "#E37400" }} />
+          <Toolbar sx={{ backgroundColor: "#38775B" }} />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
