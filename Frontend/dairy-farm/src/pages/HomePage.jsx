@@ -7,7 +7,7 @@ const HomePage = () => {
     <>
       <Box
         sx={{
-          backgroundImage: "url(../src/assets/farmhouse.jpeg)",
+          backgroundImage: "url(../src/assets/mainbgw.png)",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
