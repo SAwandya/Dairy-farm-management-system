@@ -21,7 +21,7 @@ body {
 }
 
 .dashboard-content {
-    margin: 40px 57px;
+    margin: 40px 74px;
 }
 
 /* Side Bar */
@@ -73,7 +73,7 @@ body {
 .welcome-header {
     display: flex;
     justify-content: space-between;
-    width: 85vw;
+    width: 82vw;
 }
 
 /* Welcome */
@@ -141,4 +141,39 @@ body {
     padding: 20px;
     background-color: #fff;
     border-radius: 15px;
+}
+
+/* Chart Card */
+.barchart {
+    color: #fff !important;
+    background-color: '#252B48';
+}
+
+.MuiChartsAxis-tickLabel {
+    font-family: 'Poppins' !important;
+    font-weight: 600 !important;
+    fill: #fff !important;
+}
+.MuiChartsAxis-left {
+    stroke-width: 0 !important;
+}
+.MuiChartsAxis-right {
+    stroke-width:"0" !important;
+}
+
+.chart-card-container {
+    background-color: #fff;
+    border-radius: 16px;
+    margin-top: 16px;
+    padding: 16px;
+}
+
+.graph-card-title, .graph-card-subtitle, .tank-card-title {
+    font-family: "Poppins", sans-serif !important;
+}
+
+/* Main Dashboard Below Container */
+.dashboard-below-container {
+    display: flex;
+    justify-content: space-between;
 }

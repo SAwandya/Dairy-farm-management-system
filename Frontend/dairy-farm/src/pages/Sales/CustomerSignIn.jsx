@@ -12,10 +12,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import InputField from "../components/InputField";
+import InputField from "../../components/Sales/InputField";
 import { useForm } from "react-hook-form";
-import authService from "../services/authService";
-import { useAuth } from "../contexts/AuthContext";
+import authService from "../../services/Sales/authService";
+import { useAuth } from "../../contexts/AuthContext";
 import { Navigate } from "react-router-dom";
 
 function Copyright(props) {

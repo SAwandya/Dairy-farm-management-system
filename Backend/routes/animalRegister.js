@@ -26,6 +26,7 @@ router.post("/create", async (req, res) => {
         res.status(201).send({ success: true, message: "Data added successfully", data });
     } catch (error) {
         res.status(500).send({ message: error.message || "Some error occurred while creating" });
+        console.log(error)
     }
 });
 
