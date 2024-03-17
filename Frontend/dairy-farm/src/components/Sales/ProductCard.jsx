@@ -7,7 +7,7 @@ import CardOverflow from "@mui/joy/CardOverflow";
 import Chip from "@mui/joy/Chip";
 import Typography from "@mui/joy/Typography";
 import { Link } from "react-router-dom";
-import useGameQueryStore from "../store";
+import useGameQueryStore from "../../store";
 
 const ProductCard = (props) => {
   const { product } = props;
@@ -15,7 +15,7 @@ const ProductCard = (props) => {
   const SetSelectedProduct = useGameQueryStore((s) => s.SetSelectedProduct);
 
   const handleSubmit = (event) => {
-    console.log("submited")
+    console.log("submited");
 
     SetSelectedProduct(product);
   };

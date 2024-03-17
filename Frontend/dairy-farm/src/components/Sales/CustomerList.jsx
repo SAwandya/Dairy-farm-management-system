@@ -6,11 +6,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import SalesTitle from "./SalesTitle";
 import Button from "@mui/material/Button";
-import useGameQueryStore from "../store";
+import useGameQueryStore from "../../store";
 import { Link } from "react-router-dom";
-import publishService from "../services/publishService";
-import useCustomers from "../hooks/useCustomers";
-import approveService from "../services/approveService";
+import publishService from "../../services/Sales/publishService";
+import useCustomers from "../../hooks/useCustomers";
+import approveService from "../../services/Sales/approveService";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -84,7 +84,6 @@ const CustomerList = () => {
   };
 
   const handleApprove = (id, approvel) => {
-    
     const Approvedata = { approvel: approvel };
 
     approveService
@@ -156,7 +155,7 @@ const CustomerList = () => {
         </TableBody>
       </Table>
 
-      {!isLoading ? (
+      {isLoading ? (
         <Box sx={{ width: 1100 }}>
           <Skeleton sx={{ height: 80, marginTop: -1 }} />
           <Skeleton sx={{ height: 80, marginTop: -3 }} animation="wave" />

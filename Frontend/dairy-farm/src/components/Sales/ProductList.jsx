@@ -5,15 +5,16 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import SalesTitle from "./SalesTitle";
-import usePurcahse from "../hooks/usePurcahse";
+import usePurcahse from "../../hooks/usePurcahse";
 import Button from "@mui/material/Button";
-import useProducts from "../hooks/useProducts";
-import useGameQueryStore from "../store";
+import useProducts from "../../hooks/useProducts";
+import useGameQueryStore from "../../store";
 import { Link } from "react-router-dom";
-import publishService from "../services/publishService";
+import publishService from "../../services/Sales/publishService";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
-import productService from "../services/productService";
+import productService from "../../services/Sales/productService";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -172,6 +173,7 @@ const ProductList = () => {
                   variant="outlined"
                   size="medium"
                   color="error"
+                  startIcon={<DeleteIcon />}
                 >
                   Delete
                 </Button>

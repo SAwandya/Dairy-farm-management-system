@@ -2,12 +2,12 @@ import React from "react";
 import { Box } from "@mui/material";
 import ProductCard from "./ProductCard";
 import { Grid } from "@mui/material";
-import useProducts from "../hooks/useProducts";
+import useProducts from "../../hooks/useProducts";
 
 const ProductGrid = () => {
   const { data, error, isLoading } = useProducts();
 
-  const filteredData = data?.filter(product => product.publish == false);
+  const filteredData = data?.filter((product) => product.publish == false);
 
   return (
     <>
