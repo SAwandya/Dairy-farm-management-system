@@ -156,7 +156,7 @@ const CustomerList = () => {
         </TableBody>
       </Table>
 
-      {!isLoading ? (
+      {isLoading ? (
         <Box sx={{ width: 1100 }}>
           <Skeleton sx={{ height: 80, marginTop: -1 }} />
           <Skeleton sx={{ height: 80, marginTop: -3 }} animation="wave" />

@@ -12,7 +12,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import Box from "@mui/material/Box";
 
 export const SecondaryListItems = () => { <React.Fragment>
-  <Box sx={{ width: '100px' }}>
+  <Box>
     <ListSubheader component="div" inset>
       Saved reports
     </ListSubheader>

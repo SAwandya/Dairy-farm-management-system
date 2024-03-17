@@ -14,6 +14,7 @@ import publishService from "../services/publishService";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import productService from "../services/productService";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -172,6 +173,7 @@ const ProductList = () => {
                   variant="outlined"
                   size="medium"
                   color="error"
+                  startIcon={<DeleteIcon />}
                 >
                   Delete
                 </Button>
