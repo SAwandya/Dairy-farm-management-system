@@ -122,6 +122,10 @@ const router = createBrowserRouter([
   {
     path: "/financedashboard",
     element: <FinanceMainDashboard/>
+  },
+  {
+    path: "/financetrans",
+    element: <FinanceTransactions/>
   }
 
 ]);
