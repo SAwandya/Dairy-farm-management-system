@@ -18,6 +18,7 @@
     "@mui/material": "^5.15.13",
     "@mui/material-next": "^6.0.0-alpha.123",
     "@mui/x-charts": "^6.19.5",
+    "@mui/x-date-pickers": "^6.19.7",
     "@tanstack/react-query": "^5.18.1",
     "axios": "^1.6.7",
     "jwt-decode": "^4.0.0",
