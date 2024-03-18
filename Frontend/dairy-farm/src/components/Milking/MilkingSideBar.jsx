@@ -18,7 +18,12 @@ function Sidebar() {
   };
 
   return (
-    <Box className="sidebar">
+    <Box
+      className="sidebar"
+      sx={{
+        position: 'fixed'
+      }}
+    >
       <Box className="sidebar-logo-container">
         <img
           className="sidebar-logo"
