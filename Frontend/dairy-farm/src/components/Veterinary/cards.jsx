@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 
 export default function BasicCard(props) {
   return (
-    <Card sx={{ minWidth: 275, borderRadius: 5, marginLeft: 0, backgroundColor: '#00ff1a2b', maxHeight: '150px', position: 'relative' }}>
+    <Card sx={{ width: 300, borderRadius: 5, backgroundColor: '#00ff1a2b', maxHeight: '150px', position: 'relative' }}>
       <CardContent>
         <Typography sx={{ fontSize: 20, fontStyle: 'poppins' }} color="#000000" gutterBottom>
           {props.title}
