@@ -15,7 +15,7 @@ const data = [
 
 function Graph() {
   return (
-    <Card className="graph-container">
+    <Card className="graph-contain">
       <CardContent>
         <Typography variant="h5" component="h2">
           Monthly Expenses and Incomes

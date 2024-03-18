@@ -10,7 +10,7 @@ const data = [
 
 const COLORS = ['#0088FE', '#00C49F'];
 
-function PieChart() {
+function MyPieChart() {
   return (
     <Card className="pie-chart-container">
       <CardContent>
@@ -41,4 +41,4 @@ function PieChart() {
   );
 }
 
-export default PieChart;
+export default MyPieChart;
