@@ -11,6 +11,7 @@ import CheckOut from "./components/Sales/CheckOut";
 import ProductUpdate from "./pages/Sales/ProductUpdate";
 import SalesDashboard from "./pages/Sales/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
+import MilkingSessionSchedule from "./pages/Milking/MilkingSessionSchedule";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
     path: "/milkingdashboard",
     element: <MilkingDashboard/>,
   },
+  {
+    path: "/scheduleForm",
+    element: <MilkingSessionSchedule/>
+  }
 ]);
 
 export default router;
