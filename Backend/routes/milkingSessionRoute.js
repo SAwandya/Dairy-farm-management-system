@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const milkingSession = require('../models/milkingSession');
 
-// Route to add a new milk session
+
 router.post('/', async (req, res) => {
     if (!req.body) {
         return res.status(400).send({ message: "Content can not be empty" });
@@ -24,7 +24,5 @@ router.post('/', async (req, res) => {
         res.status(500).json({ success: false, error: 'Failed to add milk session' });
     }
 });
-
-// Add more routes for updating, deleting, and fetching milk sessions as needed
 
 module.exports = router;
