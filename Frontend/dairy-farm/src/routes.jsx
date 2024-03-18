@@ -15,7 +15,10 @@ import MilkingDashboard from "./pages/Milking/MilkingDashboard";
 import PasturePage from "./pages/Grazing/PasturePage";
 import Session from "./pages/Grazing/GrazingSession";
 import PastureInfo from "./pages/Grazing/PastureInfo";
-
+import Employee from "./pages/Employees/Employee";
+import CreateEmployee from "./pages/Employees/CreateEmployee";
+import UpdateEmployee from "./pages/Employees/UpdateEmployee"
+import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 
 const router = createBrowserRouter([
   {
@@ -91,10 +94,25 @@ const router = createBrowserRouter([
     path: "/pastureinfo",
     element: <PastureInfo/>,
   },
+ 
+  {
+    path: "/employeedashboard",
+    element: <Employee/>,
+  },
+  {
+    path: "/createEmployee",
+    element: <CreateEmployee/>,
+  },
+  {
+    path: "/updateEmployee/:id",
+    element: <UpdateEmployee/>,
+  },
   
+  {
+    path: "/supplierdashboard/",
+    element: <SupplierDashbord/>,
+  },
 
-  
-  
 
 ]);
 

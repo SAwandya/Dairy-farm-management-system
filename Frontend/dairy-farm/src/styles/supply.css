@@ -1,0 +1,5 @@
+.dashboard-below-container-supply {
+    display: flex;
+    width: 1000px;
+    /* justify-content: space-between; */
+}
