@@ -37,34 +37,19 @@ const SupplierTable = () => {
         size: 80,
       },
       {
-        accessorKey: 'firstName',
-        header: 'First Name',
+        accessorKey: 'name',
+        header: 'Supplier Name',
         muiEditTextFieldProps: {
           required: true,
-          error: !!validationErrors?.firstName,
-          helperText: validationErrors?.firstName,
+          error: !!validationErrors?.name,
+          helperText: validationErrors?.name,
           //remove any previous validation errors when user focuses on the input
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              firstName: undefined,
+              name: undefined,
             }),
           //optionally add validation checking for onBlur or onChange
-        },
-      },
-      {
-        accessorKey: 'lastName',
-        header: 'Last Name',
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors?.lastName,
-          helperText: validationErrors?.lastName,
-          //remove any previous validation errors when user focuses on the input
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              lastName: undefined,
-            }),
         },
       },
       {
@@ -84,14 +69,30 @@ const SupplierTable = () => {
         },
       },
       {
-        accessorKey: 'state',
-        header: 'State',
+        accessorKey: 'itemType',
+        header: 'Item Type',
+        muiEditTextFieldProps: {
+          required: true,
+          error: !!validationErrors?.itemType,
+          helperText: validationErrors?.itemType,
+          //remove any previous validation errors when user focuses on the input
+          onFocus: () =>
+            setValidationErrors({
+              ...validationErrors,
+              itemType: undefined,
+            }),
+        },
+      },
+    
+      {
+        accessorKey: 'deliveryDate',
+        header: 'Delivery Date',
         editVariant: 'select',
         editSelectOptions: usStates,
         muiEditTextFieldProps: {
           select: true,
-          error: !!validationErrors?.state,
-          helperText: validationErrors?.state,
+          error: !!validationErrors?.deliveryDate,
+          helperText: validationErrors?.deliveryDate,
         },
       },
     ],
