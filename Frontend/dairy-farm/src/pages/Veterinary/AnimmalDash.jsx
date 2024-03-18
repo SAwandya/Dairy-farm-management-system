@@ -9,7 +9,7 @@ import Sidebar from '../../components/Veterinary/vetNav';
 
 function VetDashboard() {
     return (
-        <div style={{ display: 'flex', height: '100vh' }}> {/* Set height to 100vh to fill the entire viewport */}
+        <div style={{ display: 'flex', height: '100vh' }}>
             <Sidebar />
             <div style={{ 
                 flex: 1, /* Use flex to allow content to fill available space */
@@ -22,7 +22,7 @@ function VetDashboard() {
                 <h1>Duvini Ranaweera</h1>
                 
                 <h4 style={{ marginTop: 20, marginBottom: '20px' }}>Overview</h4>
-                <div className='card-horizontal' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                <div className='card-horizontal' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between',width:'600',marginRight:'130px',marginLeft:'130px' }}>
                     <BasicCard title='Total Cows' imgs={cow} data={12} />
                     <BasicCard title='Sick Cows' imgs={cow} data={2} />
                     <BasicCard title='Composition' imgs={cow} data={2} />
