@@ -11,6 +11,10 @@ import CheckOut from "./components/Sales/CheckOut";
 import ProductUpdate from "./pages/Sales/ProductUpdate";
 import SalesDashboard from "./pages/Sales/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
+import Employee from "./pages/Employees/Employee";
+import CreateEmployee from "./pages/Employees/CreateEmployee";
+import UpdateEmployee from "./pages/Employees/UpdateEmployee"
+import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 
 const router = createBrowserRouter([
   {
@@ -71,6 +75,24 @@ const router = createBrowserRouter([
     path: "/milkingdashboard",
     element: <MilkingDashboard/>,
   },
+  {
+    path: "/employeedashboard",
+    element: <Employee/>,
+  },
+  {
+    path: "/createEmployee",
+    element: <CreateEmployee/>,
+  },
+  {
+    path: "/updateEmployee/:id",
+    element: <UpdateEmployee/>,
+  },
+  
+  {
+    path: "/supplierdashboard/",
+    element: <SupplierDashbord/>,
+  },
+
 ]);
 
 export default router;

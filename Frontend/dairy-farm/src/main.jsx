@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard.jsx";
 
 const queryClient = new QueryClient();
 
