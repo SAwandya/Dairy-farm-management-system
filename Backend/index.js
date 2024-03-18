@@ -7,20 +7,23 @@ const cors = require("cors");
 const config = require("config");
 const auth = require("./routes/customerAuth");
 const purchase = require("./routes/purchases");
-const animalReg =require("./routes/animalRegister");
+const animalReg = require("./routes/animalRegister");
 const messages = require("./routes/messages");
 const milkingSessionRoute = require('./routes/milkingSessionRoute');
+const pastureDetailsRouter = require("./routes/pastureDetails.js");
+const employee = require("./routes/eRegister")
+const supplier = require("./routes/supplier");
 
 if (!config.get("jwtPrivateKey")) {
-  console.log("FATA ERROR: jwtPrivateKey is not defined");
-  process.exit(1);
+    console.log("FATA ERROR: jwtPrivateKey is not defined");
+    process.exit(1);
 }
 
 mongoose
-  .connect(
-    "mongodb+srv://sachilaawandya:PvBJDLO7Df1PvBVU@dfms.zgzy5mn.mongodb.net/?retryWrites=true&w=majority&appName=DFMS")
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log(err + ", Could not connect to MongoDB"));
+    .connect(
+        "mongodb+srv://sachilaawandya:PvBJDLO7Df1PvBVU@dfms.zgzy5mn.mongodb.net/?retryWrites=true&w=majority&appName=DFMS")
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((err) => console.log(err + ", Could not connect to MongoDB"));
 
 app.use(cors()); //Enable CORS for all routes
 
@@ -34,11 +37,19 @@ app.use("/api/auth", auth);
 
 app.use("/api/purchase", purchase);
 
-app.use("/api/animalReg",animalReg);
+app.use("/api/animalReg", animalReg);
+
+app.use("/api/messages", messages);
+
+app.use("/api/pastureDetails", pastureDetailsRouter);
 
 app.use("/api/messages", messages);
 
 app.use("/api/milkingSessionRoute", milkingSessionRoute);
+
+app.use("/api/employee", employee);
+
+app.use("/api/supplier", supplier);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
