@@ -12,6 +12,7 @@ import CheckOut from "./components/Sales/CheckOut";
 import ProductUpdate from "./pages/Sales/ProductUpdate";
 import SalesDashboard from "./pages/Sales/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
+import MilkingSessionSchedule from "./pages/Milking/MilkingSessionSchedule";
 import PasturePage from "./pages/Grazing/PasturePage";
 import Session from "./pages/Grazing/GrazingSession";
 import PastureInfo from "./pages/Grazing/PastureInfo";
@@ -81,6 +82,11 @@ const router = createBrowserRouter([
   },
 
   {
+    path: "/scheduleForm",
+    element: <MilkingSessionSchedule/>
+  },
+
+  {
     path: "/pasture",
     element: <PasturePage />,
   },
@@ -112,7 +118,6 @@ const router = createBrowserRouter([
     path: "/supplierdashboard/",
     element: <SupplierDashbord/>,
   },
-
 
 ]);
 
