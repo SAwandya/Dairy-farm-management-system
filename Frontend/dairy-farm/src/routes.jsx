@@ -14,6 +14,8 @@ import MilkingDashboard from "./pages/Milking/MilkingDashboard";
 import Employee from "./pages/Employees/Employee";
 import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
+import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -84,6 +86,11 @@ const router = createBrowserRouter([
   {
     path: "/updateEmployee/:id",
     element: <UpdateEmployee/>,
+  },
+  
+  {
+    path: "/supplierdashboard/",
+    element: <SupplierDashbord/>,
   },
 
 ]);
