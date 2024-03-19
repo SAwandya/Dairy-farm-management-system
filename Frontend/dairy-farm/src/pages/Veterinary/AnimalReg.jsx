@@ -7,6 +7,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import RegisterForm from '../../components/Veterinary/register_form';
+import Sidebar from '../../components/Veterinary/vetNav';
+import DateV from '../../components/Veterinary/DateV';
+
+//dubini
 
 axios.defaults.baseURL = "http://localhost:3000/api/animalReg/";
 

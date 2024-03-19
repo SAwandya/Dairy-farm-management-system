@@ -6,6 +6,8 @@ import cow from '../../assets/cow.png';
 import Tabs from '../../components/Veterinary/tab';
 
 
+//dubini
+
 function VetDashboard() {
   
     return (

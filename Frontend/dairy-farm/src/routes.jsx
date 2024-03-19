@@ -16,6 +16,8 @@ import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
 import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
+import ProductionDashboard from "./pages/Production/ProductionDashboard";
+import ProcessPlanning from "./pages/Production/ProcessPlanning";
 import HomePageM from "./pages/HomeMain";
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 
@@ -113,10 +115,13 @@ const router = createBrowserRouter([
    element: <ProcessPlanning/>
   },
     
-  // {
-  //   path: "/financetrans",
-  //   element: <FinanceTransactions/>
-  // }
+  {
+    path: "/financetrans",
+    element: <FinanceTransactions/>
+  }
+  
+
+
 
 ]);
 
