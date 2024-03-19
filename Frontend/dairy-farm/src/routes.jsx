@@ -16,6 +16,7 @@ import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
 import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
+import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 
 const router = createBrowserRouter([
   {
