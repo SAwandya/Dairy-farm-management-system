@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select, TextField, Button, Box, Typography } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ScheduleFormContent = () => {
     const [sessionId, setSessionId] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [cowGroup, setCowGroup] = useState('');
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('Incomplete');
     const [specialNotes, setSpecialNotes] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(e);
     
         axios.post("http://localhost:3000/api/milkingSessionRoute", {
             sessionId,
@@ -25,8 +25,15 @@ const ScheduleFormContent = () => {
             specialNotes
         })
         .then(result => {
-            console.log(result);
-            navigate('/milkingdashboard');
+            // console.log(result);
+            // navigate('/milkingdashboard');
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Successfuly added",
+                showConfirmButton: false,
+                timer: 1500
+            });
         })
         .catch(err => console.log(err));
         
@@ -102,19 +109,6 @@ const ScheduleFormContent = () => {
                             required
                             margin="normal"
                         />
-                        <FormControl fullWidth margin="normal">
-                            <InputLabel>Status</InputLabel>
-                            <Select
-                                name="status"
-                                value={status}
-                                onChange={(e) => setStatus(e.target.value)}
-                                required
-                            >
-                                <MenuItem value="Completed">Completed</MenuItem>
-                                <MenuItem value="Incomplete">Incomplete</MenuItem>
-                                <MenuItem value="Cancelled">Cancelled</MenuItem>
-                            </Select>
-                        </FormControl>
                         <TextField
                             name="specialNotes"
                             label="Special Notes"
