@@ -16,7 +16,7 @@ export default function BgCard(props) {
           <Link to="/AnimalReg">
             <Button
               borderRadius='5px'
-              sx={{ color: 'black', fontFamily: 'Poppins, sans-serif', fontSize: '20px' }}
+              sx={{ color: '#00000089', fontFamily: 'Poppins, sans-serif', fontSize: '20px',marginLeft:'1030px' }}
             >
               View More
             </Button>

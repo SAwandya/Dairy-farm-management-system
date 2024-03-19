@@ -196,6 +196,7 @@ function AnimalRegistry() {
              padding: '10px', 
              margin: '50px ', 
              marginBottom: '20px', 
+            fontFamily: 'Poppins, sans-serif'
         }}>
              <DateV />
                 <h4>Welcome Back,</h4>
@@ -230,9 +231,9 @@ function AnimalRegistry() {
                     flex: 1, /* Use flex to allow content to fill available space */
                     padding: '10px', 
                     margin: '50px ', 
-                    marginBottom: '20px', 
+                    marginBottom: '20px',
                }}>
-                    <CustomizedTables
+                    <CustomizedTables 
                         headers={headers}
                         rows={dataList.length > 0 ? dataList.map(item => ({
                             "Ear Tag": item.earTag,

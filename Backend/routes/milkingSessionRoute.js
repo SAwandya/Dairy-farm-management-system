@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const milkingSession = require('../models/milkingSession');
 
-// Route to add a new milk session
+
 router.post('/', async (req, res) => {
     if (!req.body) {
         return res.status(400).send({ message: "Content can not be empty" });
@@ -25,6 +25,14 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Add more routes for updating, deleting, and fetching milk sessions as needed
+router.get('/', async (req, res) => {
+    try {
+        const sessions = await milkingSession.find();
+        res.status(200).json({ success: true, data: sessions });
+    } catch (error) {
+        console.error('Error fetching milk sessions:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch milk sessions' });
+    }
+});
 
 module.exports = router;
