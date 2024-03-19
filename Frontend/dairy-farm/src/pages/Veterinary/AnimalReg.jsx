@@ -10,7 +10,7 @@ import RegisterForm from '../../components/Veterinary/register_form';
 import Sidebar from '../../components/Veterinary/vetNav';
 import DateV from '../../components/Veterinary/DateV';
 
-
+//dubini
 
 function AnimalRegistry() {
     const [addSection, setAddSection] = useState(false);

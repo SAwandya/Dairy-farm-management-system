@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import WelcomeCard from './Welcome/WelcomeCard'
-import '../../styles/Finance/MainDashboard/DashboardContent.css'
+import WelcomeCard from '../../../components/Finance/DashboardContent/Welcome/WelcomeCard'
+import '../../../styles/Finance/MainDashboard/DashboardContent.css'
 
 function TransactionsDashboard() {
     return (
