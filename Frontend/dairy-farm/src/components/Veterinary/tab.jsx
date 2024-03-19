@@ -45,7 +45,7 @@ export default function BasicTabs() {
 
   const getFetchData = async () => {
     try {
-      const response = await axios.get("/retrieve");
+      const response = await axios.get("http://localhost:3000/api/animalReg/retrieve");
       if (response.data.success) {
         setDataList(response.data.data);
       }
@@ -72,8 +72,8 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%', color: '#E7F1F7', fontFamily: 'Poppins, sans-serif' }}>
-      <Box sx={{ borderBottom: 1, display: 'flex', backgroundColor: '#E7F1F7'  }}>
+    <Box sx={{  color: '#E7F1F7', fontFamily: 'Poppins, sans-serif' }}>
+      <Box sx={{ borderBottom: 1, display: 'flex', backgroundColor: '#E7F1F7' ,marginRight:'10px' }}>
         <Tabs
           value={value}
           onChange={handleChange}

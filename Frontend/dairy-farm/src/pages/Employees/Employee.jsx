@@ -11,8 +11,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import TableCard from '../../components/Employees/tablecards';
-
+import Esidebar from "../../components/Employees/esidebar";
 import axios from 'axios';
+
 
 
 function Employee() {
@@ -20,7 +21,7 @@ function Employee() {
     const [loading, setLoading] = useState(true);
   
     useEffect(() => {
-        axios.get("http://localhost:5000")
+        axios.get("http://localhost:3000/api/employee/")
         .then(result => {
             console.log(result.data);
             // Set the dataList state with the fetched data
@@ -71,7 +72,7 @@ function Employee() {
 
     // Sample handle delete function
     const handleDelete = (id) => {
-        axios.delete('http://localhost:5000/deleteEmployee/'+id)
+        axios.delete('http://localhost:3000/api/employee/deleteEmployee/'+id)
         .then(res=>{console.log(res)
         window.location.reload()})
         .catch(err=>console.log(err))
@@ -97,8 +98,10 @@ function Employee() {
     ];
 
     return (
-        
-        
+        <div>
+        <div style={{ display: 'flex', minWidth: '1036px' }}>
+   <Esidebar/>
+
 
         <Box sx={{ marginLeft: '12rem',marginTop:'50px' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
@@ -178,8 +181,10 @@ function Employee() {
                 />
                 </TableCard>
             </Box>
-       
+       </div>
+       </div>
     );
+    
 }
 
 export default Employee;

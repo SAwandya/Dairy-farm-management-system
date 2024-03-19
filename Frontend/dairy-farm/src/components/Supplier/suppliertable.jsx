@@ -1,10 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState } from "react";
 import {
   MRT_EditActionButtons,
   MaterialReactTable,
   // createRow,
   useMaterialReactTable,
-} from 'material-react-table';
+} from "material-react-table";
 import {
   Box,
   Button,
@@ -13,17 +13,17 @@ import {
   DialogTitle,
   IconButton,
   Tooltip,
-} from '@mui/material';
+} from "@mui/material";
 import {
   QueryClient,
   QueryClientProvider,
   useMutation,
   useQuery,
   useQueryClient,
-} from '@tanstack/react-query';
-import { fakeData, usStates } from './makeData';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+} from "@tanstack/react-query";
+import { fakeData, usStates } from "./makeData";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const SupplierTable = () => {
   const [validationErrors, setValidationErrors] = useState({});
@@ -31,14 +31,15 @@ const SupplierTable = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'id',
-        header: 'Id',
+        accessorKey: "_id",
+        header: "Id",
         enableEditing: false,
         size: 80,
+        className: "hidden",
       },
       {
-        accessorKey: 'name',
-        header: 'Supplier Name',
+        accessorKey: "name",
+        header: "Supplier Name",
         muiEditTextFieldProps: {
           required: true,
           error: !!validationErrors?.name,
@@ -53,10 +54,10 @@ const SupplierTable = () => {
         },
       },
       {
-        accessorKey: 'email',
-        header: 'Email',
+        accessorKey: "email",
+        header: "Email",
         muiEditTextFieldProps: {
-          type: 'email',
+          type: "email",
           required: true,
           error: !!validationErrors?.email,
           helperText: validationErrors?.email,
@@ -69,8 +70,8 @@ const SupplierTable = () => {
         },
       },
       {
-        accessorKey: 'itemType',
-        header: 'Item Type',
+        accessorKey: "itemType",
+        header: "Item Type",
         muiEditTextFieldProps: {
           required: true,
           error: !!validationErrors?.itemType,
@@ -83,20 +84,25 @@ const SupplierTable = () => {
             }),
         },
       },
-    
       {
-        accessorKey: 'deliveryDate',
-        header: 'Delivery Date',
-        editVariant: 'select',
-        editSelectOptions: usStates,
+        accessorKey: "deliveryDate",
+        header: "Delivery Date",
         muiEditTextFieldProps: {
-          select: true,
+          type: "date",
+          required: true,
           error: !!validationErrors?.deliveryDate,
           helperText: validationErrors?.deliveryDate,
+          //remove any previous validation errors when user focuses on the input
+          onFocus: () =>
+            setValidationErrors({
+              ...validationErrors,
+              deliveryDate: undefined,
+            }),
+          //optionally add validation checking for onBlur or onChange
         },
       },
     ],
-    [validationErrors],
+    [validationErrors]
   );
 
   //call CREATE hook
@@ -118,52 +124,51 @@ const SupplierTable = () => {
 
   //CREATE action
   const handleCreateUser = async ({ values, table }) => {
-    const newValidationErrors = validateUser(values);
-    if (Object.values(newValidationErrors).some((error) => error)) {
-      setValidationErrors(newValidationErrors);
-      return;
-    }
-    setValidationErrors({});
+    // const newValidationErrors = validateUser(values);
+    // if (Object.values(newValidationErrors).some((error) => error)) {
+    //   setValidationErrors(newValidationErrors);
+    //   return;
+    // }
+    // setValidationErrors({});
     await createUser(values);
     table.setCreatingRow(null); //exit creating mode
   };
 
   //UPDATE action
   const handleSaveUser = async ({ values, table }) => {
-    const newValidationErrors = validateUser(values);
-    if (Object.values(newValidationErrors).some((error) => error)) {
-      setValidationErrors(newValidationErrors);
-      return;
-    }
-    setValidationErrors({});
+    // const newValidationErrors = validateUser(values);
+    // if (Object.values(newValidationErrors).some((error) => error)) {
+    //   setValidationErrors(newValidationErrors);
+    //   return;
+    // }
+    // setValidationErrors({});
     await updateUser(values);
     table.setEditingRow(null); //exit editing mode
   };
 
   //DELETE action
   const openDeleteConfirmModal = (row) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      deleteUser(row.original.id);
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      deleteUser(row.original._id);
     }
   };
 
   const table = useMaterialReactTable({
     columns,
     data: fetchedUsers,
-    createDisplayMode: 'modal', //default ('row', and 'custom' are also available)
-    editDisplayMode: 'modal', //default ('row', 'cell', 'table', and 'custom' are also available)
+    createDisplayMode: "modal", //default ('row', and 'custom' are also available)
+    editDisplayMode: "modal", //default ('row', 'cell', 'table', and 'custom' are also available)
     enableEditing: true,
     getRowId: (row) => row.id,
     muiToolbarAlertBannerProps: isLoadingUsersError
       ? {
-          color: 'error',
-          children: 'Error loading data',
+          color: "error",
+          children: "Error loading data",
         }
       : undefined,
     muiTableContainerProps: {
       sx: {
-        
-        minHeight: '500px',
+        minHeight: "500px",
       },
     },
     onCreatingRowCancel: () => setValidationErrors({}),
@@ -175,7 +180,7 @@ const SupplierTable = () => {
       <>
         <DialogTitle variant="h3">Create New User</DialogTitle>
         <DialogContent
-          sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+          sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
         >
           {internalEditComponents} {/* or render custom edit components here */}
         </DialogContent>
@@ -189,7 +194,7 @@ const SupplierTable = () => {
       <>
         <DialogTitle variant="h3">Edit User</DialogTitle>
         <DialogContent
-          sx={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+          sx={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
         >
           {internalEditComponents} {/* or render custom edit components here */}
         </DialogContent>
@@ -199,7 +204,7 @@ const SupplierTable = () => {
       </>
     ),
     renderRowActions: ({ row, table }) => (
-      <Box sx={{ display: 'flex', gap: '1rem' }}>
+      <Box sx={{ display: "flex", gap: "1rem" }}>
         <Tooltip title="Edit">
           <IconButton onClick={() => table.setEditingRow(row)}>
             <EditIcon />
@@ -244,32 +249,33 @@ function useCreateUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (user) => {
-      //send api update request here
-      await new Promise((resolve) => setTimeout(resolve, 1000)); //fake api call
-      return Promise.resolve();
+      const response = await fetch("http://localhost:3000/api/supplier", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({...user, _id: undefined}),
+      });
+      return response.json();
     },
-    //client side optimistic update
     onMutate: (newUserInfo) => {
-      queryClient.setQueryData(['users'], (prevUsers) => [
+      queryClient.setQueryData(["users"], (prevUsers) => [
         ...prevUsers,
         {
           ...newUserInfo,
-          id: (Math.random() + 1).toString(36).substring(7),
         },
       ]);
     },
-    // onSettled: () => queryClient.invalidateQueries({ queryKey: ['users'] }), //refetch users after mutation, disabled for demo
   });
 }
 
 //READ hook (get users from api)
 function useGetUsers() {
   return useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: async () => {
-      //send api request here
-      await new Promise((resolve) => setTimeout(resolve, 1000)); //fake api call
-      return Promise.resolve(fakeData);
+      const response = await fetch("http://localhost:3000/api/supplier");
+      return response.json();
     },
     refetchOnWindowFocus: false,
   });
@@ -280,19 +286,25 @@ function useUpdateUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (user) => {
-      //send api update request here
-      await new Promise((resolve) => setTimeout(resolve, 1000)); //fake api call
-      return Promise.resolve();
+      const response = await fetch(
+        `http://localhost:3000/api/supplier/${user._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({...user, _id: undefined}),
+        }
+      );
+      return response.json();
     },
-    //client side optimistic update
     onMutate: (newUserInfo) => {
-      queryClient.setQueryData(['users'], (prevUsers) =>
+      queryClient.setQueryData(["users"], (prevUsers) =>
         prevUsers?.map((prevUser) =>
-          prevUser.id === newUserInfo.id ? newUserInfo : prevUser,
-        ),
+          prevUser.id === newUserInfo.id ? newUserInfo : prevUser
+        )
       );
     },
-    // onSettled: () => queryClient.invalidateQueries({ queryKey: ['users'] }), //refetch users after mutation, disabled for demo
   });
 }
 
@@ -301,17 +313,19 @@ function useDeleteUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (userId) => {
-      //send api update request here
-      await new Promise((resolve) => setTimeout(resolve, 1000)); //fake api call
-      return Promise.resolve();
+      const response = await fetch(
+        `http://localhost:3000/api/supplier/${userId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      return response.json();
     },
-    //client side optimistic update
     onMutate: (userId) => {
-      queryClient.setQueryData(['users'], (prevUsers) =>
-        prevUsers?.filter((user) => user.id !== userId),
+      queryClient.setQueryData(["users"], (prevUsers) =>
+        prevUsers?.filter((user) => user._id !== userId)
       );
     },
-    // onSettled: () => queryClient.invalidateQueries({ queryKey: ['users'] }), //refetch users after mutation, disabled for demo
   });
 }
 
@@ -332,15 +346,18 @@ const validateEmail = (email) =>
   email
     .toLowerCase()
     .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 
 function validateUser(user) {
   return {
     firstName: !validateRequired(user.firstName)
-      ? 'First Name is Required'
-      : '',
-    lastName: !validateRequired(user.lastName) ? 'Last Name is Required' : '',
-    email: !validateEmail(user.email) ? 'Incorrect Email Format' : '',
+      ? "First Name is Required"
+      : "",
+    lastName: !validateRequired(user.lastName) ? "Last Name is Required" : "",
+    email: !validateEmail(user.email) ? "Incorrect Email Format" : "",
   };
+
 }
+
+
