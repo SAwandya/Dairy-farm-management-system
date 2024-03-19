@@ -98,10 +98,20 @@ const router = createBrowserRouter([
     path: "/financedashboard",
     element: <FinanceMainDashboard/>
   },
+
+  {path: "/productiondashboard",
+   element: <ProductionDashboard/>
+  },
+    
+  {path: "/processplanning",
+   element: <ProcessPlanning/>
+  },
+    
   {
     path: "/financetrans",
     element: <FinanceTransactions/>
   }
+  
 
 ]);
 
