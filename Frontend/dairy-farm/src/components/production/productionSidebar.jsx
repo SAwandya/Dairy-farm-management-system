@@ -38,27 +38,27 @@ function Sidebar() {
           />
           <NavigationLink
             icon={<AccessTimeFilledIcon />}
-            text="Sessions"
+            text="Process"
             isActive={activeSection === "sessions"}
             onClick={() => handleNavigation("sessions")}
           />
           <NavigationLink
             icon={<DonutSmallIcon />}
-            text="Data"
+            text="QC Test"
             isActive={activeSection === "milking-data"}
             onClick={() => handleNavigation("milking-data")}
           />
           <NavigationLink
             icon={<WaterDropIcon />}
+            text="Inventory"
+            isActive={activeSection === "inventory"}
+            onClick={() => handleNavigation("inventory")}
+          />
+           <NavigationLink
+            icon={<AssessmentIcon />}
             text="Storage"
             isActive={activeSection === "storage"}
             onClick={() => handleNavigation("storage")}
-          />
-          <NavigationLink
-            icon={<AssessmentIcon />}
-            text="Reports"
-            isActive={activeSection === "reports"}
-            onClick={() => handleNavigation("reports")}
           />
         </List>
       </Box>

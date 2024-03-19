@@ -21,6 +21,8 @@ import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
 import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
+import ProductionDashboard from "./pages/Production/ProductionDashboard";
+import ProcessPlanning from "./pages/Production/ProcessPlanning";
 
 const router = createBrowserRouter([
   {
@@ -123,10 +125,18 @@ const router = createBrowserRouter([
     path: "/financedashboard",
     element: <FinanceMainDashboard/>
   },
+
+  {path: "/productiondashboard",
+   element: <ProductionDashboard/>
+  },
+  {path: "/processplanning",
+   element: <ProcessPlanning/>
+  },
   {
     path: "/financetrans",
     element: <FinanceTransactions/>
   }
+
 
 ]);
 

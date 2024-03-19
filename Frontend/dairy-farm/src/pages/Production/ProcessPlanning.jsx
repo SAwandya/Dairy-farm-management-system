@@ -1,9 +1,9 @@
 import React from "react";
-import DashboardContent from "../../components/Production/DashboardContent";
 import ProductionSidebar from "../../components/production/ProductionSidebar"
+import ProcessContent from "../../components/production/ProcessPageContent";
 import Container from "@mui/material/Container";
 
-function ProductionDashboard() {
+function ProcessPage() {
     return (
         <Container
             className="main-container"
@@ -13,10 +13,9 @@ function ProductionDashboard() {
             }}
         >
             <ProductionSidebar />
-            <DashboardContent />
-            
+            <ProcessContent />
         </Container>
     );
 }
 
-export default ProductionDashboard;
+export default ProcessPage;
