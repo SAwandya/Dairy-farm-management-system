@@ -6,7 +6,7 @@ function Name() {
     return (
         <Box className="welcome-name">
             <Typography variant="h4" className='welcome-text'>Welcome Back!</Typography>
-            <Typography variant="h1" className='welcome-name-value'>Mr. Shehan Wickramasooriya</Typography>
+            <Typography variant="h1" className='welcome-name-value'>Mr. Hasintha Dilshan</Typography>
         </Box>
     );
   }

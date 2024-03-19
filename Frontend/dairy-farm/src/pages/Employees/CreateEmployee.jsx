@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import CustomTextField from '../../components/Employees/textfield'; 
 import em1 from '../../assets/em1.png'
 import Esidebar from "../../components/Employees/esidebar";
+import Swal from 'sweetalert2';
+
 function CreateEmployee() {
   const [employeeId, setEmployeeId] = useState('');
   const [employeeName, setEmployeeName] = useState('');
@@ -19,29 +21,49 @@ function CreateEmployee() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-     axios.post("http://localhost:5000/createEmployee", {
-      employeeId,
+  
+    try {
+      const response = await axios.post("http://localhost:3000/api/employee/createEmployee", {
+        employeeId,
         employeeName,
         position,
         contactNumber,
         email,
         basicSalary
-      })
-      .then(result => {
-        console.log(result);
+      });
+  
+      if (response.data.success) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Successfully added",
+          showConfirmButton: false,
+          timer: 1500
+        });
         navigate('/employeedashboard');
-      })
-      .catch(err => console.log(err));
-    
+      } else {
+        Swal.fire({
+          icon: "success",
+          title: "Successfully added",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        navigate('/employeedashboard');
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      });
+    }
   };
+  
 
   return (
-    <div>
-       <div style={{ display: 'flex', minWidth: '1036px' }}>
-   <Esidebar/>
     <Box
-      height={550}
+      height={500}
       width={1000}
       my={4}
       display="flex"
@@ -125,8 +147,6 @@ function CreateEmployee() {
         </form>
       </Box>
     </Box>
-    </div>
-    </div>
   );
 }
 

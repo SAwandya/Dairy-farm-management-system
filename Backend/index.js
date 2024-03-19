@@ -9,11 +9,7 @@ const auth = require("./routes/customerAuth");
 const purchase = require("./routes/purchases");
 const animalReg = require("./routes/animalRegister");
 const messages = require("./routes/messages");
-const milkingSessionRoute = require('./routes/milkingSessionRoute');
-const pastureDetailsRouter = require("./routes/pastureDetails.js");
 const employee = require("./routes/eRegister")
-const supplier = require("./routes/supplier");
-
 if (!config.get("jwtPrivateKey")) {
     console.log("FATA ERROR: jwtPrivateKey is not defined");
     process.exit(1);
@@ -39,17 +35,8 @@ app.use("/api/purchase", purchase);
 
 app.use("/api/animalReg", animalReg);
 
-app.use("/api/messages", messages);
-
-app.use("/api/pastureDetails", pastureDetailsRouter);
-
-app.use("/api/messages", messages);
-
-app.use("/api/milkingSessionRoute", milkingSessionRoute);
+app.use("/api/messages", messages)
 
 app.use("/api/employee", employee);
-
-app.use("/api/supplier", supplier);
-
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
