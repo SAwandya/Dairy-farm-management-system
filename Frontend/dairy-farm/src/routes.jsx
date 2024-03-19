@@ -134,8 +134,6 @@ const router = createBrowserRouter([
     element: <MilkingSessions/>
   },
 
-
-
 ]);
 
 export default router;
