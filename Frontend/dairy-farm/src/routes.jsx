@@ -23,6 +23,7 @@ import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
 import ProductionDashboard from "./pages/Production/ProductionDashboard";
 import ProcessPlanning from "./pages/Production/ProcessPlanning";
+import MilkingSessions from './pages/Milking/MilkingSessions';
 
 const router = createBrowserRouter([
   {
@@ -124,6 +125,10 @@ const router = createBrowserRouter([
   {
     path: "/financedashboard",
     element: <FinanceMainDashboard/>
+  },
+  {
+    path: "/milkingSessions",
+    element: <MilkingSessions/>
   },
 
   // {
