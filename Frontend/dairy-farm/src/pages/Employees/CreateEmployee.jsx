@@ -23,7 +23,7 @@ function CreateEmployee() {
     e.preventDefault();
   
     try {
-      const response = await axios.post("http://localhost:5000/createEmployee", {
+      const response = await axios.post("http://localhost:3000/api/employee/createEmployee", {
         employeeId,
         employeeName,
         position,
@@ -62,11 +62,8 @@ function CreateEmployee() {
   
 
   return (
-    <div>
-       <div style={{ display: 'flex', minWidth: '1036px' }}>
-   <Esidebar/>
     <Box
-      height={550}
+      height={500}
       width={1000}
       my={4}
       display="flex"
@@ -150,8 +147,6 @@ function CreateEmployee() {
         </form>
       </Box>
     </Box>
-    </div>
-    </div>
   );
 }
 

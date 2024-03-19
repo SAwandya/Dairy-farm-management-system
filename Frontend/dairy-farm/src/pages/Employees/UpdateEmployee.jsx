@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CustomTextField from '../../components/Employees/textfield'; 
 import em1 from '../../assets/em1.png';
-import Esidebar from "../../components/Employees/esidebar";
+
 
 function UpdateEmployee() {
   const { id } = useParams();
@@ -20,7 +20,7 @@ function UpdateEmployee() {
 
   useEffect(() => {
     // Fetch user data and update state
-    axios.get(`http://localhost:5000/getEmployee/${id}`)
+    axios.get(`http://localhost:3000/api/employee/getEmployee/${id}`)
 
       .then(result => {
        console.log(result)
@@ -37,7 +37,7 @@ function UpdateEmployee() {
   const update = (e) => {
     e.preventDefault();
 
-    axios.put(`http://localhost:5000/updateEmployee/${id}`, { employeeId ,employeeName,position, contactNumber,  email,basicSalary})
+    axios.put(`http://localhost:3000/api/employee/updateEmployee/${id}`, { employeeId ,employeeName,position, contactNumber,  email,basicSalary})
       .then(result => {
         console.log(result);
         navigate('/employeedashboard');
@@ -45,11 +45,8 @@ function UpdateEmployee() {
       .catch(err => console.log(err));
   };
   return (
-    <div>
-    <div style={{ display: 'flex', minWidth: '1036px' }}>
-<Esidebar/>
     <Box
-      height={550}
+      height={500}
       width={1000}
       my={4}
       display="flex"
@@ -134,8 +131,6 @@ function UpdateEmployee() {
         </form>
       </Box>
     </Box>
-    </div>
-    </div>
   );
 
 }
