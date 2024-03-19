@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import InputField from "../../components/Sales/InputField";
 import productService from "../../services/Sales/productService";
 import useGameQueryStore from "../../store";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -43,6 +44,8 @@ const ProductUpdate = () => {
     (s) => s.selectedProductUpdate
   );
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -57,6 +60,7 @@ const ProductUpdate = () => {
       .then((res) => {
         console.log("Updated successfuly");
         setMessage("Update success");
+        navigate("/salesdashboard");
       })
       .catch((err) => {
         console.log(err);

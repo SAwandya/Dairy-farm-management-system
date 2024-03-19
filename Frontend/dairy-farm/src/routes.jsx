@@ -134,10 +134,10 @@ const router = createBrowserRouter([
    element: <ProcessPlanning/>
   },
     
-  {
-    path: "/financetrans",
-    element: <FinanceTransactions/>
-  }
+  // {
+  //   path: "/financetrans",
+  //   element: <FinanceTransactions/>
+  // }
   
 
 
