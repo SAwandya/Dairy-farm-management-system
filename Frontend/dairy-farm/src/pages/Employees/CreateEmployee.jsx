@@ -160,4 +160,4 @@ function CreateEmployee() {
   );
 }
 
-export default CreateEmployee
+export default CreateEmployee;
