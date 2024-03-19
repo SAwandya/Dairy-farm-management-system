@@ -21,6 +21,7 @@ import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
 import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
+import HomePageM from "./pages/HomeMain";
 
 const router = createBrowserRouter([
   {
@@ -123,9 +124,13 @@ const router = createBrowserRouter([
     path: "/financedashboard",
     element: <FinanceMainDashboard/>
   },
-  {
+  /*{
     path: "/financetrans",
     element: <FinanceTransactions/>
+  }*/
+  {
+    path:"/homeM",
+    element:<HomePageM/>
   }
 
 ]);
