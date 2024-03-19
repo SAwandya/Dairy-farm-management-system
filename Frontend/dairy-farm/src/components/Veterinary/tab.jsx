@@ -73,7 +73,7 @@ export default function BasicTabs() {
 
   return (
     <Box sx={{  color: '#E7F1F7', fontFamily: 'Poppins, sans-serif' }}>
-      <Box sx={{ borderBottom: 1, display: 'flex', backgroundColor: '#E7F1F7'  }}>
+      <Box sx={{ borderBottom: 1, display: 'flex', backgroundColor: '#E7F1F7' ,marginRight:'10px' }}>
         <Tabs
           value={value}
           onChange={handleChange}
