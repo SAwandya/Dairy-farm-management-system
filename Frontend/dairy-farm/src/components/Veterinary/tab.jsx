@@ -80,23 +80,24 @@ export default function BasicTabs() {
           aria-label="basic tabs example"
           sx={{ marginLeft: 'auto' }}
         >
-          <Tab label="Registry" {...a11yProps(0)} sx={{ fontFamily: 'Poppins, sans-serif' }} />
-          <Tab label="Health-Care" {...a11yProps(1)} sx={{ fontFamily: 'Poppins, sans-serif' }} />
-          <Tab label="Breeding" {...a11yProps(2)} />
+          <Tab label="Registry" {...a11yProps(0)} sx={{ fontFamily: 'Poppins, sans-serif',fontSize:'20px' }} />
+          <Tab label="Health-Care" {...a11yProps(1)} sx={{ fontFamily: 'Poppins, sans-serif',fontSize:'20px' }} />
+          <Tab label="Breeding" {...a11yProps(2)} sx={{ fontFamily: 'Poppins, sans-serif',fontSize:'20px' }}/>
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <CustomizedTables
-          headers={headers1}
-          rows={dataList.length > 0 ? dataList.map(item => ({
-            "Ear Tag": item.earTag,
-            "Location": item.location,
-            "Gender": item.gender,
-            "Status": item.status,
-            "Age": item.age,
-          })) : [{ "No Data": "No Data" }]}
-        />
+      <CustomizedTables
+        headers={headers1}
+        rows={dataList.length > 0 ? [dataList[0]].map(item => ({
+          "Ear Tag": item.earTag,
+          "Location": item.location,
+          "Gender": item.gender,
+          "Status": item.status,
+          "Age": item.age,
+        })) : [{ "No Data": "No Data" }]}
+      />
       </CustomTabPanel>
     </Box>
+    
   );
 }
