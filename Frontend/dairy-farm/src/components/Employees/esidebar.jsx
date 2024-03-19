@@ -3,14 +3,14 @@ import NavigationLink from "../NavigationLink";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
-import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
-
-function Sidebar() {
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+function Esidebar() {
   const [activeSection, setActiveSection] = useState("dashboard");
 
   const handleNavigation = (section) => {
@@ -18,12 +18,7 @@ function Sidebar() {
   };
 
   return (
-    <Box
-      className="sidebar"
-      sx={{
-        position: 'fixed'
-      }}
-    >
+    <Box className="sidebar">
       <Box className="sidebar-logo-container">
         <img
           className="sidebar-logo"
@@ -42,22 +37,22 @@ function Sidebar() {
             onClick={() => handleNavigation("dashboard")}
           />
           <NavigationLink
+            icon={<PersonAddAlt1Icon />}
+            text="Employees"
+            isActive={activeSection === "employees"}
+            onClick={() => handleNavigation("employees")}
+          />
+          <NavigationLink
+            icon={<AssignmentIcon />}
+            text="Tasks"
+            isActive={activeSection === "assignments"}
+            onClick={() => handleNavigation("assignments")}
+          />
+          <NavigationLink
             icon={<AccessTimeFilledIcon />}
-            text="Sessions"
-            isActive={activeSection === "sessions"}
-            onClick={() => handleNavigation("sessions")}
-          />
-          <NavigationLink
-            icon={<DonutSmallIcon />}
-            text="Data"
-            isActive={activeSection === "milking-data"}
-            onClick={() => handleNavigation("milking-data")}
-          />
-          <NavigationLink
-            icon={<WaterDropIcon />}
-            text="Storage"
-            isActive={activeSection === "storage"}
-            onClick={() => handleNavigation("storage")}
+            text="Work"
+            isActive={activeSection === "workhours"}
+            onClick={() => handleNavigation("workhours")}
           />
           <NavigationLink
             icon={<AssessmentIcon />}
@@ -89,4 +84,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+export default Esidebar;

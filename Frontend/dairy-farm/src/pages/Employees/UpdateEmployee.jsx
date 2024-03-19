@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CustomTextField from '../../components/Employees/textfield'; 
 import em1 from '../../assets/em1.png';
-
+import Esidebar from "../../components/Employees/esidebar";
 
 function UpdateEmployee() {
   const { id } = useParams();
@@ -45,8 +45,11 @@ function UpdateEmployee() {
       .catch(err => console.log(err));
   };
   return (
+    <div>
+    <div style={{ display: 'flex', minWidth: '1036px' }}>
+<Esidebar/>
     <Box
-      height={500}
+      height={550}
       width={1000}
       my={4}
       display="flex"
@@ -131,6 +134,8 @@ function UpdateEmployee() {
         </form>
       </Box>
     </Box>
+    </div>
+    </div>
   );
 
 }

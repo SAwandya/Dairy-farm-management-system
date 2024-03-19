@@ -18,12 +18,7 @@ function Sidebar() {
   };
 
   return (
-    <Box
-      className="sidebar"
-      sx={{
-        position: 'fixed'
-      }}
-    >
+    <Box className="sidebar">
       <Box className="sidebar-logo-container">
         <img
           className="sidebar-logo"
@@ -43,19 +38,19 @@ function Sidebar() {
           />
           <NavigationLink
             icon={<AccessTimeFilledIcon />}
-            text="Sessions"
+            text="Registry"
             isActive={activeSection === "sessions"}
             onClick={() => handleNavigation("sessions")}
           />
           <NavigationLink
             icon={<DonutSmallIcon />}
-            text="Data"
+            text="Health"
             isActive={activeSection === "milking-data"}
             onClick={() => handleNavigation("milking-data")}
           />
           <NavigationLink
             icon={<WaterDropIcon />}
-            text="Storage"
+            text="Breeding"
             isActive={activeSection === "storage"}
             onClick={() => handleNavigation("storage")}
           />

@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CustomTextField from '../../components/Employees/textfield'; 
 import em1 from '../../assets/em1.png'
-
+import Esidebar from "../../components/Employees/esidebar";
 function CreateEmployee() {
   const [employeeId, setEmployeeId] = useState('');
   const [employeeName, setEmployeeName] = useState('');
@@ -37,8 +37,11 @@ function CreateEmployee() {
   };
 
   return (
+    <div>
+       <div style={{ display: 'flex', minWidth: '1036px' }}>
+   <Esidebar/>
     <Box
-      height={500}
+      height={550}
       width={1000}
       my={4}
       display="flex"
@@ -122,6 +125,8 @@ function CreateEmployee() {
         </form>
       </Box>
     </Box>
+    </div>
+    </div>
   );
 }
 
