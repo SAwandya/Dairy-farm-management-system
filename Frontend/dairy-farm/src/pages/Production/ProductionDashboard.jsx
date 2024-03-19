@@ -1,6 +1,6 @@
 import React from "react";
-import DashboardContent from "../../components/Production/DashboardContent";
-import ProductionSidebar from "../../components/production/ProductionSidebar"
+import DashboardContent from "../../components/production/DashboardContent";
+import ProductionSidebar from "../../components/production/productionSidebar";
 import Container from "@mui/material/Container";
 
 function ProductionDashboard() {
