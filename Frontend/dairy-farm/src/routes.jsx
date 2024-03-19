@@ -126,6 +126,11 @@ const router = createBrowserRouter([
     element: <FinanceMainDashboard/>
   },
 
+  // {
+  //   path: "/financetrans",
+  //   element: <FinanceTransactions/>
+  // }
+  
   {path: "/productiondashboard",
    element: <ProductionDashboard/>
   },
@@ -133,13 +138,7 @@ const router = createBrowserRouter([
   {path: "/processplanning",
    element: <ProcessPlanning/>
   },
-    
-  {
-    path: "/financetrans",
-    element: <FinanceTransactions/>
-  }
   
-
 
 ]);
 

@@ -1,9 +1,9 @@
 import React from "react";
-import ProductionSidebar from "../../components/production/ProductionSidebar"
-import ProcessContent from "../../components/production/ProcessPageContent";
+import ProductionSidebar from "../../components/production/productionSidebar"
+import ProcessForm from "../../components/production/ProcessForm";
 import Container from "@mui/material/Container";
 
-function ProcessPage() {
+function ProcessPlanning() {
     return (
         <Container
             className="main-container"
@@ -13,9 +13,9 @@ function ProcessPage() {
             }}
         >
             <ProductionSidebar />
-            <ProcessContent />
+            <ProcessForm />
         </Container>
     );
 }
 
-export default ProcessPage;
+export default ProcessPlanning;
