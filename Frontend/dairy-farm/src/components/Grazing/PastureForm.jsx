@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { FormControl, Grid, TextField, Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { FormControl, Grid, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
-function PastureForm({ open, handleClose, handleSubmit }) {
+function PastureForm({ open, handleClose, handleSubmit, initialData }) {
   const [formData, setFormData] = useState({
     area: '',
     fertilizerUsed: '',
@@ -9,6 +9,12 @@ function PastureForm({ open, handleClose, handleSubmit }) {
     assignedEmployee: '',
     typeOfPlantsPlanted: '',
   });
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
   const [errors, setErrors] = useState({});
 
@@ -36,7 +42,7 @@ function PastureForm({ open, handleClose, handleSubmit }) {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Add New Pasture Block</DialogTitle>
+      <DialogTitle>{initialData ? 'Edit' : 'Add'} Pasture Block</DialogTitle>
       <DialogContent>
         <form onSubmit={handleFormSubmit}>
           <Grid container spacing={2}>
@@ -105,7 +111,7 @@ function PastureForm({ open, handleClose, handleSubmit }) {
           Cancel
         </Button>
         <Button onClick={handleFormSubmit} variant="contained" color="primary">
-          Submit
+          {initialData ? 'Save' : 'Submit'}
         </Button>
       </DialogActions>
     </Dialog>

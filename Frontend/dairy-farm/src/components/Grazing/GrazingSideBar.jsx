@@ -77,7 +77,7 @@ function Sidebar() {
       </Box>
 
       {/* Profile and Logout */}
-      <Box className="user-actions">
+      <Box className="user-actions2">
         <List>
           <NavigationLink
             icon={<AccountCircleIcon />}
