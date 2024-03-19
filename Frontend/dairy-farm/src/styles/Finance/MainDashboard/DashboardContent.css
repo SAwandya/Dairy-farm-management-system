@@ -1,0 +1,15 @@
+.graph-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.graph-container>* {
+    flex: 1;
+    margin-right: 20px;
+    /* Adjust margin as needed */
+}
+
+.graph-container>*:last-child {
+    margin-right: 0;
+    /* Remove margin for the last child */
+}

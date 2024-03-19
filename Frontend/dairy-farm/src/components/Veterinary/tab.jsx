@@ -45,7 +45,7 @@ export default function BasicTabs() {
 
   const getFetchData = async () => {
     try {
-      const response = await axios.get("/retrieve");
+      const response = await axios.get("http://localhost:3000/api/animalReg/retrieve");
       if (response.data.success) {
         setDataList(response.data.data);
       }
@@ -72,31 +72,32 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%', color: '#E7F1F7', fontFamily: 'Poppins, sans-serif' }}>
-      <Box sx={{ borderBottom: 1, display: 'flex', backgroundColor: '#E7F1F7'  }}>
+    <Box sx={{  color: '#E7F1F7', fontFamily: 'Poppins, sans-serif' }}>
+      <Box sx={{ borderBottom: 1, display: 'flex', backgroundColor: '#E7F1F7' ,marginRight:'10px' }}>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
           sx={{ marginLeft: 'auto' }}
         >
-          <Tab label="Registry" {...a11yProps(0)} sx={{ fontFamily: 'Poppins, sans-serif' }} />
-          <Tab label="Health-Care" {...a11yProps(1)} sx={{ fontFamily: 'Poppins, sans-serif' }} />
-          <Tab label="Breeding" {...a11yProps(2)} />
+          <Tab label="Registry" {...a11yProps(0)} sx={{ fontFamily: 'Poppins, sans-serif',fontSize:'20px' }} />
+          <Tab label="Health-Care" {...a11yProps(1)} sx={{ fontFamily: 'Poppins, sans-serif',fontSize:'20px' }} />
+          <Tab label="Breeding" {...a11yProps(2)} sx={{ fontFamily: 'Poppins, sans-serif',fontSize:'20px' }}/>
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <CustomizedTables
-          headers={headers1}
-          rows={dataList.length > 0 ? dataList.map(item => ({
-            "Ear Tag": item.earTag,
-            "Location": item.location,
-            "Gender": item.gender,
-            "Status": item.status,
-            "Age": item.age,
-          })) : [{ "No Data": "No Data" }]}
-        />
+      <CustomizedTables
+        headers={headers1}
+        rows={dataList.length > 0 ? [dataList[0]].map(item => ({
+          "Ear Tag": item.earTag,
+          "Location": item.location,
+          "Gender": item.gender,
+          "Status": item.status,
+          "Age": item.age,
+        })) : [{ "No Data": "No Data" }]}
+      />
       </CustomTabPanel>
     </Box>
+    
   );
 }

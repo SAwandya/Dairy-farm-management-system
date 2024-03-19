@@ -25,9 +25,15 @@ class APIClient {
     return axiosInstance.get(this.endpoint).then((res) => res.data);
   };
 
+  get = (param) => {
+    return axiosInstance.get(this.endpoint + "/" + param).then((res) => res.data);
+  };
+
   delete = (param) => {
-    return axiosInstance.delete(this.endpoint + "/" + param).then(res => res.data);
-  }
+    return axiosInstance
+      .delete(this.endpoint + "/" + param)
+      .then((res) => res.data);
+  };
 }
 
 export default APIClient;

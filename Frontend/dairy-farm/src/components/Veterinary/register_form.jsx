@@ -28,7 +28,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Something went wrong!"
+        text: "Date is Invalid!"
       });
     }
   };
