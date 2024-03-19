@@ -346,5 +346,5 @@ function validateUser(user) {
 }
 
 // New Commit
-}
+
 
