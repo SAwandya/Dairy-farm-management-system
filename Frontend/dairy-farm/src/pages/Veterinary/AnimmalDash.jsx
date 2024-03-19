@@ -9,7 +9,7 @@ import Sidebar from '../../components/Veterinary/vetNav';
 
 function VetDashboard() {
     return (
-        <div style={{ display: 'flex', height: '100vh' }}>
+        <div style={{ display: 'flex', height: '100vh',fontFamily: 'Poppins, sans-serif' }}>
             <Sidebar />
             <div style={{ 
                 flex: 1, /* Use flex to allow content to fill available space */
