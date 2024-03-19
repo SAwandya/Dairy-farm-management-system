@@ -9,8 +9,6 @@ const auth = require("./routes/customerAuth");
 const purchase = require("./routes/purchases");
 const animalReg = require("./routes/animalRegister");
 const messages = require("./routes/messages");
-const milkingSessionRoute = require('./routes/milkingSessionRoute');
-const pastureDetailsRouter = require("./routes/pastureDetails.js");
 const employee = require("./routes/eRegister")
 const supplier = require("./routes/supplier");
 
@@ -39,13 +37,7 @@ app.use("/api/purchase", purchase);
 
 app.use("/api/animalReg", animalReg);
 
-app.use("/api/messages", messages);
-
-app.use("/api/pastureDetails", pastureDetailsRouter);
-
-app.use("/api/messages", messages);
-
-app.use("/api/milkingSessionRoute", milkingSessionRoute);
+app.use("/api/messages", messages)
 
 app.use("/api/employee", employee);
 

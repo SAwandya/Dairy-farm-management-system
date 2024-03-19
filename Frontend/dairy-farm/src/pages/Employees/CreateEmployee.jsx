@@ -69,7 +69,7 @@ function CreateEmployee() {
        <div style={{ display: 'flex', minWidth: '1036px' }}>
    <Esidebar/>
     <Box
-      height={550}
+      height={500}
       width={1000}
       my={4}
       display="flex"
@@ -155,8 +155,6 @@ function CreateEmployee() {
         
       </Box>
     </Box>
-    </div>
-    </div>
   );
 }
 
