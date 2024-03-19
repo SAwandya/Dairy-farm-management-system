@@ -4,39 +4,41 @@ import BgCard from '../../components/Veterinary/bgCard';
 import BasicCard from '../../components/Veterinary/cards';
 import cow from '../../assets/cow.png';
 import Tabs from '../../components/Veterinary/tab';
-import DateV from '../../components/Veterinary/DateV';
-import Sidebar from '../../components/Veterinary/vetNav';
+
 
 //dubini
 
 function VetDashboard() {
+  
     return (
-        <div style={{ display: 'flex', height: '100vh',fontFamily: 'Poppins, sans-serif' }}>
-            <Sidebar />
-            <div style={{ 
-                flex: 1, /* Use flex to allow content to fill available space */
-                padding: '10px', 
-                margin: '50px ', 
-                marginBottom: '20px', 
-              }}>
-                <DateV />
-                <h4>Welcome Back,</h4>
-                <h1>Duvini Ranaweera</h1>
-                
-                <h4 style={{ marginTop: 20, marginBottom: '20px' }}>Overview</h4>
-                <div className='card-horizontal' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between',width:'600',marginRight:'130px',marginLeft:'130px' }}>
-                    <BasicCard title='Total Cows' imgs={cow} data={12} />
-                    <BasicCard title='Sick Cows' imgs={cow} data={2} />
-                    <BasicCard title='Composition' imgs={cow} data={2} />
-                </div>
-                
-                <h4 style={{ marginTop: 40, marginBottom: '20px' }}>Navigate</h4>
-                <BgCard>
-                    <Tabs />
-                </BgCard>
-            </div>
+      
+        <div style={{ 
+            marginTop: 80, 
+            height: '100vh', 
+            padding: '10px', 
+            backgroundColor: 'rgba(255, 255, 255, 0)', 
+            margin: '50px ', 
+            position: 'relative', 
+            backgroundImage: 'url("../../assets/bg.png")', 
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat', 
+            backgroundSize: 'cover', 
+        }}>
+        <h3>Welcome Duvini,</h3>
+        <h4>Overview</h4>
+        <div className='card-horizontal' style={{ display: 'flex', flexDirection: 'row',justifyContent: 'space-between'}}>
+          <BasicCard title='Total Cows' imgs={cow} data={12} />
+          <BasicCard title='Sick Cows' imgs={cow} data={2} />
+          <BasicCard title='Composition' imgs={cow} data={2} />
         </div>
+        <h4>Navigate</h4>
+        <BgCard>
+           <Tabs/>
+        </BgCard>
+      </div>
     );
-}
-
-export default VetDashboard;
+  }
+  
+  
+  export default VetDashboard;
+  

@@ -7,9 +7,6 @@ function TransactionsDashboard() {
     return (
         <Box className="dashboard-content">
             <WelcomeCard/>
-        <div className="graph-container">
-
-      </div>
         </Box>
     );
   }

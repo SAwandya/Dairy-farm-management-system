@@ -3,7 +3,10 @@
 /* bubini */
 
 body{
-  
     font-family: 'Poppins', sans-serif;
+    background-image: url('../assets/bg.png'); /* Replace 'path/to/your/background-image.jpg' with the actual path to your background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 
 }
