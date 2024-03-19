@@ -8,18 +8,12 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
-   
-   <>
-    
+    <>
       <AuthProvider>
         <CssBaseline />
         <RouterProvider router={router} />
       </AuthProvider>
-      
-      
-  </>  
-
-
+    </>
   );
 }
 

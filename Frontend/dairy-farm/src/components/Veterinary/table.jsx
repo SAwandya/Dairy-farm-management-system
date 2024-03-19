@@ -12,13 +12,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: '#EAEAEA',
     color: theme.palette.common.black,
-    fontSize: 17,
-    fontFamily: 'Poppins, sans-serif'
-    
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 15,
-    fontFamily: 'Poppins, sans-serif'
+    fontSize: 14,
   },
 }));
 

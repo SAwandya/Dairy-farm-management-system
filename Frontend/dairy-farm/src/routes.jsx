@@ -1,4 +1,3 @@
-
 import { createBrowserRouter } from "react-router-dom";
 import VetDashboard from "./pages/Veterinary/AnimmalDash";
 import AnimalRegistry from "./pages/Veterinary/AnimalReg";
@@ -12,17 +11,13 @@ import CheckOut from "./components/Sales/CheckOut";
 import ProductUpdate from "./pages/Sales/ProductUpdate";
 import SalesDashboard from "./pages/Sales/SalesDashboard";
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
-import MilkingSessionSchedule from "./pages/Milking/MilkingSessionSchedule";
-import PasturePage from "./pages/Grazing/PasturePage";
-import Session from "./pages/Grazing/GrazingSession";
-import PastureInfo from "./pages/Grazing/PastureInfo";
 import Employee from "./pages/Employees/Employee";
 import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
 import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
-import ProductionDashboard from "./pages/Production/ProductionDashboard";
-import ProcessPlanning from "./pages/Production/ProcessPlanning";
+import HomePageM from "./pages/HomeMain";
+import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 
 const router = createBrowserRouter([
   {
@@ -83,27 +78,6 @@ const router = createBrowserRouter([
     path: "/milkingdashboard",
     element: <MilkingDashboard/>,
   },
-
-  {
-    path: "/scheduleForm",
-    element: <MilkingSessionSchedule/>
-  },
-
-  {
-    path: "/pasture",
-    element: <PasturePage />,
-  },
-
-  {
-    path: "/grazingsession",
-    element: <Session />,
-  },
-
-  {
-    path: "/pastureinfo",
-    element: <PastureInfo/>,
-  },
- 
   {
     path: "/employeedashboard",
     element: <Employee/>,
@@ -126,11 +100,11 @@ const router = createBrowserRouter([
     element: <FinanceMainDashboard/>
   },
 
-  // {
-  //   path: "/financetrans",
-  //   element: <FinanceTransactions/>
-  // }
-  
+  {
+    path:"/homeM",
+    element:<HomePageM/>
+  },
+
   {path: "/productiondashboard",
    element: <ProductionDashboard/>
   },
@@ -138,7 +112,11 @@ const router = createBrowserRouter([
   {path: "/processplanning",
    element: <ProcessPlanning/>
   },
-  
+    
+  // {
+  //   path: "/financetrans",
+  //   element: <FinanceTransactions/>
+  // }
 
 ]);
 

@@ -3,21 +3,16 @@ import React from 'react';
 import Welcome from './Welcome'
 import MainStatistics from './MainStatistics';
 import SupplierTable from './suppliertable';
-import '../../styles/supply.css'
-
 
 function DashboardContent() {
     return (
         <Box className="dashboard-content">
             <Welcome/>
+            <MainStatistics/>
+            <Box className="dashboard-below-container">
 
-            <Box className="dashboard-content">
-                <MainStatistics/>
-
-            </Box>
-            
-            <Box className="dashboard-content">
                 <SupplierTable/>
+
 
             </Box>
         </Box>

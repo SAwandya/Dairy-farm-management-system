@@ -7,10 +7,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import RegisterForm from '../../components/Veterinary/register_form';
-import Sidebar from '../../components/Veterinary/vetNav';
-import DateV from '../../components/Veterinary/DateV';
 
-
+axios.defaults.baseURL = "http://localhost:3000/api/animalReg/";
 
 function AnimalRegistry() {
     const [addSection, setAddSection] = useState(false);
@@ -53,7 +51,7 @@ function AnimalRegistry() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const data = await axios.post("http://localhost:3000/api/animalReg/create", formData);
+            const data = await axios.post("/create", formData);
             if (data.data.success) {
                 setAddSection(false);
                 Swal.fire({
@@ -64,18 +62,6 @@ function AnimalRegistry() {
                     timer: 1500
                   });
                 getFetchData();
-                setFormData({
-                    earTag: "",
-                    location: "",
-                    gender: "",
-                    status: "",
-                    age: "",
-                    name: "",
-                    weight: null,
-                    breed: "",
-                    color: "",
-                    birthDate: null,
-                });
             }
         } catch (error) {
             console.error("Error adding animal:", error);
@@ -85,7 +71,7 @@ function AnimalRegistry() {
 
     const getFetchData = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/animalReg/retrieve");
+            const response = await axios.get("/retrieve");
             if (response.data.success) {
                 setDataList(response.data.data);
             }
@@ -115,7 +101,7 @@ function AnimalRegistry() {
                     confirmButtonText: "Yes, delete it!"
                 }).then(async (result) => {
                     if (result.isConfirmed) {
-                        const deleteResponse = await axios.delete(`http://localhost:3000/api/animalReg/delete/${id}`);
+                        const deleteResponse = await axios.delete(`/delete/${id}`);
                         getFetchData();
                         if (deleteResponse.data.success) {
                             Swal.fire({
@@ -142,7 +128,7 @@ function AnimalRegistry() {
     
     const handleUpdate = async () => {
     try {
-        const response = await axios.put(`http://localhost:3000/api/animalReg/update/${formDataEdit._id}`, formDataEdit); 
+        const response = await axios.put(`/update/${formDataEdit._id}`, formDataEdit); 
         if (response.data.success) {
             getFetchData();
             alert(response.data.message);
@@ -163,7 +149,7 @@ function AnimalRegistry() {
     }
     const handleEdit = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/animalReg/retrieve/${id}`);
+            const response = await axios.get(`/retrieve/${id}`);
             if (response.data.success) {
                 setFormDataEdit({ ...response.data.data, _id: id }); // Include _id in formDataEdit
                 setEditSection(true);
@@ -174,6 +160,8 @@ function AnimalRegistry() {
         }
     };
     
+    
+
     const headers = [
         "Ear Tag",
         "Location",
@@ -189,18 +177,7 @@ function AnimalRegistry() {
     ];
 
     return (
-        <div style={{ display: 'flex', height: '100vh' }}> {/* Set height to 100vh to fill the entire viewport */}
-        <Sidebar />
-        <div style={{ 
-             flex: 1, 
-             padding: '10px', 
-             margin: '50px ', 
-             marginBottom: '20px', 
-            fontFamily: 'Poppins, sans-serif'
-        }}>
-             <DateV />
-                <h4>Welcome Back,</h4>
-                <h1>Duvini Ranaweera</h1>
+        <div >
             {!addSection && !editSection && (
                 <div className='container'>
                     <button className='addbtn' onClick={() => setAddSection(true)}>Add New Animal</button>
@@ -227,13 +204,8 @@ function AnimalRegistry() {
               </div>  
             
             {!addSection && !editSection &&(
-                <div className='table' style={{ 
-                    flex: 1, /* Use flex to allow content to fill available space */
-                    padding: '10px', 
-                    margin: '50px ', 
-                    marginBottom: '20px',
-               }}>
-                    <CustomizedTables 
+                <div className='table'>
+                    <CustomizedTables
                         headers={headers}
                         rows={dataList.length > 0 ? dataList.map(item => ({
                             "Ear Tag": item.earTag,
@@ -260,7 +232,6 @@ function AnimalRegistry() {
                     />
                 </div>
             )}
-        </div>
         </div>
     );
 }
