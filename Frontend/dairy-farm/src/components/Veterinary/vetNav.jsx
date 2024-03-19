@@ -10,8 +10,6 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-//dubini
-
 function Sidebar() {
   const [activeSection, setActiveSection] = useState("dashboard");
 
