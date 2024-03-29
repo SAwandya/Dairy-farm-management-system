@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   TableContainer,
@@ -19,16 +19,28 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const MilkingSessionsTable = () => {
   const [openFormIndex, setOpenFormIndex] = useState(null);
+  const [sessionsData, setSessionsData] = useState([]);
+
+  useEffect(() => {
+    fetchSessionsData();
+  }, []);
+
+  const fetchSessionsData = () => {
+    fetch('http://localhost:3000/api/milkingSessions')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          setSessionsData(data.data); // Update state with fetched data
+        } else {
+          console.error('Failed to fetch milking sessions:', data.error);
+        }
+      })
+      .catch(error => console.error('Error fetching milking sessions:', error));
+  };
 
   const handleRowClick = (index) => {
     setOpenFormIndex(index === openFormIndex ? null : index);
   };
-
-  const sessionsData = [
-    { id: 1, date: '2022-12-01', time: '09:00', cowGroups: 'Group A', status: 'Incomplete' },
-    { id: 2, date: '2022-12-02', time: '10:00', cowGroups: 'Group B', status: 'Complete' },
-    // Add more sessions data as needed
-  ];
 
   return (
     <TableContainer component={Paper}>
@@ -49,18 +61,18 @@ const MilkingSessionsTable = () => {
             <TableCell>Session ID</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Time</TableCell>
-            <TableCell>Cow Groups</TableCell>
+            <TableCell>Cow Group</TableCell>
             <TableCell>Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {sessionsData.map((session, index) => (
-            <React.Fragment key={session.id}>
+            <React.Fragment key={session._id}>
               <TableRow onClick={() => handleRowClick(index)} style={{ cursor: 'pointer' }}>
-                <TableCell>{session.id}</TableCell>
+                <TableCell>{session.sessionId}</TableCell>
                 <TableCell>{session.date}</TableCell>
                 <TableCell>{session.time}</TableCell>
-                <TableCell>{session.cowGroups}</TableCell>
+                <TableCell>{session.cowGroup}</TableCell>
                 <TableCell>{session.status}</TableCell>
               </TableRow>
               <TableRow>
