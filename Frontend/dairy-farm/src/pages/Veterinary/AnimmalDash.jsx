@@ -15,7 +15,8 @@ function VetDashboard() {
                 flex: 1, /* Use flex to allow content to fill available space */
                 padding: '10px', 
                 margin: '50px ', 
-                marginBottom: '20px', 
+                marginBottom: '20px',
+                paddingLeft:'130px', 
               }}>
                 <DateV />
                 <h4>Welcome Back,</h4>

@@ -22,6 +22,8 @@ import MilkingSessions from './pages/Milking/MilkingSessions';
 import MilkingSessionSchedule from './pages/Milking/MilkingSessionSchedule';
 import HomePageM from "./pages/HomeMain";
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
+import Health from "./pages/Veterinary/health";
+import VaccineAnim from "./pages/Veterinary/vaccineAnim";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +79,14 @@ const router = createBrowserRouter([
   {
     path:"/animalReg",
     element:<AnimalRegistry/>
+  },
+  {
+    path:"/health",
+    element:<Health/>
+  },
+  {
+    path:"/vaccineAnim",
+    element:<VaccineAnim/>
   },
   {
     path: "/milkingdashboard",
