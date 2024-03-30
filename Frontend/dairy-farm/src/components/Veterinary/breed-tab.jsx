@@ -47,24 +47,35 @@ function a11yProps(index) {
 }
 
 // Define BasicTabs component
-export default function BasicTabs({ handleToggleVaccineAnim }) {
+export default function BasicTabs({ handleToggleVaccineAnim, handleToggleExamAnim }) {
   const [value, setValue] = useState(0);
-  const [dataList, setDataList] = useState([]);
-
-  const getFetchData = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/api/vacAnim/retrieve");
-      if (response.data.success) {
-        setDataList(response.data.data);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      alert("Error fetching data. Please try again later.");
-    }
-  };
+  const [vaccineData, setVaccineData] = useState({});
+  const [examData, setExamData] = useState({});
 
   useEffect(() => {
-    getFetchData();
+    const fetchData = async () => {
+      try {
+        const vaccineResponse = await axios.get("http://localhost:3000/api/vacAnim/retrieve");
+        if (vaccineResponse.data.success) {
+          setVaccineData(vaccineResponse.data.data[0] || {});
+        }
+      } catch (error) {
+        console.error("Error fetching vaccine data:", error);
+        alert("Error fetching vaccine data. Please try again later.");
+      }
+
+      try {
+        const examResponse = await axios.get("http://localhost:3000/api/exmAnim/retrieve");
+        if (examResponse.data.success) {
+          setExamData(examResponse.data.data[0] || {});
+        }
+      } catch (error) {
+        console.error("Error fetching exam data:", error);
+        alert("Error fetching exam data. Please try again later.");
+      }
+    };
+
+    fetchData();
   }, []);
 
   const headers1 = [
@@ -75,7 +86,13 @@ export default function BasicTabs({ handleToggleVaccineAnim }) {
     "Next Vaccination",
     "Age",
     "Action",
-    
+  ];
+  const headers2 = [
+    "Ear Tag",
+    "Current Status",
+    "Examination",
+    "Date",
+    "Action",
   ];
 
   const handleChange = (event, newValue) => {
@@ -99,24 +116,24 @@ export default function BasicTabs({ handleToggleVaccineAnim }) {
       <CustomTabPanel value={value} index={0}>
         <CustomizedTables
           headers={headers1}
-          rows={dataList.length > 0 ? [dataList[0]].map(item => ({
-            "Ear Tag": item.earTag,
-            "Status": item.status,
-            "vaccine":item.vaccine,
-            "Vaccinated Date":item.vacdate,
-            "Next Vaccination": item.nextdate,
-            "Ages": item.age,
+          rows={[{
+            "Ear Tag": vaccineData.earTag || "",
+            "Status": vaccineData.status || "",
+            "Vaccine": vaccineData.vaccine || "",
+            "Vaccinated Date": vaccineData.vacdate || "",
+            "Next Vaccination": vaccineData.nextdate || "",
+            "Age": vaccineData.age || "",
             "Action": (
               <div>
-                  <IconButton onClick={() => handleEdit(item._id)} style={{ color: 'blue' }}>
+                  <IconButton onClick={() => handleEdit(vaccineData._id)} style={{ color: 'blue' }}>
                       <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => handleDelete(item._id)} style={{ color: 'red' }}>
+                  <IconButton onClick={() => handleDelete(vaccineData._id)} style={{ color: 'red' }}>
                       <DeleteIcon />
                   </IconButton>
               </div>
           )
-          })) : [{ "No Data": "No Data" }]}
+          }]}
         /> 
       
         <div>
@@ -124,6 +141,39 @@ export default function BasicTabs({ handleToggleVaccineAnim }) {
             borderRadius='5px'
             sx={{ color: '#00000089', fontFamily: 'Poppins, sans-serif', fontSize: '20px', marginLeft: '980px' }}
             onClick={handleToggleVaccineAnim}
+          >
+            View More
+          </Button>
+        </div>
+      </CustomTabPanel>
+
+      
+      <CustomTabPanel value={value} index={1}>
+        <CustomizedTables
+          headers={headers2}
+          rows={[{
+            "Ear Tag": examData.earTag || "",
+            "Current Status": examData.currentStatus || "",
+            "Examination": examData.exam || "",
+            "Date": examData.checkdate || "",
+            "Action": (
+              <div>
+                  <IconButton onClick={() => handleEdit(examData._id)} style={{ color: 'blue' }}>
+                      <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleDelete(examData._id)} style={{ color: 'red' }}>
+                      <DeleteIcon />
+                  </IconButton>
+              </div>
+          )
+          }]}
+        /> 
+      
+        <div>
+          <Button
+            borderRadius='5px'
+            sx={{ color: '#00000089', fontFamily: 'Poppins, sans-serif', fontSize: '20px', marginLeft: '980px' }}
+            onClick={handleToggleExamAnim }
           >
             View More
           </Button>
