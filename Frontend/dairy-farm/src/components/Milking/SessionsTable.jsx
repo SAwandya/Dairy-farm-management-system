@@ -12,13 +12,11 @@ import {
   IconButton,
   Collapse,
   FormControlLabel,
-  Checkbox,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions
+  Checkbox
 } from '@mui/material';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -26,10 +24,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const MilkingSessionsTable = () => {
   const [openFormIndex, setOpenFormIndex] = useState(null);
   const [sessionsData, setSessionsData] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
-  const [showCalendar, setShowCalendar] = useState(false); // State to control calendar display
-  const [showAddForm, setShowAddForm] = useState(false); // State to control visibility of Add form
-  const [showEditForm, setShowEditForm] = useState(false); // State to control visibility of Edit form
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
     fetchSessionsData();
@@ -40,20 +37,12 @@ const MilkingSessionsTable = () => {
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          setSessionsData(data.data); // Update state with fetched data
+          setSessionsData(data.data);
         } else {
           console.error('Failed to fetch milking sessions:', data.error);
         }
       })
       .catch(error => console.error('Error fetching milking sessions:', error));
-  };
-
-  const handleRowClick = (index) => {
-    setOpenFormIndex(index === openFormIndex ? null : index);
-  };
-
-  const toggleCalendar = () => {
-    setShowCalendar(!showCalendar);
   };
 
   const toggleAddForm = (index) => {
@@ -66,7 +55,32 @@ const MilkingSessionsTable = () => {
     setShowEditForm(!showEditForm);
   };
 
-  const filteredSessions = sessionsData.filter(session => session.sessionId.toString().includes(searchInput));
+  const filteredSessions = sessionsData.filter(session => {
+    if (!selectedDate) {
+      const today = new Date();
+      const sessionDate = new Date(session.date);
+      sessionDate.setHours(0, 0, 0, 0);
+  
+      return (
+        today.getFullYear() === sessionDate.getFullYear() &&
+        today.getMonth() === sessionDate.getMonth() &&
+        today.getDate() === sessionDate.getDate()
+      );
+    } else {
+      const sessionDate = new Date(session.date);
+      sessionDate.setHours(0, 0, 0, 0);
+  
+      const selectedDateMidnight = new Date(selectedDate);
+      selectedDateMidnight.setHours(0, 0, 0, 0);
+  
+      return (
+        sessionDate.getFullYear() === selectedDateMidnight.getFullYear() &&
+        sessionDate.getMonth() === selectedDateMidnight.getMonth() &&
+        sessionDate.getDate() === selectedDateMidnight.getDate()
+      );
+    }
+  });
+  
 
   return (
     <TableContainer component={Paper}>
@@ -75,32 +89,15 @@ const MilkingSessionsTable = () => {
           <h2>Milking Sessions</h2>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <TextField
-            label="Search by Session ID"
-            variant="outlined"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-          <IconButton onClick={toggleCalendar}> {/* Toggle calendar visibility */}
-            <CalendarTodayIcon />
-          </IconButton>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              value={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+            />
+          </LocalizationProvider>
         </div>
       </div>
-      <Dialog open={showCalendar} onClose={toggleCalendar}> {/* Dialog to display calendar */}
-        <DialogTitle>Select Date</DialogTitle>
-        <DialogContent>
-          {/* Place your calendar component here */}
-          {/* For demonstration purpose, you can replace this with your desired calendar component */}
-          <div style={{ padding: '10px', backgroundColor: 'lightgray' }}>
-            This is where your calendar component will be displayed.
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={toggleCalendar} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+
       <Table>
         <TableHead>
           <TableRow>
