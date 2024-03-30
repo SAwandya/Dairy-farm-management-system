@@ -12,6 +12,7 @@ const vaccAnim=require("./routes/vacAnimal");
 const messages = require("./routes/messages");
 const employee = require("./routes/eRegister")
 const supplier = require("./routes/supplier");
+const milkingSessions = require("./routes/milkingSessionRoute");
 
 if (!config.get("jwtPrivateKey")) {
     console.log("FATA ERROR: jwtPrivateKey is not defined");
@@ -45,6 +46,8 @@ app.use("/api/messages", messages)
 app.use("/api/employee", employee);
 
 app.use("/api/supplier", supplier);
+
+app.use("/api/milkingSessions", milkingSessions);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

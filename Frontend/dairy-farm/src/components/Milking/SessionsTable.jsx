@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   TableContainer,
@@ -12,23 +12,61 @@ import {
   IconButton,
   Collapse,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const MilkingSessionsTable = () => {
   const [openFormIndex, setOpenFormIndex] = useState(null);
+  const [sessionsData, setSessionsData] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
+  const [showCalendar, setShowCalendar] = useState(false); // State to control calendar display
+  const [showAddForm, setShowAddForm] = useState(false); // State to control visibility of Add form
+  const [showEditForm, setShowEditForm] = useState(false); // State to control visibility of Edit form
+
+  useEffect(() => {
+    fetchSessionsData();
+  }, []);
+
+  const fetchSessionsData = () => {
+    fetch('http://localhost:3000/api/milkingSessions')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          setSessionsData(data.data); // Update state with fetched data
+        } else {
+          console.error('Failed to fetch milking sessions:', data.error);
+        }
+      })
+      .catch(error => console.error('Error fetching milking sessions:', error));
+  };
 
   const handleRowClick = (index) => {
     setOpenFormIndex(index === openFormIndex ? null : index);
   };
 
-  const sessionsData = [
-    { id: 1, date: '2022-12-01', time: '09:00', cowGroups: 'Group A', status: 'Incomplete' },
-    { id: 2, date: '2022-12-02', time: '10:00', cowGroups: 'Group B', status: 'Complete' },
-    // Add more sessions data as needed
-  ];
+  const toggleCalendar = () => {
+    setShowCalendar(!showCalendar);
+  };
+
+  const toggleAddForm = (index) => {
+    setOpenFormIndex(index === openFormIndex ? null : index);
+    setShowAddForm(!showAddForm);
+  };
+
+  const toggleEditForm = (index) => {
+    setOpenFormIndex(index === openFormIndex ? null : index);
+    setShowEditForm(!showEditForm);
+  };
+
+  const filteredSessions = sessionsData.filter(session => session.sessionId.toString().includes(searchInput));
 
   return (
     <TableContainer component={Paper}>
@@ -37,38 +75,76 @@ const MilkingSessionsTable = () => {
           <h2>Milking Sessions</h2>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <TextField label="Search" variant="outlined" />
-          <IconButton>
+          <TextField
+            label="Search by Session ID"
+            variant="outlined"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          <IconButton onClick={toggleCalendar}> {/* Toggle calendar visibility */}
             <CalendarTodayIcon />
           </IconButton>
         </div>
       </div>
+      <Dialog open={showCalendar} onClose={toggleCalendar}> {/* Dialog to display calendar */}
+        <DialogTitle>Select Date</DialogTitle>
+        <DialogContent>
+          {/* Place your calendar component here */}
+          {/* For demonstration purpose, you can replace this with your desired calendar component */}
+          <div style={{ padding: '10px', backgroundColor: 'lightgray' }}>
+            This is where your calendar component will be displayed.
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={toggleCalendar} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Session ID</TableCell>
+            <TableCell>#</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Time</TableCell>
-            <TableCell>Cow Groups</TableCell>
+            <TableCell>Cow Group</TableCell>
             <TableCell>Status</TableCell>
+            <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {sessionsData.map((session, index) => (
-            <React.Fragment key={session.id}>
-              <TableRow onClick={() => handleRowClick(index)} style={{ cursor: 'pointer' }}>
-                <TableCell>{session.id}</TableCell>
-                <TableCell>{session.date}</TableCell>
+          {filteredSessions.map((session, index) => (
+            <React.Fragment key={session._id}>
+              <TableRow style={{ cursor: 'pointer' }}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>{new Date(session.date).toISOString().split('T')[0]}</TableCell>
                 <TableCell>{session.time}</TableCell>
-                <TableCell>{session.cowGroups}</TableCell>
+                <TableCell>{session.cowGroup}</TableCell>
                 <TableCell>{session.status}</TableCell>
+                <TableCell>
+                  <>
+                    {session.status === 'Incomplete' && (
+                      <>
+                        <IconButton onClick={() => toggleAddForm(index)}>
+                          <AddCircleOutlineIcon />
+                        </IconButton>
+                        <IconButton onClick={() => toggleEditForm(index)}>
+                          <EditIcon />
+                        </IconButton>
+                      </>
+                    )}
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </>
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell colSpan={5}>
+                <TableCell colSpan={6}>
                   <Collapse in={index === openFormIndex}>
                     <div>
-                      {/* Form for incomplete sessions */}
-                      {session.status === 'Incomplete' && (
+                      {/* Form for adding sessions */}
+                      {showAddForm && (
                         <form>
                           <TextField label="Milk Batch ID" variant="outlined" fullWidth margin="normal" />
                           <TextField label="Milk Quantity" variant="outlined" fullWidth margin="normal" />
@@ -80,6 +156,21 @@ const MilkingSessionsTable = () => {
                           <TextField label="Irregularities" variant="outlined" fullWidth margin="normal" />
                           <Button variant="contained" color="primary" style={{ marginRight: '10px' }}>Submit</Button>
                           <Button variant="outlined">Cancel Session</Button>
+                        </form>
+                      )}
+                      {/* Form for editing sessions */}
+                      {showEditForm && (
+                        <form>
+                          <TextField label="Edit Milk Batch ID" variant="outlined" fullWidth margin="normal" />
+                          <TextField label="Edit Milk Quantity" variant="outlined" fullWidth margin="normal" />
+                          <TextField label="Edit Milking Duration" variant="outlined" fullWidth margin="normal" />
+                          <FormControlLabel
+                            control={<Checkbox />}
+                            label="Edit Quality Check Result (Pass/Fail)"
+                          />
+                          <TextField label="Edit Irregularities" variant="outlined" fullWidth margin="normal" />
+                          <Button variant="contained" color="primary" style={{ marginRight: '10px' }}>Update</Button>
+                          <Button variant="outlined">Cancel</Button>
                         </form>
                       )}
                     </div>
