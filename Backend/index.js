@@ -9,6 +9,7 @@ const auth = require("./routes/customerAuth");
 const purchase = require("./routes/purchases");
 const animalReg = require("./routes/animalRegister");
 const vaccAnim=require("./routes/vacAnimal");
+const exmAnim=require("./routes/exmAnimal");
 const messages = require("./routes/messages");
 const employee = require("./routes/eRegister")
 const supplier = require("./routes/supplier");
@@ -40,6 +41,8 @@ app.use("/api/purchase", purchase);
 app.use("/api/animalReg", animalReg);
 
 app.use("/api/vacAnim", vaccAnim);
+
+app.use("/api/exmAnim",exmAnim);
 
 app.use("/api/messages", messages)
 
