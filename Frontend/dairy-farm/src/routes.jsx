@@ -22,9 +22,11 @@ import MilkingSessions from './pages/Milking/MilkingSessions';
 import MilkingSessionSchedule from './pages/Milking/MilkingSessionSchedule';
 import HomePageM from "./pages/HomeMain";
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
+import SupplierOrder from "./pages/Supplier/SupplierOrder";
 import Health from "./pages/Veterinary/health";
 import VaccineAnim from "./pages/Veterinary/vaccineAnim";
 import PastureInfo from "../../dairy-farm/src/pages/Grazing/PastureInfo";
+
 
 const router = createBrowserRouter([
   {
@@ -109,6 +111,10 @@ const router = createBrowserRouter([
   {
     path: "/supplierdashboard/",
     element: <SupplierDashbord />,
+  },
+  {
+    path: "/order",
+    element: <SupplierOrder />,
   },
   {
     path: "/financedashboard",

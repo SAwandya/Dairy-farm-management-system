@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import {
   MRT_EditActionButtons,
   MaterialReactTable,
-  // createRow,
   useMaterialReactTable,
 } from "material-react-table";
 import {
@@ -21,11 +20,10 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { fakeData, usStates } from "./makeData";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const SupplierTable = () => {
+const OrderTable = () => {
   const [validationErrors, setValidationErrors] = useState({});
 
   const columns = useMemo(
@@ -38,49 +36,58 @@ const SupplierTable = () => {
         className: "hidden",
       },
       {
-        accessorKey: "name",
-        header: "Supplier Name",
+        accessorKey: "orderType",
+        header: "Order Type",
         muiEditTextFieldProps: {
           required: true,
-          error: !!validationErrors?.name,
-          helperText: validationErrors?.name,
-          //remove any previous validation errors when user focuses on the input
+          error: !!validationErrors?.orderType,
+          helperText: validationErrors?.orderType,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              name: undefined,
-            }),
-          //optionally add validation checking for onBlur or onChange
-        },
-      },
-      {
-        accessorKey: "email",
-        header: "Email",
-        muiEditTextFieldProps: {
-          type: "email",
-          required: true,
-          error: !!validationErrors?.email,
-          helperText: validationErrors?.email,
-          //remove any previous validation errors when user focuses on the input
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              email: undefined,
+              orderType: undefined,
             }),
         },
       },
       {
-        accessorKey: "itemType",
-        header: "Item Type",
+        accessorKey: "orderStatus",
+        header: "Order Status",
         muiEditTextFieldProps: {
           required: true,
-          error: !!validationErrors?.itemType,
-          helperText: validationErrors?.itemType,
-          //remove any previous validation errors when user focuses on the input
+          error: !!validationErrors?.orderStatus,
+          helperText: validationErrors?.orderStatus,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              itemType: undefined,
+              orderStatus: undefined,
+            }),
+        },
+      },
+      {
+        accessorKey: "quantity",
+        header: "Quantity",
+        muiEditTextFieldProps: {
+          required: true,
+          error: !!validationErrors?.quantity,
+          helperText: validationErrors?.quantity,
+          onFocus: () =>
+            setValidationErrors({
+              ...validationErrors,
+              quantity: undefined,
+            }),
+        },
+      },
+      {
+        accessorKey: "perCostUnit",
+        header: "Per Cost Unit",
+        muiEditTextFieldProps: {
+          required: true,
+          error: !!validationErrors?.perCostUnit,
+          helperText: validationErrors?.perCostUnit,
+          onFocus: () =>
+            setValidationErrors({
+              ...validationErrors,
+              perCostUnit: undefined,
             }),
         },
       },
@@ -88,79 +95,64 @@ const SupplierTable = () => {
         accessorKey: "deliveryDate",
         header: "Delivery Date",
         muiEditTextFieldProps: {
-          type: "date",
           required: true,
           error: !!validationErrors?.deliveryDate,
           helperText: validationErrors?.deliveryDate,
-          //remove any previous validation errors when user focuses on the input
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
               deliveryDate: undefined,
             }),
-          //optionally add validation checking for onBlur or onChange
         },
-      },
+      }
     ],
     [validationErrors]
   );
 
   //call CREATE hook
-  const { mutateAsync: createUser, isPending: isCreatingUser } =
-    useCreateUser();
+  const { mutateAsync: createOrder, isPending: isCreatingOrder } =
+    useCreateOrder();
   //call READ hook
   const {
-    data: fetchedUsers = [],
-    isError: isLoadingUsersError,
-    isFetching: isFetchingUsers,
-    isLoading: isLoadingUsers,
-  } = useGetUsers();
+    data: fetchedOrders = [],
+    isError: isLoadingOrdersError,
+    isFetching: isFetchingOrders,
+    isLoading: isLoadingOrders,
+  } = useGetOrders();
   //call UPDATE hook
-  const { mutateAsync: updateUser, isPending: isUpdatingUser } =
-    useUpdateUser();
+  const { mutateAsync: updateOrder, isPending: isUpdatingOrder } =
+    useUpdateOrder();
   //call DELETE hook
-  const { mutateAsync: deleteUser, isPending: isDeletingUser } =
-    useDeleteUser();
+  const { mutateAsync: deleteOrder, isPending: isDeletingOrder } =
+    useDeleteOrder();
 
   //CREATE action
-  const handleCreateUser = async ({ values, table }) => {
-    // const newValidationErrors = validateUser(values);
-    // if (Object.values(newValidationErrors).some((error) => error)) {
-    //   setValidationErrors(newValidationErrors);
-    //   return;
-    // }
-    // setValidationErrors({});
-    await createUser(values);
+  const handleCreateOrder = async ({ values, table }) => {
+    await createOrder(values);
     table.setCreatingRow(null); //exit creating mode
   };
 
   //UPDATE action
-  const handleSaveUser = async ({ values, table }) => {
-    // const newValidationErrors = validateUser(values);
-    // if (Object.values(newValidationErrors).some((error) => error)) {
-    //   setValidationErrors(newValidationErrors);
-    //   return;
-    // }
-    // setValidationErrors({});
-    await updateUser(values);
+  const handleSaveOrder = async ({ values, table }) => {
+    await updateOrder(values);
     table.setEditingRow(null); //exit editing mode
   };
 
   //DELETE action
   const openDeleteConfirmModal = (row) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      deleteUser(row.original._id);
+    if (window.confirm("Are you sure you want to delete this order?")) {
+      deleteOrder(row.original._id);
     }
   };
 
   const table = useMaterialReactTable({
     columns,
-    data: fetchedUsers,
-    createDisplayMode: "modal", //default ('row', and 'custom' are also available)
-    editDisplayMode: "modal", //default ('row', 'cell', 'table', and 'custom' are also available)
+    data: fetchedOrders,
+    createDisplayMode: "modal",
+    editDisplayMode: "modal",
     enableEditing: true,
     getRowId: (row) => row.id,
-    muiToolbarAlertBannerProps: isLoadingUsersError
+    muiToolbarAlertBannerProps: isLoadingOrdersError
       ? {
           color: "error",
           children: "Error loading data",
@@ -172,36 +164,34 @@ const SupplierTable = () => {
       },
     },
     onCreatingRowCancel: () => setValidationErrors({}),
-    onCreatingRowSave: handleCreateUser,
+    onCreatingRowSave: handleCreateOrder,
     onEditingRowCancel: () => setValidationErrors({}),
-    onEditingRowSave: handleSaveUser,
-    //optionally customize modal content
+    onEditingRowSave: handleSaveOrder,
     renderCreateRowDialogContent: ({ table, row, internalEditComponents }) => (
-      <>
-        <DialogTitle variant="h3">Create New Supplier</DialogTitle>
+      <div>
+        <DialogTitle variant="h3">Place Order</DialogTitle>
         <DialogContent
           sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
         >
-          {internalEditComponents} {/* or render custom edit components here */}
+          {internalEditComponents}
         </DialogContent>
         <DialogActions>
           <MRT_EditActionButtons variant="text" table={table} row={row} />
         </DialogActions>
-      </>
+      </div>
     ),
-    //optionally customize modal content
     renderEditRowDialogContent: ({ table, row, internalEditComponents }) => (
-      <>
-        <DialogTitle variant="h3">Edit User</DialogTitle>
+      <div>
+        <DialogTitle variant="h3">Edit Order</DialogTitle>
         <DialogContent
           sx={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
         >
-          {internalEditComponents} {/* or render custom edit components here */}
+          {internalEditComponents}
         </DialogContent>
         <DialogActions>
           <MRT_EditActionButtons variant="text" table={table} row={row} />
         </DialogActions>
-      </>
+      </div>
     ),
     renderRowActions: ({ row, table }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
@@ -230,100 +220,100 @@ const SupplierTable = () => {
           // );
         }}
       >
-        Add Supplier
+        Place Order
       </Button>
     ),
     state: {
-      isLoading: isLoadingUsers,
-      isSaving: isCreatingUser || isUpdatingUser || isDeletingUser,
-      showAlertBanner: isLoadingUsersError,
-      showProgressBars: isFetchingUsers,
+      isLoading: isLoadingOrders,
+      isSaving: isCreatingOrder || isUpdatingOrder || isDeletingOrder,
+      showAlertBanner: isLoadingOrdersError,
+      showProgressBars: isFetchingOrders,
     },
   });
 
   return <MaterialReactTable table={table} />;
 };
 
-//CREATE hook (post new user to api)
-function useCreateUser() {
+//CREATE hook (post new order to api)
+function useCreateOrder() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (user) => {
-      const response = await fetch("http://localhost:3000/api/supplier", {
+    mutationFn: async (order) => {
+      const response = await fetch("http://localhost:3000/api/order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({...user, _id: undefined}),
+        body: JSON.stringify({...order, _id: undefined}),
       });
       return response.json();
     },
-    onMutate: (newUserInfo) => {
-      queryClient.setQueryData(["users"], (prevUsers) => [
-        ...prevUsers,
+    onMutate: (newOrderInfo) => {
+      queryClient.setQueryData(["orders"], (prevOrders) => [
+        ...prevOrders,
         {
-          ...newUserInfo,
+          ...newOrderInfo,
         },
       ]);
     },
   });
 }
 
-//READ hook (get users from api)
-function useGetUsers() {
+//READ hook (get orders from api)
+function useGetOrders() {
   return useQuery({
-    queryKey: ["users"],
+    queryKey: ["orders"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:3000/api/supplier");
+      const response = await fetch("http://localhost:3000/api/order");
       return response.json();
     },
     refetchOnWindowFocus: false,
   });
 }
 
-//UPDATE hook (put user in api)
-function useUpdateUser() {
+//UPDATE hook (put order in api)
+function useUpdateOrder() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (user) => {
+    mutationFn: async (order) => {
       const response = await fetch(
-        `http://localhost:3000/api/supplier/${user._id}`,
+        `http://localhost:3000/api/order/${order._id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({...user, _id: undefined}),
+          body: JSON.stringify({...order, _id: undefined}),
         }
       );
       return response.json();
     },
-    onMutate: (newUserInfo) => {
-      queryClient.setQueryData(["users"], (prevUsers) =>
-        prevUsers?.map((prevUser) =>
-          prevUser.id === newUserInfo.id ? newUserInfo : prevUser
+    onMutate: (newOrderInfo) => {
+      queryClient.setQueryData(["orders"], (prevOrders) =>
+        prevOrders?.map((prevOrder) =>
+          prevOrder.id === newOrderInfo.id ? newOrderInfo : prevOrder
         )
       );
     },
   });
 }
 
-//DELETE hook (delete user in api)
-function useDeleteUser() {
+//DELETE hook (delete order in api)
+function useDeleteOrder() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (userId) => {
+    mutationFn: async (orderId) => {
       const response = await fetch(
-        `http://localhost:3000/api/supplier/${userId}`,
+        `http://localhost:3000/api/order/${orderId}`,
         {
           method: "DELETE",
         }
       );
       return response.json();
     },
-    onMutate: (userId) => {
-      queryClient.setQueryData(["users"], (prevUsers) =>
-        prevUsers?.filter((user) => user._id !== userId)
+    onMutate: (orderId) => {
+      queryClient.setQueryData(["orders"], (prevOrders) =>
+        prevOrders?.filter((order) => order._id !== orderId)
       );
     },
   });
@@ -334,30 +324,28 @@ const queryClient = new QueryClient();
 const ExampleWithProviders = () => (
   //Put this with your other react-query providers near root of your app
   <QueryClientProvider client={queryClient}>
-    <SupplierTable />
+    <OrderTable />
   </QueryClientProvider>
 );
 
-export default SupplierTable;
+export default OrderTable;
 
 const validateRequired = (value) => !!value.length;
-const validateEmail = (email) =>
-  !!email.length &&
-  email
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
 
-function validateUser(user) {
+function validateOrder(order) {
   return {
-    firstName: !validateRequired(user.firstName)
-      ? "First Name is Required"
+    orderType: !validateRequired(order.orderType)
+      ? "Order Type is Required"
       : "",
-    lastName: !validateRequired(user.lastName) ? "Last Name is Required" : "",
-    email: !validateEmail(user.email) ? "Incorrect Email Format" : "",
+    orderStatus: !validateRequired(order.orderStatus)
+      ? "Order Status is Required"
+      : "",
+    quantity: !validateRequired(order.quantity) ? "Quantity is Required" : "",
+    perCostUnit: !validateRequired(order.perCostUnit)
+      ? "Per Cost Unit is Required"
+      : "",
+    deliveryDate: !validateRequired(order.deliveryDate)
+      ? "Delivery Date is Required"
+      : "",
   };
-
 }
-
-
