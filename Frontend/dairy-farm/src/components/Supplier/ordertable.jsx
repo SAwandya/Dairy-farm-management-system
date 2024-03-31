@@ -78,16 +78,16 @@ const OrderTable = () => {
         },
       },
       {
-        accessorKey: "perCostUnit",
-        header: "Per Cost Unit",
+        accessorKey: "perUnitCost",
+        header: "Per Unit Cost",
         muiEditTextFieldProps: {
           required: true,
-          error: !!validationErrors?.perCostUnit,
-          helperText: validationErrors?.perCostUnit,
+          error: !!validationErrors?.perUnitCost,
+          helperText: validationErrors?.perUnitCost,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              perCostUnit: undefined,
+              perUnitCost: undefined,
             }),
         },
       },
