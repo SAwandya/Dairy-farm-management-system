@@ -41,20 +41,20 @@ function Sidebar() {
           <NavigationLink
             icon={<LocalShippingIcon />}
             text="Supplier"
-            isActive={activeSection === "sessions"}
-            onClick={() => handleNavigation("sessions")}
+            isActive={activeSection === "supplier"}
+            onClick={() => handleNavigation("supplier")}
           />
           <NavigationLink
             icon={<InventoryIcon />}
             text="Orders"
-            isActive={activeSection === "milking-data"}
-            onClick={() => handleNavigation("milking-data")}
+            isActive={activeSection === "orders"}
+            onClick={() => handleNavigation("orders")}
           />
           <NavigationLink
             icon={<BallotIcon />}
             text="Items"
-            isActive={activeSection === "storage"}
-            onClick={() => handleNavigation("storage")}
+            isActive={activeSection === "items"}
+            onClick={() => handleNavigation("items")}
           />
           <NavigationLink
             icon={<AssessmentIcon />}
