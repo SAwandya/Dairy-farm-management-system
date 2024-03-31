@@ -22,6 +22,7 @@ import MilkingSessions from './pages/Milking/MilkingSessions';
 import MilkingSessionSchedule from './pages/Milking/MilkingSessionSchedule';
 import HomePageM from "./pages/HomeMain";
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
+import SupplierOrder from "./pages/Supplier/SupplierOrder";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
   {
     path: "/supplierdashboard/",
     element: <SupplierDashbord/>,
+  },
+  {
+    path: "/order",
+    element: <SupplierOrder />,
   },
   {
     path: "/financedashboard",
