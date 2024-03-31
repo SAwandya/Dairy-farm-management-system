@@ -78,16 +78,16 @@ const OrderTable = () => {
         },
       },
       {
-        accessorKey: "perCostUnit",
-        header: "Per Cost Unit",
+        accessorKey: "perUnitCost",
+        header: "Per Unit",
         muiEditTextFieldProps: {
           required: true,
-          error: !!validationErrors?.perCostUnit,
-          helperText: validationErrors?.perCostUnit,
+          error: !!validationErrors?.perUnitCost,
+          helperText: validationErrors?.perUnitCost,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              perCostUnit: undefined,
+              perUnitCost: undefined,
             }),
         },
       },
@@ -341,7 +341,7 @@ function validateOrder(order) {
       ? "Order Status is Required"
       : "",
     quantity: !validateRequired(order.quantity) ? "Quantity is Required" : "",
-    perCostUnit: !validateRequired(order.perCostUnit)
+    perUnitCost: !validateRequired(order.perUnitCost)
       ? "Per Cost Unit is Required"
       : "",
     deliveryDate: !validateRequired(order.deliveryDate)
