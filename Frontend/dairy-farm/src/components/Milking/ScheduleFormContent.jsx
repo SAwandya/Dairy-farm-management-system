@@ -16,7 +16,7 @@ const ScheduleFormContent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        axios.post("http://localhost:3000/api/milkingSessionRoute", {
+        axios.post("http://localhost:3000/api/milkingSessions", {
             sessionId,
             date,
             time,
