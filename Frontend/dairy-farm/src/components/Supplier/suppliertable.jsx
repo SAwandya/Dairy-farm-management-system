@@ -357,4 +357,7 @@ function validateUser(user) {
     lastName: !validateRequired(user.lastName) ? "Last Name is Required" : "",
     email: !validateEmail(user.email) ? "Incorrect Email Format" : "",
   };
+
 }
+
+

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import NavigationLink from "../NavigationLink";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
@@ -11,14 +12,15 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 function Sidebar() {
-  const [activeSection, setActiveSection] = useState("dashboard");
+  const [activeSection, setActiveSection] = useState("vetdashboard");
+
 
   const handleNavigation = (section) => {
     setActiveSection(section);
   };
 
   return (
-    <Box className="sidebar">
+    <Box className="sidebar" sx={{position:'fixed',left:0,top:0}}>
       <Box className="sidebar-logo-container">
         <img
           className="sidebar-logo"
@@ -30,35 +32,41 @@ function Sidebar() {
       {/* Navigation links */}
       <Box className="navigation-links">
         <List>
+        <Link to="/vetdashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<SpaceDashboardIcon />}
             text="Dashboard"
-            isActive={activeSection === "dashboard"}
-            onClick={() => handleNavigation("dashboard")}
+            isActive={activeSection === "vetdashboard"}
+            onClick={() => handleNavigation("vetdashboard")}
           />
-          <NavigationLink
-            icon={<AccessTimeFilledIcon />}
-            text="Registry"
-            isActive={activeSection === "sessions"}
-            onClick={() => handleNavigation("sessions")}
-          />
+          </Link>
+          <Link to="/animalReg" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<AccessTimeFilledIcon />}
+              text="Registry"
+              isActive={activeSection === "registry"}
+              onClick={() => handleNavigation("registry")}
+            />
+          </Link>
+          <Link to="/health" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<DonutSmallIcon />}
             text="Health"
-            isActive={activeSection === "milking-data"}
-            onClick={() => handleNavigation("milking-data")}
+            isActive={activeSection === "health"}
+            onClick={() => handleNavigation("health")}
           />
+          </Link>
           <NavigationLink
             icon={<WaterDropIcon />}
             text="Breeding"
-            isActive={activeSection === "storage"}
-            onClick={() => handleNavigation("storage")}
+            isActive={activeSection === "breeding"}
+            onClick={() => handleNavigation("breeding")}
           />
           <NavigationLink
             icon={<AssessmentIcon />}
             text="Reports"
-            isActive={activeSection === "reports"}
-            onClick={() => handleNavigation("reports")}
+            isActive={activeSection === "vetreports"}
+            onClick={() => handleNavigation("vetreports")}
           />
         </List>
       </Box>
@@ -69,8 +77,8 @@ function Sidebar() {
           <NavigationLink
             icon={<AccountCircleIcon />}
             text="Profile"
-            isActive={activeSection === "profile"}
-            onClick={() => handleNavigation("profile")}
+            isActive={activeSection === "vetprofile"}
+            onClick={() => handleNavigation("vetprofile")}
           />
           <NavigationLink
             icon={<LogoutIcon />}

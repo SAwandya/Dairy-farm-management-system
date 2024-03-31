@@ -23,6 +23,10 @@ import MilkingSessionSchedule from './pages/Milking/MilkingSessionSchedule';
 import HomePageM from "./pages/HomeMain";
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 import SupplierOrder from "./pages/Supplier/SupplierOrder";
+import Health from "./pages/Veterinary/health";
+import VaccineAnim from "./pages/Veterinary/vaccineAnim";
+import PastureInfo from "../../dairy-farm/src/pages/Grazing/PastureInfo";
+
 
 const router = createBrowserRouter([
   {
@@ -69,36 +73,44 @@ const router = createBrowserRouter([
   },
   {
     path: "/salesdashboard",
-    element: <SalesDashboard/>
+    element: <SalesDashboard />,
   },
   {
-    path:"/vetdashboard",
-    element:<VetDashboard/>
+    path: "/vetdashboard",
+    element: <VetDashboard />,
   },
   {
-    path:"/animalReg",
-    element:<AnimalRegistry/>
+    path: "/animalReg",
+    element: <AnimalRegistry />,
+  },
+  {
+    path:"/health",
+    element:<Health/>
+  },
+  {
+    path:"/vaccineAnim",
+    element:<VaccineAnim/>
   },
   {
     path: "/milkingdashboard",
-    element: <MilkingDashboard/>,
+    element: <MilkingDashboard />,
   },
   {
     path: "/employeedashboard",
-    element: <Employee/>,
+    element: <Employee />,
   },
   {
     path: "/createEmployee",
-    element: <CreateEmployee/>,
+    element: <CreateEmployee />,
   },
   {
     path: "/updateEmployee/:id",
-    element: <UpdateEmployee/>,
+    element: <UpdateEmployee />,
   },
-  
+
   {
     path: "/supplierdashboard/",
-    element: <SupplierDashbord/>,
+    element: <SupplierDashbord />,
   },
   {
     path: "/order",
@@ -106,41 +118,39 @@ const router = createBrowserRouter([
   },
   {
     path: "/financedashboard",
-    element: <FinanceMainDashboard/>
+    element: <FinanceMainDashboard />,
   },
   {
     path: "/milkingSessions",
-    element: <MilkingSessions/>
+    element: <MilkingSessions />,
   },
 
   {
-    path:"/homeM",
-    element:<HomePageM/>
+    path: "/homeM",
+    element: <HomePageM />,
   },
 
-  {path: "/productiondashboard",
-   element: <ProductionDashboard/>
-  },
-    
-  {path: "/processplanning",
-   element: <ProcessPlanning/>
-  },
-    
+  { path: "/productiondashboard", element: <ProductionDashboard /> },
+
+  { path: "/processplanning", element: <ProcessPlanning /> },
+
   {
     path: "/financetrans",
-    element: <FinanceTransactions/>
+    element: <FinanceTransactions />,
   },
   {
     path: "/scheduleForm",
-    element: <MilkingSessionSchedule/>
+    element: <MilkingSessionSchedule />,
   },
   {
     path: "/milkingSessions",
-    element: <MilkingSessions/>
+    element: <MilkingSessions />,
   },
 
-
-
+  {
+    path: "/pastureinfo",
+    element: <PastureInfo />,
+  },
 ]);
 
 export default router;
