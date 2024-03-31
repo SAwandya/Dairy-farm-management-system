@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Joi = require('joi');
 
 const orderSchema = new mongoose.Schema({
   orderType: {
@@ -28,11 +27,13 @@ const Order = mongoose.model('Order', orderSchema);
 
 function validateOrder(order) {
   const schema = Joi.object({
+    
     orderType: Joi.string().required(),
     orderStatus: Joi.string().required(),
     quantity: Joi.number().required(),
     perCostUnit: Joi.number().required(),
     deliveryDate: Joi.date().required()
+
   });
 
   return schema.validate(order);

@@ -11,8 +11,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import TableCard from '../../components/Employees/tablecards';
-
+import Esidebar from "../../components/Employees/esidebar";
 import axios from 'axios';
+
 
 
 function Employee() {
@@ -97,8 +98,10 @@ function Employee() {
     ];
 
     return (
-        
-        
+        <div>
+        <div style={{ display: 'flex', minWidth: '1036px' }}>
+   <Esidebar/>
+
 
         <Box sx={{ marginLeft: '12rem',marginTop:'50px' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
@@ -178,8 +181,10 @@ function Employee() {
                 />
                 </TableCard>
             </Box>
-       
+       </div>
+       </div>
     );
+    
 }
 
 export default Employee;

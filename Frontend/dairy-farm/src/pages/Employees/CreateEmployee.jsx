@@ -9,6 +9,7 @@ import CustomTextField from '../../components/Employees/textfield';
 import em1 from '../../assets/em1.png'
 import Esidebar from "../../components/Employees/esidebar";
 import Swal from 'sweetalert2';
+//new
 
 function CreateEmployee() {
   const [employeeId, setEmployeeId] = useState('');
@@ -18,11 +19,12 @@ function CreateEmployee() {
   const [email, setEmail] = useState('');
   const [basicSalary, setBasicSalary] = useState('');
   const navigate = useNavigate();
-
+//side bar
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     try {
+      //new
       const response = await axios.post("http://localhost:3000/api/employee/createEmployee", {
         employeeId,
         employeeName,
@@ -62,8 +64,12 @@ function CreateEmployee() {
   
 
   return (
+    //esidebar
+    <div>
+       <div style={{ display: 'flex', minWidth: '1036px' }}>
+   <Esidebar/>
     <Box
-      height={500}
+      height={550}
       width={1000}
       my={4}
       display="flex"
@@ -73,6 +79,7 @@ function CreateEmployee() {
       p={2}
       sx={{ bgcolor: '#E7F1F7'}}
     >
+      
       <img src={em1} alt="Employee" className="em1" style={{ width: '400px', height: '400px' }} />
       <Box>
         <Typography variant="h5" style={{ marginBottom: '20px', fontWeight: 'bold', fontStyle: 'poppins' }}>
@@ -145,8 +152,11 @@ function CreateEmployee() {
             Add Employee
           </Button>
         </form>
+        
       </Box>
     </Box>
+    </div>
+    </div>
   );
 }
 
