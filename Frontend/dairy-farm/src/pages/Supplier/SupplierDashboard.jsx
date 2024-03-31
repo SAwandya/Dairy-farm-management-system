@@ -1,5 +1,5 @@
 import React from "react";
-import MilkingSideBar from "../../components/Supplier/SupplierSideBar";
+import SupplierSideBar from "../../components/Supplier/SupplierSideBar";
 import DashboardContent from "../../components/Supplier/DashboardContent";
 import Container from "@mui/material/Container";
 
@@ -12,7 +12,7 @@ function SupplierDashboard() {
                 minWidth: '1036px'
             }}
         >
-            <MilkingSideBar />
+            <SupplierSideBar />
             <DashboardContent />
         </Container>
     );
