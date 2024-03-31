@@ -10,10 +10,11 @@ router.post('/', async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message);
 
     let order = new Order({
-        orderType: req.body.OrderType,
-        orderStatus: req.body.OrderStatus,
-        quantity: req.body.Quantity,
-        perunitCost: req.body.PerunitCost,
+
+        orderType: req.body.orderType,
+        orderStatus: req.body.orderStatus,
+        quantity: req.body.quantity,
+        perunitCost: req.body.perunitCost,
         deliveryDate: req.body.deliveryDate
     });
     order = await order.save();
@@ -40,10 +41,10 @@ router.put('/:id', async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message);
 
     const order = await Order.findByIdAndUpdate(req.params.id, {
-        OrderType: req.body.OrderType,
-        OrderStatus: req.body.OrderStatus,
-        Quantity: req.body.Quantity,
-        PerunitCost: req.body.PerunitCost,
+        orderType: req.body.orderType,
+        orderStatus: req.body.orderStatus,
+        quantity: req.body.quantity,
+        perunitCost: req.body.perunitCost,
         deliveryDate: req.body.deliveryDate
     }, { new: true });
 

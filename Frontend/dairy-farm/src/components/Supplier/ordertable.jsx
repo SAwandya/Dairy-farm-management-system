@@ -79,7 +79,8 @@ const OrderTable = () => {
       },
       {
         accessorKey: "perUnitCost",
-        header: "Per Unit Cost",
+
+        header: "Per Unit",
         muiEditTextFieldProps: {
           required: true,
           error: !!validationErrors?.perUnitCost,
@@ -341,7 +342,7 @@ function validateOrder(order) {
       ? "Order Status is Required"
       : "",
     quantity: !validateRequired(order.quantity) ? "Quantity is Required" : "",
-    perCostUnit: !validateRequired(order.perCostUnit)
+    perUnitCost: !validateRequired(order.perUnitCost)
       ? "Per Cost Unit is Required"
       : "",
     deliveryDate: !validateRequired(order.deliveryDate)

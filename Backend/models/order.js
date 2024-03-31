@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
+
   orderType: {
     type: String,
     required: true
@@ -13,7 +14,7 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  perCostUnit: {
+  perunitCost: {
     type: Number,
     required: true
   },
@@ -27,11 +28,12 @@ const Order = mongoose.model('Order', orderSchema);
 
 function validateOrder(order) {
   const schema = Joi.object({
-    
+
+    orderID: Joi.string().required(),
     orderType: Joi.string().required(),
     orderStatus: Joi.string().required(),
     quantity: Joi.number().required(),
-    perCostUnit: Joi.number().required(),
+    perunitCost: Joi.number().required(),
     deliveryDate: Joi.date().required()
 
   });
