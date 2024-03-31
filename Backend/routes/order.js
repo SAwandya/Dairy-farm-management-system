@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 
 const router = express.Router();
-const { validate, Order } = require("../models/order");
+const { Order } = require("../models/order");
 
 // Create
 router.post('/', async (req, res) => {
