@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 
 const router = express.Router();
 const { validate, Order } = require("../models/order");
-const c = require("config");
-const { number } = require("joi");
 
 // Create
 router.post('/', async (req, res) => {
@@ -61,8 +59,6 @@ router.delete('/:id', async (req, res) => {
     res.send(order);
 });
 
+
 module.exports = router;
 
-
-//test cases
-//sachila
