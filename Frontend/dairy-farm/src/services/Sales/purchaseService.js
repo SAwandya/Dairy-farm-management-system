@@ -14,6 +14,11 @@ class PurchaseService {
   Delete(params){
     return apiClient.delete(params);
   }
+  
+  Update(params, config){
+    const newparams = 'update/' + params;
+    return apiClient.put(newparams, config);
+  }
 }
 
 export default new PurchaseService();

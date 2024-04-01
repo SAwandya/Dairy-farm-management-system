@@ -70,6 +70,30 @@ router.put("/:id", async (req, res) => {
   res.send(purchase);
 });
 
+router.put("/update/:id", async (req, res) => {
+  
+  let purchase = await Purchase.findByIdAndUpdate(req.params.id, {
+    "deliveryDetails.address1": req.body.address1,
+    "deliveryDetails.address2": req.body.address2,
+    "deliveryDetails.city": req.body.city,
+    "deliveryDetails.state": req.body.state,
+    "deliveryDetails.firstName": req.body.firstName,
+    "deliveryDetails.lastName": req.body.lastName,
+    "paymentDetails.cardNumber": req.body.cardNumber,
+    "paymentDetails.cardName": req.body.cardName,
+    "paymentDetails.cvv": req.body.cvv,
+    "paymentDetails.expDate": req.body.expDate,
+  });
+
+  purchase = await purchase.save();
+
+  if (!purchase)
+    return res.status(400).send("The purchase with the given id not found");
+
+  res.send(purchase);
+});
+
+
 router.delete("/:id", async (req, res) => {
 
   let purchase = await Purchase.findByIdAndDelete(req.params.id);
