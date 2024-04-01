@@ -72,6 +72,17 @@ router.get('/retrieve2/pregnant', async (req, res) => {
     }
 });
 
+// Count the records having exam == "Pregnancy Check"
+router.get('/count-pregnancy-check', async (req, res) => {
+    try {
+        const count = await ExamAnim.countDocuments({ exam: 'Pregnancy Check' });
+        res.json({ success: true, count });
+    } catch (error) {
+        console.error("Error fetching count of records with exam 'Pregnancy Check':", error);
+        res.status(500).json({ success: false, error: "Failed to fetch count of records with exam 'Pregnancy Check'" });
+    }
+});
+
 // Update an animal by id
 router.put('/update/:id', async (req, res) => {
     try {
