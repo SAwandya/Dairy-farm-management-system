@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  perunitCost: {
+  advanceFee: {
     type: Number,
     required: true
   },
@@ -28,12 +28,10 @@ const Order = mongoose.model('Order', orderSchema);
 
 function validateOrder(order) {
   const schema = Joi.object({
-
-    orderID: Joi.string().required(),
     orderType: Joi.string().required(),
     orderStatus: Joi.string().required(),
     quantity: Joi.number().required(),
-    perunitCost: Joi.number().required(),
+    advanceFee: Joi.number().required(),
     deliveryDate: Joi.date().required()
 
   });

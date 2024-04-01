@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
         orderType: req.body.orderType,
         orderStatus: req.body.orderStatus,
         quantity: req.body.quantity,
-        perunitCost: req.body.perunitCost,
+        advanceFee: req.body.advanceFee,
         deliveryDate: req.body.deliveryDate
     });
     order = await order.save();
@@ -44,7 +44,7 @@ router.put('/:id', async (req, res) => {
         orderType: req.body.orderType,
         orderStatus: req.body.orderStatus,
         quantity: req.body.quantity,
-        perunitCost: req.body.perunitCost,
+        advanceFee: req.body.advanceFee,
         deliveryDate: req.body.deliveryDate
     }, { new: true });
 
