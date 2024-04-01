@@ -266,6 +266,7 @@ function AnimalRegistry() {
                     />
                 </div>
             )}
+           
         </div>
         </div>
     );
