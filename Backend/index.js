@@ -15,6 +15,7 @@ const employee = require("./routes/eRegister")
 const supplier = require("./routes/supplier");
 const milkingSessions = require("./routes/milkingSessionRoute");
 const order = require("./routes/order");
+const item = require("./routes/item");
 
 
 if (!config.get("jwtPrivateKey")) {
@@ -53,6 +54,8 @@ app.use("/api/employee", employee);
 app.use("/api/supplier", supplier);
 
 app.use("/api/order", order);
+
+app.use("/api/item", item);
 
 app.use("/api/milkingSessions", milkingSessions);
 
