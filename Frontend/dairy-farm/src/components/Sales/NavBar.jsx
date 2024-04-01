@@ -202,18 +202,20 @@ const NavBar = () => {
           </Search>
 
           <Stack direction="row" spacing={2}>
-            <Button
-              sx={{
-                backgroundColor: "rgba(155, 207, 83, 0.8)",
-                fontSize: "17px",
-                fontWeight: "bold",
-                width: "150px",
-                color: "#191919",
-                borderRadius: "10px",
-              }}
-            >
-              HOME
-            </Button>
+            <Link to='/'>
+              <Button
+                sx={{
+                  backgroundColor: "rgba(155, 207, 83, 0.8)",
+                  fontSize: "17px",
+                  fontWeight: "bold",
+                  width: "150px",
+                  color: "#191919",
+                  borderRadius: "10px",
+                }}
+              >
+                HOME
+              </Button>
+            </Link>
             <Link to="/salesorders">
               <Button
                 sx={{
