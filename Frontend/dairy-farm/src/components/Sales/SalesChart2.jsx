@@ -5,7 +5,7 @@ import Slider from "@mui/material/Slider";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { BarChart } from "@mui/x-charts/BarChart";
-import usePurcahse from "../../hooks/usePurcahse";
+import usePurcahse from "../../hooks/usePurcahses";
 
 const SalesChart2 = () => {
   const [seriesNb, setSeriesNb] = React.useState(2);
@@ -123,7 +123,5 @@ const highlightScope = {
   highlighted: "series",
   faded: "global",
 };
-
-
 
 export default SalesChart2;

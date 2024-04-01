@@ -26,6 +26,7 @@ import SupplierOrder from "./pages/Supplier/SupplierOrder";
 import Health from "./pages/Veterinary/health";
 import VaccineAnim from "./pages/Veterinary/vaccineAnim";
 import PastureInfo from "../../dairy-farm/src/pages/Grazing/PastureInfo";
+import OrderPage from "./pages/Sales/OrderPage";
 
 
 const router = createBrowserRouter([
@@ -57,6 +58,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/salesorders",
+        element: (
+          <ProtectedRoute>
+            <OrderPage/>
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
   {
@@ -84,12 +93,12 @@ const router = createBrowserRouter([
     element: <AnimalRegistry />,
   },
   {
-    path:"/health",
-    element:<Health/>
+    path: "/health",
+    element: <Health />,
   },
   {
-    path:"/vaccineAnim",
-    element:<VaccineAnim/>
+    path: "/vaccineAnim",
+    element: <VaccineAnim />,
   },
   {
     path: "/milkingdashboard",

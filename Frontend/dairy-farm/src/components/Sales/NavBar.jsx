@@ -17,6 +17,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -213,18 +214,20 @@ const NavBar = () => {
             >
               HOME
             </Button>
-            <Button
-              sx={{
-                backgroundColor: "rgba(155, 207, 83, 0.8)",
-                fontSize: "17px",
-                fontWeight: "bold",
-                width: "150px",
-                color: "#191919",
-                borderRadius: "10px",
-              }}
-            >
-              MY ORDERS
-            </Button>
+            <Link to="/salesorders">
+              <Button
+                sx={{
+                  backgroundColor: "rgba(155, 207, 83, 0.8)",
+                  fontSize: "17px",
+                  fontWeight: "bold",
+                  width: "150px",
+                  color: "#191919",
+                  borderRadius: "10px",
+                }}
+              >
+                MY ORDERS
+              </Button>
+            </Link>
             <Button
               sx={{
                 backgroundColor: "rgba(155, 207, 83, 0.8)",

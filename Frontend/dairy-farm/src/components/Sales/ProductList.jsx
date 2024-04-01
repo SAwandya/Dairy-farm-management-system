@@ -5,7 +5,7 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import SalesTitle from "./SalesTitle";
-import usePurcahse from "../../hooks/usePurcahse";
+import usePurcahse from "../../hooks/usePurcahses";
 import Button from "@mui/material/Button";
 import useProducts from "../../hooks/useProducts";
 import useGameQueryStore from "../../store";

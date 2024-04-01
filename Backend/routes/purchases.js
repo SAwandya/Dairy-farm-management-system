@@ -9,6 +9,13 @@ router.get("/", async (req, res) => {
   res.send(purchase);
 });
 
+router.get("/:id", async (req, res) => {
+  const purchase = await Purchase.find({
+    "customer._id" : req.params.id
+  })
+  res.send(purchase);
+});
+
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
