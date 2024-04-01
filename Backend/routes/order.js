@@ -2,9 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 
 const router = express.Router();
-const { validate, Order } = require("../models/order");
-const c = require("config");
-const { number } = require("joi");
+const { Order } = require("../models/order");
 
 // Create
 router.post('/', async (req, res) => {
@@ -12,6 +10,7 @@ router.post('/', async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message);
 
     let order = new Order({
+
         orderType: req.body.orderType,
         orderStatus: req.body.orderStatus,
         quantity: req.body.quantity,
@@ -61,4 +60,6 @@ router.delete('/:id', async (req, res) => {
     res.send(order);
 });
 
+
 module.exports = router;
+

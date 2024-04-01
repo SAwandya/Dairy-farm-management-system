@@ -12,7 +12,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 function Esidebar() {
   const [activeSection, setActiveSection] = useState("dashboard");
-
+//side bar
   const handleNavigation = (section) => {
     setActiveSection(section);
   };
