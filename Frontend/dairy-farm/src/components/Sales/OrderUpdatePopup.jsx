@@ -142,7 +142,7 @@ const OrderUpdatePopup = (props) => {
                   error={errors?.firstName ? true : false}
                   helperText={
                     errors?.firstName && (
-                      <Alert severity="warning">
+                      <Alert severity="error">
                         The First name filed is canot be empty{" "}
                       </Alert>
                     )
@@ -160,7 +160,7 @@ const OrderUpdatePopup = (props) => {
                   error={errors?.lastName ? true : false}
                   helperText={
                     errors?.lastName && (
-                      <Alert severity="warning">
+                      <Alert severity="error">
                         The First Last name filed is canot be empty{" "}
                       </Alert>
                     )
@@ -178,7 +178,7 @@ const OrderUpdatePopup = (props) => {
                   error={errors?.address1 ? true : false}
                   helperText={
                     errors?.address1 && (
-                      <Alert severity="warning">
+                      <Alert severity="error">
                         The Address 1 filed is canot be empty{" "}
                       </Alert>
                     )
@@ -196,7 +196,7 @@ const OrderUpdatePopup = (props) => {
                   error={errors?.address2 ? true : false}
                   helperText={
                     errors?.address2 && (
-                      <Alert severity="warning">
+                      <Alert severity="error">
                         The address 2 filed is canot be empty{" "}
                       </Alert>
                     )
@@ -216,7 +216,7 @@ const OrderUpdatePopup = (props) => {
                   error={errors?.city ? true : false}
                   helperText={
                     errors?.city && (
-                      <Alert severity="warning">
+                      <Alert severity="error">
                         The city filed is canot be empty{" "}
                       </Alert>
                     )
@@ -234,7 +234,7 @@ const OrderUpdatePopup = (props) => {
                   error={errors?.state ? true : false}
                   helperText={
                     errors?.state && (
-                      <Alert severity="warning">
+                      <Alert severity="error">
                         The state filed is canot be empty{" "}
                       </Alert>
                     )
@@ -251,7 +251,7 @@ const OrderUpdatePopup = (props) => {
                   error={errors?.cardNumber ? true : false}
                   helperText={
                     errors?.cardNumber && (
-                      <Alert severity="warning">
+                      <Alert severity="error">
                         The card number filed is canot be empty{" "}
                       </Alert>
                     )
@@ -269,7 +269,7 @@ const OrderUpdatePopup = (props) => {
                   error={errors?.cardName ? true : false}
                   helperText={
                     errors?.cardName && (
-                      <Alert severity="warning">
+                      <Alert severity="error">
                         The card name filed is canot be empty{" "}
                       </Alert>
                     )
@@ -287,7 +287,7 @@ const OrderUpdatePopup = (props) => {
                   error={errors?.expDate ? true : false}
                   helperText={
                     errors?.expDate && (
-                      <Alert severity="warning">
+                      <Alert severity="error">
                         The expire date is canot be empty{" "}
                       </Alert>
                     )
@@ -296,7 +296,16 @@ const OrderUpdatePopup = (props) => {
               </Box>
             </Box>
 
-            <Button type="submit" color="primary" variant="contained">
+            <Button
+              type="submit"
+              sx={{
+                background: "rgba(155, 207, 83, 0.8)",
+                borderRadius: "10px",
+                margin: "10px",
+                color: "black",
+              }}
+              variant="contained"
+            >
               Update
             </Button>
           </Stack>
