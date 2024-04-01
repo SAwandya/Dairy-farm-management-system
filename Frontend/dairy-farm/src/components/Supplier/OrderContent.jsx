@@ -8,15 +8,15 @@ import '../../styles/supply.css'
 
 function OrderContent() {
     return (
-        <Box className="dashboard-content">
+        <Box className="dashboard-content-supply">
             <Welcome/>
 
-            <Box className="dashboard-content">
+            <Box className="dashboard-content-supply">
                 <OrderStatistics/>
 
             </Box>
             
-            <Box className="dashboard-content">
+            <Box className="dashboard-content-supply">
                 <OrderTable/>
 
             </Box>

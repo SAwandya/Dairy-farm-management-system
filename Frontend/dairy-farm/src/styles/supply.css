@@ -1,4 +1,89 @@
+.dashboard-content-supply {
+    margin: 40px 74px;;
+}
+
 .dashboard-below-container-supply {
     display: flex;
     /* justify-content: space-between; */
+}
+
+/* Side Bar */
+
+.sidebar {
+    background-color: #38775B;
+    width: 130px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+    position: sticky;
+    top: 0;
+}
+
+
+.sidebar-logo-container {
+    margin-top: 12px;
+    padding-left: 20px;
+}
+
+.navigation-links {
+    margin-top: 24px;
+}
+
+.user-actions {
+    margin-top: 96px;
+}
+
+.user-actions2 {
+    margin-top: 80px;
+}
+
+.nav-btn, .nav-btnactive {
+    width: 106px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.MuiListItemIcon-root {
+    min-width: 20px !important;
+}
+.nav-bar-icon {
+    width: 20px;
+    height: 20px;
+}
+.nav-bar-text {
+    font-size: 16px;
+}
+
+/* Welcome  */
+
+.welcome-header-supply {
+    display: flex;
+    justify-content: space-between;
+    width: 82vw;
+}
+
+/* Welcome */
+.welcome-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.welcome-name .welcome-text {
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600;
+}
+.welcome-name .welcome-name-value {
+    font-size: 32px;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700;
+    margin-top: 4px;
 }

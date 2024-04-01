@@ -8,15 +8,15 @@ import '../../styles/supply.css'
 
 function DashboardContent() {
     return (
-        <Box className="dashboard-content">
+        <Box className="dashboard-content-supply">
             <Welcome/>
 
-            <Box className="dashboard-content">
+            <Box className="dashboard-content-supply">
                 <MainStatistics/>
 
             </Box>
             
-            <Box className="dashboard-content">
+            <Box className="dashboard-content-supply">
                 <SupplierTable/>
 
             </Box>
