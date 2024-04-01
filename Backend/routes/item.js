@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message);
 
     let item = new Item({
-        name: req.body.name,
+        itemName: req.body.itemName,
         description: req.body.description,
         itemPriority: req.body.itemPriority,
         perUnitCost: req.body.perUnitCost
@@ -41,7 +41,7 @@ router.put('/:id', async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message);
 
     const item = await Item.findByIdAndUpdate(req.params.id, {
-        name: req.body.name,
+        itemName: req.body.itemName,
         description: req.body.description,
         itemPriority: req.body.itemPriority,
         perUnitCost: req.body.perUnitCost

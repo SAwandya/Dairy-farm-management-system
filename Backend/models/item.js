@@ -30,7 +30,8 @@ function validateItem(item) {
         perUnitCost: Joi.number().required()
     });
 
-    return schema.validate(item);
+    var result = schema.validate(item);
+    return result;
 }
 
 exports.validate = validateItem;
