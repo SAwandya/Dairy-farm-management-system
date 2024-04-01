@@ -148,7 +148,7 @@ const SupplierTable = () => {
 
   //DELETE action
   const openDeleteConfirmModal = (row) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
+    if (window.confirm("Are you sure you want to delete this Supplier?")) {
       deleteUser(row.original._id);
     }
   };

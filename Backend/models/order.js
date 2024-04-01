@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require("joi");
 
 const orderSchema = new mongoose.Schema({
 
@@ -36,9 +37,11 @@ function validateOrder(order) {
 
   });
 
-  return schema.validate(order);
+  var result = schema.validate(order);
+  return result;
 }
 
-exports.Order = Order;
+
 exports.validate = validateOrder;
+exports.Order = Order;
 exports.orderSchema = orderSchema;
