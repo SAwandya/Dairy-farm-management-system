@@ -12,7 +12,7 @@ const itemSchema = new mongoose.Schema({
     },
     itemPriority: {
         type: String,
-        enum: ['Low', 'Medium', 'High'],
+        // enum: ['Low', 'Medium', 'High'],
         default: 'Low'
     },
     perUnitCost: {
@@ -33,8 +33,6 @@ function validateItem(item) {
     return schema.validate(item);
 }
 
-module.exports = {
-    Item,
-    validateItem,
-    itemSchema
-};
+exports.validate = validateItem;
+exports.Item = Item;
+exports.itemSchema = itemSchema;

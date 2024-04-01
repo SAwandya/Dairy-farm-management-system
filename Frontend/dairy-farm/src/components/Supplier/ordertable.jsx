@@ -95,6 +95,7 @@ const OrderTable = () => {
         accessorKey: "deliveryDate",
         header: "Delivery Date",
         muiEditTextFieldProps: {
+          type: "date",
           required: true,
           error: !!validationErrors?.deliveryDate,
           helperText: validationErrors?.deliveryDate,
