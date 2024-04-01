@@ -39,6 +39,16 @@ router.get('/count', async (req, res) => {
         res.status(500).json({ success: false, error: "Failed to fetch total count" });
     }
 });
+//count female cows
+router.get('/count-females', async (req, res) => {
+    try {
+        const count = await Animaldb.countDocuments({ $or: [{ gender: "female" }, { gender: "Female" }] });
+        res.json({ success: true, count });
+    } catch (error) {
+        console.error("Error fetching total count of females:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch total count of females" });
+    }
+});
 
 // Retrieve and return all animals
 router.get('/retrieve', async (req, res) => {

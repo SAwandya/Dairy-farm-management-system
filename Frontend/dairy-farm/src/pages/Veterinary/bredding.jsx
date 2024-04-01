@@ -74,6 +74,7 @@ function BreedingCards() {
                             <CustomCard
                                 title={`Ear Tag: ${animal.earTag}`}
                                 data={`Exam Date: ${new Date(animal.checkdate).toLocaleDateString()}`}
+                                data1={`Status: ${animal.currentStatus}`}
                                 imgs="../../../src/assets/cow1.png" // Add path to cow image
                                 onEdit={() => handleEdit(animal)} // Pass animal data to handleEdit function
                                 onDelete={() => handleDelete(animal._id)} // Pass ID to handleDelete function
