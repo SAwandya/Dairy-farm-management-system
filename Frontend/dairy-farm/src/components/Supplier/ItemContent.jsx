@@ -1,27 +1,27 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import Welcome from './Welcome'
-import OrderStatistics from './OrderStatistics';
-import OrderTable from './ordertable';
+import ItemTable from './ItemTable';
 import '../../styles/supply.css'
+import ItemStatistics from './ItemStatistics';
 
 
-function OrderContent() {
+function DashboardContent() {
     return (
         <Box className="dashboard-content-supply">
             <Welcome/>
 
             <Box className="dashboard-content-supply">
-                <OrderStatistics/>
+                <ItemStatistics/>
 
             </Box>
             
             <Box className="dashboard-content-supply">
-                <OrderTable/>
+                <ItemTable/>
 
             </Box>
         </Box>
     );
   }
   
-  export default OrderContent;
+  export default DashboardContent;

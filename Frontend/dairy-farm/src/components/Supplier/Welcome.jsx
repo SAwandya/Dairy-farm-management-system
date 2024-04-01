@@ -5,7 +5,7 @@ import Date from "./Date"
 
 function Welcome() {
     return (
-        <Box className="welcome-header">
+        <Box className="welcome-header-supply">
             <Name />
             <Date />
         </Box>
