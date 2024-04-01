@@ -25,6 +25,7 @@ import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 import SupplierOrder from "./pages/Supplier/SupplierOrder";
 import Health from "./pages/Veterinary/health";
 import VaccineAnim from "./pages/Veterinary/vaccineAnim";
+import BreedCard from "./pages/Veterinary/breedPage";
 import PastureInfo from "../../dairy-farm/src/pages/Grazing/PastureInfo";
 
 
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
   {
     path:"/vaccineAnim",
     element:<VaccineAnim/>
+  },
+  {
+    path:"/breedAnim",
+    element:<BreedCard/>
   },
   {
     path: "/milkingdashboard",

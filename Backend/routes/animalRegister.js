@@ -29,6 +29,16 @@ router.post("/create", async (req, res) => {
         console.log(error)
     }
 });
+//count
+router.get('/count', async (req, res) => {
+    try {
+        const count = await Animaldb.countDocuments();
+        res.json({ success: true, count });
+    } catch (error) {
+        console.error("Error fetching total count:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch total count" });
+    }
+});
 
 // Retrieve and return all animals
 router.get('/retrieve', async (req, res) => {

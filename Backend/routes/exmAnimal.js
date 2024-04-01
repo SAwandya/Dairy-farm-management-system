@@ -62,6 +62,16 @@ router.get('/retrieve/:id', async (req, res) => {
     }
 });
 
+//Retrive pregnant
+router.get('/retrieve2/pregnant', async (req, res) => {
+    try {
+        const cows = await ExamAnim.find({ exam: 'Pregnancy Check' });
+        res.json({ success: true, data: cows });
+    } catch (error) {
+        res.status(500).send({ message: error.message || "Error occurred while retrieving" });
+    }
+});
+
 // Update an animal by id
 router.put('/update/:id', async (req, res) => {
     try {
