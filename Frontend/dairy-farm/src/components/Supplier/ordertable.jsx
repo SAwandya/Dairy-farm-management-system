@@ -78,16 +78,16 @@ const OrderTable = () => {
         },
       },
       {
-        accessorKey: "perUnitCost",
-        header: "Per Unit",
+        accessorKey: "advanceFee",
+        header: "Advance Fee",
         muiEditTextFieldProps: {
           required: true,
-          error: !!validationErrors?.perUnitCost,
-          helperText: validationErrors?.perUnitCost,
+          error: !!validationErrors?.advanceFee,
+          helperText: validationErrors?.advanceFee,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              perUnitCost: undefined,
+              advanceFee: undefined,
             }),
         },
       },
@@ -128,8 +128,9 @@ const OrderTable = () => {
 
   //CREATE action
   const handleCreateOrder = async ({ values, table }) => {
-    await createOrder(values);
-    table.setCreatingRow(null); //exit creating mode
+      console.log(values); // log the values being sent
+      await createOrder(values);
+      table.setCreatingRow(null); //exit creating mode
   };
 
   //UPDATE action
@@ -341,8 +342,8 @@ function validateOrder(order) {
       ? "Order Status is Required"
       : "",
     quantity: !validateRequired(order.quantity) ? "Quantity is Required" : "",
-    perUnitCost: !validateRequired(order.perUnitCost)
-      ? "Per Cost Unit is Required"
+    advanceFee: !validateRequired(order.advanceFee)
+      ? "Advance Fee is Required"
       : "",
     deliveryDate: !validateRequired(order.deliveryDate)
       ? "Delivery Date is Required"
