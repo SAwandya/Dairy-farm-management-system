@@ -8,11 +8,11 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material'; 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import TableCard from '../../components/Employees/tablecards';
 import Esidebar from "../../components/Employees/esidebar";
 import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
+import Swal from 'sweetalert2';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TablePagination from '@mui/material/TablePagination';
 
@@ -94,13 +94,31 @@ function AllEmployee() {
         navigate('/allEmployee');
     };
     // Sample handle delete function
-    const handleDelete = (id) => {
-        axios.delete('http://localhost:3000/api/employee/deleteEmployee/'+id)
-        .then(res=>{console.log(res)
-        window.location.reload()})
-        .catch(err=>console.log(err))
-    };
-    
+  
+
+const handleDelete = (id) => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If the user confirms the deletion, proceed with the API call
+            axios.delete('http://localhost:3000/api/employee/deleteEmployee/'+id)
+                .then(res => {
+                    console.log(res);
+                    window.location.reload();
+                })
+                .catch(err => console.log(err));
+        }
+    });
+};
+
+   
 
     const navigate = useNavigate();
 
@@ -128,7 +146,7 @@ function AllEmployee() {
     
 
 
-        <Box sx={{ marginLeft: '8rem',marginTop:'50px' }}>
+        <Box sx={{ marginLeft: '10rem',marginTop:'50px' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
   Welcome Disara,
 </Typography>

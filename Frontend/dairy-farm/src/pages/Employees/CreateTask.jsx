@@ -14,7 +14,7 @@ import em1 from '../../assets/em1.png'
 import Esidebar from "../../components/Employees/esidebar";
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-
+import Swal from 'sweetalert2';
 function CreateTask() {
   const [taskID, setTaskID] = useState('');
   const [taskinfo, setTaskinfo] = useState('');
@@ -23,9 +23,38 @@ function CreateTask() {
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('');
   const navigate = useNavigate();
+  
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Form validation
+    if (!taskID || !taskinfo || !employeeId || !employeeName || !description || !status) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'All fields are required!',
+        });
+        return;
+    }
+
+    if (!taskID.startsWith("TS")) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Task ID must start with "TS"!',
+        });
+        return;
+    }
+
+    if (!employeeId.startsWith("EM")) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Employee ID must start with "EM"!',
+        });
+        return;
+    }
 
     axios.post("http://localhost:3000/api/employee/createTask", {
         taskID,
@@ -37,10 +66,24 @@ function CreateTask() {
       })
       .then(result => {
         console.log(result);
-        navigate('/task');
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Task created successfully!',
+        }).then(() => {
+            navigate('/task');
+        });
       })
-      .catch(err => console.log(err));
-  };
+      .catch(err => {
+        console.log(err);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        });
+      });
+};
+
 
   return (
      //esidebar
