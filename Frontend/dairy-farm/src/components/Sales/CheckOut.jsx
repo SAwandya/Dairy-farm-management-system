@@ -9,7 +9,6 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
@@ -18,14 +17,13 @@ import { useForm } from "react-hook-form";
 import useGameQueryStore from "../../store";
 import { useAuth } from "../../contexts/AuthContext";
 import purchaseService from "../../services/Sales/purchaseService";
+import { Link } from "react-router-dom";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        
-      </Link>{" "}
+      <Link color="inherit" href="https://mui.com/"></Link>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -34,14 +32,16 @@ function Copyright() {
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(step, register, errors) {
+function getStepContent(step, register, errors, processData, selectedProduct) {
   switch (step) {
     case 0:
       return <AddressForm register={register} errors={errors} />;
     case 1:
       return <PaymentForm register={register} errors={errors} />;
     case 2:
-      return <Review />;
+      return (
+        <Review processData={processData} selectedProduct={selectedProduct} />
+      );
     default:
       throw new Error("Unknown step");
   }
@@ -65,6 +65,8 @@ const CheckOut = () => {
   const selectedProduct = useGameQueryStore((s) => s.selectedProduct);
   const selectedQuantity = useGameQueryStore((s) => s.selectedQuantity);
 
+  const [processData, setProcessData] = React.useState(null);
+
   const { getCurrentUser } = useAuth();
 
   const onSubmit = (data) => {
@@ -84,8 +86,9 @@ const CheckOut = () => {
       lastName: data.lastName,
     };
 
+    setProcessData(newData);
+
     if (activeStep == 2) {
-      console.log(newData);
 
       purchaseService
         .Purchase(newData)
@@ -103,7 +106,11 @@ const CheckOut = () => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+      <Container
+        component="main"
+        maxWidth="sm"
+        sx={{ mb: 4, marginTop: "130px" }}
+      >
         <Paper
           variant="outlined"
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
@@ -128,6 +135,11 @@ const CheckOut = () => {
                 confirmation, and will send you an update when your order has
                 shipped.
               </Typography>
+              <Link to="/">
+                <Button variant="contained" color="success">
+                  Home
+                </Button>
+              </Link>
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -136,7 +148,13 @@ const CheckOut = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate
               >
-                {getStepContent(activeStep, register, errors)}
+                {getStepContent(
+                  activeStep,
+                  register,
+                  errors,
+                  selectedProduct,
+                  processData
+                )}
                 <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>

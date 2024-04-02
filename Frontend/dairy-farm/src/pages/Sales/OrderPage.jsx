@@ -51,10 +51,11 @@ const OrderPage = () => {
                   sx={{
                     alignItems: "flex-end",
                     margin: "20px",
-                    color: "#16FF00",
+                    color: purchase.approve ? "#16FF00" : "#FF0000",
+                    fontWeight: "bold",
                   }}
                 >
-                  Processing
+                  {!purchase.approve ? "Processing" : "Approved"}
                 </Typography>
               </Box>
 
@@ -77,11 +78,31 @@ const OrderPage = () => {
                 {purchase.product.description}
               </AccordionDetails>
               <AccordionActions>
-                <Button>Cancel</Button>
-                <Button
+
+                { !purchase.approve ? <Button
+                  variant="contained"
+                  sx={{
+                    background: "rgba(155, 207, 83, 0.8)",
+                    borderRadius: "10px",
+                    margin: "10px",
+                    color: "black",
+                  }}
                   onClick={() => functionopenpopup(purchase._id, purchase)}
                 >
                   Edit
+                </Button> : null }
+                
+
+                <Button
+                  variant="contained"
+                  sx={{
+                    background: "#DF2E38",
+                    borderRadius: "10px",
+                    color: "white",
+                    margin: "10px",
+                  }}
+                >
+                  { purchase.approve ? 'Delete' : 'Cancel' }
                 </Button>
               </AccordionActions>
             </Accordion>
