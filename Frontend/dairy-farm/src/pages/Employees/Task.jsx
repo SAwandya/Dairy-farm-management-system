@@ -23,7 +23,7 @@ function Task() {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(2);
+    const [rowsPerPage, setRowsPerPage] = useState(1);
     const [showAll, setShowAll] = useState(false); 
     useEffect(() => {
         axios.get("http://localhost:3000/api/employee/task")
@@ -80,11 +80,11 @@ function Task() {
     };
 
     const handleEdit = (id) => {
-        navigate(`/pages/updateTask/${id}`);
+        navigate(`/updateTask/${id}`);
     };
 
     const handleDelete = (id) => {
-        axios.delete('http://localhost:5000/deleteTask/'+id)
+        axios.delete('http://localhost:3000/api/employee/deleteTask/'+id)
         .then(res => {
             console.log(res);
             window.location.reload();
@@ -95,7 +95,7 @@ function Task() {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/pages/createTask');
+        navigate('/createTask');
     };
 
     const handleStatusChange = (taskID, newStatus, employeeId) => {
@@ -114,7 +114,7 @@ function Task() {
         toast.info(`Task completed ${employeeId}`);
 
         // Update task status in the backend
-        axios.put(`http://localhost:5000/updateTaskStatus/${taskID}`, { status: newStatus })
+        axios.put(`http://localhost:3000/api/employee/updateTaskStatus/${taskID}`, { status: newStatus })
         .then(res => {
             console.log(res.data);
             // Show notification
