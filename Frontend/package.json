@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@emotion/styled": "^11.11.5",
+    "@mui/lab": "^5.0.0-alpha.169",
+    "@mui/x-date-pickers-pro": "^7.1.0",
+    "react-draggable": "^4.4.6"
+  }
+}

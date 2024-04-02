@@ -16,8 +16,11 @@ import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
 import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
+
 import ProductionDashboard from "./pages/Production/ProductionDashboard";
 import ProcessPlanning from "./pages/Production/ProcessPlanning";
+import Testdialog from "./pages/Production/Testdialog";
+
 import MilkingSessions from './pages/Milking/MilkingSessions';
 import MilkingSessionSchedule from './pages/Milking/MilkingSessionSchedule';
 import HomePageM from "./pages/HomeMain";
@@ -150,8 +153,9 @@ const router = createBrowserRouter([
   },
 
   { path: "/productiondashboard", element: <ProductionDashboard /> },
-
   { path: "/processplanning", element: <ProcessPlanning /> },
+  
+  /*{ path: "Testdialog", element:<Testdialog/>}, */
 
   {
     path: "/financetrans",
