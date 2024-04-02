@@ -21,37 +21,58 @@ const ProductCard = (props) => {
   };
 
   return (
-    <Card sx={{ width: 320, maxWidth: "100%", boxShadow: "lg", borderRadius: "20px" }}>
+    <Card
+      sx={{
+        width: 320,
+        maxWidth: "100%",
+        boxShadow: "lg",
+        borderRadius: "20px",
+        height: "376px",
+      }}
+    >
       <CardOverflow>
         <AspectRatio sx={{ minWidth: 200 }}>
           <img
             src="https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286"
-            srcSet="../src/assets/cheese.png"
             loading="lazy"
+            srcSet="../src/assets/cheese.png"
             alt=""
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
           />
         </AspectRatio>
       </CardOverflow>
       <CardContent>
-        
-        <Typography sx={{ fontSize: "20px" }}>{product.name}</Typography>
+        <Typography sx={{ fontSize: "28px", fontWeight: "2px" }}>
+          {product.name}
+        </Typography>
 
         <Typography
           level="title-lg"
-          sx={{ mt: 1, fontWeight: "xl" }}
+          sx={{ mt: 1, fontWeight: "xl", fontSize:'22px' }}
           endDecorator={
-            <Chip component="span" size="sm" variant="soft" color="success">
-              Lowest price
+            <Chip component="span" size="lg" variant="soft" color="success">
+              1 PACK = 20 Units
             </Chip>
           }
         >
-          {product.price} LKR
+          {product.price * 20} LKR
         </Typography>
-        <Typography level="body-sm">
-          (Only <b>7</b> left in stock!)
+        <Typography level="body-sm" sx={{ fontSize: "18px", marginTop: "5px" }}>
+          ( <b>{product.quantity} Packs</b> Available in stock)
         </Typography>
       </CardContent>
-      <CardOverflow>
+      <CardOverflow
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "row",
+        }}
+      >
         <Link to="/productdetails">
           <Button
             onClick={(event) => handleSubmit(event)}
@@ -59,8 +80,28 @@ const ProductCard = (props) => {
             variant="solid"
             color="danger"
             size="lg"
+            sx={{
+              width: "140px",
+              borderRadius: "0 0 0 10px",
+              marginBottom: "8px",
+            }}
           >
             Buy
+          </Button>
+          <Button
+            onClick={(event) => handleSubmit(event)}
+            type="submit"
+            variant="solid"
+            color="success"
+            size="lg"
+            sx={{
+              width: "140px",
+              marginLeft: "5px",
+              borderRadius: "0 0 10px 0",
+              marginBottom: "8px",
+            }}
+          >
+            Add to cart
           </Button>
         </Link>
       </CardOverflow>
