@@ -142,11 +142,14 @@ export default function BasicTabs() {
           <Grid item xs={6}>
             <CustomizedTables1 
                   headers={headers2}
-                  rows={dataList.length > 0 ? [dataList1[0]].map(item => ({
-                    "Ear Tag": item.earTag,
-                    "Date": item.checkdate,
-                    "Status": item.currentStatus,
-                  })) : [{ "No Data": "No Data" }]}
+                  rows={dataList1.length > 0 ? 
+                    dataList1.map(item => ({
+                        "Ear Tag": item.earTag,
+                        "Date": item.checkdate,
+                        "Status": item.currentStatus,
+                    })) : 
+                    [{ "No Data": "No Data" }]
+                }
                 />
                 <Link to="/breedAnim">
                   <Button
