@@ -35,4 +35,30 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedSession = await milkingSession.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedSession) {
+            return res.status(404).json({ success: false, error: 'Milking session not found' });
+        }
+        res.status(200).json({ success: true, data: updatedSession });
+    } catch (error) {
+        console.error('Error updating milk session:', error);
+        res.status(500).json({ success: false, error: 'Failed to update milk session' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const deletedSession = await milkingSession.findByIdAndDelete(req.params.id);
+        if (!deletedSession) {
+            return res.status(404).json({ success: false, error: 'Milking session not found' });
+        }
+        res.status(200).json({ success: true, data: deletedSession });
+    } catch (error) {
+        console.error('Error deleting milk session:', error);
+        res.status(500).json({ success: false, error: 'Failed to delete milk session' });
+    }
+});
+
 module.exports = router;

@@ -185,3 +185,13 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
+/* Sessions Form */
+.specialNotesLink:link, .specialNotesLink:visited {
+    cursor: pointer;
+    color: #38775B;
+}
+.specialNotesLink:hover, .specialNotesLink:active {
+    cursor: pointer;
+    color: blue;
+}
