@@ -2,12 +2,13 @@
 
 /* bubini */
 
-body{
+body {
     font-family: 'Poppins', sans-serif;
     background-image: url('../assets/bg.png'); 
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed; 
-   padding-bottom: 250px;
+    padding-bottom: 250px;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
 }

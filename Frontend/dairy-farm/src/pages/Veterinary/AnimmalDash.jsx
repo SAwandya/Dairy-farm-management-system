@@ -68,6 +68,7 @@ function VetDashboard() {
                     <Tabs />
                 </BgCard>
             </div>
+           
         </div>
     );
 }

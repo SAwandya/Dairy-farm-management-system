@@ -8,6 +8,9 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { TablePagination, Grid } from '@mui/material'; // Import Grid component
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
 
 const ExamineAnim=({handleClose})=> {
     const [addSection, setAddSection] = useState(false);
@@ -26,6 +29,9 @@ const ExamineAnim=({handleClose})=> {
         _id:""
     });
     const [dataList, setDataList] = useState([]);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleOnChange = (e) => {
         if (e.target) {
@@ -170,6 +176,21 @@ const ExamineAnim=({handleClose})=> {
         "Date",
         "Acction",
     ];
+    
+    const filteredData = dataList.filter(item => {
+        if (!searchTerm) return true;
+        return Object.values(item).some(val => String(val).toLowerCase().includes(searchTerm.toLowerCase()));
+    });
+    
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
 
     return (
         <div style={{ display: 'flex', height: '100vh' }}> 
@@ -185,17 +206,37 @@ const ExamineAnim=({handleClose})=> {
             
                
             {!addSection && !editSection && (
-                <div className='container'
-                sx={{ marginTop:'100px'}}
-                >
-                    <button className='addbtn' onClick={() => setAddSection(true)} sx={{ marginBottom:'-40px'}}>Add Vaccined </button>
+                <Grid container spacing={2} style={{marginLeft:'700px',marginTop:'100px'}}>
+                <Grid item xs={3}>
+                    <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
+                    <TextField
+                        onChange={(event) => {
+                            console.log("Search Term:", event.target.value); 
+                            setSearchTerm(event.target.value);
+                        }}
+                        placeholder="Search..."
+                        InputProps={{
+                            startAdornment: (
+                                <SearchIcon />
+                            ),
+                            style: { marginBottom: '10px', width: '250px' }
+                        }}
+                    />
+                    </div>
+                    </Grid>
+                    <Grid item xs={3}>
+                    <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
+                    <button className='addbtn' onClick={() => setAddSection(true)} style={{ height: '55px',width: '200px' }}>Add New Animal</button>
+                    </div>
+                    </Grid>
                     
-                </div>
+
+                </Grid>
                 
             )}
             {!addSection && !editSection && (
                 <div>
-                    <ArrowBackIcon sx={{ marginTop: '10px', cursor: 'pointer' }} onClick={handleClose} />
+                    <ArrowBackIcon sx={{ marginTop: '-10px', cursor: 'pointer' }} onClick={handleClose} />
                 </div>
             )}
             
@@ -223,30 +264,41 @@ const ExamineAnim=({handleClose})=> {
                     padding: '10px', 
                     margin: '50px ', 
                     marginBottom: '20px',
-                    marginTop:'-20px'
+                    marginTop:'-80px'
                     
                }}>
                 
-                    <CustomizedTables 
-                        headers={headers}
-                        rows={dataList.length > 0 ? dataList.map(item => ({
-                            "Ear Tag": item.earTag,
-                            "Current Status": item.currentStatus,
-                            "Examination":item.exam,
-                            "Date":item.checkdate,
-                            "Action": (
-                                <div>
-                                    <IconButton onClick={() => handleEdit(item._id)} style={{ color: 'blue' }}>
-                                        <EditIcon />
-                                    </IconButton>
-                                    <IconButton onClick={() => handleDelete(item._id)} style={{ color: 'red' }}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </div>
-                            )
-                        })) : [{ "No Data": "No Data" }]}
-                    />
+                <CustomizedTables 
+                    headers={headers}
+                    rows={filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(item => ({
+                        "Ear Tag": item.earTag,
+                        "Current Status": item.currentStatus,
+                        "Examination": item.exam,
+                        "Date": item.checkdate,
+                        "Action": (
+                            <div>
+                                <IconButton onClick={() => handleEdit(item._id)} style={{ color: 'blue' }}>
+                                    <EditIcon />
+                                </IconButton>
+                                <IconButton onClick={() => handleDelete(item._id)} style={{ color: 'red' }}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </div>
+                        )
+                    }))}
+                />
+
+                    <TablePagination
+                            rowsPerPageOptions={[1,2,5, 10, 25]}
+                            component="div"
+                            count={filteredData.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
                 </div>
+                
             )}
             
            
