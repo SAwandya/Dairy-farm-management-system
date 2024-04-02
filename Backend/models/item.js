@@ -13,7 +13,7 @@ const itemSchema = new mongoose.Schema({
     },
     itemPriority: {
         type: String,
-        // enum: ['Low', 'Medium', 'High'],
+        enum: ['Low', 'Medium', 'High'],
         default: 'Low'
     },
     perUnitCost: {
