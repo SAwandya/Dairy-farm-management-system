@@ -21,10 +21,10 @@ const InputField = (props) => {
       />
 
       {errors?.type === "required" && (
-        <Alert severity="warning">The {id} filed is canot be empty </Alert>
+        <Alert severity="error">The {id} filed is canot be empty </Alert>
       )}
       {errors?.type === "minLength" && (
-        <Alert severity="warning">
+        <Alert severity="error">
           The {id} must be at leat {minlength}
         </Alert>
       )}

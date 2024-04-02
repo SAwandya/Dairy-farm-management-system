@@ -52,23 +52,24 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      {
-        path: "/checkout",
-        element: (
-          <ProtectedRoute>
-            <CheckOut />
-          </ProtectedRoute>
-        ),
-      },
+
       {
         path: "/salesorders",
         element: (
           <ProtectedRoute>
-            <OrderPage/>
+            <OrderPage />
           </ProtectedRoute>
         ),
       },
     ],
+  },
+  {
+    path: "/checkout",
+    element: (
+      <ProtectedRoute>
+        <CheckOut />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/signup",
@@ -103,8 +104,8 @@ const router = createBrowserRouter([
     element: <VaccineAnim />,
   },
   {
-    path:"/breedAnim",
-    element:<BreedCard/>
+    path: "/breedAnim",
+    element: <BreedCard />,
   },
   {
     path: "/milkingdashboard",
