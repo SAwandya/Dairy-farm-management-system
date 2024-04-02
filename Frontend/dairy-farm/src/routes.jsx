@@ -29,7 +29,10 @@ import VaccineAnim from "./pages/Veterinary/vaccineAnim";
 import BreedCard from "./pages/Veterinary/breedPage";
 import PastureInfo from "../../dairy-farm/src/pages/Grazing/PastureInfo";
 import OrderPage from "./pages/Sales/OrderPage";
-
+import Task from "./pages/Employees/Task"
+import CreateTask from "./pages/Employees/CreateTask"
+import UpdateTask from "./pages/Employees/UpdateTask"
+import AllEmployee from "./pages/Employees/AllEmployee";
 
 const router = createBrowserRouter([
   {
@@ -170,6 +173,22 @@ const router = createBrowserRouter([
   {
     path: "/pastureinfo",
     element: <PastureInfo />,
+  },
+  {
+    path: "/task",
+    element: <Task />,
+  },
+  {
+    path: "/createtask",
+    element: <CreateTask />,
+  },
+  {
+    path: "/updateTask/:id",
+    element: <UpdateTask />,
+  },
+  {
+    path: "/allEmployee",
+    element: <AllEmployee />,
   },
 ]);
 

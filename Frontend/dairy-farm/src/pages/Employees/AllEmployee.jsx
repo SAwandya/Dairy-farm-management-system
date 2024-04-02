@@ -6,24 +6,33 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom'; 
 import { Box, Typography } from '@mui/material'; 
-import BgCards from "../../components/Employees/bgcards";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import TableCard from '../../components/Employees/tablecards';
 import Esidebar from "../../components/Employees/esidebar";
 import axios from 'axios';
-import TablePagination from '@mui/material/TablePagination';
+import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import TablePagination from '@mui/material/TablePagination';
 
+/*const calculateTotalSalary = (user) => {
+    const epfRate = 0.08; // Assuming EPF rate is 8%
+    const bonusRate = 0.1; // 10% bonus
 
-function Employee() {
+    const basicSalary = user.basicSalary || 0;
+    const epfDeduction = basicSalary * epfRate;
+    const bonus = basicSalary * bonusRate;
+
+    return basicSalary - epfDeduction + bonus;
+};
+*/
+function AllEmployee() {
     const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(2);
     const [showAll, setShowAll] = useState(false); 
-    
     useEffect(() => {
         axios.get("http://localhost:3000/api/employee/")
         .then(result => {
@@ -38,16 +47,7 @@ function Employee() {
         });
     }, []);
     
-    const handleSeeMore = () => {
-        navigate('/allEmployee');
-    };
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
+
     const calculateTotalSalary = (employee) => {
       const epfRate = 0.08; // Assuming EPF rate is 8%
       const bonusRate = 0.1; // 10% bonus
@@ -66,6 +66,14 @@ function Employee() {
             
         }
     ]);
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
     const handleAddEmployee = (e) => {
         e.preventDefault();
     
@@ -82,7 +90,9 @@ function Employee() {
     };
     
     
-
+    const handleSeeMore = () => {
+        navigate('/allEmployee');
+    };
     // Sample handle delete function
     const handleDelete = (id) => {
         axios.delete('http://localhost:3000/api/employee/deleteEmployee/'+id)
@@ -111,55 +121,31 @@ function Employee() {
     ];
 
     return (
-        <body style={{ overflow: "hidden" }}>
+        
         <div>
         <div style={{ display: 'flex', minWidth: '1036px',overflow: 'hidden'  }}>
    <Esidebar/>
+    
 
 
-        <Box sx={{ marginLeft: '6rem',marginTop:'50px' ,overflow: 'hidden' }}>
+        <Box sx={{ marginLeft: '8rem',marginTop:'50px' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
   Welcome Disara,
 </Typography>
-
-                    <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-15rem',marginTop:'10px'}}>
-
-                <BgCards>
-                <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
-                   Total Employees
-                   <IconButton size="small" color="inherit">
-          <AccountCircleIcon />
-        </IconButton>
-        </Typography>
-        <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
-         45
-        </Typography>
-                </BgCards>
-                <BgCards>
-    <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
-        Completed Tasks
-        <IconButton size="small" color="inherit">
-            <AssignmentIcon />
-        </IconButton>
-    </Typography>
-    <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
-         25
-        </Typography>
-</BgCards>
-
-
-                <BgCards>
-                <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold',  fontFamily: 'Poppins'}}>
-                    Total Hours
-                    <IconButton size="small" color="inherit" >
-          <AccessTimeIcon />
-        </IconButton>
-        </Typography>
-        <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
-          10 hours
-        </Typography>
-                </BgCards>
-            </Box>
+<Box
+    sx={{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        padding: '1rem',
+        zIndex: 999,
+    }}
+>
+    <IconButton onClick={() => navigate('/employeedashboard')} color="inherit">
+        <CloseIcon />
+    </IconButton>
+</Box>
+                  
             <TableCard>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px' , fontWeight: 'bold'}}>
  Employee
@@ -170,10 +156,9 @@ function Employee() {
 
             
            
-<CustomizedTables
+                <CustomizedTables
                     headers={headers}
-                    //changed
-                    rows={dataList.length > 0 ? dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(employee => ({
+                    rows={dataList.length > 0 ? dataList.slice().map(employee => ({
                         "Employee ID": employee.employeeId,
                         "Employee Name": employee.employeeName,
                         "Position": employee.position,
@@ -193,49 +178,15 @@ function Employee() {
                             </div>
                         )
                     })) : [{ "No Data": "No Data" }]}
+                    style={{ fontSize: '16px' }}
                 />
-                <TablePagination
-                    rowsPerPageOptions={[1, 5, 10]}
-                    component="div"
-                    count={dataList.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                    nextIconButtonProps={{
-                        onClick: () => handleChangePage(null, page + 1),
-                        disabled: page >= Math.ceil(dataList.length / rowsPerPage) - 1,
-                    }}
-                    backIconButtonProps={{
-                        onClick: () => handleChangePage(null, page - 1),
-                        disabled: page === 0,
-                    }}
-                />
-                 {!showAll && (
-                    <Box sx={{ position: 'relative', marginTop: '2rem', textAlign: 'center' ,marginRight:'5rem'}}>
-                    <Button
-                       
-                        onClick={handleSeeMore}
-                        sx={{
-                            position: 'absolute',
-                            bottom: 0,
-                            right: 0,
-                            backgroundColor: 'transparent',
-           
-            border: 'none', // Remove the border
-                        }}
-                    >
-                        <span style={{ color: 'blue' }}>See More</span><ArrowForwardIcon style={{ color: 'blue' }} />
-                    </Button>
-                    </Box>
-                 )}
+             
                 </TableCard>
             </Box>
+           
        </div>
        </div>
-       </body>
     );
-    
 }
 
-export default Employee;
+export default AllEmployee;
