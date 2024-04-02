@@ -302,15 +302,15 @@ const ItemsTableWithProviders = () => (
 
 export default ItemsTable;
 
-// const validateRequired = (value) => !!value.length;
+const validateRequired = (value) => !!value.length;
 
-// function validateItem(item) {
-//     return {
-//         itemName: !validateRequired(item.itemName)
-//             ? "Item Name is Required"
-//             : "",
-//         description: !validateRequired(item.description) ? "Description is Required" : "",
-//         itemPriority: !validateRequired(item.itemPriority) ? "Item Priority is Required" : "",
-//         perUnitCost: !validateRequired(item.perUnitCost) ? "Per Unit Cost is Required" : "",
-//     };
-// }
+function validateItem(item) {
+    return {
+        itemName: !validateRequired(item.itemName)
+            ? "Item Name is Required"
+            : "",
+        description: !validateRequired(item.description) ? "Description is Required" : "",
+        itemPriority: !validateRequired(item.itemPriority) ? "Item Priority is Required" : "",
+        perUnitCost: !validateRequired(item.perUnitCost) ? "Per Unit Cost is Required" : "",
+    };
+}

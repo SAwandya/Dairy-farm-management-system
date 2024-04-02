@@ -67,6 +67,7 @@ const OrderTable = () => {
         accessorKey: "quantity",
         header: "Quantity",
         muiEditTextFieldProps: {
+          type: "number",
           required: true,
           error: !!validationErrors?.quantity,
           helperText: validationErrors?.quantity,
@@ -81,6 +82,7 @@ const OrderTable = () => {
         accessorKey: "advanceFee",
         header: "Advance Fee",
         muiEditTextFieldProps: {
+          type: "number",
           required: true,
           error: !!validationErrors?.advanceFee,
           helperText: validationErrors?.advanceFee,
