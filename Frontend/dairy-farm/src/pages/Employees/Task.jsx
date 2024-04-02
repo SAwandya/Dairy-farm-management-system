@@ -16,7 +16,7 @@ import TableCard from '../../components/Employees/tablecards';
 import axios from 'axios';
 import Esidebar from "../../components/Employees/esidebar";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
+import Swal from 'sweetalert2';
 
 
 function Task() {
@@ -84,13 +84,27 @@ function Task() {
     };
 
     const handleDelete = (id) => {
-        axios.delete('http://localhost:3000/api/employee/deleteTask/'+id)
-        .then(res => {
-            console.log(res);
-            window.location.reload();
-        })
-        .catch(err => console.log(err));
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If the user confirms the deletion, proceed with the API call
+                axios.delete('http://localhost:3000/api/employee/deleteTask/' + id)
+                    .then(res => {
+                        console.log(res);
+                        window.location.reload();
+                    })
+                    .catch(err => console.log(err));
+            }
+        });
     };
+    
 
     const navigate = useNavigate();
 
@@ -124,14 +138,14 @@ function Task() {
     };
 
     const handleSeeMore = () => {
-        navigate('/pages/allTask');
+        navigate('/allTask');
     };
 
     return (
         <div>
         <div style={{ display: 'flex', minWidth: '1036px' }}>
    <Esidebar/>
-        <Box sx={{ marginLeft: '12rem', marginTop:'50px' }}>
+        <Box sx={{ marginLeft: '14rem', marginTop:'50px' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' }}>
                 Welcome Disara,
             </Typography>

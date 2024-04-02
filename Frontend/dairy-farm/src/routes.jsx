@@ -33,7 +33,7 @@ import Task from "./pages/Employees/Task"
 import CreateTask from "./pages/Employees/CreateTask"
 import UpdateTask from "./pages/Employees/UpdateTask"
 import AllEmployee from "./pages/Employees/AllEmployee";
-
+import AllTask from "./pages/Employees/AllTask";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -188,6 +188,10 @@ const router = createBrowserRouter([
   {
     path: "/allEmployee",
     element: <AllEmployee />,
+  },
+  {
+    path: "/allTask",
+    element: <AllTask />,
   },
 ]);
 

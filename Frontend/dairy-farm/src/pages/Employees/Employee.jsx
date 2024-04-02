@@ -15,7 +15,7 @@ import Esidebar from "../../components/Employees/esidebar";
 import axios from 'axios';
 import TablePagination from '@mui/material/TablePagination';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
+import Swal from 'sweetalert2';
 
 function Employee() {
     const [employees, setEmployees] = useState([]);
@@ -83,14 +83,27 @@ function Employee() {
     
     
 
-    // Sample handle delete function
     const handleDelete = (id) => {
-        axios.delete('http://localhost:3000/api/employee/deleteEmployee/'+id)
-        .then(res=>{console.log(res)
-        window.location.reload()})
-        .catch(err=>console.log(err))
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If the user confirms the deletion, proceed with the API call
+                axios.delete('http://localhost:3000/api/employee/deleteEmployee/'+id)
+                    .then(res => {
+                        console.log(res);
+                        window.location.reload();
+                    })
+                    .catch(err => console.log(err));
+            }
+        });
     };
-    
 
     const navigate = useNavigate();
 
@@ -117,7 +130,7 @@ function Employee() {
    <Esidebar/>
 
 
-        <Box sx={{ marginLeft: '6rem',marginTop:'50px' ,overflow: 'hidden' }}>
+        <Box sx={{ marginLeft: '14rem',marginTop:'50px' ,overflow: 'hidden' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
   Welcome Disara,
 </Typography>
