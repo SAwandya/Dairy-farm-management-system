@@ -146,7 +146,7 @@ const handleDelete = (id) => {
     
 
 
-        <Box sx={{ marginLeft: '10rem',marginTop:'50px' }}>
+        <Box sx={{ marginLeft: '17rem',marginTop:'50px' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
   Welcome Disara,
 </Typography>

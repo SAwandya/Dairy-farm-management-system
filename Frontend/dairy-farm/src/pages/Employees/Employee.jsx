@@ -21,9 +21,9 @@ function Employee() {
     const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(2);
     const [showAll, setShowAll] = useState(false); 
-    
+   
     useEffect(() => {
         axios.get("http://localhost:3000/api/employee/")
         .then(result => {
@@ -58,14 +58,16 @@ function Employee() {
   
       return basicSalary - epfDeduction + bonus;
     };
-  
-    // Sample data list state with one employee
     const [dataList, setDataList] = useState([
         {
             
             
         }
     ]);
+  // Count total employees and total tasks changed
+const totalEmployees = dataList.length;
+    // Sample data list state with one employee
+    
     const handleAddEmployee = (e) => {
         e.preventDefault();
     
@@ -130,7 +132,7 @@ function Employee() {
    <Esidebar/>
 
 
-        <Box sx={{ marginLeft: '14rem',marginTop:'50px' ,overflow: 'hidden' }}>
+        <Box sx={{ marginLeft: '12rem',marginTop:'50px' ,overflow: 'hidden',width:'80%' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
   Welcome Disara,
 </Typography>
@@ -177,11 +179,11 @@ function Employee() {
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px' , fontWeight: 'bold'}}>
  Employee
 </Typography>
-            <Button variant="contained" color="success" onClick={handleClick} sx={{ marginBottom:'1rem',marginTop: '1rem', marginLeft: '62rem' }}>
+            <Button variant="contained" color="success" onClick={handleClick} sx={{ marginBottom:'1rem',marginTop: '1rem', marginLeft: '70rem' }}>
     Add New
 </Button>
 
-            
+<div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}>
            
 <CustomizedTables
                     headers={headers}
@@ -206,6 +208,7 @@ function Employee() {
                             </div>
                         )
                     })) : [{ "No Data": "No Data" }]}
+                    
                 />
                 <TablePagination
                     rowsPerPageOptions={[1, 5, 10]}
@@ -242,6 +245,7 @@ function Employee() {
                     </Button>
                     </Box>
                  )}
+                 </div>
                 </TableCard>
             </Box>
        </div>
