@@ -32,8 +32,12 @@ import VaccineAnim from "./pages/Veterinary/vaccineAnim";
 import BreedCard from "./pages/Veterinary/breedPage";
 import PastureInfo from "../../dairy-farm/src/pages/Grazing/PastureInfo";
 import OrderPage from "./pages/Sales/OrderPage";
-
-
+import Task from "./pages/Employees/Task"
+import CreateTask from "./pages/Employees/CreateTask"
+import UpdateTask from "./pages/Employees/UpdateTask"
+import AllEmployee from "./pages/Employees/AllEmployee";
+import AllTask from "./pages/Employees/AllTask";
+import AnimReport from "./pages/Veterinary/VetReport";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -55,23 +59,24 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      {
-        path: "/checkout",
-        element: (
-          <ProtectedRoute>
-            <CheckOut />
-          </ProtectedRoute>
-        ),
-      },
+
       {
         path: "/salesorders",
         element: (
           <ProtectedRoute>
-            <OrderPage/>
+            <OrderPage />
           </ProtectedRoute>
         ),
       },
     ],
+  },
+  {
+    path: "/checkout",
+    element: (
+      <ProtectedRoute>
+        <CheckOut />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/signup",
@@ -94,6 +99,10 @@ const router = createBrowserRouter([
     element: <VetDashboard />,
   },
   {
+    path: "/VetReport",
+    element: <AnimReport />,
+  },
+  {
     path: "/animalReg",
     element: <AnimalRegistry />,
   },
@@ -106,8 +115,8 @@ const router = createBrowserRouter([
     element: <VaccineAnim />,
   },
   {
-    path:"/breedAnim",
-    element:<BreedCard/>
+    path: "/breedAnim",
+    element: <BreedCard />,
   },
   {
     path: "/milkingdashboard",
@@ -173,6 +182,26 @@ const router = createBrowserRouter([
   {
     path: "/pastureinfo",
     element: <PastureInfo />,
+  },
+  {
+    path: "/task",
+    element: <Task />,
+  },
+  {
+    path: "/createtask",
+    element: <CreateTask />,
+  },
+  {
+    path: "/updateTask/:id",
+    element: <UpdateTask />,
+  },
+  {
+    path: "/allEmployee",
+    element: <AllEmployee />,
+  },
+  {
+    path: "/allTask",
+    element: <AllTask />,
   },
 ]);
 

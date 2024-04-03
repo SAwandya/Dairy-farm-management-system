@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
   const product = await Product.findByIdAndUpdate(
     req.body.productId,
     {
-      $inc: { quantity: -req.body.quantity * 100 },
+      $inc: { quantity: -req.body.quantity },
     },
     { quantity: true }
   );

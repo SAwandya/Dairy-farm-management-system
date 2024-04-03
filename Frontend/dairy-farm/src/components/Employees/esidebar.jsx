@@ -10,6 +10,7 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+
 function Esidebar() {
   const [activeSection, setActiveSection] = useState("dashboard");
 //side bar
@@ -18,7 +19,7 @@ function Esidebar() {
   };
 
   return (
-    <Box className="sidebar">
+    <Box className="sidebar" sx={{ position: 'fixed', left: 0, top: 0 }}>
       <Box className="sidebar-logo-container">
         <img
           className="sidebar-logo"

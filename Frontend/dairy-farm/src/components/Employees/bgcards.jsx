@@ -8,7 +8,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export default function BgCards(props) {
   return (
-    <Card sx={{ minWidth: '300px', borderRadius: 6, marginLeft: 30, marginRight: '-150px', height: '135px', bgcolor: 'rgb(0,225,25,0.1)' }}>
+    <Card sx={{ minWidth: '350px', borderRadius: 6, marginLeft: 30, marginRight: '-150px', height: '150px', bgcolor: 'rgb(0,225,25,0.1)' }}>
       <CardContent>
         {props.children}
       </CardContent>
