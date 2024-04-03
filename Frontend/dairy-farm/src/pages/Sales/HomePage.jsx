@@ -1,6 +1,6 @@
 import React from "react";
 import ProductGrid from "../../components/Sales/ProductGrid";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const HomePage = () => {
   return (
@@ -15,6 +15,9 @@ const HomePage = () => {
           height: "100vh",
         }}
       ></Box>
+      <Typography sx={{ fontSize: '40px', fontWeight: 'bold', textAlign: 'center', marginTop: '40px', marginBottom:'20px' }}>
+        PRODUCTS
+      </Typography>
       <ProductGrid />
     </>
   );

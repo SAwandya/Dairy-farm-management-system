@@ -1,1 +1,0 @@
-export { StaticDateRangePicker } from './StaticDateRangePicker';

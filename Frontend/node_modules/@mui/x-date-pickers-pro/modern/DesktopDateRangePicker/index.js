@@ -1,1 +1,0 @@
-export { DesktopDateRangePicker } from './DesktopDateRangePicker';

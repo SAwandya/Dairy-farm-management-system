@@ -1,1 +1,0 @@
-export { MobileDateRangePicker } from './MobileDateRangePicker';
