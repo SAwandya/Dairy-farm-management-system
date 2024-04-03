@@ -3,9 +3,14 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
-//dubini
-
 function DateV() {
+    // Get current date and format it as DD/MM/YYYY
+    const currentDate = new Date().toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+
     return (
         <Box className="date-container" style={{ 
             marginTop: '-30px'
@@ -19,9 +24,10 @@ function DateV() {
                         marginRight: '12px'
                     }}
                 />
-                <Typography variant="h1" className='date-value'>20/03/2024</Typography>
+                <Typography variant="h1" className='date-value'>{currentDate}</Typography>
             </Box>
         </Box>
     );
-  }
-  export default DateV;
+}
+
+export default DateV;
