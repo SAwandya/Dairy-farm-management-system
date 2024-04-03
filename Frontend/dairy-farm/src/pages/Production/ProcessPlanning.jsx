@@ -35,15 +35,8 @@ function ProcessPlanning() {
 
       <Grid2 container sx={{mt:1}} >
         <Grid2 item xs={1}></Grid2> 
-        <Grid2 item sm={3} align="center" >
-          {/*<Button variant="contained"
-            onClick={() => {
-            alert('clicked'); }}>
-            Add New Process
-            </Button> */}
-            <Testdialog/>
-        </Grid2>
-        <Grid2 item sm={3}><ProcessForm/></Grid2>
+        <Grid2 item sm={3} align="center" ><ProcessForm/></Grid2>
+        <Grid2 item sm={3} align="center"><Testdialog/></Grid2>
         <Grid2 item sm={5}></Grid2>
       </Grid2>
       </Container>
