@@ -1,0 +1,6 @@
+{
+  "sideEffects": false,
+  "module": "./index.js",
+  "main": "../node/MobileDateTimeRangePicker/index.js",
+  "types": "./index.d.ts"
+}
