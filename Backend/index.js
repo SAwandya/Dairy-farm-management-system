@@ -16,6 +16,7 @@ const supplier = require("./routes/supplier");
 const milkingSessions = require("./routes/milkingSessionRoute");
 const order = require("./routes/order");
 const item = require("./routes/item");
+const milkingData = require("./routes/milkingDataRoute");
 
 
 if (!config.get("jwtPrivateKey")) {
@@ -58,6 +59,8 @@ app.use("/api/order", order);
 app.use("/api/item", item);
 
 app.use("/api/milkingSessions", milkingSessions);
+
+app.use("/api/milkingData", milkingData)
 
 
 const port = process.env.PORT || 3000;
