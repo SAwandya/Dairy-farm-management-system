@@ -1,0 +1,6 @@
+{
+  "sideEffects": false,
+  "module": "./index.js",
+  "main": "../node/Unstable_LicenseInfoProvider/index.js",
+  "types": "./index.d.ts"
+}

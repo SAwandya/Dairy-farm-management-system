@@ -1,0 +1,1 @@
+export { useStaticRangePicker } from './useStaticRangePicker';

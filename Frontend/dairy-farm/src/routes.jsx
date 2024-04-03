@@ -16,8 +16,11 @@ import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
 import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
+
 import ProductionDashboard from "./pages/Production/ProductionDashboard";
 import ProcessPlanning from "./pages/Production/ProcessPlanning";
+import Testdialog from "./pages/Production/Testdialog";
+
 import MilkingSessions from './pages/Milking/MilkingSessions';
 import MilkingSessionSchedule from './pages/Milking/MilkingSessionSchedule';
 import HomePageM from "./pages/HomeMain";
@@ -34,6 +37,7 @@ import CreateTask from "./pages/Employees/CreateTask"
 import UpdateTask from "./pages/Employees/UpdateTask"
 import AllEmployee from "./pages/Employees/AllEmployee";
 import AllTask from "./pages/Employees/AllTask";
+import AnimReport from "./pages/Veterinary/VetReport";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -95,6 +99,10 @@ const router = createBrowserRouter([
     element: <VetDashboard />,
   },
   {
+    path: "/VetReport",
+    element: <AnimReport />,
+  },
+  {
     path: "/animalReg",
     element: <AnimalRegistry />,
   },
@@ -154,8 +162,9 @@ const router = createBrowserRouter([
   },
 
   { path: "/productiondashboard", element: <ProductionDashboard /> },
-
   { path: "/processplanning", element: <ProcessPlanning /> },
+  
+  /*{ path: "Testdialog", element:<Testdialog/>}, */
 
   {
     path: "/financetrans",

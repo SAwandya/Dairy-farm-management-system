@@ -9,6 +9,8 @@ import CustomTextField from '../../components/Employees/textfield';
 import em1 from '../../assets/em1.png'
 import Esidebar from "../../components/Employees/esidebar";
 import Swal from 'sweetalert2';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 function CreateEmployee() {
   const [employeeId, setEmployeeId] = useState('');
@@ -19,47 +21,62 @@ function CreateEmployee() {
   const [basicSalary, setBasicSalary] = useState('');
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
+  const [existingEmployeeIds, setExistingEmployeeIds] = useState([]);
+  const [errors, setErrors] = useState({});
 
-  const handleSubmit = async (e) => {
+
+  
+
+
+
+
+const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      try {
-        const response = await axios.post("http://localhost:3000/api/employee/createEmployee", {
-          employeeId,
-          employeeName,
-          position,
-          contactNumber,
-          email,
-          basicSalary
-        });
-        if (response.data.success) {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Successfully added",
-            showConfirmButton: false,
-            timer: 1500
-          });
-          navigate('/employeedashboard');
-        } else {
-          Swal.fire({
-            icon: "success",
-            title: "Successfully added",
-            showConfirmButton: false,
-            timer: 1500
-          });
-          navigate('/employeedashboard');
+        try {
+            // Check if the employee ID already exists
+            if (existingEmployeeIds.includes(employeeId)) {
+                setErrors({ employeeId: 'Employee ID already exists' });
+                return;
+            }
+
+            // Make the API call to create the employee
+            const response = await axios.post("http://localhost:3000/api/employee/createEmployee", {
+                employeeId,
+                // Other employee data
+            });
+
+            // Handle the response from the API
+            if (response.data.success) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Successfully added",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate('/employeedashboard');
+            } else {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Successfully added",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+                navigate('/employeedashboard');
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            });
         }
-      } catch (error) {
-        console.error("Error:", error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!',
-        });
-      }
     }
-  };
+};
+  
 
   const validateForm = () => {
     const errors = {};
@@ -98,17 +115,33 @@ function CreateEmployee() {
           width={1000}
           my={4}
           display="flex"
-          marginLeft="220px"
+          marginLeft="350px"
           alignItems="center"
           gap={2}
           p={2}
           sx={{ bgcolor: '#E7F1F7'}}
         >
           <img src={em1} alt="Employee" className="em1" style={{ width: '400px', height: '400px' }} />
-          <Box>
+          <Box
+          >
+          
             <Typography variant="h5" style={{ marginBottom: '20px', fontWeight: 'bold', fontStyle: 'poppins' }}>
               Add Employee
             </Typography>
+            <Box
+    sx={{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        padding: '2rem',
+        zIndex: 999,
+        marginRight:'19rem'
+    }}
+>
+    <IconButton onClick={() => navigate('/task')} color="inherit">
+        <CloseIcon />
+    </IconButton>
+</Box>
             <form onSubmit={handleSubmit}>
               <CustomTextField
                 id="employeeId"

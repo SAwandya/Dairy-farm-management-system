@@ -1,0 +1,6 @@
+{
+  "sideEffects": false,
+  "module": "./index.js",
+  "main": "../node/SingleInputTimeRangeField/index.js",
+  "types": "./index.d.ts"
+}

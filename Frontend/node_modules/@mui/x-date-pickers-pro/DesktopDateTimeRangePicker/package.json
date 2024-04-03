@@ -1,0 +1,6 @@
+{
+  "sideEffects": false,
+  "module": "./index.js",
+  "main": "../node/DesktopDateTimeRangePicker/index.js",
+  "types": "./index.d.ts"
+}

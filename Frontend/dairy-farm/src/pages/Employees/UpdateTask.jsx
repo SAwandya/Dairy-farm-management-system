@@ -52,11 +52,11 @@ function UpdateTask() {
   };
   return (
     <Box
-      height={500}
+      height={550}
       width={1000}
       my={4}
       display="flex"
-      marginLeft="220px"
+      marginLeft="400px"
       alignItems="center"
       gap={2}
       p={2}

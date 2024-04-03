@@ -1,0 +1,6 @@
+{
+  "sideEffects": false,
+  "module": "./index.js",
+  "main": "../node/MultiInputTimeRangeField/index.js",
+  "types": "./index.d.ts"
+}

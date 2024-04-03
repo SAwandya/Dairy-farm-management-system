@@ -1,49 +1,72 @@
 import React from 'react';
-import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { styled } from '@mui/system';
 
-function MyTable() {
-  // Example data for the table
-  const rows = [
-    { id: 1, name: 'John Doe', age: 30, city: 'New York' },
-    { id: 2, name: 'Jane Smith', age: 25, city: 'Los Angeles' },
-    { id: 3, name: 'Tom Brown', age: 35, city: 'Chicago' },
-    { id: 1, name: 'John Doe', age: 30, city: 'New York' },
-    { id: 2, name: 'Jane Smith', age: 25, city: 'Los Angeles' },
-    { id: 3, name: 'Tom Brown', age: 35, city: 'Chicago' },
-    { id: 1, name: 'John Doe', age: 30, city: 'New York' },
-    { id: 2, name: 'Jane Smith', age: 25, city: 'Los Angeles' },
-    { id: 3, name: 'Tom Brown', age: 35, city: 'Chicago' },
-  ];
+const columns = [
+  { id: 'id', label: 'ID'},
+  { id: 'name', label: 'Name'},
+  { id: 'quantity', label: 'Quantity'},
+];
 
+const rows = [
+  { id: 1, name: 'Milk', quantity: 10 },
+  { id: 2, name: 'Banana Slices', quantity: 20 },
+  { id: 3, name: 'Chocolate Sprinkles', quantity: 15 },
+  { id: 1, name: 'Eggs', quantity: 10 },
+  { id: 2, name: 'Banana', quantity: 20 },
+  { id: 3, name: 'Orange', quantity: 15 },
+  { id: 1, name: 'Apple', quantity: 10 },
+  { id: 2, name: 'Banana', quantity: 20 },
+  { id: 3, name: 'Orange', quantity: 15 },
+  { id: 1, name: 'Apple', quantity: 10 },
+  { id: 2, name: 'Banana', quantity: 20 },
+  { id: 3, name: 'Orange', quantity: 15 },
+  { id: 1, name: 'Apple', quantity: 10 },
+  { id: 2, name: 'Banana', quantity: 20 }, 
+  { id: 3, name: 'Orange', quantity: 15 },
+];
+
+const CustomTableContainer = styled(TableContainer)({
+  '&::-webkit-scrollbar': {
+    display: 'none',  /* Hide scrollbar for Chrome, Safari, and Opera */
+  },
+  msOverflowStyle: 'none',  /* Hide scrollbar for IE and Edge */
+  scrollbarWidth: 'none',  /* Hide scrollbar for Firefox */
+});
+
+const StickyHeadTable = () => {
   return (
-   
-      <Card sx={{ m: 2, borderRadius: 5, width: '95%' }}>
-        <CardContent>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Age</TableCell>
-                  <TableCell>City</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.id}>
-                    <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.age}</TableCell>
-                    <TableCell>{row.city}</TableCell>
-                  </TableRow>
+    <Paper sx={{ ml:2, mt: '20px', borderRadius: 5, width: '100%', overflow: 'hidden', height: '100%', maxHeight: '70vh' }}>
+      <CustomTableContainer sx={{ height: '70vh' }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                {columns.map((column) => (
+                  <TableCell key={column.id} align={column.align}>
+                    {row[column.id]}
+                  </TableCell>
                 ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </CardContent>
-      </Card>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CustomTableContainer>
+    </Paper>
   );
 }
 
-export default MyTable;
+export default StickyHeadTable;
