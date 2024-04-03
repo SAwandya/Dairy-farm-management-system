@@ -1,1 +1,0 @@
-export { useDesktopRangePicker } from './useDesktopRangePicker';
