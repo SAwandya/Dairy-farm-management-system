@@ -10,7 +10,7 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-
+import { Link } from "react-router-dom";
 function Esidebar() {
   const [activeSection, setActiveSection] = useState("dashboard");
 //side bar
@@ -31,36 +31,47 @@ function Esidebar() {
       {/* Navigation links */}
       <Box className="navigation-links">
         <List>
+        
+        
+          <Link to="/employeedashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<SpaceDashboardIcon />}
             text="Dashboard"
-            isActive={activeSection === "dashboard"}
-            onClick={() => handleNavigation("dashboard")}
+            isActive={activeSection === "employeedashboard"}
+            onClick={() => handleNavigation("employeedashboard")}
+            
           />
+          </Link>
+          <Link to="/allemployee" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<PersonAddAlt1Icon />}
             text="Employees"
-            isActive={activeSection === "employees"}
-            onClick={() => handleNavigation("employees")}
+            isActive={activeSection === "allemployee"}
+            onClick={() => handleNavigation("allemployee")}
           />
+          </Link>
+          <Link to="/task" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<AssignmentIcon />}
             text="Tasks"
-            isActive={activeSection === "assignments"}
-            onClick={() => handleNavigation("assignments")}
+            isActive={activeSection === "task"}
+            onClick={() => handleNavigation("task")}
           />
+          </Link>
           <NavigationLink
             icon={<AccessTimeFilledIcon />}
             text="Work"
             isActive={activeSection === "workhours"}
             onClick={() => handleNavigation("workhours")}
           />
+          <Link to="/ereport" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<AssessmentIcon />}
             text="Reports"
-            isActive={activeSection === "reports"}
-            onClick={() => handleNavigation("reports")}
+            isActive={activeSection === "ereport"}
+            onClick={() => handleNavigation("ereport")}
           />
+          </Link>
         </List>
       </Box>
 
@@ -73,12 +84,14 @@ function Esidebar() {
             isActive={activeSection === "profile"}
             onClick={() => handleNavigation("profile")}
           />
+            
           <NavigationLink
             icon={<LogoutIcon />}
             text="Logout"
             isActive={activeSection === "logout"}
             onClick={() => handleNavigation("logout")}
           />
+         
         </List>
       </Box>
     </Box>

@@ -38,6 +38,8 @@ import UpdateTask from "./pages/Employees/UpdateTask"
 import AllEmployee from "./pages/Employees/AllEmployee";
 import AllTask from "./pages/Employees/AllTask";
 import AnimReport from "./pages/Veterinary/VetReport";
+import EmployeeReport from "./pages/Employees/Employee_report"
+import EmployeeR from "./pages/Employees/EmployeeR";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -202,6 +204,14 @@ const router = createBrowserRouter([
   {
     path: "/allTask",
     element: <AllTask />,
+  },
+  {
+    path: "/ereport",
+    element: <EmployeeR />,
+  },
+  {
+    path: "/empreport",
+    element: <EmployeeReport />,
   },
 ]);
 

@@ -30,52 +30,25 @@ function CreateEmployee() {
 
 
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-        try {
-            // Check if the employee ID already exists
-            if (existingEmployeeIds.includes(employeeId)) {
-                setErrors({ employeeId: 'Employee ID already exists' });
-                return;
-            }
 
-            // Make the API call to create the employee
-            const response = await axios.post("http://localhost:3000/api/employee/createEmployee", {
-                employeeId,
-                // Other employee data
-            });
+     axios.post("http://localhost:3000/api/employee/createEmployee", {
+      employeeId,
+        employeeName,
+        position,
+        contactNumber,
+        email,
+        basicSalary
+      })
+      .then(result => {
+        console.log(result);
+        navigate('/employeedashboard');
+      })
+      .catch(err => console.log(err));
+    
+  };
 
-            // Handle the response from the API
-            if (response.data.success) {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Successfully added",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate('/employeedashboard');
-            } else {
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Successfully added",
-                  showConfirmButton: false,
-                  timer: 1500
-                });
-                navigate('/employeedashboard');
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-            });
-        }
-    }
-};
   
 
   const validateForm = () => {
