@@ -37,7 +37,9 @@ import CreateTask from "./pages/Employees/CreateTask"
 import UpdateTask from "./pages/Employees/UpdateTask"
 import AllEmployee from "./pages/Employees/AllEmployee";
 import AllTask from "./pages/Employees/AllTask";
+import MilkingData from './pages/Milking/MilkingData';
 import AnimReport from "./pages/Veterinary/VetReport";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -121,6 +123,10 @@ const router = createBrowserRouter([
   {
     path: "/milkingdashboard",
     element: <MilkingDashboard />,
+  },
+  {
+    path: "/milkingData",
+    element: <MilkingData />,
   },
   {
     path: "/employeedashboard",

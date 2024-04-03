@@ -19,7 +19,11 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -27,6 +31,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const MilkingSessionsTable = () => {
   const [openFormIndex, setOpenFormIndex] = useState(null);
@@ -38,6 +44,57 @@ const MilkingSessionsTable = () => {
   const [showNotesPopup, setShowNotesPopup] = useState(false);
   const [selectedSessionNotes, setSelectedSessionNotes] = useState('');
   const navigate = useNavigate();
+
+  const [milkBatchId, setMilkBatchId] = useState('');
+  const [amountOfMilk, setAmountOfMilk] = useState('');
+  const [duration, setDuration] = useState('');
+  const [qualityCheckResult, setQualityCheckResult] = useState('');
+  const [issues, setIssues] = useState('');
+
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      try {
+          const response = await axios.post("http://localhost:3000/api/milkingData", {
+              milkBatchId,
+              amountOfMilk,
+              duration,
+              qualityCheckResult,
+              issues
+          });
+
+          if (response.data.success) {
+              // Reset form fields after successful submission
+              setMilkBatchId('');
+              setAmountOfMilk('');
+              setDuration('');
+              setQualityCheckResult('');
+              setIssues('');
+
+              Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Successfully added",
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+          } else {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!',
+              });
+          }
+      } catch (err) {
+          console.log(err);
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+          });
+      }
+  };
 
   useEffect(() => {
     fetchSessionsData();
@@ -221,15 +278,15 @@ const MilkingSessionsTable = () => {
                       {session.status === 'Incomplete' && (
                         <>
                           <IconButton onClick={() => toggleAddForm(index)}>
-                            <AddCircleOutlineIcon />
+                            <AddCircleOutlineIcon style={{color: '#38775B'}} />
                           </IconButton>
                           <IconButton onClick={() => toggleEditForm(index, session)}>
-                            <EditIcon />
+                            <EditIcon style={{color: '#38775B'}} />
                           </IconButton>
                         </>
                       )}
                       <IconButton onClick={() => openDeleteConfirmation(session._id)}>
-                        <DeleteIcon />
+                        <DeleteIcon style={{color: '#F3797E'}} />
                       </IconButton>
                     </>
                   </TableCell>
@@ -239,40 +296,73 @@ const MilkingSessionsTable = () => {
                     <Collapse in={index === openFormIndex && sessionToEdit === null}>
                       <div>
                         {index === openFormIndex && sessionToEdit === null && (
-                          <form>
+                          <form onSubmit={handleSubmit} style={{borderBottom: '6px solid #38775B'}}>
+                            <TextField
+                                label="Milk Batch ID"
+                                onChange={(e) => setMilkBatchId(e.target.value)}
+                                type="number"
+                                variant="outlined"
+                                fullWidth
+                                margin="normal"
+                              />
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                               <TextField
-                                label="Milk Batch ID"
+                                label="Amount of Milk"
+                                onChange={(e) => setAmountOfMilk(e.target.value)}
+                                type="number"
                                 variant="outlined"
                                 fullWidth
                                 margin="normal"
+                                style={{fontFamily: 'Poppins', marginRight: '16px' }}
                               />
                               <TextField
-                                label="Milk Quantity"
+                                label="Duration (in minutes)"
+                                onChange={(e) => setDuration(e.target.value)}
+                                type="number"
                                 variant="outlined"
                                 fullWidth
                                 margin="normal"
+                                style={{fontFamily: 'Poppins', marginRight: '16px' }}
                               />
-                              <TextField
-                                label="Milking Duration"
-                                variant="outlined"
-                                fullWidth
-                                margin="normal"
-                              />
+                              <FormControl variant="outlined" fullWidth margin="normal">
+                                <InputLabel id="quality-check-result-label">Quality Check Result</InputLabel>
+                                <Select
+                                    labelId="quality-check-result-label"
+                                    id="quality-check-result-select"
+                                    value={qualityCheckResult}
+                                    onChange={(e) => setQualityCheckResult(e.target.value)}
+                                    label="Quality Check Result"
+                                >
+                                    <MenuItem value="Pass">Pass</MenuItem>
+                                    <MenuItem value="Fail">Fail</MenuItem>
+                                </Select>
+                            </FormControl>
                             </div>
-                            <FormControlLabel
-                              control={<Checkbox />}
-                              label="Quality Check Result (Pass/Fail)"
-                            />
                             <TextField
-                              label="Irregularities"
+                              label="Issues"
+                              onChange={(e) => setIssues(e.target.value)}
                               variant="outlined"
                               fullWidth
+                              multiline
+                              rows={4}
                               margin="normal"
                             />
-                            <Button variant="contained" color="primary" style={{ marginRight: '10px' }}>Submit</Button>
-                            <Button variant="outlined" onClick={cancelAdd}>Cancel Session</Button>
-                          </form>
+                            <div style={{display: 'flex', justifyContent: 'center', margin: '16px 0'}}>
+                              <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary" 
+                                style={{ marginRight: '10px', fontFamily: 'Poppins', backgroundColor: '#38775B', width: '200px'}}>
+                                  Submit
+                              </Button>
+                              <Button
+                                variant="outlined"
+                                onClick={cancelAdd}
+                                style={{fontFamily: 'Poppins', width: '200px'}}>
+                                  Cancel
+                              </Button>
+                            </div>
+                          </form>                        
                         )}
                       </div>
                     </Collapse>
