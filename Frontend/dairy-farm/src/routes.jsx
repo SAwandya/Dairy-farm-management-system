@@ -34,6 +34,7 @@ import CreateTask from "./pages/Employees/CreateTask"
 import UpdateTask from "./pages/Employees/UpdateTask"
 import AllEmployee from "./pages/Employees/AllEmployee";
 import AllTask from "./pages/Employees/AllTask";
+import AnimReport from "./pages/Veterinary/VetReport";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
   {
     path: "/vetdashboard",
     element: <VetDashboard />,
+  },
+  {
+    path: "/VetReport",
+    element: <AnimReport />,
   },
   {
     path: "/animalReg",
