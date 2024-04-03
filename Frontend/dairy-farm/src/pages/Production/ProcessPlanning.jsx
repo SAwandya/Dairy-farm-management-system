@@ -18,7 +18,7 @@ function ProcessPlanning() {
 <Container maxWidth="100vw" style={{ margin: 0, padding: 0,overflow:'hidden' }}>
   {/*, height: '100vh', overflow: 'hidden' */}
 
-      <Grid2 container sx={{mt:2}} >
+      <Grid2 container sx={{mt:2 ,}} >
        <Grid2 item xs={1}></Grid2> 
         <Grid2 item sm={3}><Typography variant="h4" align="center">Processes</Typography></Grid2>
         <Grid2 item sm={3}><Typography variant="h4" align="center">Ingredients</Typography></Grid2>
@@ -26,24 +26,17 @@ function ProcessPlanning() {
       </Grid2>
 
 
-      <Grid2 container >
-        <Grid2 item xs={1}><ProductionSidebar/></Grid2>
-        <Grid2 item xs={10} sm={3}><ProcessCard/></Grid2>
-        <Grid2 item xs={10} sm={3}><Process_ingredientsTable/></Grid2> 
+      <Grid2 container sx={{ width: '100vw', position: 'relative' }}>
+        <Grid2 item xs={1} sm={1}><ProductionSidebar/></Grid2>
+        <Grid2 item xs={10} sm={3}><Process_ingredientsTable/></Grid2>
+        <Grid2 item xs={10} sm={3}><ProcessCard/></Grid2> 
         <Grid2 item xs={10} sm={5}><Process_resTable/></Grid2> 
       </Grid2>
 
       <Grid2 container sx={{mt:1}} >
         <Grid2 item xs={1}></Grid2> 
-        <Grid2 item sm={3} align="center" >
-          {/*<Button variant="contained"
-            onClick={() => {
-            alert('clicked'); }}>
-            Add New Process
-            </Button> */}
-            <Testdialog/>
-        </Grid2>
-        <Grid2 item sm={3}><ProcessForm/></Grid2>
+        <Grid2 item sm={3} align="center" ><ProcessForm/></Grid2>
+        <Grid2 item sm={3} align="center"><Testdialog/></Grid2>
         <Grid2 item sm={5}></Grid2>
       </Grid2>
       </Container>

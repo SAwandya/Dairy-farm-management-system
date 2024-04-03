@@ -18,7 +18,18 @@ function Sidebar() {
   };
 
   return (
-    <Box className="sidebar" sx={{position: 'fixed', left:0,top:0}}>
+    <Box
+      className="sidebar"
+      sx={{
+        width:'8.2%',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: 1000, // Adjust z-index if necessary
+        overflowY: 'auto',
+        maxHeight: '100vh', // Ensure the sidebar doesn't exceed viewport height
+      }}
+    >
       <Box className="sidebar-logo-container">
         <img
           className="sidebar-logo"
@@ -54,7 +65,7 @@ function Sidebar() {
             isActive={activeSection === "inventory"}
             onClick={() => handleNavigation("inventory")}
           />
-           <NavigationLink
+          <NavigationLink
             icon={<AssessmentIcon />}
             text="Storage"
             isActive={activeSection === "storage"}
