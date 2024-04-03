@@ -14,12 +14,13 @@ import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
 import Esidebar from "../../components/Employees/esidebar";
 import Swal from 'sweetalert2';
-
+import TextField from '@mui/material/TextField'; // Import TextField component
+import SearchIcon from '@mui/icons-material/Search'; // Import SearchIcon
 function Task() {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
-  
+    const [searchTerm, setSearchTerm] = useState(''); // State variable for search term
     
     useEffect(() => {
         axios.get("http://localhost:3000/api/employee/task")
@@ -101,13 +102,22 @@ function Task() {
         // Show notification
         toast.info(`Task completed ${employeeId}`);
     };
-
+    // Filter tasks based on search term
+    const filteredTasks = dataList.filter(task => 
+        (task.taskinfo && task.taskinfo.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (task.employeeName && task.employeeName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (task.description && task.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (task.status && task.status.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+    
+    
+    
     return (
         <div>
         <div style={{ display: 'flex', minWidth: '1036px',overflow: 'hidden'  }}>
    <Esidebar/>
         
-        <Box sx={{ marginLeft: '12rem', marginTop:'50px' }}>
+        <Box sx={{ marginLeft: '17rem', marginTop:'20px' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' }}>
                 Welcome Disara,
             </Typography>
@@ -131,13 +141,28 @@ function Task() {
                 <Button variant="contained" color="success" onClick={handleClick} sx={{ marginBottom:'1rem',marginTop: '1rem', marginLeft: '62rem' }}>
                     Add New
                 </Button>
+                <div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}>
+                        <TextField
+                            onChange={(event) => {
+                                console.log("Search Term:", event.target.value); 
+                                setSearchTerm(event.target.value);
+                            }}
+                            placeholder="Search..."
+                            InputProps={{
+                                startAdornment: (
+                                    <SearchIcon />
+                                ),
+                                style: { marginBottom: '10px', width: '250px' ,borderRadius: '20px ', marginLeft: '1000px'}
+                            }}
+                        />
+                    </div>
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px' , fontWeight: 'bold'}}>
                     Tasks
                 </Typography>
                 {/* Table header and buttons */}
                 <CustomizedTables
                     headers={headers}
-                    rows={dataList.length > 0 ? dataList.slice().map(task => ({
+                    rows={filteredTasks.length > 0 ? filteredTasks.slice().map(task => ({
                         "Task ID": task.taskID,
                         "Task": task.taskinfo,
                         "Employee ID": task.employeeId,

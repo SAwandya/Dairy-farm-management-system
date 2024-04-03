@@ -6,44 +6,54 @@ const { customerSchema } = require("../models/customer");
 const paymentschema = new mongoose.Schema({
   cardNumber: {
     type: Number,
+    required: true,
   },
 
   cardName: {
     type: String,
+    required: true,
   },
 
   cvv: {
     type: Number,
+    required: true,
   },
 
   expDate: {
     type: Date,
+    required: true,
   },
 });
 
 const deliverySchema = new mongoose.Schema({
   address1: {
     type: String,
+    required: true,
   },
 
   address2: {
     type: String,
+    required: true,
   },
 
   city: {
     type: String,
+    required: true,
   },
 
   state: {
     type: String,
+    required: true,
   },
 
   firstName: {
     type: String,
+    required: true,
   },
 
   lastName: {
     type: String,
+    required: true,
   },
 });
 

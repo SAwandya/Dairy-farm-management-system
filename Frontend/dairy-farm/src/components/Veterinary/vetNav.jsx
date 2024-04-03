@@ -64,12 +64,14 @@ function Sidebar() {
             onClick={() => handleNavigation("breeding")}
           />
           </Link>
+          <Link to="/VetReport" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<AssessmentIcon />}
             text="Reports"
             isActive={activeSection === "vetreports"}
             onClick={() => handleNavigation("vetreports")}
           />
+          </Link>
         </List>
       </Box>
 

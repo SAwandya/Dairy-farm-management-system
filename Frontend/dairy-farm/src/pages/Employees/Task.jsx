@@ -17,14 +17,18 @@ import axios from 'axios';
 import Esidebar from "../../components/Employees/esidebar";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Swal from 'sweetalert2';
-
+import TextField from '@mui/material/TextField'; // Import TextField component
+import SearchIcon from '@mui/icons-material/Search'; // Import SearchIcon
 
 function Task() {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(2);
     const [showAll, setShowAll] = useState(false); 
+    const [searchTerm, setSearchTerm] = useState(''); // State variable for search term
+    const [dataList, setDataList] = useState([]); // State variable for task data
+    
     useEffect(() => {
         axios.get("http://localhost:3000/api/employee/task")
         .then(result => {
@@ -59,24 +63,8 @@ function Task() {
         "Action",
     ];
 
-    const [dataList, setDataList] = useState([
-        {
-        },
-        {
-          
-        },
-    ]);
-
     const filterTasksByStatus = (status) => {
         return dataList.filter(task => task.status === status);
-    };
-
-    const handleAddTask = (e) => {
-        e.preventDefault();
-        // Add the new user to the state
-        setTasks((prevTasks) => [...prevTasks, newTask]);
-        // Clear the form fields
-        e.target.reset();
     };
 
     const handleEdit = (id) => {
@@ -104,7 +92,6 @@ function Task() {
             }
         });
     };
-    
 
     const navigate = useNavigate();
 
@@ -141,61 +128,85 @@ function Task() {
         navigate('/allTask');
     };
 
+    // Filter tasks based on search term
+    const filteredTasks = dataList.filter(task => 
+        (task.taskinfo && task.taskinfo.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (task.employeeName && task.employeeName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (task.description && task.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (task.status && task.status.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+    
     return (
         <div>
         <div style={{ display: 'flex', minWidth: '1036px' }}>
    <Esidebar/>
-        <Box sx={{ marginLeft: '14rem', marginTop:'50px' }}>
-            <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' }}>
+        <Box sx={{ marginLeft: '15rem', marginTop:'50px', marginRight: '-14rem',width: '80%' }}>
+            <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold',fontFamily: 'Poppins' }}>
                 Welcome Disara,
             </Typography>
             <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-15rem',marginTop:'10px'}}>
                 <BgCards>
-                    <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                    <Typography variant="body1" sx={{ fontSize: '22px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                         All Tasks
                         <IconButton size="small" color="inherit">
                             <AssignmentIcon />
                         </IconButton>
                     </Typography>
-                    <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
+                    <Typography variant="body1" sx={{ fontSize: '20px', fontFamily: 'Poppins' , marginLeft:'2rem'}}>
                         {dataList.length}
                     </Typography>
                 </BgCards>
                 <BgCards>
-                    <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                    <Typography variant="body1" sx={{ fontSize: '22px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                         In Progress Tasks
                         <IconButton size="small" color="inherit">
                             <AssignmentIcon />
                         </IconButton>
                     </Typography>
-                    <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
+                    <Typography variant="body1" sx={{ fontSize: '20px', fontFamily: 'Poppins' , marginLeft:'2rem'}}>
                         {filterTasksByStatus('In progress').length}
                     </Typography>
                 </BgCards>
                 <BgCards>
-                    <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                    <Typography variant="body1" sx={{ fontSize: '22px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                         Completed Tasks
                         <IconButton size="small" color="inherit" >
                             <AssignmentIcon />
                         </IconButton>
                     </Typography>
-                    <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
+                    <Typography variant="body1" sx={{ fontSize: '20px', fontFamily: 'Poppins', marginLeft:'2rem' }}>
                         {filterTasksByStatus('Completed').length}
                     </Typography>
                 </BgCards>
             </Box>
 
             <TableCard>
-                <Button variant="contained" color="success" onClick={handleClick} sx={{ marginBottom:'1rem',marginTop: '1rem', marginLeft: '62rem' }}>
+                <Button variant="contained" color="success" onClick={handleClick} sx={{ marginBottom:'1rem',marginTop: '1rem', marginLeft: '70rem' }}>
                     Add New
                 </Button>
-                <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px' , fontWeight: 'bold'}}>
+                <div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}>
+                        <TextField
+                            onChange={(event) => {
+                                console.log("Search Term:", event.target.value); 
+                                setSearchTerm(event.target.value);
+                            }}
+                            placeholder="Search..."
+                            InputProps={{
+                                startAdornment: (
+                                    <SearchIcon />
+                                ),
+                                style: { marginBottom: '10px', width: '250px' ,borderRadius: '20px ', marginLeft: '1000px'}
+                            }}
+                        />
+                    </div>
+                <Typography variant="h5" sx={{ marginLeft: '5rem', fontSize: '20px' , fontWeight: 'bold'}}>
                     Tasks
                 </Typography>
                 {/* Table header and buttons */}
+                <div style={{ width: '100%',marginTop:'20px' }}>
                 <CustomizedTables
                    headers={headers}
-                   rows={dataList.length > 0 ? dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(task => ({
+                   rows={filteredTasks.length > 0 ? filteredTasks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(task => ({
                         "Task ID": task.taskID,
                         "Task": task.taskinfo,
                         "Employee ID": task.employeeId,
@@ -218,18 +229,19 @@ function Task() {
                             </div>
                         )
                     })) : [{ "No Data": "No Data" }]}
+                    style={{ width: '100%' }}
                 />
                 <TablePagination
                     rowsPerPageOptions={[2, 5, 10]}
                     component="div"
-                    count={dataList.length}
+                    count={filteredTasks.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     nextIconButtonProps={{
                         onClick: () => handleChangePage(null, page + 1),
-                        disabled: page >= Math.ceil(dataList.length / rowsPerPage) - 1,
+                        disabled: page >= Math.ceil(filteredTasks.length / rowsPerPage) - 1,
                     }}
                     backIconButtonProps={{
                         onClick: () => handleChangePage(null, page - 1),
@@ -256,6 +268,7 @@ function Task() {
                 
                 
                 )}
+                </div>
             </TableCard>
             {/* Notification container */}
             <ToastContainer />
@@ -266,4 +279,3 @@ function Task() {
 }
 
 export default Task;
-
