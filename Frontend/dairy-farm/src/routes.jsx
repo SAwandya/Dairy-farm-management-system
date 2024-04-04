@@ -39,6 +39,8 @@ import AllEmployee from "./pages/Employees/AllEmployee";
 import AllTask from "./pages/Employees/AllTask";
 import MilkingData from './pages/Milking/MilkingData';
 import AnimReport from "./pages/Veterinary/VetReport";
+import EmployeeReport from "./pages/Employees/Employee_report";
+import EmployeeR from "./pages/Employees/EmployeeR";
 
 const router = createBrowserRouter([
   {
@@ -208,6 +210,14 @@ const router = createBrowserRouter([
   {
     path: "/allTask",
     element: <AllTask />,
+  },
+  {
+    path: "/ereport",
+    element: <EmployeeR />,
+  },
+  {
+    path: "/empreport",
+    element: <EmployeeReport />,
   },
 ]);
 
