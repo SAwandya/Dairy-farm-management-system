@@ -1,5 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import "../styles/milking.css";

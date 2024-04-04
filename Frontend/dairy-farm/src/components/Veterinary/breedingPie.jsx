@@ -10,7 +10,7 @@ function BreedPieChart() {
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
-    // Fetch count of pregnant animals
+    //pregnant count
     const fetchPregnantCount = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/exmAnim/count-pregnancy-check');
@@ -22,7 +22,7 @@ function BreedPieChart() {
       }
     };
 
-    // Fetch total count of animals
+   
     const fetchTotalCount = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/animalReg/count-females');
