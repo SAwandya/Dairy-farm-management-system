@@ -23,8 +23,8 @@ function ProcessPlanning() {
 
       <Grid2 container sx={{mt:5,}} >
        <Grid2 item xs={1}></Grid2> 
-        <Grid2 item sm={3}><Typography variant="h4" align="center">Processes</Typography></Grid2>
         <Grid2 item sm={3}><Typography variant="h4" align="center">Ingredients</Typography></Grid2>
+        <Grid2 item sm={3}><Typography variant="h4" align="center">Processes</Typography></Grid2>
         <Grid2 item sm={5}><Typography variant="h4" align="center">Equipements</Typography></Grid2>
       </Grid2>
 
