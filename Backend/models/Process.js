@@ -1,3 +1,4 @@
+// models/Process.js
 const mongoose = require('mongoose');
 
 const ProcessSchema = new mongoose.Schema({
@@ -19,10 +20,13 @@ const ProcessSchema = new mongoose.Schema({
   scheduleDate: {
     type: Date
   },
+  scheduleTime: {
+    type: String
+  },
   status: {
     type: String,
     enum: ['scheduled', 'started'],
-    default: 'scheduled'
+    default: 'started'
   }
 });
 

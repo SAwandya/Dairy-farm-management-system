@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
+// ProcessUpdateButton.jsx
+import React, { useState, useEffect } from 'react';
+import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
+import { Edit as EditIcon } from '@mui/icons-material';
 import axios from 'axios';
 
-function NewProcessForm({onSubmitSuccess}) {
+function ProcessUpdateButton({ id , onUpdated }) {
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState('');
   const [milkQuantity, setMilkQuantity] = useState(0);
@@ -11,11 +13,34 @@ function NewProcessForm({onSubmitSuccess}) {
   const [specialNotes, setSpecialNotes] = useState('');
   const [scheduleDate, setScheduleDate] = useState('');
   const [scheduleTime, setScheduleTime] = useState('');
-  const [status, setStatus] = useState('started'); // Default status
+  const [status, setStatus] = useState('started');
   const [showCancelConfirmation, setShowCancelConfirmation] = useState(false);
-  const [isScheduled, setIsScheduled] = useState(false); // State to manage scheduling checkbox
+  const [isScheduled, setIsScheduled] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    // Fetch process details when the component mounts
+    fetchProcessDetails();
+  }, [id]);
+
+  const fetchProcessDetails = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/processCrud/process/${id}`);
+      const processData = response.data;
+      // Set process details in state to populate the form
+      setProduct(processData.product);
+      setMilkQuantity(processData.milkQuantity);
+      setIngredients(processData.ingredients);
+      setSpecialNotes(processData.specialNotes);
+      setScheduleDate(processData.scheduleDate);
+      setScheduleTime(processData.scheduleTime);
+      setStatus(processData.status);
+      setIsScheduled(processData.status === 'scheduled'); // Set scheduling checkbox based on status
+    } catch (error) {
+      console.error('Error fetching process details:', error);
+    }
+  };
 
   const maxMilkQuantity = 1000; // Maximum milk quantity limit
 
@@ -49,7 +74,6 @@ function NewProcessForm({onSubmitSuccess}) {
         status: isScheduled ? 'scheduled' : 'started' // Update status based on scheduling checkbox
       };
       await submitFormToDatabase(formData);
-      //fetching results to ProcessTable
       // Reset form fields after successful submission
       setProduct('');
       setMilkQuantity(0);
@@ -65,13 +89,13 @@ function NewProcessForm({onSubmitSuccess}) {
       setErrorMessage('Failed to submit form data');
     }
   };
-  
 
   const submitFormToDatabase = async (formData) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/processCrud/process', formData);
+      const response = await axios.put(`http://localhost:3000/api/processCrud/process/${id}`, formData);
+      onUpdated();
       return response.data;
-
+      
     } catch (error) {
       throw error.response.data.message || 'Failed to submit form data';
     }
@@ -84,11 +108,11 @@ function NewProcessForm({onSubmitSuccess}) {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen}>
-        Add New Process
-      </Button>
+      <IconButton color="primary" onClick={handleClickOpen}>
+        <EditIcon />
+      </IconButton>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add New Process</DialogTitle>
+        <DialogTitle>Edit Process</DialogTitle>
         <DialogContent>
           <FormControl fullWidth margin="normal">
             <InputLabel id="product-label">Product</InputLabel>
@@ -189,27 +213,6 @@ function NewProcessForm({onSubmitSuccess}) {
           <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
         </DialogActions>
       </Dialog>
-      <Dialog
-        open={showCancelConfirmation}
-        onClose={handleCancelConfirmation}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">Cancel Confirmation</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to cancel?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCancelConfirmation} color="primary">
-            No
-          </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
       <Snackbar 
       open={!!successMessage} 
       autoHideDuration={2000} 
@@ -232,7 +235,4 @@ function NewProcessForm({onSubmitSuccess}) {
   );
 }
 
-export default NewProcessForm;
-
-
-
+export default ProcessUpdateButton;
