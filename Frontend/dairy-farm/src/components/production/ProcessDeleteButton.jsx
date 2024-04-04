@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { IconButton, Snackbar } from '@mui/material';
+import { IconButton, Snackbar, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import axios from 'axios';
 import MuiAlert from '@mui/material/Alert';
 
 function ProcessDeleteButton({ id, onDeleted }) {
+  const [openConfirmation, setOpenConfirmation] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -25,6 +26,19 @@ function ProcessDeleteButton({ id, onDeleted }) {
     }
   };
 
+  const handleOpenConfirmation = () => {
+    setOpenConfirmation(true);
+  };
+
+  const handleCloseConfirmation = () => {
+    setOpenConfirmation(false);
+  };
+
+  const handleConfirmDelete = () => {
+    handleDelete();
+    handleCloseConfirmation();
+  };
+
   const handleSnackbarClose = () => {
     setSuccessMessage('');
     setErrorMessage('');
@@ -32,9 +46,22 @@ function ProcessDeleteButton({ id, onDeleted }) {
 
   return (
     <>
-      <IconButton color="error" onClick={handleDelete}>
+      <IconButton color="error" onClick={handleOpenConfirmation}>
         <DeleteIcon />
       </IconButton>
+      <Dialog
+        open={openConfirmation}
+        onClose={handleCloseConfirmation}
+      >
+        <DialogTitle>Delete Confirmation</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this process?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirmation}>Cancel</Button>
+          <Button onClick={handleConfirmDelete} color="error">Delete</Button>
+        </DialogActions>
+      </Dialog>
       <Snackbar 
         open={!!successMessage} 
         autoHideDuration={2000} 
