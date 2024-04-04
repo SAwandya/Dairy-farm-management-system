@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@emotion/styled": "^11.11.5",
     "@mui/x-data-grid": "^7.1.0",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2"
