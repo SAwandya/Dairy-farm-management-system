@@ -15,7 +15,7 @@ const StyledCard = styled(Card)({
   maxWidth: 300,
   margin: '20px',
   backgroundColor: '#E7F1F7',
-  flex: '1 1 calc(25% - 40px)', // Adjust flex basis for 4 columns
+  flex: '1 1 calc(25% - 40px)', 
 });
 
 const Title = styled(Typography)({

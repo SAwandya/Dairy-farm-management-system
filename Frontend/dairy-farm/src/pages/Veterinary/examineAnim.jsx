@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { TablePagination, Grid } from '@mui/material'; // Import Grid component
+import { TablePagination, Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -260,7 +260,7 @@ const ExamineAnim=({handleClose})=> {
               </div>  
               {!addSection && !editSection &&(
                 <div className='table' style={{ 
-                    flex: 1, /* Use flex to allow content to fill available space */
+                    flex: 1, 
                     padding: '10px', 
                     margin: '50px ', 
                     marginBottom: '20px',

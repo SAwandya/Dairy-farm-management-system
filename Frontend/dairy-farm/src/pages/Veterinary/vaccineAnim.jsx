@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { TablePagination, Grid } from '@mui/material'; // Import Grid component
+import { TablePagination, Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -167,7 +167,7 @@ const VaccineAnim=({handleClose})=> {
         try {
             const response = await axios.get(`http://localhost:3000/api/vacAnim/retrieve/${id}`);
             if (response.data.success) {
-                setFormDataEdit({ ...response.data.data, _id: id }); // Include _id in formDataEdit
+                setFormDataEdit({ ...response.data.data, _id: id }); 
                 setEditSection(true);
             }
         } catch (error) {
@@ -268,7 +268,7 @@ const VaccineAnim=({handleClose})=> {
               </div>  
               {!addSection && !editSection &&(
                 <div className='table' style={{ 
-                    flex: 1, /* Use flex to allow content to fill available space */
+                    flex: 1, 
                     padding: '10px', 
                     margin: '50px ', 
                     marginBottom: '20px',

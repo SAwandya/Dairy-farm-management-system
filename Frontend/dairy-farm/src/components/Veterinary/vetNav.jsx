@@ -29,7 +29,7 @@ function Sidebar() {
         />
       </Box>
 
-      {/* Navigation links */}
+    
       <Box className="navigation-links">
         <List>
         <Link to="/vetdashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -75,7 +75,7 @@ function Sidebar() {
         </List>
       </Box>
 
-      {/* Profile and Logout */}
+      
       <Box className="user-actions">
         <List>
           <NavigationLink

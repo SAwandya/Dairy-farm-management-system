@@ -10,7 +10,7 @@ function BreedPage() {
         <div style={{ display: 'flex', height: '100vh',fontFamily: 'Poppins, sans-serif' }}>
             <Sidebar />
             <div style={{ 
-                flex: 1, /* Use flex to allow content to fill available space */
+                flex: 1, 
                 padding: '10px', 
                 margin: '50px ', 
                 marginBottom: '20px',

@@ -24,7 +24,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
     if (validateForm()) {
       handleSubmit(e);
     } else {
-      // Show SweetAlert error message
+      
       Swal.fire({
         icon: "error",
         title: "Oops...",
