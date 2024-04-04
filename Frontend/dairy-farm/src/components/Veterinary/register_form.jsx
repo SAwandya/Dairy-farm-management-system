@@ -47,7 +47,22 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
             <TextField id="earTag" name="earTag" label="Ear Tag ID" required onChange={handleOnChange} value={rest.earTag || ''} fullWidth sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }} />
           </Grid>
           <Grid item xs={6}>
-            <TextField id="status" name="status" label="Status" required onChange={handleOnChange} value={rest.status || ''} fullWidth sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }} />
+          <FormControl fullWidth>
+              <InputLabel id="batch">Batch *</InputLabel>
+              <Select id="batch" name="batch" label="batch" required onChange={handleOnChange} value={rest.batch || ''} sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}>
+                <MenuItem value="F001">F001</MenuItem>
+                <MenuItem value="F002">F002</MenuItem>
+                <MenuItem value="F003">F003</MenuItem>
+                <MenuItem value="F004">F004</MenuItem>
+                <MenuItem value="F005">F005</MenuItem>
+
+                <MenuItem value="M001">M001</MenuItem>
+                <MenuItem value="M002">M002</MenuItem>
+                <MenuItem value="M003">M003</MenuItem>
+                <MenuItem value="M004">M004</MenuItem>
+                <MenuItem value="M005">M005</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
         <Grid container spacing={3} sx={{ marginBottom: 2 }}>
@@ -74,8 +89,8 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
             <FormControl fullWidth>
               <InputLabel id="gender">Gender *</InputLabel>
               <Select id="gender" name="gender" label="gender" required onChange={handleOnChange} value={rest.gender || ''} sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}>
-                <MenuItem value="female">Female</MenuItem>
-                <MenuItem value="male">Male</MenuItem>
+                <MenuItem value="Female">Female</MenuItem>
+                <MenuItem value="Male">Male</MenuItem>
               </Select>
             </FormControl>
           </Grid>

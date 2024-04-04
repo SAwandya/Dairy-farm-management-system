@@ -84,6 +84,7 @@ const ExamineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) =>
                 <MenuItem value={'Pregnancy Check'}>Pregnancy Check</MenuItem>
                 <MenuItem value={'Dry Off Examination'}>Dry Off Examination</MenuItem>
                 <MenuItem value={'General'}>General</MenuItem>
+                <MenuItem value={'Disease Check'}>Disease Check</MenuItem>
               </Select>
             </FormControl>
           </Grid>
