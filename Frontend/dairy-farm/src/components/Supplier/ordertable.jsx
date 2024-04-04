@@ -61,6 +61,9 @@ const OrderTable = () => {
               ...validationErrors,
               orderStatus: undefined,
             }),
+          disabled: true, // Add this line to disable the field
+          defaultValue: 'Pending' ,// Add this line to set the default value to 'pending'
+          style: { display: 'none' } 
         },
       },
       {
@@ -131,9 +134,9 @@ const OrderTable = () => {
 
   //CREATE action
   const handleCreateOrder = async ({ values, table }) => {
-      console.log(values); // log the values being sent
-      await createOrder(values);
-      table.setCreatingRow(null); //exit creating mode
+    console.log(values); // log the values being sent
+    await createOrder({ ...values, orderStatus: 'Pending' }); // Set orderStatus to 'pending' by default
+    table.setCreatingRow(null); //exit creating mode
   };
 
   //UPDATE action
@@ -248,7 +251,7 @@ function useCreateOrder() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({...order, _id: undefined}),
+        body: JSON.stringify({...order, _id: undefined, orderStatus: 'Pending'}),
       });
       return response.json();
     },
@@ -257,6 +260,7 @@ function useCreateOrder() {
         ...prevOrders,
         {
           ...newOrderInfo,
+          orderStatus: 'Pending',
         },
       ]);
     },
@@ -292,10 +296,10 @@ function useUpdateOrder() {
       );
       return response.json();
     },
-    onMutate: (newOrderInfo) => {
+    onMutate: (updatedOrder) => {
       queryClient.setQueryData(["orders"], (prevOrders) =>
         prevOrders?.map((prevOrder) =>
-          prevOrder.id === newOrderInfo.id ? newOrderInfo : prevOrder
+          prevOrder._id === updatedOrder._id ? updatedOrder : prevOrder
         )
       );
     },

@@ -262,10 +262,10 @@ function useUpdateItem() {
       );
       return response.json();
     },
-    onMutate: (newItemInfo) => {
+    onMutate: (updatedItem) => {
       queryClient.setQueryData(["items"], (prevItems) =>
         prevItems?.map((prevItem) =>
-          prevItem.id === newItemInfo.id ? newItemInfo : prevItem
+          prevItem._id === updatedItem._id ? updatedItem : prevItem
         )
       );
     },

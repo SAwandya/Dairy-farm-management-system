@@ -9,7 +9,8 @@ const orderSchema = new mongoose.Schema({
   },
   orderStatus: {
     type: String,
-    required: true
+    required: true,
+    default: 'Pending'
   },
   quantity: {
     type: Number,

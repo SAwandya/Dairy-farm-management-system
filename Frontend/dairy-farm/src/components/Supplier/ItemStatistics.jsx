@@ -18,18 +18,18 @@ function ItemStatistics() {
 
             <Box className="stat-cards-container">
                 <StatsCard
-                    title='Total'
+                    title='High Priority'
                     value='10'
                     icon='../../../src/assets/icon1.png'
 
                 />
                 <StatsCard
-                    title='Contracted'
+                    title='Medium Priority'
                     value='8'
                     icon='../../../src/assets/icon1.png'
                 />
                 <StatsCard
-                    title='Listed'
+                    title='Low Priority'
                     value='2'
                     icon='../../../src/assets/icon2.png'
                 />
