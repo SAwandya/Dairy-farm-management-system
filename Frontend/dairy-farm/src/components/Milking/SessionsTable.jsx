@@ -257,7 +257,7 @@ const MilkingSessionsTable = () => {
         <TableBody>
           {filteredSessions.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={7} align="center">No recorded data</TableCell>
+              <TableCell colSpan={7} align="center" style={{fontFamily: 'Poppins'}}>No recorded data</TableCell>
             </TableRow>
           ) : (
             filteredSessions.map((session, index) => (
