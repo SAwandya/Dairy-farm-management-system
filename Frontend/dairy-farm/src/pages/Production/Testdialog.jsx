@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import Draggable from 'react-draggable';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 
-function NewProcessForm({onSubmitSuccess}) {
+function NewProcessForm({ onSubmitSuccess }) {
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState('');
   const [milkQuantity, setMilkQuantity] = useState(0);
@@ -31,10 +32,13 @@ function NewProcessForm({onSubmitSuccess}) {
     setShowCancelConfirmation(true);
   };
 
-  const handleCancelConfirmation = () => {
+  const handleCancelConfirmation = (confirmed) => {
     setShowCancelConfirmation(false);
-    setOpen(false);
+    if (confirmed) {
+      setOpen(false);
+    }
   };
+  
 
   const handleSubmit = async () => {
     try {
@@ -65,13 +69,11 @@ function NewProcessForm({onSubmitSuccess}) {
       setErrorMessage('Failed to submit form data');
     }
   };
-  
 
   const submitFormToDatabase = async (formData) => {
     try {
       const response = await axios.post('http://localhost:3000/api/processCrud/process', formData);
       return response.data;
-
     } catch (error) {
       throw error.response.data.message || 'Failed to submit form data';
     }
@@ -87,111 +89,130 @@ function NewProcessForm({onSubmitSuccess}) {
       <Button variant="contained" onClick={handleClickOpen}>
         Add New Process
       </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add New Process</DialogTitle>
-        <DialogContent>
-          <FormControl fullWidth margin="normal">
-            <InputLabel id="product-label">Product</InputLabel>
-            <Select
-              labelId="product-label"
-              value={product}
-              onChange={(e) => setProduct(e.target.value)}
-              label="Product"
-            >
-              <MenuItem value="Chocolate icecream">Chocolate icecream</MenuItem>
-              <MenuItem value="Vanilla icecream">Vanilla icecream</MenuItem>
-              <MenuItem value="Milk">Milk</MenuItem>
-              <MenuItem value="Yoghurt">Yoghurt</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl fullWidth margin="normal">
-            <Typography id="milk-quantity-slider" gutterBottom>
-              Milk Quantity: {milkQuantity} (Max: {maxMilkQuantity})
-            </Typography>
-            <Slider
-              aria-labelledby="milk-quantity-slider"
+      <Draggable>
+
+        <Dialog open={open} onClose={handleClose}
+
+          sx={{
+            width: '26.6%',
+
+            '& .MuiBackdrop-root': {
+              backgroundColor: 'transparent',
+              position: 'absolute',
+            }
+
+          }} style={{ left: '33.4%', right: '37%', top: '8%',
+
+
+          }}
+
+        >
+
+          <DialogTitle align="center">Add New Process</DialogTitle>
+          <DialogContent>
+            <FormControl fullWidth margin="normal">
+              <InputLabel id="product-label">Product</InputLabel>
+              <Select
+                labelId="product-label"
+                value={product}
+                onChange={(e) => setProduct(e.target.value)}
+                label="Product"
+              >
+                <MenuItem value="Chocolate icecream">Chocolate icecream</MenuItem>
+                <MenuItem value="Vanilla icecream">Vanilla icecream</MenuItem>
+                <MenuItem value="Milk">Milk</MenuItem>
+                <MenuItem value="Yoghurt">Yoghurt</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth margin="normal">
+              <Typography id="milk-quantity-slider" gutterBottom>
+                Milk Quantity: {milkQuantity} (Max: {maxMilkQuantity})
+              </Typography>
+              <Slider
+                aria-labelledby="milk-quantity-slider"
+                value={milkQuantity}
+                onChange={(e, newValue) => setMilkQuantity(newValue)}
+                min={0}
+                max={maxMilkQuantity}
+              />
+            </FormControl>
+            <TextField
+              fullWidth
+              margin="normal"
+              label={`Milk Quantity (Max: ${maxMilkQuantity})`}
+              type="number"
+              InputProps={{ inputProps: { min: 0, max: maxMilkQuantity } }}
               value={milkQuantity}
-              onChange={(e, newValue) => setMilkQuantity(newValue)}
-              min={0}
-              max={maxMilkQuantity}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (!isNaN(value) && value >= 0 && value <= maxMilkQuantity) {
+                  setMilkQuantity(value);
+                }
+              }}
             />
-          </FormControl>
-          <TextField
-            fullWidth
-            margin="normal"
-            label={`Milk Quantity (Max: ${maxMilkQuantity})`}
-            type="number"
-            InputProps={{ inputProps: { min: 0, max: maxMilkQuantity } }}
-            value={milkQuantity}
-            onChange={(e) => {
-              const value = parseInt(e.target.value);
-              if (!isNaN(value) && value >= 0 && value <= maxMilkQuantity) {
-                setMilkQuantity(value);
-              }
-            }}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Ingredients"
-            select
-            SelectProps={{
-              multiple: true,
-              value: ingredients,
-              onChange: (e) => setIngredients(e.target.value),
-            }}
-          >
-            <MenuItem value="Chocolate powder">Chocolate powder</MenuItem>
-            <MenuItem value="Heavy cream">Heavy cream</MenuItem>
-            <MenuItem value="Sugar">Sugar</MenuItem>
-            <MenuItem value="Vanilla">Vanilla</MenuItem>
-          </TextField>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Special Notes"
-            value={specialNotes}
-            onChange={(e) => setSpecialNotes(e.target.value)}
-          />
-          <FormControlLabel
-            control={<Checkbox checked={isScheduled} onChange={(e) => setIsScheduled(e.target.checked)} />}
-            label="Schedule"
-          />
-          {isScheduled && (
-            <div>
-              <TextField
-                fullWidth
-                margin="normal"
-                label="Schedule Date"
-                type="date"
-                value={scheduleDate}
-                onChange={(e) => setScheduleDate(e.target.value)}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              <TextField
-                fullWidth
-                margin="normal"
-                label="Schedule Time"
-                type="time"
-                value={scheduleTime}
-                onChange={(e) => setScheduleTime(e.target.value)}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </div>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCancel}>Cancel</Button>
-          <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
-        </DialogActions>
-      </Dialog>
+            <TextField
+              fullWidth
+              margin="normal"
+              label="Ingredients"
+              select
+              SelectProps={{
+                multiple: true,
+                value: ingredients,
+                onChange: (e) => setIngredients(e.target.value),
+              }}
+            >
+              <MenuItem value="Chocolate powder">Chocolate powder</MenuItem>
+              <MenuItem value="Heavy cream">Heavy cream</MenuItem>
+              <MenuItem value="Sugar">Sugar</MenuItem>
+              <MenuItem value="Vanilla">Vanilla</MenuItem>
+            </TextField>
+            <TextField
+              fullWidth
+              margin="normal"
+              label="Special Notes"
+              value={specialNotes}
+              onChange={(e) => setSpecialNotes(e.target.value)}
+            />
+            <FormControlLabel
+              control={<Checkbox checked={isScheduled} onChange={(e) => setIsScheduled(e.target.checked)} />}
+              label="Schedule"
+            />
+            {isScheduled && (
+              <div>
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Schedule Date"
+                  type="date"
+                  value={scheduleDate}
+                  onChange={(e) => setScheduleDate(e.target.value)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Schedule Time"
+                  type="time"
+                  value={scheduleTime}
+                  onChange={(e) => setScheduleTime(e.target.value)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </div>
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancel}>Cancel</Button>
+            <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
+          </DialogActions>
+        </Dialog>
+      </Draggable>
       <Dialog
         open={showCancelConfirmation}
-        onClose={handleCancelConfirmation}
+        onClose={() => handleCancelConfirmation(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -202,28 +223,28 @@ function NewProcessForm({onSubmitSuccess}) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancelConfirmation} color="primary">
+          <Button onClick={() => handleCancelConfirmation(false)} color="primary">
             No
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={() => handleCancelConfirmation(true)} color="primary" autoFocus>
             Yes
           </Button>
         </DialogActions>
       </Dialog>
-      <Snackbar 
-      open={!!successMessage} 
-      autoHideDuration={2000} 
-      onClose={handleSnackbarClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+      <Snackbar
+        open={!!successMessage}
+        autoHideDuration={2000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
         <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity="success">
           {successMessage}
         </MuiAlert>
       </Snackbar>
-      <Snackbar 
-      open={!!errorMessage} 
-      autoHideDuration={2000} 
-      onClose={handleSnackbarClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+      <Snackbar
+        open={!!errorMessage}
+        autoHideDuration={2000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
         <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity="error">
           {errorMessage}
         </MuiAlert>
@@ -233,6 +254,3 @@ function NewProcessForm({onSubmitSuccess}) {
 }
 
 export default NewProcessForm;
-
-
-

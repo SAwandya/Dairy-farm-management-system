@@ -30,9 +30,6 @@ function ProcessTable() {
   const handleUpdated = () => {
     fetchData(); // Refetch data after deletion
   };
-  const onSubmitSuccess = () => {
-    fetchData(); // Refetch data after form submission
-  };
 
   const rows = processes.map((process, index) => ({
     id: index + 1,

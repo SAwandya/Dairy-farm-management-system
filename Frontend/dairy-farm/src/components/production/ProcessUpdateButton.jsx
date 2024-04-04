@@ -1,8 +1,8 @@
-// ProcessUpdateButton.jsx
 import React, { useState, useEffect } from 'react';
-import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
+import { IconButton, Dialog, DialogTitle, DialogContent,DialogContentText, DialogActions, Button, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { Edit as EditIcon } from '@mui/icons-material';
+import Draggable from 'react-draggable';
 import axios from 'axios';
 
 function ProcessUpdateButton({ id , onUpdated }) {
@@ -56,9 +56,11 @@ function ProcessUpdateButton({ id , onUpdated }) {
     setShowCancelConfirmation(true);
   };
 
-  const handleCancelConfirmation = () => {
+  const handleCancelConfirmation = (confirmed) => {
     setShowCancelConfirmation(false);
-    setOpen(false);
+    if (confirmed) {
+      setOpen(false);
+    }
   };
 
   const handleSubmit = async () => {
@@ -111,8 +113,23 @@ function ProcessUpdateButton({ id , onUpdated }) {
       <IconButton color="primary" onClick={handleClickOpen}>
         <EditIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Edit Process</DialogTitle>
+      <Draggable>
+
+      <Dialog  open={open} onClose={handleClose} 
+               
+               sx={{width:'26.6%' ,
+
+                      '& .MuiBackdrop-root': { 
+                      backgroundColor: 'transparent',
+                      position: 'absolute',
+                      }
+            
+            }}   style={{ left: '33.4%',right:'37%',top:'8%',
+          }} 
+            
+             >
+
+        <DialogTitle align="center">Add New Process</DialogTitle>
         <DialogContent>
           <FormControl fullWidth margin="normal">
             <InputLabel id="product-label">Product</InputLabel>
@@ -211,6 +228,28 @@ function ProcessUpdateButton({ id , onUpdated }) {
         <DialogActions>
           <Button onClick={handleCancel}>Cancel</Button>
           <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
+        </DialogActions>
+      </Dialog>
+      </Draggable>
+      <Dialog
+        open={showCancelConfirmation}
+        onClose={() => handleCancelConfirmation(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Cancel Confirmation</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to cancel?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleCancelConfirmation(false)} color="primary">
+            No
+          </Button>
+          <Button onClick={() => handleCancelConfirmation(true)} color="primary" autoFocus>
+            Yes
+          </Button>
         </DialogActions>
       </Dialog>
       <Snackbar 
