@@ -3,6 +3,8 @@ const router = express.Router();
 const { Product } = require("../models/product");
 const { Purchase, validate } = require("../models/purchase");
 const { Customer } = require("../models/customer");
+const nodemailer = require("nodemailer");
+const Mailgen = require("mailgen");
 
 router.get("/", async (req, res) => {
   const purchase = await Purchase.find();
@@ -11,8 +13,8 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const purchase = await Purchase.find({
-    "customer._id" : req.params.id
-  })
+    "customer._id": req.params.id,
+  });
   res.send(purchase);
 });
 
@@ -64,14 +66,100 @@ router.put("/:id", async (req, res) => {
 
   purchase = await purchase.save();
 
+  console.log(purchase);
+
   if (!purchase)
     return res.status(400).send("The purchase with the given id not found");
 
-  res.send(purchase);
+    
+  // send email using nodemailer
+
+  let config = {
+    service: "gmail",
+    auth: {
+      user: "nevilnutrifeeds@gmail.com",
+      pass: "ugel zylt zrcy fhjb",
+    },
+  };
+
+  let transpoter = nodemailer.createTransport(config);
+
+  let MailGenerator = new Mailgen({
+    them: "default",
+    product: {
+      name: "Nevil Nutri Feed(Pvt)(Ltd)",
+      link: "https://mailgen.js/",
+    },
+  });
+
+  let response = {};
+
+  if(req.body.approve == 'approve'){
+
+    response = {
+      body: {
+        name: purchase.customer.name,
+        intro: "Your oder has approved",
+        table: {
+          data: [
+            {
+              item: purchase.product.name,
+              quantity: purchase.quantity + " Packs",
+              price: purchase.product.price * 20 * purchase.quantity + "LKR",
+            },
+          ],
+        },
+        outro: "Looking forward to do more business",
+      },
+    };
+  }else{
+
+    response = {
+      body: {
+        name: purchase.customer.name,
+        intro: "Your oder has rejected!!!",
+        table: {
+          data: [
+            {
+              item: purchase.product.name,
+              quantity: purchase.quantity + " Packs",
+              price: purchase.product.price * 20 * purchase.quantity + "LKR",
+            },
+          ],
+        },
+        outro: "Please contact us ! +94715581536",
+      },
+    };
+
+  }
+
+  
+
+  let mail = MailGenerator.generate(response);
+
+  let message = {
+    from: "nevilnutrifeeds@gmail.com",
+    to: purchase.customer.email,
+    subject: "Place Order",
+    html: mail,
+  };
+
+  transpoter
+    .sendMail(message)
+    .then(() => {
+      return res.status(200).json({
+        msg: "you should recived an email",
+        purchase: purchase,
+      });
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+
+  // ---------------------------
 });
 
 router.put("/update/:id", async (req, res) => {
-  
   let purchase = await Purchase.findByIdAndUpdate(req.params.id, {
     "deliveryDetails.address1": req.body.address1,
     "deliveryDetails.address2": req.body.address2,
@@ -93,16 +181,13 @@ router.put("/update/:id", async (req, res) => {
   res.send(purchase);
 });
 
-
 router.delete("/:id", async (req, res) => {
-
   let purchase = await Purchase.findByIdAndDelete(req.params.id);
 
-  if(!purchase)
-      return res.status(400).send("The purchase with the given id not found");
+  if (!purchase)
+    return res.status(400).send("The purchase with the given id not found");
 
   res.send(purchase);
-
-})
+});
 
 module.exports = router;
