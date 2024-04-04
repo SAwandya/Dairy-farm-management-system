@@ -6,14 +6,14 @@ import { Button, TextField, Select, MenuItem, FormControl, InputLabel, Grid, Con
 
 const vaccineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
   const [validationError, setValidationError] = useState('');
-  const initialVaccine = rest.vaccine || ''; // Initialize to rest.vaccine or an empty string
+  const initialVaccine = rest.vaccine || ''; 
   const [vaccine, setVaccine] = useState(initialVaccine);
 
   const handleChange = (e) => {
     if (e && e.target && e.target.value) {
-      // Update the vaccine state with the selected value
+
       setVaccine(e.target.value);
-      // Call the handleOnChange function to update the parent component's state
+
       handleOnChange(e); 
     }
   };
@@ -40,7 +40,7 @@ const vaccineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) =>
       return false;
     }
     
-    // Clear any previous validation errors if all conditions pass
+
     setValidationError('');
     return true;
   };
@@ -51,14 +51,14 @@ const vaccineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) =>
     if (validateForm()) {
       const formData = {
         ...rest,
-        vaccine: vaccine // Add the selected vaccine
+        vaccine: vaccine 
       };
-      console.log("Form Data:", formData); // Log the form data
+      console.log("Form Data:", formData); 
       handleSubmit(formData);
       
-      //handleSubmit(e);
+      
     } else {
-      // Show SweetAlert error message
+    
       Swal.fire({
         icon: "error",
         title: "Oops...",

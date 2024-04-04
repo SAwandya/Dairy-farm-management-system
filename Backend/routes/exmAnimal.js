@@ -17,7 +17,7 @@ router.post("/create", async (req, res) => {
             return res.status(400).send({ success: false, message: "All fields are required" });
         }
 
-        // Check if the ear tag exists in the AnimalRegistry schema
+        
         const animalExists = await AnimalRegistry.findOne({ earTag });
         if (!animalExists) {
             return res.status(400).send({ success: false, message: "Ear tag does not exist" });
@@ -38,7 +38,7 @@ router.post("/create", async (req, res) => {
     }
 });
 
-// Retrieve and return all animals
+// Retrieve animals
 router.get('/retrieve', async (req, res) => {
     try {
         const data = await ExamAnim.find({});
@@ -48,7 +48,7 @@ router.get('/retrieve', async (req, res) => {
     }
 });
 
-// Retrieve an animal by id
+// Retrieve by id
 router.get('/retrieve/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -72,7 +72,7 @@ router.get('/retrieve2/pregnant', async (req, res) => {
     }
 });
 
-// Count the records having exam == "Pregnancy Check"
+// Count the records exam == "Pregnancy Check"
 router.get('/count-pregnancy-check', async (req, res) => {
     try {
         const count = await ExamAnim.countDocuments({ exam: 'Pregnancy Check' });
@@ -83,7 +83,7 @@ router.get('/count-pregnancy-check', async (req, res) => {
     }
 });
 
-// Update an animal by id
+// Update by id
 router.put('/update/:id', async (req, res) => {
     try {
         if (!req.body) {
@@ -95,7 +95,7 @@ router.put('/update/:id', async (req, res) => {
         if (!updatedAnimal) {
             res.status(400).send({ message: `Cannot update cow with id ${id}. May be not found` });
         } else {
-            // Fetch the updated animal from the database to include in the response
+            
             const updatedData = await ExamAnim.findById(id);
             res.status(200).json({ success: true, message: "Animal updated successfully", data: updatedData });
         }
@@ -104,7 +104,7 @@ router.put('/update/:id', async (req, res) => {
     }
 });
 
-// Delete an animal by id
+// Delete by id
 router.delete('/delete/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -118,7 +118,7 @@ router.delete('/delete/:id', async (req, res) => {
     }
 });
 
-// Index route - send a JSON response
+
 router.get('/', (req, res) => {
     res.json({ message: 'Welcome to the Examination API' });
 });

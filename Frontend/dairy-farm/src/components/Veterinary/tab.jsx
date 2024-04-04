@@ -7,8 +7,8 @@ import Box from '@mui/material/Box';
 import CustomizedTables from './table';
 import CustomizedTables1 from './table2';
 import axios from 'axios';
-import Button from '@mui/material/Button'; // Import Button component 
-import { Link } from 'react-router-dom'; // Import Link component
+import Button from '@mui/material/Button'; 
+import { Link } from 'react-router-dom';
 import BreedPieChart from './breedingPie';
 import Grid from '@mui/material/Grid';
 

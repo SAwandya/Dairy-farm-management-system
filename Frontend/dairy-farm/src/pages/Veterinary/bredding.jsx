@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Grid } from '@mui/material';
 import axios from 'axios';
-import CustomCard from "../../components/Veterinary/breedCard"; // Import the CustomCard component
-import EditForm from '../../components/Veterinary/EditForm'; // Import the EditForm component
+import CustomCard from "../../components/Veterinary/breedCard"; 
+import EditForm from '../../components/Veterinary/EditForm'; 
 
 function BreedingCards() {
     const [animals, setAnimals] = useState([]);
@@ -31,7 +31,7 @@ function BreedingCards() {
         try {
             const response = await axios.delete(`http://localhost:3000/api/exmAnim/delete/${id}`);
             if (response.data.success) {
-                // Remove the deleted animal from the list
+                
                 setAnimals(prevAnimals => prevAnimals.filter(animal => animal._id !== id));
                 console.log('Animal deleted successfully');
             }
@@ -44,7 +44,7 @@ function BreedingCards() {
         try {
             const response = await axios.put(`http://localhost:3000/api/exmAnim/update/${updatedAnimal._id}`, updatedAnimal);
             if (response.data.success) {
-                // Update the animal in the list
+               
                 setAnimals(prevAnimals => prevAnimals.map(animal => {
                     if (animal._id === updatedAnimal._id) {
                         return updatedAnimal;
@@ -52,7 +52,7 @@ function BreedingCards() {
                     return animal;
                 }));
                 console.log('Animal updated successfully');
-                setEditAnimal(null); // Clear edit state
+                setEditAnimal(null); 
             }
         } catch (error) {
             console.error('Error updating animal:', error);
@@ -75,9 +75,9 @@ function BreedingCards() {
                                 title={`Ear Tag: ${animal.earTag}`}
                                 data={`Exam Date: ${new Date(animal.checkdate).toLocaleDateString()}`}
                                 data1={`Status: ${animal.currentStatus}`}
-                                imgs="../../../src/assets/cow1.png" // Add path to cow image
-                                onEdit={() => handleEdit(animal)} // Pass animal data to handleEdit function
-                                onDelete={() => handleDelete(animal._id)} // Pass ID to handleDelete function
+                                imgs="../../../src/assets/cow1.png" 
+                                onEdit={() => handleEdit(animal)} 
+                                onDelete={() => handleDelete(animal._id)} 
                             />
                         )}
                     </Grid>

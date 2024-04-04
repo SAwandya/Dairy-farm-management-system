@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions,DialogContentText , 
-    TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, FormControlLabel, 
-    Checkbox } from '@mui/material';
-/*
-import AdapterDateFns from '@mui/lab-date-pickers';
-import { DesktopTimePicker,DesktopDatePicker } from '@mui/x-date-pickers-pro'; */
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 
-function NewProcessForm() {
+function NewProcessForm({onSubmitSuccess}) {
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState('');
   const [milkQuantity, setMilkQuantity] = useState(0);
   const [ingredients, setIngredients] = useState([]);
   const [specialNotes, setSpecialNotes] = useState('');
-  const [scheduleDate, setScheduleDate] = useState(null);
-  const [status, setStatus] = useState('scheduled'); // Default status
+  const [scheduleDate, setScheduleDate] = useState('');
+  const [scheduleTime, setScheduleTime] = useState('');
+  const [status, setStatus] = useState('started'); // Default status
   const [showCancelConfirmation, setShowCancelConfirmation] = useState(false);
+  const [isScheduled, setIsScheduled] = useState(false); // State to manage scheduling checkbox
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const maxMilkQuantity = 1000; // Maximum milk quantity limit
 
@@ -25,6 +24,15 @@ function NewProcessForm() {
   };
 
   const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleCancel = () => {
+    setShowCancelConfirmation(true);
+  };
+
+  const handleCancelConfirmation = () => {
+    setShowCancelConfirmation(false);
     setOpen(false);
   };
 
@@ -37,45 +45,41 @@ function NewProcessForm() {
         milkQuantity,
         ingredients,
         specialNotes,
-        scheduleDate,
-        status
+        scheduleDateTime: `${scheduleDate} ${scheduleTime}`,
+        status: isScheduled ? 'scheduled' : 'started' // Update status based on scheduling checkbox
       };
       await submitFormToDatabase(formData);
+      //fetching results to ProcessTable
+      // Reset form fields after successful submission
+      setProduct('');
+      setMilkQuantity(0);
+      setIngredients([]);
+      setSpecialNotes('');
+      setScheduleDate('');
+      setScheduleTime('');
+      setStatus('started'); // Reset status to 'started'
+      setIsScheduled(false); // Reset scheduling checkbox
+      setSuccessMessage('Form submitted successfully');
     } catch (error) {
       console.error('Failed to submit form data:', error);
+      setErrorMessage('Failed to submit form data');
     }
   };
+  
 
   const submitFormToDatabase = async (formData) => {
     try {
       const response = await axios.post('http://localhost:3000/api/processCrud/process', formData);
       return response.data;
+
     } catch (error) {
       throw error.response.data.message || 'Failed to submit form data';
     }
   };
 
-  const handleStart = () => {
-    setStatus('started');
-    handleSubmit();
-  };
-
-  const handleSchedule = () => {
-    setStatus('scheduled');
-    handleSubmit();
-  };
-
-  const handleCancel = () => {
-    setShowCancelConfirmation(true);
-  };
-
-  const handleCancelConfirmation = () => {
-    setShowCancelConfirmation(false);
-  };
-
-  const handleConfirmCancel = () => {
-    setShowCancelConfirmation(false);
-    setOpen(false);
+  const handleSnackbarClose = () => {
+    setSuccessMessage('');
+    setErrorMessage('');
   };
 
   return (
@@ -149,58 +153,86 @@ function NewProcessForm() {
             value={specialNotes}
             onChange={(e) => setSpecialNotes(e.target.value)}
           />
-         {/*} <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DesktopDatePicker
-              label="Schedule Date"
-              value={scheduleDate}
-              onChange={(newValue) => setScheduleDate(newValue)}
-              renderInput={(params) => <TextField {...params} margin="normal" fullWidth />}
-            />
-            <DesktopTimePicker
-              label="Schedule Time"
-              value={scheduleDate}
-              onChange={(newValue) => setScheduleDate(newValue)}
-              renderInput={(params) => <TextField {...params} margin="normal" fullWidth />}
-            />
-        </LocalizationProvider> */}
-
-          {/* Hidden input field 
           <FormControlLabel
-            control={<Checkbox checked={status === 'started'} onChange={(e) => setStatus(e.target.checked ? 'started' : 'scheduled')} />} 
-            label="Status"
-            style={{ display: 'none' }}
-          /> */}
-          <input type="hidden" value={status} />
+            control={<Checkbox checked={isScheduled} onChange={(e) => setIsScheduled(e.target.checked)} />}
+            label="Schedule"
+          />
+          {isScheduled && (
+            <div>
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Schedule Date"
+                type="date"
+                value={scheduleDate}
+                onChange={(e) => setScheduleDate(e.target.value)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Schedule Time"
+                type="time"
+                value={scheduleTime}
+                onChange={(e) => setScheduleTime(e.target.value)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </div>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancel}>Cancel</Button>
-          <Button onClick={handleSchedule} variant="contained" color="primary">Schedule</Button>
-          <Button onClick={handleStart} variant="contained" color="primary">Start</Button>
-          <Dialog
-            open={showCancelConfirmation}
-            onClose={handleCancelConfirmation}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">Cancel Confirmation</DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                Are you sure you want to cancel?
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCancelConfirmation} color="primary">
-                No
-              </Button>
-              <Button onClick={handleConfirmCancel} color="primary" autoFocus>
-                Yes
-              </Button>
-            </DialogActions>
-          </Dialog>
+          <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
         </DialogActions>
       </Dialog>
+      <Dialog
+        open={showCancelConfirmation}
+        onClose={handleCancelConfirmation}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Cancel Confirmation</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to cancel?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelConfirmation} color="primary">
+            No
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Snackbar 
+      open={!!successMessage} 
+      autoHideDuration={2000} 
+      onClose={handleSnackbarClose}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+        <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity="success">
+          {successMessage}
+        </MuiAlert>
+      </Snackbar>
+      <Snackbar 
+      open={!!errorMessage} 
+      autoHideDuration={2000} 
+      onClose={handleSnackbarClose}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+        <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity="error">
+          {errorMessage}
+        </MuiAlert>
+      </Snackbar>
     </div>
   );
 }
 
 export default NewProcessForm;
+
+
+

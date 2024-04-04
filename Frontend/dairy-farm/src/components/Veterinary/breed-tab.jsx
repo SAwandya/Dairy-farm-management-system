@@ -12,7 +12,6 @@ import axios from 'axios';
 import { Button } from '@mui/material';
 
 
-// Define CustomTabPanel component
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -46,7 +45,7 @@ function a11yProps(index) {
   };
 }
 
-// Define BasicTabs component
+
 export default function BasicTabs({ handleToggleVaccineAnim, handleToggleExamAnim }) {
   const [value, setValue] = useState(0);
   const [vaccineData, setVaccineData] = useState({});

@@ -4,7 +4,7 @@ import React from 'react';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 function DateV() {
-    // Get current date and format it as DD/MM/YYYY
+    
     const currentDate = new Date().toLocaleDateString('en-GB', {
         day: '2-digit',
         month: '2-digit',

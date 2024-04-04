@@ -24,11 +24,11 @@ function VetDashboard() {
             }
         } catch (error) {
             console.error("Error fetching total count:", error);
-            // Handle error
+            
         }
     };
     useEffect(() => {
-        // Fetch count of pregnant animals
+        // pregnant animals count
         const fetchPregnantCount = async () => {
           try {
             const response = await axios.get('http://localhost:3000/api/exmAnim/count-pregnancy-check');
