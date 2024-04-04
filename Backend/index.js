@@ -11,25 +11,26 @@ const animalReg = require("./routes/animalRegister");
 const vaccAnim = require("./routes/vacAnimal");
 const exmAnim = require("./routes/exmAnimal");
 const messages = require("./routes/messages");
-const employee = require("./routes/eRegister")
+const employee = require("./routes/eRegister");
 const supplier = require("./routes/supplier");
 const milkingSessions = require("./routes/milkingSessionRoute");
 const order = require("./routes/order");
 const item = require("./routes/item");
 const milkingData = require("./routes/milkingDataRoute");
-const processCrud=require("./routes/processCrud");
-
+const processCrud = require("./routes/processCrud");
+const pdf = require("./routes/pdf");
 
 if (!config.get("jwtPrivateKey")) {
-    console.log("FATA ERROR: jwtPrivateKey is not defined");
-    process.exit(1);
+  console.log("FATA ERROR: jwtPrivateKey is not defined");
+  process.exit(1);
 }
 
 mongoose
-    .connect(
-        "mongodb+srv://sachilaawandya:PvBJDLO7Df1PvBVU@dfms.zgzy5mn.mongodb.net/?retryWrites=true&w=majority&appName=DFMS")
-    .then(() => console.log("Connected to MongoDB"))
-    .catch((err) => console.log(err + ", Could not connect to MongoDB"));
+  .connect(
+    "mongodb+srv://sachilaawandya:PvBJDLO7Df1PvBVU@dfms.zgzy5mn.mongodb.net/?retryWrites=true&w=majority&appName=DFMS"
+  )
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.log(err + ", Could not connect to MongoDB"));
 
 app.use(cors()); //Enable CORS for all routes
 
@@ -49,7 +50,7 @@ app.use("/api/vacAnim", vaccAnim);
 
 app.use("/api/exmAnim", exmAnim);
 
-app.use("/api/messages", messages)
+app.use("/api/messages", messages);
 
 app.use("/api/employee", employee);
 
@@ -61,11 +62,11 @@ app.use("/api/item", item);
 
 app.use("/api/milkingSessions", milkingSessions);
 
-app.use("/api/milkingData", milkingData)
+app.use("/api/milkingData", milkingData);
 
-app.use("/api/processCrud", processCrud)
+app.use("/api/processCrud", processCrud);
 
-
+app.use("/api/invoice", pdf);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
