@@ -15,6 +15,7 @@ router.post('/', async (req, res) => {
 
         orderType: req.body.orderType,
         orderStatus: req.body.orderStatus,
+        // orderStatus: 'Pending',
         quantity: req.body.quantity,
         advanceFee: req.body.advanceFee,
         deliveryDate: req.body.deliveryDate

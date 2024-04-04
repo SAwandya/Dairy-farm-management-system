@@ -298,10 +298,10 @@ function useUpdateUser() {
       );
       return response.json();
     },
-    onMutate: (newUserInfo) => {
+    onMutate: (updatedUser) => {
       queryClient.setQueryData(["users"], (prevUsers) =>
         prevUsers?.map((prevUser) =>
-          prevUser.id === newUserInfo.id ? newUserInfo : prevUser
+          prevUser._id === updatedUser._id ? updatedUser : prevUser
         )
       );
     },
