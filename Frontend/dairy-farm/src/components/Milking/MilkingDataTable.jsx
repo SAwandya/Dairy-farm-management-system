@@ -57,7 +57,6 @@ const MilkingDataTable = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>#</TableCell>
             <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>Milk Batch ID</TableCell>
             <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>Amount of Milk(Liters)</TableCell>
             <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>Duration(In Minutes)</TableCell>
@@ -66,16 +65,15 @@ const MilkingDataTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {milkingData.map((data, index) => (
+          {milkingData.map((data) => (
             <TableRow key={data._id}>
-              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>{index + 1}</TableCell>
               <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>{data.milkBatchId}</TableCell>
               <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>{data.amountOfMilk}</TableCell>
               <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>{data.duration}</TableCell>
               <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>{data.qualityCheckResult}</TableCell>
               <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>
                 {data.issues ? (
-                  <a href="#" onClick={() => handleShowIssues(data.issues)} className='issuesLink'>Click here</a>
+                  <a href="#" onClick={() => handleShowIssues(data.issues)} className='specialNotesLink'>Click here</a>
                 ) : <em>No issues recorded</em>}
               </TableCell>
             </TableRow>

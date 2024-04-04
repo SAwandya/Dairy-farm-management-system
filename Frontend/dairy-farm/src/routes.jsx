@@ -41,6 +41,8 @@ import MilkingData from './pages/Milking/MilkingData';
 import AnimReport from "./pages/Veterinary/VetReport";
 import EmployeeReport from "./pages/Employees/Employee_report";
 import EmployeeR from "./pages/Employees/EmployeeR";
+import MilkingStorage from "./pages/Milking/MilkingStorage";
+import AddNewTank from "./pages/Milking/AddNewTank";
 
 const router = createBrowserRouter([
   {
@@ -162,6 +164,14 @@ const router = createBrowserRouter([
   {
     path: "/milkingSessions",
     element: <MilkingSessions />,
+  },
+  {
+    path: "/milkingStorage",
+    element: <MilkingStorage />,
+  },
+  {
+    path: "/addNewTank",
+    element: <AddNewTank />,
   },
 
   {
