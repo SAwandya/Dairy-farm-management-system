@@ -19,7 +19,7 @@ const storageTankSchema = new mongoose.Schema({
     required: true
   },
   specialNotes: String
-}, { timestamps: true });
+}, { timestamps: false });
 
 const StorageTank = mongoose.model('StorageTank', storageTankSchema);
 
