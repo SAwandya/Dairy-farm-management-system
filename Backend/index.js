@@ -19,6 +19,7 @@ const item = require("./routes/item");
 const milkingData = require("./routes/milkingDataRoute");
 const processCrud = require("./routes/processCrud");
 const pdf = require("./routes/pdf");
+const temperatureSendRcv = require("./routes/temperatureSendRcv")
 
 if (!config.get("jwtPrivateKey")) {
   console.log("FATA ERROR: jwtPrivateKey is not defined");
@@ -66,7 +67,13 @@ app.use("/api/milkingData", milkingData);
 
 app.use("/api/processCrud", processCrud);
 
+app.use("/api/temperatureSendRcv", temperatureSendRcv);
+
 app.use("/api/invoice", pdf);
+
+
+
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
