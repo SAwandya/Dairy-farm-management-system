@@ -20,7 +20,7 @@ const milkingDataSchema = new mongoose.Schema({
     required: true
   },
   issues: String
-}, { timestamps: true });
+}, { timestamps: false });
 
 const MilkingData = mongoose.model('MilkingData', milkingDataSchema);
 
