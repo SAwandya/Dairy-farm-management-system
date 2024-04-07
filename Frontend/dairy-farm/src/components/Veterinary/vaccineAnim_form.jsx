@@ -97,8 +97,9 @@ const vaccineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) =>
                 onChange={handleChange} 
                 required
               >
-                <MenuItem value={'Rabbies'}>Rabbies</MenuItem>
-                <MenuItem value={'LHD'}>LHD</MenuItem>
+                <MenuItem value={'MastiVac'}>MastiVac</MenuItem>
+                <MenuItem value={'LSD'}>LSD</MenuItem>
+                <MenuItem value={'HS'}>HS</MenuItem>
                 <MenuItem value={'FMD'}>FMD</MenuItem>
               </Select>
             </FormControl>
