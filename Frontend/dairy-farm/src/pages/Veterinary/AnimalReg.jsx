@@ -21,7 +21,7 @@ function AnimalRegistry() {
         earTag: "",
         location: "",
         gender: "",
-        status: "",
+        batch: "",
         age: "",
         name: "",
         weight: null,
@@ -33,7 +33,7 @@ function AnimalRegistry() {
         earTag: "",
         location: "",
         gender: "",
-        status: "",
+        batch: "",
         age: "",
         name: "",
         weight: null,
@@ -55,6 +55,7 @@ function AnimalRegistry() {
         }));
     };
 
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -73,7 +74,7 @@ function AnimalRegistry() {
                     earTag: "",
                     location: "",
                     gender: "",
-                    status: "",
+                    batch: "",
                     age: "",
                     name: "",
                     weight: null,
@@ -99,6 +100,7 @@ function AnimalRegistry() {
             alert("Error fetching data. Please try again later.");
         }
     };
+    
 
     useEffect(() => {
         getFetchData();
@@ -170,7 +172,7 @@ function AnimalRegistry() {
         try {
             const response = await axios.get(`http://localhost:3000/api/animalReg/retrieve/${id}`);
             if (response.data.success) {
-                setFormDataEdit({ ...response.data.data, _id: id }); // Include _id in formDataEdit
+                setFormDataEdit({ ...response.data.data, _id: id }); 
                 setEditSection(true);
             }
         } catch (error) {
@@ -183,10 +185,10 @@ function AnimalRegistry() {
         "Ear Tag",
         "Location",
         "Gender",
-        "Status",
+        "Batch",
         "Age",
         "Name",
-        "Weight",
+        "Weight(Kg)",
         "Breed",
         "Color",
         "Birth Date",
@@ -283,10 +285,10 @@ function AnimalRegistry() {
                                 "Ear Tag": item.earTag,
                                 "Location": item.location,
                                 "Gender": item.gender,
-                                "Status": item.status,
+                                "Batch": item.batch,
                                 "Age": item.age,
                                 "Name": item.name,
-                                "Weight": item.weight,
+                                "Weight(Kg)": item.weight,
                                 "Breed": item.breed,
                                 "Color": item.color,
                                 "Birth Date": item.birthDate,

@@ -4,6 +4,7 @@ const Animaldb2 = require('../models/vacAnim');
 const AnimalRegistry = require('../models/animalreg');
 const ExamAnim = require('../models/exmAnim');
 
+
 // Create and save a new animal
 router.post("/create", async (req, res) => {
     try {
@@ -37,6 +38,17 @@ router.post("/create", async (req, res) => {
         res.status(500).send({ success: false, message: "Error occurred while creating", error: error.message });
     }
 });
+//count female cows
+router.get('/count-sick', async (req, res) => {
+    try {
+        const count = await ExamAnim.countDocuments({ $or: [{ currentStatus: "Sick" }, { currentStatus: "sick" }] });
+        res.json({ success: true, count });
+    } catch (error) {
+        console.error("Error fetching sick count of cows:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch sick count of cows" });
+    }
+});
+
 
 // Retrieve animals
 router.get('/retrieve', async (req, res) => {
@@ -66,6 +78,16 @@ router.get('/retrieve/:id', async (req, res) => {
 router.get('/retrieve2/pregnant', async (req, res) => {
     try {
         const cows = await ExamAnim.find({ exam: 'Pregnancy Check' });
+        res.json({ success: true, data: cows });
+    } catch (error) {
+        res.status(500).send({ message: error.message || "Error occurred while retrieving" });
+    }
+});
+
+//Retrive Sick
+router.get('/retrieve3/sick', async (req, res) => {
+    try {
+        const cows = await ExamAnim.find({ $or: [{ currentStatus: "Sick" }, { currentStatus: "sick" }]});
         res.json({ success: true, data: cows });
     } catch (error) {
         res.status(500).send({ message: error.message || "Error occurred while retrieving" });

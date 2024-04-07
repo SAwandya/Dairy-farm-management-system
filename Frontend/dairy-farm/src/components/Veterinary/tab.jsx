@@ -52,12 +52,24 @@ export default function BasicTabs() {
   const [value, setValue] = useState(0);
   const [dataList, setDataList] = useState([]);
   const [dataList1, setDataList1] = useState([]);
+  const [dataList2, setDataList2] = useState([]);
 
   const getFetchData = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/animalReg/retrieve");
       if (response.data.success) {
         setDataList(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert("Error fetching data. Please try again later.");
+    }
+  };
+  const getFetchData2 = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/exmAnim/retrieve3/sick");
+      if (response.data.success) {
+        setDataList2(response.data.data);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -79,19 +91,26 @@ export default function BasicTabs() {
   useEffect(() => {
     getFetchData();
     getFetchData1();
+    getFetchData2();
   }, []);
 
   const headers1 = [
     "Ear Tag",
     "Location",
     "Gender",
-    "Status",
+    "Batch",
     "Age",
   ];
   const headers2 = [
     "Ear Tag",
     "Date",
     "Status",
+  ];
+  const headers3 = [
+    "Ear Tag",
+    "Current Status",
+    "Exam",
+    "Check Date",
   ];
 
   const handleChange = (event, newValue) => {
@@ -115,11 +134,12 @@ export default function BasicTabs() {
       <CustomTabPanel value={value} index={0}>
         <CustomizedTables
           headers={headers1}
-          rows={dataList.length > 0 ? [dataList[0]].map(item => ({
+          rows={  dataList.length > 0 ?
+            dataList.slice(0, 5).map(item => ({
             "Ear Tag": item.earTag,
             "Location": item.location,
             "Gender": item.gender,
-            "Status": item.status,
+            "Batch": item.batch,
             "Age": item.age,
           })) : [{ "No Data": "No Data" }]}
         />
@@ -133,9 +153,31 @@ export default function BasicTabs() {
             </Button>
           </Link>
       </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <CustomizedTables
+          headers={headers3}
+          rows={  dataList2.length > 0 ?
+            dataList2.slice(0, 5).map(item => ({
+            "Ear Tag": item.earTag,
+            "Current Status": item.currentStatus,
+            "Exam": item.exam,
+            "Check Date": item.checkdate
+          })) : [{ "No Data": "No Data" }]}
+        />
+        
+          <Link to="/AnimalReg">
+            <Button
+              borderRadius='5px'
+              sx={{ color: '#00000089', fontFamily: 'Poppins, sans-serif', fontSize: '20px', marginLeft: '980px' }}
+            >
+              View More
+            </Button>
+          </Link>
+      </CustomTabPanel>   
+
+
       <CustomTabPanel value={value} index={2}>
         <Grid container spacing={2}>
-          {/* Left side: BreedPieChart */}
           <Grid item xs={6}>
             <BreedPieChart/>
           </Grid>
