@@ -75,7 +75,10 @@ app.use("/api/invoice", pdf);
 
 const server = http.createServer(app); // Create an HTTP server using Express app
 
-const wss = new WebSocket.Server({ server }); // Create a WebSocket server attached to the HTTP server
+const wss = new WebSocket.Server({ port: 3030 }); // Create a WebSocket server attached to the HTTP server
+
+// Set wss as a local variable accessible from request object
+app.locals.wss = wss;
 
 wss.on("connection", function connection(ws) {
   console.log("Client connected");
