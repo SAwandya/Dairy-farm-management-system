@@ -1,13 +1,13 @@
 import { Box} from '@mui/material';
 import React from 'react';
-import SessionsTable from './SessionsTable';
+import TankContainer from './TankContainer';
 import AddTankButton from './AddTankButton';
 
 function StorageContent() {
     return (
         <Box className="dashboard-content">
             <AddTankButton/>
-            <SessionsTable/>
+            <TankContainer/>
         </Box>
     );
   }
