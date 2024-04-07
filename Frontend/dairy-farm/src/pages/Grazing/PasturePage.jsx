@@ -6,6 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import PastureForm from '../../components/Grazing/PastureForm'; // Import the PastureForm component
 
+
 axios.defaults.baseURL = 'http://localhost:3000/api/pastureDetails';
 
 function PasturePage() {
