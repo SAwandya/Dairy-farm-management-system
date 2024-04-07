@@ -19,7 +19,7 @@ const item = require("./routes/item");
 const milkingData = require("./routes/milkingDataRoute");
 const processCrud = require("./routes/processCrud");
 const pdf = require("./routes/pdf");
-const temperatureSendRcv = require("./routes/temperatureSendRcv")
+const temperatureSendRcv = require("./routes/temperatureSendRcv")  //recommit
 
 if (!config.get("jwtPrivateKey")) {
   console.log("FATA ERROR: jwtPrivateKey is not defined");
