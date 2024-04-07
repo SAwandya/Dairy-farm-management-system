@@ -24,7 +24,7 @@ function StorageRoom() {
 
       <Grid2 container sx={{ width: '100vw', position: 'relative' }}>
         <Grid2 item xs={1} sm={1}><ProductionSidebar/></Grid2>
-       <Grid2 item xs={10} sm={3}><TemperatureCard/></Grid2> 
+       <Grid2 item xs={10} sm={10} md={3} ><TemperatureCard/></Grid2> 
         <Grid2 item xs={10} sm={3}></Grid2> 
         <Grid2 item xs={10} sm={5}></Grid2> 
       </Grid2>
