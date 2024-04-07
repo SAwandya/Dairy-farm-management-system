@@ -4,29 +4,27 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const ScheduleFormContent = () => {
-    const [sessionId, setSessionId] = useState('');
-    const [date, setDate] = useState('');
-    const [time, setTime] = useState('');
-    const [cowGroup, setCowGroup] = useState('');
-    const [status, setStatus] = useState('Incomplete');
+const NewTankFormContent = () => {
+    const [tankId, setTankId] = useState('');
+    const [capacity, setCapacity] = useState('');
+    const [installedDate, setInstalledDate] = useState('');
+    const [manufacturer, setManufacturer] = useState('');
     const [specialNotes, setSpecialNotes] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        axios.post("http://localhost:3000/api/milkingSessions", {
-            sessionId,
-            date,
-            time,
-            cowGroup,
-            status,
+        axios.post("http://localhost:3000/api/storageTank", {
+            tankId,
+            capacity,
+            installedDate,
+            manufacturer,
             specialNotes
         })
         .then(result => {
             // console.log(result);
-            navigate('/milkingSessions');
+            navigate('/milkingStorage');
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -48,7 +46,7 @@ const ScheduleFormContent = () => {
                     height: '86vh'
                 }}
             >
-                <img src='../../../src/assets/schedule-form-bg.png' width={'45%'}/>
+                <img src='../../../src/assets/tank-form-bg.png' width={'45%'}/>
                 <Box
                     width={'55%'}
                     sx={{
@@ -67,44 +65,44 @@ const ScheduleFormContent = () => {
                             fontSize: '42px'
                         }}
                     >
-                        Scheduling Form
+                        Add a New Tank
                     </Typography>
                     <form onSubmit={handleSubmit}>
                         <TextField
-                            name="sessionId"
-                            label="Session ID"
+                            name="tankId"
+                            label="Tank ID:"
+                            type="string"
+                            value={tankId}
+                            onChange={(e) => setTankId(e.target.value)}
+                            fullWidth
+                            required
+                            margin="normal"
+                        />
+                        <TextField
+                            name="capacity"
+                            label="Capacity"
                             type="number"
-                            value={sessionId}
-                            onChange={(e) => setSessionId(e.target.value)}
+                            value={capacity}
+                            onChange={(e) => setCapacity(e.target.value)}
                             fullWidth
                             required
                             margin="normal"
                         />
                         <TextField
-                            name="date"
-                            label="Date"
+                            name="installedDate"
+                            label="Installed Date"
                             type="date"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
+                            value={installedDate}
+                            onChange={(e) => setInstalledDate(e.target.value)}
                             fullWidth
                             required
                             margin="normal"
                         />
                         <TextField
-                            name="time"
-                            label="Time"
-                            type="time"
-                            value={time}
-                            onChange={(e) => setTime(e.target.value)}
-                            fullWidth
-                            required
-                            margin="normal"
-                        />
-                        <TextField
-                            name="cowGroup"
-                            label="Cow Group"
-                            value={cowGroup}
-                            onChange={(e) => setCowGroup(e.target.value)}
+                            name="manufacturer"
+                            label="Manufacturer"
+                            value={manufacturer}
+                            onChange={(e) => setManufacturer(e.target.value)}
                             fullWidth
                             required
                             margin="normal"
@@ -120,7 +118,7 @@ const ScheduleFormContent = () => {
                             margin="normal"
                         />
                         <Button type="submit" variant="contained" color="primary" fullWidth>
-                            Add Milk Session
+                            Save
                         </Button>
                     </form>
                 </Box>
@@ -129,4 +127,4 @@ const ScheduleFormContent = () => {
     );
 }
 
-export default ScheduleFormContent;
+export default NewTankFormContent;

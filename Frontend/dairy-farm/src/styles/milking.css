@@ -195,3 +195,38 @@ body {
     cursor: pointer;
     color: blue;
 }
+
+/* Tank Card */
+.tankTitle {
+    font-family: 'Poppins' !important;
+    font-weight: bold !important;
+}
+
+.tank-fill {
+    position: absolute;
+    bottom: 31px;
+    left: 29.6px;
+    background-color: #FFF7AD;
+    height: 152.5px;
+    width: 249.5px;
+    border-radius: 1px;
+}
+
+.milk-percentage {
+    font-weight: bold !important;
+    color: #38775B;
+    position: absolute;
+    top: 90px;
+    left: 120px;
+    z-index: 100;
+}
+
+.tank-details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.tank-detail {
+    display: flex;
+    justify-content: space-between;
+}

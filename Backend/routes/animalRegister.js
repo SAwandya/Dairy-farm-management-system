@@ -1,38 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const Animaldb = require('../models/animalreg');
+const { veterinary, schema } = require('../models/animalreg'); 
+const validateAnim = require('../middleware/vetMiddleWare');
 
 // Create and save a new animal
-router.post("/create", async (req, res) => {
+router.post("/create", validateAnim(schema), async (req, res) => {
     try {
-        if (!req.body) {
-            return res.status(400).send({ message: "Content can not be empty" });
-        }
-        
-        const cow = new Animaldb({
-            earTag: req.body.earTag,
-            location: req.body.location,
-            gender: req.body.gender,
-            status: req.body.status,
-            age: req.body.age,
-            name: req.body.name,
-            weight: req.body.weight,
-            breed: req.body.breed,
-            color: req.body.color,
-            birthDate: req.body.birthDate,
-        });
-
+        const cow = new veterinary(req.body);
         const data = await cow.save();
-        res.status(201).send({ success: true, message: "Data added successfully", data });
+        res.status(201).json({ success: true, message: "Data added successfully", data });
     } catch (error) {
-        res.status(500).send({ message: error.message || "Some error occurred while creating" });
-        console.log(error)
+        res.status(500).json({ message: error.message || "Some error occurred while creating" });
     }
 });
+
 //count
 router.get('/count', async (req, res) => {
     try {
-        const count = await Animaldb.countDocuments();
+        const count = await veterinary.countDocuments();
         res.json({ success: true, count });
     } catch (error) {
         console.error("Error fetching total count:", error);
@@ -42,7 +27,7 @@ router.get('/count', async (req, res) => {
 //count female cows
 router.get('/count-females', async (req, res) => {
     try {
-        const count = await Animaldb.countDocuments({ $or: [{ gender: "female" }, { gender: "Female" }] });
+        const count = await veterinary.countDocuments({ $or: [{ gender: "female" }, { gender: "Female" }] });
         res.json({ success: true, count });
     } catch (error) {
         console.error("Error fetching total count of females:", error);
@@ -53,10 +38,10 @@ router.get('/count-females', async (req, res) => {
 // Retrieve animals
 router.get('/retrieve', async (req, res) => {
     try {
-        const data = await Animaldb.find({});
+        const data = await veterinary.find({ age: { $exists: true } }); // Retrieve all animals
         res.json({ success: true, data });
     } catch (error) {
-        res.status(500).send({ message: error.message || "Error occurred while retrieving" });
+        res.status(500).json({ message: error.message || "Error occurred while retrieving" });
     }
 });
 
@@ -64,13 +49,13 @@ router.get('/retrieve', async (req, res) => {
 router.get('/retrieve/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const animal = await Animaldb.findById(id);
+        const animal = await veterinary.findById(id);
         if (!animal) {
-            return res.status(404).send({ message: `Animal with id ${id} not found` });
+            return res.status(404).json({ message: `Animal with id ${id} not found` });
         }
         res.json({ success: true, data: animal });
     } catch (error) {
-        res.status(500).send({ message: `Error retrieving animal: ${error.message}` });
+        res.status(500).json({ message: `Error retrieving animal: ${error.message}` });
     }
 });
 
@@ -78,20 +63,20 @@ router.get('/retrieve/:id', async (req, res) => {
 router.put('/update/:id', async (req, res) => {
     try {
         if (!req.body) {
-            return res.status(400).send({ message: "Data to update can not be empty" });
+            return res.status(400).json({ message: "Data to update can not be empty" });
         }
         
         const id = req.params.id;
-        const updatedAnimal = await Animaldb.findByIdAndUpdate(id, req.body, { useFindAndModify: false });
+        const updatedAnimal = await veterinary.findByIdAndUpdate(id, req.body, { useFindAndModify: false });
         if (!updatedAnimal) {
-            res.status(400).send({ message: `Cannot update cow with id ${id}. May be not found` });
+            res.status(400).json({ message: `Cannot update cow with id ${id}. May be not found` });
         } else {
             // Fetch the updated 
-            const updatedData = await Animaldb.findById(id);
+            const updatedData = await veterinary.findById(id);
             res.status(200).json({ success: true, message: "Animal updated successfully", data: updatedData });
         }
     } catch (error) {
-        res.status(500).send({ message: "Error updating cow" });
+        res.status(500).json({ message: "Error updating cow" });
     }
 });
 
@@ -99,13 +84,13 @@ router.put('/update/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedAnimal = await Animaldb.findByIdAndDelete(id);
+        const deletedAnimal = await veterinary.findByIdAndDelete(id); // Corrected
         if (!deletedAnimal) {
-            return res.status(404).send({ message: `Cannot delete with id ${id}. May be wrong` });
+            return res.status(404).json({ message: `Cannot delete with id ${id}. May be wrong` });
         }
-        res.status(200).send({ success: true, message: "Animal deleted successfully", deletedAnimal });
+        res.status(200).json({ success: true, message: "Animal deleted successfully", deletedAnimal });
     } catch (error) {
-        res.status(500).send({ message: `Couldn't delete: ${error.message}` });
+        res.status(500).json({ message: `Couldn't delete: ${error.message}` });
     }
 });
 

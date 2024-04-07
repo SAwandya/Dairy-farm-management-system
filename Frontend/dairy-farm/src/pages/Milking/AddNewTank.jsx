@@ -1,6 +1,7 @@
 import React from "react";
 import MilkingSideBar from "../../components/Milking/MilkingSideBar";
 import Container from "@mui/material/Container";
+import NewTankFormContent from "../../components/Milking/NewTankFormContent";
 
 function AddNewTank() {
     return (
@@ -12,6 +13,7 @@ function AddNewTank() {
             }}
         >
             <MilkingSideBar />
+            <NewTankFormContent />
         </Container>
     );
 }
