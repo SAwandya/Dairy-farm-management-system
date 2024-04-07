@@ -2,7 +2,14 @@ import React from "react";
 
 import ProductionSidebar from "../../components/production/productionSidebar"
 
-import TemperatureCard from "../../components/production/Storage/TemperatureCard"
+import TemperatureCard1 from "../../components/production/Storage/TemperatureCard1"
+import TemperatureCard2 from "../../components/production/Storage/TemperatureCard2"
+import TemperatureCard3 from "../../components/production/Storage/TemperatureCard3"
+import TemperatureCard4 from "../../components/production/Storage/TemperatureCard4"
+import TemperatureCard5 from "../../components/production/Storage/TemperatureCard5"
+import TemperatureCard6 from "../../components/production/Storage/TemperatureCard6"
+
+
 
 
 
@@ -20,13 +27,31 @@ function StorageRoom() {
   {/*, height: '100vh', overflow: 'hidden'  */}
 
      
-
-
-      <Grid2 container sx={{ width: '100vw', position: 'relative' }}>
+  <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:5}}>
         <Grid2 item xs={1} sm={1}><ProductionSidebar/></Grid2>
-       <Grid2 item xs={10} sm={10} md={3} ><TemperatureCard/></Grid2> 
-        <Grid2 item xs={10} sm={3}></Grid2> 
-        <Grid2 item xs={10} sm={5}></Grid2> 
+        
+        <Grid2 item xs={11} sm={11} md={11} align="center"><Typography variant="h4" align="center">Storage room</Typography></Grid2> 
+        
+
+      </Grid2>
+
+      <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:2}}>
+        <Grid2 item xs={1} sm={1}></Grid2>
+        <Grid2 item xs={1} sm={1}></Grid2>
+       <Grid2 item xs={10} sm={10} md={3} ><TemperatureCard1/></Grid2> 
+        <Grid2 item xs={10} sm={10} md={3}><TemperatureCard2/></Grid2> 
+        <Grid2 item xs={10} sm={10} md={3}><TemperatureCard3/></Grid2> 
+        <Grid2 item xs={1} sm={1}></Grid2>
+
+      </Grid2>
+      <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:2}}>
+        <Grid2 item xs={1} sm={1}></Grid2>
+        <Grid2 item xs={1} sm={1}></Grid2>
+       <Grid2 item xs={10} sm={10} md={3} ><TemperatureCard4/></Grid2> 
+        <Grid2 item xs={10} sm={10} md={3}><TemperatureCard5/></Grid2> 
+        <Grid2 item xs={10} sm={10} md={3}><TemperatureCard6/></Grid2> 
+        <Grid2 item xs={1} sm={1}></Grid2>
+
       </Grid2>
 
 

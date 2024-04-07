@@ -5,6 +5,7 @@ import { borderRadius } from '@mui/system';
 function TemperatureDisplay() {
   const [temperature, setTemperature] = useState(null);
   const [exceedsLimit, setExceedsLimit] = useState(false);
+  const [status, setStatus] = useState('Sensors Inactive');
 
 
   useEffect(() => {
@@ -12,6 +13,8 @@ function TemperatureDisplay() {
 
     socket.onopen = () => {
       console.log('Connected to WebSocket server');
+      setStatus('Sensors Active');
+
     };
 
     socket.onmessage = (event) => {
@@ -27,6 +30,8 @@ function TemperatureDisplay() {
 
     socket.onclose = () => {
       console.log('Disconnected from WebSocket server');
+      setStatus('Sensors Inactive');
+
     };
 
     // Clean up the WebSocket connection on component unmount
@@ -63,13 +68,14 @@ function TemperatureDisplay() {
         >
           {temperature !== null ? (
             <Typography align="center"variant="h4"
-            sx={{ color: temperature && temperature > 31 ? 'red' : 'inherit' }}>{temperature} °c</Typography>
+            sx={{ color: temperature && temperature > 31 ? 'red' : 'inherit' }}>{temperature !== null ? temperature.toFixed(1) : 'N/A'} °c</Typography>
           ) : (
             <CircularProgress />
           )}
         </div>
 
         <Typography align="center" variant="h5" component="h2">Temperature Range: 20-31</Typography>
+        <Typography align="center" variant="h6" component="h2" sx={{ margin: '10px 0', color: ' gray' }}> Status: {status} </Typography>
         {exceedsLimit && (
           <Typography align="center" variant="h6" component="h3" sx={{ color: 'red', marginTop: '10px' }}>
             Temperature exceeds maximum limit!
