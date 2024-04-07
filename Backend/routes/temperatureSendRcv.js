@@ -1,16 +1,35 @@
-//temperatureSendRcv.js //recommit
+// temperatureSendRcv.js
+
 const express = require('express');
 const router = express.Router();
-const Temperature = require('../models/temperature');
+const WebSocket = require('ws'); // Import WebSocket module
+
+const wss = new WebSocket.Server({ noServer: true }); // Create WebSocket server
+
+// WebSocket connection handler
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
 
 // POST route to receive temperature data
 router.post('/temperature', async (req, res) => {
   try {
     const { temperature } = req.body;
-    // yahooo done Saving temperature data to MongoDB
-    //have to split data an time lets do it later babyyy
+    // Save temperature data to MongoDB
     const newTemperature = new Temperature({ temperature });
     await newTemperature.save();
+    
+    // Emit temperature update to WebSocket clients
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify({ temperature }));
+      }
+    });
+
     res.status(201).json({ message: 'Temperature data received and saved successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -18,6 +37,7 @@ router.post('/temperature', async (req, res) => {
 });
 
 module.exports = router;
+
 
 /*
 

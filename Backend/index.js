@@ -1,5 +1,7 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
+const http = require("http"); // Import the HTTP module for creating an HTTP server
+const WebSocket = require("ws"); // Import the WebSocket module
 const app = express();
 const products = require("./routes/products");
 const customers = require("./routes/customers");
@@ -17,10 +19,9 @@ const milkingSessions = require("./routes/milkingSessionRoute");
 const order = require("./routes/order");
 const item = require("./routes/item");
 const milkingData = require("./routes/milkingDataRoute");
-const storageTank = require("./routes/storageTankRoute");
 const processCrud = require("./routes/processCrud");
 const pdf = require("./routes/pdf");
-const temperatureSendRcv = require("./routes/temperatureSendRcv")  //recommit
+const temperatureSendRcv = require("./routes/temperatureSendRcv");
 
 if (!config.get("jwtPrivateKey")) {
   console.log("FATA ERROR: jwtPrivateKey is not defined");
@@ -66,17 +67,28 @@ app.use("/api/milkingSessions", milkingSessions);
 
 app.use("/api/milkingData", milkingData);
 
-app.use("/api/storageTank", storageTank);
-
 app.use("/api/processCrud", processCrud);
 
 app.use("/api/temperatureSendRcv", temperatureSendRcv);
 
 app.use("/api/invoice", pdf);
 
+const server = http.createServer(app); // Create an HTTP server using Express app
 
+const wss = new WebSocket.Server({ server }); // Create a WebSocket server attached to the HTTP server
 
+wss.on("connection", function connection(ws) {
+  console.log("Client connected");
 
+  ws.on("message", function incoming(message) {
+    console.log("Received: %s", message);
+    ws.send("Hello, client!"); // Send a message to the client
+  });
+
+  ws.on("close", function () {
+    console.log("Client disconnected");
+  });
+});
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+server.listen(port, () => console.log(`Listening on port ${port}...`));
