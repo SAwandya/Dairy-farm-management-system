@@ -45,7 +45,7 @@ const ProductList = () => {
       .then((res) => {
         console.log(res.data);
         console.log("success");
-        // refetch();
+        refetch();
       })
       .catch((err) => {
         console.log(err.message);
