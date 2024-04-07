@@ -15,54 +15,7 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import productService from "../../services/Sales/productService";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-  createData(
-    0,
-    "16 Mar, 2019",
-    "Elvis Presley",
-    "Tupelo, MS",
-    "VISA ⠀•••• 3719",
-    312.44
-  ),
-  createData(
-    1,
-    "16 Mar, 2019",
-    "Paul McCartney",
-    "London, UK",
-    "VISA ⠀•••• 2574",
-    866.99
-  ),
-  createData(
-    2,
-    "16 Mar, 2019",
-    "Tom Scholz",
-    "Boston, MA",
-    "MC ⠀•••• 1253",
-    100.81
-  ),
-  createData(
-    3,
-    "16 Mar, 2019",
-    "Michael Jackson",
-    "Gary, IN",
-    "AMEX ⠀•••• 2000",
-    654.39
-  ),
-  createData(
-    4,
-    "15 Mar, 2019",
-    "Bruce Springsteen",
-    "Long Branch, NJ",
-    "VISA ⠀•••• 5919",
-    212.79
-  ),
-];
+import Search from "./Search";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -79,8 +32,6 @@ const ProductList = () => {
     (s) => s.SetSelectedProductPublish
   );
 
-  console.log(data);
-
   const handleUpdate = (id) => {
     SetSelectedProductUpdate(id);
   };
@@ -93,7 +44,7 @@ const ProductList = () => {
       .then((res) => {
         console.log(res.data);
         console.log("success");
-        refetch();
+        // refetch();
       })
       .catch((err) => {
         console.log(err.message);
@@ -112,9 +63,22 @@ const ProductList = () => {
       });
   };
 
+  const [query, setQuery] = React.useState("");
+
+  const keys = ["name", "category"];
+
+  const search = (data) => {
+    return data.filter((item) =>
+      keys.some((key) => item[key].toLowerCase().includes(query))
+    );
+  };
+
   return (
     <React.Fragment>
       <SalesTitle>Recent Products</SalesTitle>
+
+      <Search setQuery={setQuery} query={query} />
+
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -128,7 +92,7 @@ const ProductList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((product) => (
+          {search(data)?.map((product) => (
             <TableRow key={product._id}>
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.quantity}</TableCell>
