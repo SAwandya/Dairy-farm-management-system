@@ -10,26 +10,53 @@ const TankCard = ({ tank }) => {
   return (
     <Card sx={{ width: 370, height: 420}} style={{borderRadius: '15px', backgroundColor: '#A8C7FF'}} >
       <Typography className="tankTitle" variant='h6' style={{textAlign: 'center', marginTop: '10px'}}>Tank ID: {tankId}</Typography>
-      <CardContent>
-        <TankStructure percentage={percentage} style={{margin: 'auto'}}/>
-        <Grid container spacing={2}>
-          {/* <Grid item xs={12} sx={{ height: 200, bgcolor: 'grey.300', borderRadius: 1 }}></Grid> */}
+      <CardContent sx={{paddingTop: '0'}}>
+        <TankStructure percentage={percentage}/>
+        <div className='tank-details'>
+            <div className='tank-detail'>
+                <Typography variant="h6" fontFamily={'Poppins'} fontSize={'18px'}>Capacity:</Typography>
+                <Typography variant="h6" fontFamily={'Poppins'} fontSize={'18px'}>{capacity} Litres</Typography>
+            </div>
+            <div className='tank-detail'>
+                <Typography variant="h6" fontFamily={'Poppins'} fontSize={'18px'}>Available Milk:</Typography>
+                <Typography variant="h6" fontFamily={'Poppins'} fontSize={'18px'}>{availableMilk} Litres</Typography>
+            </div>
+            <div className='tank-detail'>
+                <Typography variant="h6" fontFamily={'Poppins'} fontSize={'18px'}>Stored Milk Batches:</Typography>
+                <Typography variant="h6" fontFamily={'Poppins'} fontSize={'18px'}>{storedBatches.join(', ')}</Typography>
+            </div>
           
-          <Grid item xs={12}>
-            <Typography variant="body2" color="textSecondary">Capacity: {capacity} Litres</Typography>
-            <Typography variant="body2" color="textSecondary">Available Milk: {availableMilk} Litres</Typography>
-            <Typography variant="body2" color="textSecondary">Stored Milk Batches: {storedBatches.join(', ')}</Typography>
-          </Grid>
-          
-          <Grid item xs={12} sx={{ textAlign: 'right' }}>
-            <Button variant="text" color="primary" startIcon={<EditIcon />} aria-label="edit">
+          <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '16px'}}>
+            <Button
+                variant="text"
+                aria-label="edit"
+                style={{
+                    fontWeight: 'bold',
+                    fontFamily: 'Poppins',
+                    backgroundColor: '#38775B',
+                    color: '#fff',
+                    width: '160px',
+                    borderRadius: '15px'
+                }}
+            >
               Edit
             </Button>
-            <Button variant="text" color="error" startIcon={<DeleteIcon />} aria-label="delete">
+            <Button
+                variant="text"
+                aria-label="delete"
+                style={{
+                    fontWeight: 'bold',
+                    fontFamily: 'Poppins',
+                    backgroundColor: '#F3797E',
+                    color: '#fff',
+                    width: '160px',
+                    borderRadius: '15px'
+                }}
+            >
               Delete
             </Button>
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

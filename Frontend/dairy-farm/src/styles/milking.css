@@ -204,11 +204,11 @@ body {
 
 .tank-fill {
     position: absolute;
-    bottom: 41.6px;
-    left: 12px;
+    bottom: 31px;
+    left: 29.6px;
     background-color: #FFF7AD;
-    height: 171.2px;
-    width: 281px;
+    height: 152.5px;
+    width: 249.5px;
     border-radius: 1px;
 }
 
@@ -216,7 +216,17 @@ body {
     font-weight: bold !important;
     color: #38775B;
     position: absolute;
-    top: 100px;
-    left: 115px;
+    top: 90px;
+    left: 120px;
     z-index: 100;
+}
+
+.tank-details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.tank-detail {
+    display: flex;
+    justify-content: space-between;
 }
