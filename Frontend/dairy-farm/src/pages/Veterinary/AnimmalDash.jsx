@@ -11,6 +11,7 @@ import Sidebar from '../../components/Veterinary/vetNav';
 function VetDashboard() {
     const [totalCount, setTotalCount] = useState(0);
     const [breedCount,setBreedCount]=useState(0);
+    const [sickCount,setSickCount]=useState(0);
 
     useEffect(() => {
         fetchTotalCount();
@@ -41,6 +42,20 @@ function VetDashboard() {
         };
         fetchPregnantCount();
   }, []);
+  useEffect(() => {
+    // sick animals count
+    const fetchSickCount = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/exmAnim/count-sick');
+        if (response.data.success) {
+            setSickCount(response.data.count);
+        }
+      } catch (error) {
+        console.error("Error fetching sick count:", error);
+      }
+    };
+    fetchSickCount();
+}, []);
 
     return (
         <div style={{ display: 'flex', height: '100vh', fontFamily: 'Poppins, sans-serif' }}>
@@ -59,7 +74,7 @@ function VetDashboard() {
                 <h4 style={{ marginTop: 20, marginBottom: '20px' }}>Overview</h4>
                 <div className='card-horizontal' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between',width:'600',marginRight:'130px',marginLeft:'130px' }}>
                     <BasicCard title='Total Cows' imgs={cow} data={totalCount} />
-                    <BasicCard title='Sick Cows' imgs={cow} data={2} />
+                    <BasicCard title='Sick Cows' imgs={cow} data={sickCount} />
                     <BasicCard title='Pregnant' imgs={cow} data={breedCount} />
                 </div>
                 
