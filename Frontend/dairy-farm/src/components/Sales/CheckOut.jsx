@@ -70,6 +70,8 @@ const CheckOut = () => {
   const { getCurrentUser } = useAuth();
 
   const onSubmit = (data) => {
+    console.log(data);
+
     const newData = {
       quantity: selectedQuantity.quantity,
       customerId: getCurrentUser()._id,
@@ -84,12 +86,12 @@ const CheckOut = () => {
       city: data.city,
       firstName: data.firstName,
       lastName: data.lastName,
+      saveAddress: data.saveAddress,
     };
 
     setProcessData(newData);
 
     if (activeStep == 2) {
-
       purchaseService
         .Purchase(newData)
         .then((res) => {

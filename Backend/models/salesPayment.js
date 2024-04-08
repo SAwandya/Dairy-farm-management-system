@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
-const { productSchema } = require("../models/product");
-const { customerSchema } = require("../models/customer");
 
 const paymentschema = new mongoose.Schema({
   cardNumber: {
@@ -23,6 +21,11 @@ const paymentschema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+
+  customerId: {
+    type: String,
+    required: true,
+  },
 });
 
 const Payment = mongoose.model("Payments", paymentschema);
@@ -41,5 +44,5 @@ function validatePayment(payment) {
   return result;
 }
 
-exports.validate = validatePayment;
+exports.validatePayment = validatePayment;
 exports.Payment = Payment;
