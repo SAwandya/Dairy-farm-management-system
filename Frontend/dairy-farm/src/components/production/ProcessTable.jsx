@@ -40,8 +40,8 @@ function ProcessTable() {
     scheduleDate: process.scheduleDate ? new Date(process.scheduleDate).toLocaleDateString() : 'N/A',
     scheduleTime: process.scheduleTime,
     status: process.status,
-    updateAction: <ProcessUpdateButton id={process._id} onUpdated={handleUpdated} />,
     deleteAction: <ProcessDeleteButton id={process._id} onDeleted={handleDeleted} />,
+    updateAction: <ProcessUpdateButton id={process._id} onUpdated={handleUpdated} />,
   }));
 
   const columns = [
@@ -53,8 +53,8 @@ function ProcessTable() {
     { field: 'scheduleDate', headerName: 'Schedule Date' },
     { field: 'scheduleTime', headerName: 'Schedule Time' },
     { field: 'status', headerName: 'Status' },
-    { field: 'updateAction', headerName: 'Update', renderCell: (params) => params.row.updateAction, width: 100 },
     { field: 'deleteAction', headerName: 'Delete', renderCell: (params) => params.row.deleteAction, width: 100 },
+    { field: 'updateAction', headerName: 'Update', renderCell: (params) => params.row.updateAction, width: 100 },
   ];
 
   return (
