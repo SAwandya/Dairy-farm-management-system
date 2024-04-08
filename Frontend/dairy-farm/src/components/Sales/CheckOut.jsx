@@ -87,6 +87,7 @@ const CheckOut = () => {
       firstName: data.firstName,
       lastName: data.lastName,
       saveAddress: data.saveAddress,
+      savePayment: data.savePayment,
     };
 
     setProcessData(newData);

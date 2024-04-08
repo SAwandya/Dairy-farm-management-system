@@ -74,15 +74,28 @@ router.post("/", async (req, res) => {
     }
   }
 
-  let payment = new Payment({
-    customerId: req.body.customerId,
-    cardNumber: req.body.cardNumber,
-    cardName: req.body.cardName,
-    cvv: req.body.cvv,
-    expDate: req.body.expDate,
-  });
+  if (req.body.savePayment == "yes") {
 
-  payment = await payment.save();
+    let paymentExist = await Payment.findOne({
+      customerId: req.body.customerId,
+      cardNumber: req.body.cardNumber,
+      cardName: req.body.cardName,
+      cvv: req.body.cvv,
+      expDate: req.body.expDate,
+    });
+
+    if(!paymentExist){
+      let payment = new Payment({
+        customerId: req.body.customerId,
+        cardNumber: req.body.cardNumber,
+        cardName: req.body.cardName,
+        cvv: req.body.cvv,
+        expDate: req.body.expDate,
+      });
+
+      payment = await payment.save();
+    }
+  }
 
   const product = await Product.findByIdAndUpdate(
     req.body.productId,

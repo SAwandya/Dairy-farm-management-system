@@ -50,7 +50,6 @@ const PaymentForm = (props) => {
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          
           <InputField
             id="cvv"
             label="CVV"
@@ -63,8 +62,15 @@ const PaymentForm = (props) => {
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
+            control={
+              <Checkbox
+                {...register("savePayment")}
+                color="secondary"
+                name="savePayment"
+                value="yes"
+              />
+            }
+            label="Save payment details"
           />
         </Grid>
       </Grid>

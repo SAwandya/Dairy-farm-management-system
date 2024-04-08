@@ -8,9 +8,6 @@ import Grid from "@mui/material/Grid";
 const Review = (props) => {
   const { processData, selectedProduct } = props;
 
-  console.log(selectedProduct);
-  console.log(processData);
-
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
