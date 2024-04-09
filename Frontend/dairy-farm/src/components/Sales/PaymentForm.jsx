@@ -5,10 +5,20 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import InputField from "./InputField";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormLabel from "@mui/material/FormLabel";
+import FormControl from "@mui/material/FormControl";
+import usePayment from "../../hooks/usePayment";
+import { useAuth } from "../../contexts/AuthContext";
 
 const PaymentForm = (props) => {
 
-  const { register, errors } = props;
+  const { register, errors, checkPayment, setCheckPayment } = props;
+
+  const { getCurrentUser } = useAuth();
+
+  const { data } = usePayment(getCurrentUser()._id);
 
   return (
     <React.Fragment>
@@ -19,10 +29,13 @@ const PaymentForm = (props) => {
         <Grid item xs={12} md={6}>
           <InputField
             id="cardName"
-            label="cardName"
+            label="Card name"
             type="text"
+            defaultValue={checkPayment.cardName}
             signup={{
-              ...register("cardName", { required: true }),
+              ...register("cardName", {
+                required: checkPayment == "" ? true : false,
+              }),
             }}
             errors={errors.cardName}
           />
@@ -32,8 +45,11 @@ const PaymentForm = (props) => {
             id="cardNumber"
             label="cardNumber"
             type="text"
+            defaultValue={checkPayment.cardNumber}
             signup={{
-              ...register("cardNumber", { required: true }),
+              ...register("cardNumber", {
+                required: checkPayment == "" ? true : false,
+              }),
             }}
             errors={errors.cardNumber}
           />
@@ -43,8 +59,11 @@ const PaymentForm = (props) => {
             id="expDate"
             label="expDate"
             type="text"
+            defaultValue={checkPayment?.expDate}
             signup={{
-              ...register("expDate", { required: true }),
+              ...register("expDate", {
+                required: checkPayment == "" ? true : false,
+              }),
             }}
             errors={errors.expDate}
           />
@@ -54,8 +73,11 @@ const PaymentForm = (props) => {
             id="cvv"
             label="CVV"
             type="text"
+            defaultValue={checkPayment?.cvv}
             signup={{
-              ...register("cvv", { required: true }),
+              ...register("cvv", {
+                required: checkPayment == "" ? true : false,
+              }),
             }}
             errors={errors.cvv}
           />
@@ -74,8 +96,36 @@ const PaymentForm = (props) => {
           />
         </Grid>
       </Grid>
+      <Grid item xs={12}>
+        <FormControl>
+          <FormLabel id="demo-radio-buttons-group-label">
+            Choose payment method
+          </FormLabel>
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue="female"
+            name="radio-buttons-group"
+          >
+            {data?.map((payment) => (
+              <FormControlLabel
+                key={payment._id}
+                value={payment.cardNumber}
+                control={<Radio />}
+                label={payment.cardNumber}
+                onChange={() => setCheckPayment(payment)}
+              />
+            ))}
+            <FormControlLabel
+              value=""
+              onChange={() => setCheckPayment(null)}
+              control={<Radio />}
+              label="non"
+            />
+          </RadioGroup>
+        </FormControl>
+      </Grid>
     </React.Fragment>
   );
-}
+};
 
 export default PaymentForm;

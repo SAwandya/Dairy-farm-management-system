@@ -4,7 +4,7 @@ import { Alert } from "@mui/material";
 
 const InputField = (props) => {
 
-  const { id, label, type, signup, errors, minlength } = props;
+  const { id, label, type, signup, errors, minlength, defaultValue } = props;
 
   return (
     <>
@@ -13,6 +13,7 @@ const InputField = (props) => {
         id={id}
         required
         fullWidth
+        defaultValue={defaultValue}
         label={label}
         type={type}
         {...signup}

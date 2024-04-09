@@ -32,12 +32,23 @@ function Copyright() {
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(step, register, errors, processData, selectedProduct) {
+function getStepContent(
+  step,
+  register,
+  errors,
+  processData,
+  selectedProduct,
+) {
   switch (step) {
     case 0:
       return <AddressForm register={register} errors={errors} />;
     case 1:
-      return <PaymentForm register={register} errors={errors} />;
+      return (
+        <PaymentForm
+          register={register}
+          errors={errors}
+        />
+      );
     case 2:
       return (
         <Review processData={processData} selectedProduct={selectedProduct} />
@@ -49,6 +60,10 @@ function getStepContent(step, register, errors, processData, selectedProduct) {
 
 const CheckOut = () => {
   const [activeStep, setActiveStep] = React.useState(0);
+
+  const [checkPayment, setCheckPayment] = React.useState("");
+
+  console.log(checkPayment);
 
   const {
     register,
@@ -156,7 +171,7 @@ const CheckOut = () => {
                   register,
                   errors,
                   selectedProduct,
-                  processData
+                  processData,
                 )}
                 <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                   {activeStep !== 0 && (
