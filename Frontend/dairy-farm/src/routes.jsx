@@ -44,6 +44,7 @@ import EmployeeReport from "./pages/Employees/Employee_report";
 import EmployeeR from "./pages/Employees/EmployeeR";
 import MilkingStorage from "./pages/Milking/MilkingStorage";
 import AddNewTank from "./pages/Milking/AddNewTank";
+import PasturePage from "./pages/Grazing/PasturePage";
 
 const router = createBrowserRouter([
   {
@@ -124,6 +125,10 @@ const router = createBrowserRouter([
   {
     path: "/breedAnim",
     element: <BreedCard />,
+  },
+  {
+    path: "/pasture",
+    element: <PasturePage />,
   },
   {
     path: "/milkingdashboard",
