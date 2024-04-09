@@ -59,7 +59,7 @@ const Review = (props) => {
               </Grid>
               <Grid item xs={6}>
                 <Typography gutterBottom>
-                  {selectedProduct.cardNumber.substring(0, 5)}****
+                  {selectedProduct.cardNumber}
                 </Typography>
               </Grid>
             </React.Fragment>

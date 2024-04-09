@@ -32,23 +32,12 @@ function Copyright() {
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(
-  step,
-  register,
-  errors,
-  processData,
-  selectedProduct,
-) {
+function getStepContent(step, register, errors, processData, selectedProduct) {
   switch (step) {
     case 0:
       return <AddressForm register={register} errors={errors} />;
     case 1:
-      return (
-        <PaymentForm
-          register={register}
-          errors={errors}
-        />
-      );
+      return <PaymentForm register={register} errors={errors} />;
     case 2:
       return (
         <Review processData={processData} selectedProduct={selectedProduct} />
@@ -60,10 +49,6 @@ function getStepContent(
 
 const CheckOut = () => {
   const [activeStep, setActiveStep] = React.useState(0);
-
-  const [checkPayment, setCheckPayment] = React.useState("");
-
-  console.log(checkPayment);
 
   const {
     register,
@@ -85,27 +70,57 @@ const CheckOut = () => {
   const { getCurrentUser } = useAuth();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const storedPaymentString = localStorage.getItem("paymentInfo");
 
-    const newData = {
-      quantity: selectedQuantity.quantity,
-      customerId: getCurrentUser()._id,
-      productId: selectedProduct._id,
-      cardNumber: data.cardNumber,
-      cardName: data.cardName,
-      cvv: data.cvv,
-      state: data.state,
-      expDate: data.expDate,
-      address1: data.address1,
-      address2: data.address2,
-      city: data.city,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      saveAddress: data.saveAddress,
-      savePayment: data.savePayment,
-    };
+    let newData = {};
+
+    if (storedPaymentString && storedPaymentString.trim() !== "") {
+      const storedPayment = JSON.parse(storedPaymentString);
+
+      newData = {
+        quantity: selectedQuantity.quantity,
+        customerId: getCurrentUser()._id,
+        productId: selectedProduct._id,
+        cardNumber: storedPayment.cardNumber,
+        cardName: storedPayment.cardName,
+        cvv: storedPayment.cvv,
+        state: data.state,
+        expDate: storedPayment.expDate,
+        address1: data.address1,
+        address2: data.address2,
+        city: data.city,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        saveAddress: data.saveAddress,
+        savePayment: data.savePayment,
+      };
+
+
+    } else {
+      newData = {
+        quantity: selectedQuantity.quantity,
+        customerId: getCurrentUser()._id,
+        productId: selectedProduct._id,
+        cardNumber: data.cardNumber,
+        cardName: data.cardName,
+        cvv: data.cvv,
+        state: data.state,
+        expDate: data.expDate,
+        address1: data.address1,
+        address2: data.address2,
+        city: data.city,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        saveAddress: data.saveAddress,
+        savePayment: data.savePayment,
+      };
+    }
+
+    console.log(newData);
 
     setProcessData(newData);
+
+    localStorage.removeItem("paymentInfo");
 
     if (activeStep == 2) {
       purchaseService
@@ -171,7 +186,7 @@ const CheckOut = () => {
                   register,
                   errors,
                   selectedProduct,
-                  processData,
+                  processData
                 )}
                 <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                   {activeStep !== 0 && (
