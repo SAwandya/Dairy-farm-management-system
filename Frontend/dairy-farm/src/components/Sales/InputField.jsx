@@ -4,7 +4,8 @@ import { Alert } from "@mui/material";
 
 const InputField = (props) => {
 
-  const { id, label, type, signup, errors, minlength } = props;
+  const { id, label, type, signup, errors, minlength, defaultValue, disable } =
+    props;
 
   return (
     <>
@@ -12,7 +13,9 @@ const InputField = (props) => {
         autoComplete="given-name"
         id={id}
         required
+        disabled={disable}
         fullWidth
+        defaultValue={defaultValue}
         label={label}
         type={type}
         {...signup}

@@ -8,9 +8,6 @@ import Grid from "@mui/material/Grid";
 const Review = (props) => {
   const { processData, selectedProduct } = props;
 
-  console.log(selectedProduct);
-  console.log(processData);
-
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -62,7 +59,7 @@ const Review = (props) => {
               </Grid>
               <Grid item xs={6}>
                 <Typography gutterBottom>
-                  {selectedProduct.cardNumber.substring(0, 5)}****
+                  {selectedProduct.cardNumber}
                 </Typography>
               </Grid>
             </React.Fragment>

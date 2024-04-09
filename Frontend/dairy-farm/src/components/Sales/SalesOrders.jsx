@@ -8,8 +8,13 @@ import TableRow from "@mui/material/TableRow";
 import SalesTitle from "./SalesTitle";
 import usePurcahse from "../../hooks/usePurcahses";
 import purchaseService from "../../services/Sales/purchaseService";
-import { Button } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import Popup from "./Popup";
+import Search from "./Search";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
 
 const SalesOrders = () => {
   const { data, error, isLoading, refetch } = usePurcahse();
@@ -18,28 +23,69 @@ const SalesOrders = () => {
 
   const [selectedDeleteId, setSelecetdDeleteId] = React.useState(null);
 
+  const [buttonLoadingId, setButtonLoadingId] = React.useState(null);
+
   const functionopenpopup = (id) => {
     setSelecetdDeleteId(id);
     openchange(true);
   };
 
   const handleApprove = (id, approve) => {
+    setButtonLoadingId(id);
     const data = { approve: approve };
-
     purchaseService
       .Approve(id, data)
       .then((res) => {
+        setButtonLoadingId(null);
         refetch();
-        console.log(res.data);
+        if (approve == true) {
+          toast.success("Order approved successfully");
+        } else {
+          toast.success("Order rejected successfully");
+        }
+        toast("sent email to the customer successfully");
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
 
+  const [query, setQuery] = React.useState("");
+
+  const keys = ["quantity", "product"];
+
+  const search = (data) => {
+    const matches = [];
+
+    data?.forEach((item) => {
+      const productName = item.product?.name?.toLowerCase();
+      const customerName = item.customer?.name?.toLowerCase();
+
+      if (productName && productName.includes(query.toLowerCase())) {
+        matches.push(item);
+      } else if (customerName && customerName.includes(query.toLowerCase())) {
+        matches.push(item);
+      }
+    });
+
+    return matches;
+  };
+
   return (
     <React.Fragment>
-      <SalesTitle>Recent Orders</SalesTitle>
+      <ToastContainer />
+      <Container
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
+          marginBottom: "20px",
+        }}
+      >
+        <SalesTitle>Recent Orders</SalesTitle>
+
+        <Search setQuery={setQuery} query={query} />
+      </Container>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -52,7 +98,7 @@ const SalesOrders = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((purchase) => (
+          {search(data)?.map((purchase) => (
             <TableRow key={purchase._id}>
               <TableCell>{purchase.product.name}</TableCell>
               <TableCell>{purchase.quantity}</TableCell>
@@ -62,23 +108,30 @@ const SalesOrders = () => {
               </TableCell>
               <TableCell>
                 {!purchase.approve ? (
-                  <Button
-                    variant="contained"
-                    onClick={() => handleApprove(purchase._id, true)}
-                    size="medium"
-                    color="success"
-                  >
-                    Approve
-                  </Button>
+                  <Box>
+                    <LoadingButton
+                      color="success"
+                      loading={buttonLoadingId == purchase._id}
+                      onClick={() => handleApprove(purchase._id, true)}
+                      loadingPosition="start"
+                      variant="contained"
+                      startIcon={<SaveIcon />}
+                    >
+                      <span>Approve</span>
+                    </LoadingButton>
+                  </Box>
                 ) : (
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleApprove(purchase._id, false)}
-                    size="medium"
-                    color="error"
-                  >
-                    Reject
-                  </Button>
+                  
+                   <LoadingButton
+                      color="error"
+                      loading={buttonLoadingId == purchase._id}
+                      onClick={() => handleApprove(purchase._id, false)}
+                      loadingPosition="start"
+                      variant="outlined"
+                      startIcon={<SaveIcon />}
+                    >
+                      <span>Reject</span>
+                    </LoadingButton>
                 )}
               </TableCell>
               <TableCell>
