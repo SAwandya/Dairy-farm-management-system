@@ -27,6 +27,8 @@ const ProductDetails = () => {
 
   const SetSelectedQuantity = useGameQueryStore((s) => s.SetSelectedQuantity);
 
+  const selectedBuyAddButton = useGameQueryStore((s) => s.selectedBuyAddButton);
+
   let navigate = useNavigate();
 
   const [ error, setError ] = useState(null);
@@ -44,7 +46,11 @@ const ProductDetails = () => {
     } else {
       setError(null);
       SetSelectedQuantity(data);
-      navigate("/checkout");
+      if (selectedBuyAddButton == 'buy'){
+        navigate("/checkout");
+      } else{
+        //add to the cart
+      }
     }
 
     
