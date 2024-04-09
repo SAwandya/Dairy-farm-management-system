@@ -19,7 +19,7 @@ const PaymentForm = (props) => {
 
   const { data } = usePayment(getCurrentUser()._id);
 
-  const [currentPayment, setCurrentPayment] = React.useState(null);
+  const [currentPayment, setCurrentPayment] = React.useState('');
 
   const handlePayment = (payment) => {
 
@@ -48,11 +48,11 @@ const PaymentForm = (props) => {
           <InputField
             id="cardName"
             label="Card name"
-            type="text"
-            disable={currentPayment !== null ? true : false}
+            type="number"
+            disable={currentPayment !== '' ? true : false}
             signup={{
               ...register("cardName", {
-                required: currentPayment == null ? true : false,
+                required: currentPayment == '' ? true : false,
               }),
             }}
             errors={errors.cardName}
@@ -63,10 +63,10 @@ const PaymentForm = (props) => {
             id="cardNumber"
             label="cardNumber"
             type="text"
-            disable={currentPayment !== null ? true : false}
+            disable={currentPayment !== '' ? true : false}
             signup={{
               ...register("cardNumber", {
-                required: currentPayment == null ? true : false,
+                required: currentPayment == '' ? true : false,
               }),
             }}
             errors={errors.cardNumber}
@@ -77,10 +77,10 @@ const PaymentForm = (props) => {
             id="expDate"
             label="expDate"
             type="text"
-            disable={currentPayment !== null ? true : false}
+            disable={currentPayment !== '' ? true : false}
             signup={{
               ...register("expDate", {
-                required: currentPayment == null ? true : false,
+                required: currentPayment == '' ? true : false,
               }),
             }}
             errors={errors.expDate}
@@ -91,10 +91,10 @@ const PaymentForm = (props) => {
             id="cvv"
             label="CVV"
             type="text"
-            disable={currentPayment !== null ? true : false}
+            disable={currentPayment !== '' ? true : false}
             signup={{
               ...register("cvv", {
-                required: currentPayment == null ? true : false,
+                required: currentPayment == '' ? true : false,
               }),
             }}
             errors={errors.cvv}
@@ -133,12 +133,12 @@ const PaymentForm = (props) => {
                 onChange={() => handlePayment(payment)}
               />
             ))}
-            {/* <FormControlLabel
+            <FormControlLabel
               value=""
-              onChange={() => setCheckPayment(null)}
+              onChange={() => handlePayment('')}
               control={<Radio />}
               label="non"
-            /> */}
+            />
           </RadioGroup>
         </FormControl>
       </Grid>

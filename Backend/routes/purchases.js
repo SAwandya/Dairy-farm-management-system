@@ -40,10 +40,10 @@ router.post("/", async (req, res) => {
   };
 
   const { error: paymentError } = validatePayment(paymentData);
-  if (paymentError) return res.status(400).send(error.details[0].message);
+  if (paymentError) return res.status(400).send(paymentError.details[0].message);
 
   const { error: deliveryError } = validateDelivery(deliveryData);
-  if (deliveryError) return res.status(400).send(error.details[0].message);
+  if (deliveryError) return res.status(400).send(deliveryError.details[0].message);
 
   const customer = await Customer.findById(req.body.customerId);
   if (!customer) return res.status(400).send("Invalide customer");

@@ -95,6 +95,7 @@ const CheckOut = () => {
         savePayment: data.savePayment,
       };
 
+      console.log(newData);
 
     } else {
       newData = {
@@ -116,15 +117,13 @@ const CheckOut = () => {
       };
     }
 
-    console.log(newData);
-
     setProcessData(newData);
 
     localStorage.removeItem("paymentInfo");
 
     if (activeStep == 2) {
       purchaseService
-        .Purchase(newData)
+        .Purchase(processData)
         .then((res) => {
           console.log(res);
         })
@@ -135,6 +134,10 @@ const CheckOut = () => {
 
     setActiveStep(activeStep + 1);
   };
+
+  React.useEffect(() => {
+    console.log(processData);
+  }, [processData]);
 
   return (
     <React.Fragment>
