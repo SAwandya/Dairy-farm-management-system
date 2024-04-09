@@ -44,7 +44,8 @@ import EmployeeR from "./pages/Employees/EmployeeR";
 import MilkingStorage from "./pages/Milking/MilkingStorage";
 import AddNewTank from "./pages/Milking/AddNewTank";
 import PasturePage from "./pages/Grazing/PasturePage";
-import AlarmScheduler from "./pages/Grazing/rotation";
+
+import Session from "./pages/Grazing/GrazingSession";
 
 const router = createBrowserRouter([
   {
@@ -208,9 +209,10 @@ const router = createBrowserRouter([
     path: "/pasture",
     element: <PasturePage />,
   },
+  
   {
-    path: "/rotation",
-    element: <AlarmScheduler />,
+    path: "/session",
+    element: <Session />,
   },
   {
     path: "/task",

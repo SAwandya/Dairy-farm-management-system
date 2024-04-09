@@ -1,109 +1,96 @@
 import React from 'react';
-import { Card, CardContent, CardActions, Button, Typography } from '@mui/material';
+import { Card, CardContent, Typography, Button } from '@mui/material';
+import pastureVideo from '../../assets/vdo1.mp4';
 
 function PastureCard({ pasture }) {
   const cardStyle = {
     display: 'flex',
-    borderRadius: '10px',
-    marginBottom: '20px',
-    height: '265px', // Adjust height as needed
-    width: '570px'
+    borderRadius: '20px',
+    marginBottom: '30px',
+    height: '280px',
+    width: '550px',
+    fontFamily: 'Poppins',
+    boxShadow: '0px 8px 12px rgba(0, 0, 0, 0.2)',
+    backgroundColor: '#f5f5f5',
   };
 
-  const imageContainerStyle = {
-    flex: '1',
-    borderRadius: '10px 0 0 10px',
+  const videoContainerStyle = {
+    width: '40%',
+    borderRadius: '20px 0 0 20px',
     overflow: 'hidden',
   };
 
-  const imageStyle = {
+  const videoStyle = {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
   };
 
   const detailsContainerStyle = {
-    flex: '1',
+    width: '60%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     padding: '20px',
   };
 
   const detailRowStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
     marginBottom: '10px',
+    textAlign: 'left',
+  };
+
+  const buttonStyle = {
+    fontSize: '12px',
+    padding: '6px 12px',
+    backgroundColor: '#38775e',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#2e5f4e',
+    },
   };
 
   return (
     <Card style={cardStyle}>
-      <div style={imageContainerStyle}>
-        <img src={pasture.photo} alt="Pasture" style={imageStyle} />
+      <div style={videoContainerStyle}>
+        <video src={pastureVideo} alt="Pasture" style={videoStyle} autoPlay muted loop />
       </div>
       <div style={detailsContainerStyle}>
-        <CardContent
-            sx={{
-                padding: '0',
-            }}
-        >
-          <Typography
-            variant="h5"
-          >
+        <CardContent>
+          <Typography variant="h6" style={{ marginBottom: '10px', color: '#006400' }}>
             {pasture.name}
           </Typography>
           <div style={detailRowStyle}>
-            <Typography variant="body1">
-              Area:
-            </Typography>
-            <Typography variant="body1">
-              {pasture.area}
+            <Typography variant="body2">
+              <strong>Area:</strong> {pasture.area}
             </Typography>
           </div>
           <div style={detailRowStyle}>
-            <Typography variant="body1">
-              Fertilizer Used:
-            </Typography>
-            <Typography variant="body1">
-              {pasture.fertilizerUsed}
+            <Typography variant="body2">
+              <strong>Fertilizer Used:</strong> {pasture.fertilizerUsed}
             </Typography>
           </div>
           <div style={detailRowStyle}>
-            <Typography variant="body1">
-              Feeding Capacity:
-            </Typography>
-            <Typography variant="body1">
-              {pasture.feedingCapacity}
+            <Typography variant="body2">
+              <strong>Feeding Capacity:</strong> {pasture.feedingCapacity}
             </Typography>
           </div>
           <div style={detailRowStyle}>
-            <Typography variant="body1">
-              Assigned Employee:
-            </Typography>
-            <Typography variant="body1">
-              {pasture.assignedEmployee}
+            <Typography variant="body2">
+              <strong>Assigned Employee:</strong> {pasture.assignedEmployee}
             </Typography>
           </div>
           <div style={detailRowStyle}>
-            <Typography variant="body1">
-              Type Of Plants Planted:
-            </Typography>
-            <Typography variant="body1">
-              {pasture.typeOfPlantsPlanted}
+            <Typography variant="body2">
+              <strong>Type Of Plants Planted:</strong> {pasture.typeOfPlantsPlanted}
             </Typography>
           </div>
         </CardContent>
-        <CardActions>
-          <Button size="small" color="primary">
-            Edit
-          </Button>
-          <Button size="small" color="secondary">
-            Delete
-          </Button>
-        </CardActions>
+        <Button variant="contained" href={pasture.maintenanceLink} style={buttonStyle}>
+          Maintenance
+        </Button>
       </div>
     </Card>
   );
 }
 
-export default PastureCard;
+export default PastureCard;
