@@ -48,7 +48,7 @@ const PaymentForm = (props) => {
           <InputField
             id="cardName"
             label="Card name"
-            type="number"
+            type="text"
             disable={currentPayment !== '' ? true : false}
             signup={{
               ...register("cardName", {
@@ -62,7 +62,7 @@ const PaymentForm = (props) => {
           <InputField
             id="cardNumber"
             label="cardNumber"
-            type="text"
+            type="number"
             disable={currentPayment !== '' ? true : false}
             signup={{
               ...register("cardNumber", {
@@ -75,8 +75,8 @@ const PaymentForm = (props) => {
         <Grid item xs={12} md={6}>
           <InputField
             id="expDate"
-            label="expDate"
-            type="text"
+            label="Expire date"
+            type="date"
             disable={currentPayment !== '' ? true : false}
             signup={{
               ...register("expDate", {
@@ -90,7 +90,7 @@ const PaymentForm = (props) => {
           <InputField
             id="cvv"
             label="CVV"
-            type="text"
+            type="number"
             disable={currentPayment !== '' ? true : false}
             signup={{
               ...register("cvv", {
