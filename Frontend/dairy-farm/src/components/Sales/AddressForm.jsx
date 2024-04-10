@@ -86,9 +86,9 @@ const AddressForm = (props) => {
         <Grid item xs={12}>
           <FormControlLabel
             control={
-              <Checkbox color="secondary" name="saveAddress" value="yes" />
+              <Checkbox {...register("saveAddress")} color="secondary" name="saveAddress" value="yes" />
             }
-            label="Use this address for payment details"
+            label="Save this address for deliveries"
           />
         </Grid>
       </Grid>

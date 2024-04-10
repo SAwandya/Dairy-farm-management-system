@@ -16,6 +16,7 @@ import Skeleton from "@mui/material/Skeleton";
 import productService from "../../services/Sales/productService";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Search from "./Search";
+import { Container } from "@mui/material";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -44,7 +45,7 @@ const ProductList = () => {
       .then((res) => {
         console.log(res.data);
         console.log("success");
-        // refetch();
+        refetch();
       })
       .catch((err) => {
         console.log(err.message);
@@ -68,16 +69,18 @@ const ProductList = () => {
   const keys = ["name", "category"];
 
   const search = (data) => {
-    return data.filter((item) =>
+    return data?.filter((item) =>
       keys.some((key) => item[key].toLowerCase().includes(query))
     );
   };
 
   return (
     <React.Fragment>
-      <SalesTitle>Recent Products</SalesTitle>
+      <Container sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', marginBottom: '20px' }}>
+        <SalesTitle>Recent Products</SalesTitle>
 
-      <Search setQuery={setQuery} query={query} />
+        <Search setQuery={setQuery} query={query} />
+      </Container>
 
       <Table size="small">
         <TableHead>

@@ -9,15 +9,15 @@ const Search = (props) => {
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.white, 0.8),
     "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.8),
     },
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
-      width: "auto",
+      width: "300px",
     },
   }));
 
@@ -49,7 +49,7 @@ const Search = (props) => {
   }));
 
   return (
-    <Search>
+    <Search sx={{ background: "#5ECD9B" }}>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>

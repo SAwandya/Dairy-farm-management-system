@@ -70,28 +70,60 @@ const CheckOut = () => {
   const { getCurrentUser } = useAuth();
 
   const onSubmit = (data) => {
-    const newData = {
-      quantity: selectedQuantity.quantity,
-      customerId: getCurrentUser()._id,
-      productId: selectedProduct._id,
-      cardNumber: data.cardNumber,
-      cardName: data.cardName,
-      cvv: data.cvv,
-      state: data.state,
-      expDate: data.expDate,
-      address1: data.address1,
-      address2: data.address2,
-      city: data.city,
-      firstName: data.firstName,
-      lastName: data.lastName,
-    };
+    const storedPaymentString = localStorage.getItem("paymentInfo");
+
+    let newData = {};
+
+    if (storedPaymentString && storedPaymentString.trim() !== "") {
+      const storedPayment = JSON.parse(storedPaymentString);
+
+      newData = {
+        quantity: selectedQuantity.quantity,
+        customerId: getCurrentUser()._id,
+        productId: selectedProduct._id,
+        cardNumber: storedPayment.cardNumber,
+        cardName: storedPayment.cardName,
+        cvv: storedPayment.cvv,
+        state: data.state,
+        expDate: storedPayment.expDate,
+        address1: data.address1,
+        address2: data.address2,
+        city: data.city,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        saveAddress: data.saveAddress,
+        savePayment: data.savePayment,
+      };
+
+      console.log(newData);
+
+    } else {
+      newData = {
+        quantity: selectedQuantity.quantity,
+        customerId: getCurrentUser()._id,
+        productId: selectedProduct._id,
+        cardNumber: data.cardNumber,
+        cardName: data.cardName,
+        cvv: data.cvv,
+        state: data.state,
+        expDate: data.expDate,
+        address1: data.address1,
+        address2: data.address2,
+        city: data.city,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        saveAddress: data.saveAddress,
+        savePayment: data.savePayment,
+      };
+    }
 
     setProcessData(newData);
 
-    if (activeStep == 2) {
+    localStorage.removeItem("paymentInfo");
 
+    if (activeStep == 2) {
       purchaseService
-        .Purchase(newData)
+        .Purchase(processData)
         .then((res) => {
           console.log(res);
         })
@@ -102,6 +134,10 @@ const CheckOut = () => {
 
     setActiveStep(activeStep + 1);
   };
+
+  React.useEffect(() => {
+    console.log(processData);
+  }, [processData]);
 
   return (
     <React.Fragment>
