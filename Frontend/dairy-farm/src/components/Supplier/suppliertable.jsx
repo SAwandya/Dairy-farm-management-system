@@ -13,6 +13,7 @@ import {
   DialogTitle,
   IconButton,
   Tooltip,
+  MenuItem,
 } from "@mui/material";
 import {
   QueryClient,
@@ -82,6 +83,28 @@ const SupplierTable = () => {
               ...validationErrors,
               itemType: undefined,
             }),
+        },
+      },
+      {
+        accessorKey: "supplierType",
+        header: "Supplier Type",
+        muiEditSelectFieldProps: {
+          required: true,
+          error: !!validationErrors?.supplierType,
+          helperText: validationErrors?.supplierType,
+          onFocus: () =>
+            setValidationErrors({
+              ...validationErrors,
+              supplierType: undefined,
+            }),
+          children: [
+            <MenuItem key="Contracted" value="Contracted">
+              Contracted
+            </MenuItem>,
+            <MenuItem key="Permanent" value="Permanent">
+              Permanent
+            </MenuItem>,
+          ],
         },
       },
       {
@@ -254,7 +277,7 @@ function useCreateUser() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({...user, _id: undefined}),
+        body: JSON.stringify({...user, _id: undefined, supplierType: user.supplierType}),
       });
       return response.json();
     },
@@ -293,7 +316,7 @@ function useUpdateUser() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({...user, _id: undefined}),
+            body: JSON.stringify({...user, _id: undefined, supplierType: user.supplierType}),
         }
       );
       return response.json();
@@ -356,6 +379,7 @@ function validateUser(user) {
       : "",
     lastName: !validateRequired(user.lastName) ? "Last Name is Required" : "",
     email: !validateEmail(user.email) ? "Incorrect Email Format" : "",
+    supplierType: !validateRequired(user.supplierType) ? "Supplier Type is Required" : "",
   };
 
 }
