@@ -21,6 +21,7 @@ const item = require("./routes/item");
 const milkingData = require("./routes/milkingDataRoute");
 const processCrud = require("./routes/processCrud");
 const pdf = require("./routes/pdf");
+const pasture=require("./routes/pastureDetails");
 const temperatureSendRcv = require("./routes/temperatureSendRcv");
 const payment = require("./routes/payments");
 
@@ -74,6 +75,8 @@ app.use("/api/temperatureSendRcv", temperatureSendRcv);
 
 app.use("/api/invoice", pdf);
 
+app.use("/api/pastureDetails",pasture);
+
 app.use("/api/payments", payment);
 
 const server = http.createServer(app); // Create an HTTP server using Express app
@@ -85,6 +88,7 @@ app.locals.wss = wss;
 
 wss.on("connection", function connection(ws) {
   console.log("Client connected");
+
 
   ws.on("message", function incoming(message) {
     console.log("Received: %s", message);
