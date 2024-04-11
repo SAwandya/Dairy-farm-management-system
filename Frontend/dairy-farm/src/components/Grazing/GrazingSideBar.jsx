@@ -19,79 +19,82 @@ function Sidebar() {
   };
 
   return (
-    <Box className="sidebar">
-      <Box className="sidebar-logo-container">
-        <img
-          className="sidebar-logo"
-          src="../../src/assets/sidebar-logo.png"
-          alt="Logo"
-        />
-      </Box>
+    <Box style={{ position: 'fixed', top: 0, left: 0, height: '100%', width: '240px',  }}>
+      <Box className="sidebar">
+        <Box className="sidebar-logo-container">
+          <img
+            className="sidebar-logo"
+            src="../../src/assets/sidebar-logo.png"
+            alt="Logo"
+          />
+        </Box>
 
-      {/* Navigation links */}
-      <Box className="navigation-links">
-        <List>
-          <NavigationLink
-            icon={<SpaceDashboardIcon />}
-            text="Dashboard"
-            isActive={activeSection === "dashboard"}
-            onClick={() => handleNavigation("dashboard")}
-          />
-          
-          <NavigationLink
-            icon={<AccessTimeFilledIcon />}
-            text="Sessions"
-            isActive={activeSection === "sessions"}
-            onClick={() => handleNavigation("sessions")}
-          />
-          
-          
-          <NavigationLink
-            icon={<GrassIcon />}
-            text="pastures"
-            isActive={activeSection === "pastures"}
-            onClick={() => handleNavigation("pastures")}
-          />
+        {/* Navigation links */}
+        <Box bottom="0" className="navigation-links">
+          <List>
+            <NavigationLink
+              icon={<SpaceDashboardIcon />}
+              text="Dashboard"
+              isActive={activeSection === "dashboard"}
+              onClick={() => handleNavigation("dashboard")}
+            />
+            
+            <NavigationLink
+              icon={<AccessTimeFilledIcon />}
+              text="Sessions"
+              isActive={activeSection === "sessions"}
+              onClick={() => handleNavigation("sessions")}
+            />
+            
+            
+            <NavigationLink
+              icon={<GrassIcon />}
+              text="Pastures"
+              isActive={activeSection === "pastures"}
+              onClick={() => handleNavigation("pastures")}
+            />
 
-          <NavigationLink
-            icon={<DonutSmallIcon />}
-            text="Data"
-            isActive={activeSection === "grazing-data"}
-            onClick={() => handleNavigation("grazing-data")}
-          />
+            <NavigationLink
+              icon={<DonutSmallIcon />}
+              text="Data"
+              isActive={activeSection === "grazing-data"}
+              onClick={() => handleNavigation("grazing-data")}
+            />
 
-          <NavigationLink
-            icon={<ScreenRotationAltIcon />}
-            text="rotations"
-            isActive={activeSection === "rotations"}
-            onClick={() => handleNavigation("rotations")}
-          />
+            <NavigationLink
+              icon={<ScreenRotationAltIcon />}
+              text="Rotations"
+              isActive={activeSection === "rotations"}
+              onClick={() => handleNavigation("rotations")}
+            />
 
-          <NavigationLink
-            icon={<AssessmentIcon />}
-            text="Reports"
-            isActive={activeSection === "reports"}
-            onClick={() => handleNavigation("reports")}
-          />
-        </List>
-      </Box>
+            <NavigationLink
+              icon={<AssessmentIcon />}
+              text="Reports"
+              isActive={activeSection === "reports"}
+              onClick={() => handleNavigation("reports")}
+            />
+          </List>
 
-      {/* Profile and Logout */}
-      <Box className="user-actions2">
-        <List>
-          <NavigationLink
-            icon={<AccountCircleIcon />}
-            text="Profile"
-            isActive={activeSection === "profile"}
-            onClick={() => handleNavigation("profile")}
-          />
-          <NavigationLink
-            icon={<LogoutIcon />}
-            text="Logout"
-            isActive={activeSection === "logout"}
-            onClick={() => handleNavigation("logout")}
-          />
-        </List>
+          <List>
+            <NavigationLink
+              icon={<AccountCircleIcon />}
+              text="Profile"
+              isActive={activeSection === "profile"}
+              onClick={() => handleNavigation("profile")}
+            />
+            <NavigationLink
+              icon={<LogoutIcon />}
+              text="Logout"
+              isActive={activeSection === "logout"}
+              onClick={() => handleNavigation("logout")}
+            />
+          </List>
+
+        </Box>
+
+
+        
       </Box>
     </Box>
   );
