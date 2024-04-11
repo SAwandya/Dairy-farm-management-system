@@ -48,6 +48,9 @@ import AddNewTank from "./pages/Milking/AddNewTank";
 import PasturePage from "./pages/Grazing/PasturePage";
 import { RemoveFromQueue } from "@mui/icons-material";
 
+import Session from "./pages/Grazing/GrazingSession";
+import CartPage from "./pages/Sales/CartPage";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -75,6 +78,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <OrderPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/salescarts",
+        element: (
+          <ProtectedRoute>
+            <CartPage/>
           </ProtectedRoute>
         ),
       },
@@ -128,10 +139,7 @@ const router = createBrowserRouter([
     path: "/breedAnim",
     element: <BreedCard />,
   },
-  {
-    path: "/pasture",
-    element: <PasturePage />,
-  },
+
   {
     path: "/milkingdashboard",
     element: <MilkingDashboard />,
@@ -206,6 +214,15 @@ const router = createBrowserRouter([
   {
     path: "/pastureinfo",
     element: <PastureInfo />,
+  },
+  {
+    path: "/pasture",
+    element: <PasturePage />,
+  },
+
+  {
+    path: "/session",
+    element: <Session />,
   },
   {
     path: "/task",
