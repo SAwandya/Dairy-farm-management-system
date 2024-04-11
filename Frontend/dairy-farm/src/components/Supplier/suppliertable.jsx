@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import {
   MRT_EditActionButtons,
   MaterialReactTable,
-  // createRow,
   useMaterialReactTable,
 } from "material-react-table";
 import {
@@ -22,7 +21,6 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { fakeData, usStates } from "./makeData";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -35,8 +33,9 @@ const SupplierTable = () => {
         accessorKey: "_id",
         header: "Id",
         enableEditing: false,
-        size: 80,
+        size: 0,
         className: "hidden",
+        hidden: true,
       },
       {
         accessorKey: "name",
@@ -227,7 +226,7 @@ const SupplierTable = () => {
       </>
     ),
     renderRowActions: ({ row, table }) => (
-      <Box sx={{ display: "flex", gap: "1rem" }}>
+      <Box sx={{ display: "flex", gap: "1rem", justifyContent: "flex-end" }}>
         <Tooltip title="Edit">
           <IconButton onClick={() => table.setEditingRow(row)}>
             <EditIcon />
