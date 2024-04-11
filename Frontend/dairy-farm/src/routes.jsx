@@ -21,6 +21,7 @@ import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
 import ProductionDashboard from "./pages/Production/ProductionDashboard";
 import ProcessPlanning from "./pages/Production/ProcessPlanning";
 import StorageRoom from "./pages/Production/StorageRoom"
+import ProductInventory from "./pages/Production/ProductInventory";
 
 import MilkingSessions from './pages/Milking/MilkingSessions';
 import MilkingSessionSchedule from './pages/Milking/MilkingSessionSchedule';
@@ -45,6 +46,7 @@ import EmployeeR from "./pages/Employees/EmployeeR";
 import MilkingStorage from "./pages/Milking/MilkingStorage";
 import AddNewTank from "./pages/Milking/AddNewTank";
 import PasturePage from "./pages/Grazing/PasturePage";
+import { RemoveFromQueue } from "@mui/icons-material";
 
 const router = createBrowserRouter([
   {
@@ -180,15 +182,13 @@ const router = createBrowserRouter([
     element: <AddNewTank />,
   },
 
-  {
-    path: "/homeM",
-    element: <HomePageM />,
-  },
+  { path: "/homeM", element: <HomePageM />},
 
   //Production Management Paths
   { path: "/productiondashboard", element: <ProductionDashboard /> },
   { path: "/processplanning", element: <ProcessPlanning /> },
   { path: "/StorageRoom", element: <StorageRoom /> } ,  
+  { path: "/ProductInventory", element: <ProductInventory/> },
 
   {
     path: "/financetrans",
