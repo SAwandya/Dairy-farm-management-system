@@ -19,10 +19,11 @@ const milkingSessions = require("./routes/milkingSessionRoute");
 const order = require("./routes/order");
 const item = require("./routes/item");
 const milkingData = require("./routes/milkingDataRoute");
-const processCrud = require("./routes/processCrud");
 const pdf = require("./routes/pdf");
 const pasture=require("./routes/pastureDetails");
 const temperatureSendRcv = require("./routes/temperatureSendRcv");
+const processCrud = require("./routes/processCrud");
+const productBatchCrud = require("./routes/productBatchCrud");
 const payment = require("./routes/payments");
 const cart = require("./routes/Carts");
 const salesDelivery = require("./routes/salesDelivery");
@@ -71,9 +72,10 @@ app.use("/api/milkingSessions", milkingSessions);
 
 app.use("/api/milkingData", milkingData);
 
+//production management
 app.use("/api/processCrud", processCrud);
-
 app.use("/api/temperatureSendRcv", temperatureSendRcv);
+app.use("/api/productBatchCrud", productBatchCrud);
 
 app.use("/api/invoice", pdf);
 
