@@ -10,7 +10,9 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const carts = await Cart.findById(req.params.id);
+  const carts = await Cart.find({
+    "customer._id": req.params.id,
+  });
   res.send(carts);
 });
 

@@ -11,50 +11,36 @@ import usePurcahse from "../../hooks/usePurchase";
 import OrderUpdatePopup from "../../components/Sales/OrderUpdatePopup";
 import MessagePop from "../../components/Sales/MessagePop";
 import purchaseService from "../../services/Sales/purchaseService";
+import useCart from "../../hooks/useCarts";
+import useGameQueryStore from "../../store";
+import { useNavigate } from "react-router-dom";
 
 const OrderPage = () => {
   const { getCurrentUser } = useAuth();
 
-  const currentUser = getCurrentUser();
+  const { data, isLoading, refetch } = useCart(getCurrentUser()._id);
 
-  const [open, openchange] = React.useState(false);
+  const SetSelectedQuantity = useGameQueryStore((s) => s.SetSelectedQuantity);
 
-  const [opennotify, setOpennotify] = React.useState(false);
+  const SetSelectedProduct = useGameQueryStore((s) => s.SetSelectedProduct);
 
-  const [selectedId, setSelecetId] = React.useState(null);
+  const navigate = useNavigate();
 
-  const [selectedPurchase, setSelectedPurchase] = React.useState(null);
+  const handleProceed = (cart) => {
+    const data = { quantity: cart.quantity };
 
-  const { data, isLoading, refetch } = usePurcahse(currentUser._id);
+    SetSelectedQuantity(data);
 
-  const functionopenpopup = (id, purchase) => {
-    setSelecetId(id);
-    setSelectedPurchase(purchase);
-    openchange(true);
+    SetSelectedProduct(cart.product);
+
+    navigate("/checkout");
   };
-
-  // const handleDelete = (purchaseId) => {
-  //   console.log("submited");
-  //   setSelecetId(purchaseId);
-  //   setOpennotify(true);
-  // };
-
-  // const handleDeleteConfirm = () => {
-  //   purchaseService
-  //     .Delete(selectedId)
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
 
   return (
     <>
       <Container sx={{ margin: "150px", alignItems: "center" }}>
-        {data?.map((purchase) => (
-          <React.Fragment key={purchase._id}>
+        {data?.map((cart) => (
+          <React.Fragment key={cart._id}>
             <Grow
               in={true}
               style={{ transformOrigin: "0 0 0" }}
@@ -71,56 +57,42 @@ const OrderPage = () => {
                     sx={{ fontSize: "20px" }}
                   >
                     {" "}
-                    {purchase.product.name}{" "}
+                    {cart.product.name}{" "}
                   </AccordionSummary>
-                  <Typography
-                    sx={{
-                      alignItems: "flex-end",
-                      margin: "20px",
-                      color: purchase.approve ? "#16FF00" : "#FF0000",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {!purchase.approve ? "Processing" : "Approved"}
-                  </Typography>
                 </Box>
 
                 <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
                   <Typography sx={{ fontSize: "20px", marginLeft: "16px" }}>
-                    Total : {purchase.product.price * purchase.quantity * 20}
+                    Total : {cart.product.price * cart.quantity * 20}
                   </Typography>
                   <Typography sx={{ fontSize: "20px", marginLeft: "60px" }}>
-                    Category : {purchase.product.category}
+                    Category : {cart.product.category}
                   </Typography>
                   <Typography sx={{ fontSize: "20px", marginLeft: "60px" }}>
-                    Quantity : {purchase.quantity} packs
+                    Quantity : {cart.quantity} packs
                   </Typography>
                   <Typography sx={{ fontSize: "20px", marginLeft: "60px" }}>
-                    Order Date : {purchase.orderDate.substring(0, 10)}
+                    Order Date : {cart.orderDate.substring(0, 10)}
                   </Typography>
                 </Box>
 
-                <AccordionDetails>
-                  {purchase.product.description}
-                </AccordionDetails>
+                <AccordionDetails>{cart.product.description}</AccordionDetails>
                 <AccordionActions>
-                  {!purchase.approve ? (
-                    <Button
-                      variant="contained"
-                      sx={{
-                        background: "rgba(155, 207, 83, 0.8)",
-                        borderRadius: "10px",
-                        margin: "10px",
-                        color: "black",
-                      }}
-                      onClick={() => functionopenpopup(purchase._id, purchase)}
-                    >
-                      Edit
-                    </Button>
-                  ) : null}
+                  <Button
+                    variant="contained"
+                    sx={{
+                      background: "rgba(155, 207, 83, 0.8)",
+                      borderRadius: "10px",
+                      margin: "10px",
+                      color: "black",
+                    }}
+                    onClick={() => handleProceed(cart)}
+                  >
+                    Proceed
+                  </Button>
 
                   <Button
-                    onClick={() => handleDelete(purchase._id)}
+                    // onClick={() => handleDelete(purchase._id)}
                     variant="contained"
                     sx={{
                       background: "#DF2E38",
@@ -129,7 +101,7 @@ const OrderPage = () => {
                       margin: "10px",
                     }}
                   >
-                    {purchase.approve ? "Delete" : "Cancel"}
+                    Cancell
                   </Button>
                 </AccordionActions>
               </Accordion>
@@ -137,7 +109,6 @@ const OrderPage = () => {
           </React.Fragment>
         ))}
       </Container>
-    
     </>
   );
 };
