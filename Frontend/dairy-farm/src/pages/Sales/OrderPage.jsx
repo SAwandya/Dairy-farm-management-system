@@ -9,7 +9,8 @@ import { Box, Container, Typography, Grow } from "@mui/material";
 import { useAuth } from "../../contexts/AuthContext";
 import usePurcahse from "../../hooks/usePurchase";
 import OrderUpdatePopup from "../../components/Sales/OrderUpdatePopup";
-import DialogBox from "../../components/Sales/DialogBox";
+import MessagePop from "../../components/Sales/MessagePop";
+import purchaseService from "../../services/Sales/purchaseService";
 
 const OrderPage = () => {
   const { getCurrentUser } = useAuth();
@@ -17,6 +18,8 @@ const OrderPage = () => {
   const currentUser = getCurrentUser();
 
   const [open, openchange] = React.useState(false);
+
+  const [opennotify, setOpennotify] = React.useState(false);
 
   const [selectedId, setSelecetId] = React.useState(null);
 
@@ -30,10 +33,22 @@ const OrderPage = () => {
     openchange(true);
   };
 
-  const handleDelete = () => {
+  const handleDelete = (purchaseId) => {
+    console.log("submited");
+    setSelecetId(purchaseId);
+    setOpennotify(true);
+  };
 
-
-  }
+  const handleDeleteConfirm = () => {
+    purchaseService
+      .Delete(selectedId)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
@@ -105,7 +120,7 @@ const OrderPage = () => {
                   ) : null}
 
                   <Button
-                    onClick={() => handleDelete()}
+                    onClick={() => handleDelete(purchase._id)}
                     variant="contained"
                     sx={{
                       background: "#DF2E38",
@@ -130,7 +145,12 @@ const OrderPage = () => {
         refetch={refetch}
       />
 
-      
+      <MessagePop
+        opennotify={opennotify}
+        setOpennotify={setOpennotify}
+        refetch={refetch}
+        handlefunction={handleDeleteConfirm}
+      />
     </>
   );
 };
