@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import {
   MRT_EditActionButtons,
   MaterialReactTable,
-  // createRow,
   useMaterialReactTable,
 } from "material-react-table";
 import {
@@ -13,6 +12,7 @@ import {
   DialogTitle,
   IconButton,
   Tooltip,
+  MenuItem,
 } from "@mui/material";
 import {
   QueryClient,
@@ -21,7 +21,6 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { fakeData, usStates } from "./makeData";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -34,8 +33,9 @@ const SupplierTable = () => {
         accessorKey: "_id",
         header: "Id",
         enableEditing: false,
-        size: 80,
+        size: 0,
         className: "hidden",
+        hidden: true,
       },
       {
         accessorKey: "name",
@@ -82,6 +82,28 @@ const SupplierTable = () => {
               ...validationErrors,
               itemType: undefined,
             }),
+        },
+      },
+      {
+        accessorKey: "supplierType",
+        header: "Supplier Type",
+        muiEditSelectFieldProps: {
+          required: true,
+          error: !!validationErrors?.supplierType,
+          helperText: validationErrors?.supplierType,
+          onFocus: () =>
+            setValidationErrors({
+              ...validationErrors,
+              supplierType: undefined,
+            }),
+          children: [
+            <MenuItem key="Contracted" value="Contracted">
+              Contracted
+            </MenuItem>,
+            <MenuItem key="Permanent" value="Permanent">
+              Permanent
+            </MenuItem>,
+          ],
         },
       },
       {
@@ -204,7 +226,7 @@ const SupplierTable = () => {
       </>
     ),
     renderRowActions: ({ row, table }) => (
-      <Box sx={{ display: "flex", gap: "1rem" }}>
+      <Box sx={{ display: "flex", gap: "1rem", justifyContent: "flex-end" }}>
         <Tooltip title="Edit">
           <IconButton onClick={() => table.setEditingRow(row)}>
             <EditIcon />
@@ -254,7 +276,7 @@ function useCreateUser() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({...user, _id: undefined}),
+        body: JSON.stringify({...user, _id: undefined, supplierType: user.supplierType}),
       });
       return response.json();
     },
@@ -293,7 +315,7 @@ function useUpdateUser() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({...user, _id: undefined}),
+            body: JSON.stringify({...user, _id: undefined, supplierType: user.supplierType}),
         }
       );
       return response.json();
@@ -356,6 +378,7 @@ function validateUser(user) {
       : "",
     lastName: !validateRequired(user.lastName) ? "Last Name is Required" : "",
     email: !validateEmail(user.email) ? "Incorrect Email Format" : "",
+    supplierType: !validateRequired(user.supplierType) ? "Supplier Type is Required" : "",
   };
 
 }

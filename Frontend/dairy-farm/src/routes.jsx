@@ -47,6 +47,7 @@ import AddNewTank from "./pages/Milking/AddNewTank";
 import PasturePage from "./pages/Grazing/PasturePage";
 
 import Session from "./pages/Grazing/GrazingSession";
+import CartPage from "./pages/Sales/CartPage";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <OrderPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/salescarts",
+        element: (
+          <ProtectedRoute>
+            <CartPage/>
           </ProtectedRoute>
         ),
       },
@@ -128,7 +137,7 @@ const router = createBrowserRouter([
     path: "/breedAnim",
     element: <BreedCard />,
   },
-  
+
   {
     path: "/milkingdashboard",
     element: <MilkingDashboard />,
@@ -187,7 +196,7 @@ const router = createBrowserRouter([
   //Production Management Paths
   { path: "/productiondashboard", element: <ProductionDashboard /> },
   { path: "/processplanning", element: <ProcessPlanning /> },
-  { path: "/StorageRoom", element: <StorageRoom /> } ,  
+  { path: "/StorageRoom", element: <StorageRoom /> },
 
   {
     path: "/financetrans",
@@ -210,7 +219,7 @@ const router = createBrowserRouter([
     path: "/pasture",
     element: <PasturePage />,
   },
-  
+
   {
     path: "/session",
     element: <Session />,
