@@ -1,21 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Grid, TableContainer, Paper, Pagination } from '@mui/material';
 import TankCard from './TankCard';
+import axios from 'axios';
 
 const TankContainer = () => {
-  
-  const tanks = [
-    { id: 1, tankId: '#0001', capacity: 4000, availableMilk: 4000, storedBatches: ['M001', 'M002'] },
-    { id: 2, tankId: '#0002', capacity: 5000, availableMilk: 2500, storedBatches: ['M003', 'M004'] },
-    { id: 3, tankId: '#0003', capacity: 4500, availableMilk: 1200, storedBatches: ['M005', 'M006'] },
-    { id: 4, tankId: '#0004', capacity: 4000, availableMilk: 1000, storedBatches: ['M001', 'M002'] },
-    { id: 5, tankId: '#0005', capacity: 5000, availableMilk: 500, storedBatches: ['M003', 'M004'] },
-    { id: 6, tankId: '#0006', capacity: 4500, availableMilk: 3200, storedBatches: ['M005', 'M006'] }
-  ];
 
-  const [page, setPage] = React.useState(1);
+  const [tanks, setTanks] = useState([]);
+  const [page, setPage] = useState(1);
   const tanksPerPage = 3;
-  const totalPages = Math.ceil(tanks.length / tanksPerPage);
+  const [totalPages, setTotalPages] = useState(1); 
+
+  useEffect(() => {
+    const fetchTanks = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/storageTank');
+        if (response.data.success) {
+          setTanks(response.data.data);
+          setTotalPages(Math.ceil(response.data.data.length / tanksPerPage));
+        } else {
+          console.error('Failed to fetch storage tanks:', response.data.error);
+        }
+      } catch (error) {
+        console.error('Error fetching storage tanks:', error);
+      }
+    };
+
+    fetchTanks();
+  }, []);
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -30,17 +41,26 @@ const TankContainer = () => {
             style={{
                 fontFamily: 'Poppins',
                 paddingLeft: '24px',
-                paddingTop: '24px'
+                paddingTop: '16px'
             }}
         >Storage</h2>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', padding: '24px', paddingTop: '0px', width: '80vw' }}>
-            <Grid style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '24px', width: '80vw'}}>
-                {tanks.slice(startIndex, endIndex).map((tank) => (
-                <Grid key={tank.id} item xs={4}>
-                    <TankCard tank={tank} />
-                </Grid>
-                ))}
+        <Grid
+          style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'space-between',
+            padding: '24px',
+            paddingTop: '10px',
+            width: '80vw'
+          }}
+        >
+          {tanks.slice(startIndex, endIndex).map((tank) => (
+            <Grid key={tank._id} item xs={4}>
+              <TankCard tank={{ ...tank}} />
             </Grid>
+          ))}
+        </Grid>
             <Pagination
                 count={totalPages}
                 page={page}
