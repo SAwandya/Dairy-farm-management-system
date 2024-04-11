@@ -142,6 +142,9 @@ function ProductBatchForm({ onSubmitSuccess }) {
               type="date"
               value={manufactureDate}
               onChange={(e) => setManufactureDate(e.target.value)}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             <TextField
               fullWidth
@@ -151,6 +154,9 @@ function ProductBatchForm({ onSubmitSuccess }) {
               type="time"
               value={manufactureTime}
               onChange={(e) => setManufactureTime(e.target.value)}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             <TextField
               fullWidth
@@ -160,6 +166,9 @@ function ProductBatchForm({ onSubmitSuccess }) {
               type="date"
               value={expiryDate}
               onChange={(e) => setExpiryDate(e.target.value)}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             <TextField
               fullWidth
@@ -168,6 +177,7 @@ function ProductBatchForm({ onSubmitSuccess }) {
               label="Batch Id"
               value={batchId}
               onChange={(e) => setBatchId(e.target.value)} />
+             
           {/*  <FormControlLabel
               control={<Checkbox checked={released} onChange={(e) => setReleased(e.target.checked)} />}
               label="Released"
