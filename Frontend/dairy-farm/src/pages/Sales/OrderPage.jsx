@@ -9,6 +9,7 @@ import { Box, Container, Typography, Grow } from "@mui/material";
 import { useAuth } from "../../contexts/AuthContext";
 import usePurcahse from "../../hooks/usePurchase";
 import OrderUpdatePopup from "../../components/Sales/OrderUpdatePopup";
+import DialogBox from "../../components/Sales/DialogBox";
 
 const OrderPage = () => {
   const { getCurrentUser } = useAuth();
@@ -28,6 +29,11 @@ const OrderPage = () => {
     setSelectedPurchase(purchase);
     openchange(true);
   };
+
+  const handleDelete = () => {
+
+
+  }
 
   return (
     <>
@@ -66,13 +72,13 @@ const OrderPage = () => {
 
                 <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
                   <Typography sx={{ fontSize: "20px", marginLeft: "16px" }}>
-                    Total : {purchase.product.price}
+                    Total : {purchase.product.price * purchase.quantity * 20}
                   </Typography>
                   <Typography sx={{ fontSize: "20px", marginLeft: "60px" }}>
                     Category : {purchase.product.category}
                   </Typography>
                   <Typography sx={{ fontSize: "20px", marginLeft: "60px" }}>
-                    Quantity : {purchase.product.quantity} packs
+                    Quantity : {purchase.quantity} packs
                   </Typography>
                   <Typography sx={{ fontSize: "20px", marginLeft: "60px" }}>
                     Order Date : {purchase.orderDate.substring(0, 10)}
@@ -99,6 +105,7 @@ const OrderPage = () => {
                   ) : null}
 
                   <Button
+                    onClick={() => handleDelete()}
                     variant="contained"
                     sx={{
                       background: "#DF2E38",
@@ -122,6 +129,8 @@ const OrderPage = () => {
         purchase={selectedPurchase}
         refetch={refetch}
       />
+
+      
     </>
   );
 };

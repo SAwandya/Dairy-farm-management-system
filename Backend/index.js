@@ -25,6 +25,7 @@ const pasture=require("./routes/pastureDetails");
 const temperatureSendRcv = require("./routes/temperatureSendRcv");
 const payment = require("./routes/payments");
 const cart = require("./routes/Carts");
+const salesDelivery = require("./routes/salesDelivery");
 
 if (!config.get("jwtPrivateKey")) {
   console.log("FATA ERROR: jwtPrivateKey is not defined");
@@ -81,6 +82,8 @@ app.use("/api/pastureDetails",pasture);
 app.use("/api/payments", payment);
 
 app.use("/api/carts", cart);
+
+app.use("/api/salesdelivery", salesDelivery);
 
 const server = http.createServer(app); // Create an HTTP server using Express app
 
