@@ -28,6 +28,7 @@ import HomePageM from "./pages/HomeMain";
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 import SupplierOrder from "./pages/Supplier/SupplierOrder";
 import ItemDashboard from "./pages/Supplier/ItemDashboard";
+import InventoryDashboard from "./pages/Supplier/InventoryDashboard";
 import Health from "./pages/Veterinary/health";
 import VaccineAnim from "./pages/Veterinary/vaccineAnim";
 import BreedCard from "./pages/Veterinary/breedPage";
@@ -161,6 +162,10 @@ const router = createBrowserRouter([
   {
     path: "/item",
     element: <ItemDashboard />,
+  },
+  {
+    path: "/inventory",
+    element: <InventoryDashboard />,
   },
   {
     path: "/financedashboard",
