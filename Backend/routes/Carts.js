@@ -21,7 +21,13 @@ router.post("/", async (req, res) => {
   const customer = await Customer.findById(req.body.customerId);
   if (!customer) return res.status(400).send("Invalide customer");
 
-  const product = await Product.findById(req.body.productId);
+  const product = await Product.findByIdAndUpdate(
+    req.body.productId,
+    {
+      $inc: { quantity: -req.body.quantity },
+    },
+    { quantity: true }
+  );
   if (!product) return res.status(400).send("Invalide product");
 
   let cart = new Cart({
@@ -34,3 +40,5 @@ router.post("/", async (req, res) => {
 
   res.send(cart);
 });
+
+module.exports = router;
