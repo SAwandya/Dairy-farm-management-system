@@ -1,118 +1,115 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, Grid, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Dialog, DialogContent, TextField, Button, DialogActions } from '@mui/material';
 
 function PastureForm({ open, handleClose, handleSubmit, initialData }) {
-  const [formData, setFormData] = useState({
-    area: '',
-    fertilizerUsed: '',
-    feedingCapacity: '',
-    assignedEmployee: '',
-    typeOfPlantsPlanted: '',
-  });
-
-  useEffect(() => {
-    if (initialData) {
-      setFormData(initialData);
-    }
-  }, [initialData]);
-
+  const [formData, setFormData] = useState(initialData || {});
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    setFormData(initialData || {});
+  }, [initialData]);
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: null,
+    }));
   };
 
-  const validateForm = () => {
+  const handleFormSubmit = () => {
     const newErrors = {};
-    if (!formData.area) {
+    if (!formData.area || formData.area.trim() === '') {
       newErrors.area = 'Area is required';
     }
-    // Add more validation for other fields
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      handleSubmit(formData);
-      handleClose();
+    if (!formData.fertilizerUsed || formData.fertilizerUsed.trim() === '') {
+      newErrors.fertilizerUsed = 'Fertilizer Used is required';
     }
+    if (!formData.feedingCapacity || isNaN(formData.feedingCapacity)) {
+      newErrors.feedingCapacity = 'Feeding Capacity must be a number';
+    }
+    if (!formData.assignedEmployee || formData.assignedEmployee.trim() === '') {
+      newErrors.assignedEmployee = 'Assigned Employee is required';
+    }
+    if (!formData.typeOfPlantsPlanted || formData.typeOfPlantsPlanted.trim() === '') {
+      newErrors.typeOfPlantsPlanted = 'Type of Plants Planted is required';
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    handleSubmit(formData);
+    handleClose();
   };
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>{initialData ? 'Edit' : 'Add'} Pasture Block</DialogTitle>
       <DialogContent>
-        <form onSubmit={handleFormSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <TextField
-                  id="area"
-                  name="area"
-                  label="Area"
-                  value={formData.area}
-                  onChange={handleChange}
-                  error={!!errors.area}
-                  helperText={errors.area}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <TextField
-                  id="fertilizerUsed"
-                  name="fertilizerUsed"
-                  label="Fertilizer Used"
-                  value={formData.fertilizerUsed}
-                  onChange={handleChange}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <TextField
-                  id="feedingCapacity"
-                  name="feedingCapacity"
-                  label="Feeding Capacity"
-                  value={formData.feedingCapacity}
-                  onChange={handleChange}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <TextField
-                  id="assignedEmployee"
-                  name="assignedEmployee"
-                  label="Assigned Employee"
-                  value={formData.assignedEmployee}
-                  onChange={handleChange}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <TextField
-                  id="typeOfPlantsPlanted"
-                  name="typeOfPlantsPlanted"
-                  label="Type of Plants Planted"
-                  value={formData.typeOfPlantsPlanted}
-                  onChange={handleChange}
-                />
-              </FormControl>
-            </Grid>
-          </Grid>
-        </form>
+        <TextField
+          autoFocus
+          margin="dense"
+          id="area"
+          name="area"
+          label="Area"
+          fullWidth
+          value={formData.area || ''}
+          onChange={handleChange}
+          error={!!errors.area}
+          helperText={errors.area}
+        />
+        <TextField
+          margin="dense"
+          id="fertilizerUsed"
+          name="fertilizerUsed"
+          label="Fertilizer Used"
+          fullWidth
+          value={formData.fertilizerUsed || ''}
+          onChange={handleChange}
+          error={!!errors.fertilizerUsed}
+          helperText={errors.fertilizerUsed}
+        />
+        <TextField
+          margin="dense"
+          id="feedingCapacity"
+          name="feedingCapacity"
+          label="Feeding Capacity"
+          fullWidth
+          type="number"
+          value={formData.feedingCapacity || ''}
+          onChange={handleChange}
+          error={!!errors.feedingCapacity}
+          helperText={errors.feedingCapacity}
+        />
+        <TextField
+          margin="dense"
+          id="assignedEmployee"
+          name="assignedEmployee"
+          label="Assigned Employee"
+          fullWidth
+          value={formData.assignedEmployee || ''}
+          onChange={handleChange}
+          error={!!errors.assignedEmployee}
+          helperText={errors.assignedEmployee}
+        />
+        <TextField
+          margin="dense"
+          id="typeOfPlantsPlanted"
+          name="typeOfPlantsPlanted"
+          label="Type of Plants Planted"
+          fullWidth
+          value={formData.typeOfPlantsPlanted || ''}
+          onChange={handleChange}
+          error={!!errors.typeOfPlantsPlanted}
+          helperText={errors.typeOfPlantsPlanted}
+        />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="secondary">
-          Cancel
-        </Button>
-        <Button onClick={handleFormSubmit} variant="contained" color="primary">
-          {initialData ? 'Save' : 'Submit'}
-        </Button>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleFormSubmit}>Submit</Button>
       </DialogActions>
     </Dialog>
   );
