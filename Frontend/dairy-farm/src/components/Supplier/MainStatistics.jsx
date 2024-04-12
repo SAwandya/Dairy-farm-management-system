@@ -29,7 +29,7 @@ function MainStatistics() {
                     icon='../../../src/assets/icon1.png'
                 />
                 <StatsCard
-                    title='Permanent'
+                    title='Listed'
                     value='2'
                     icon='../../../src/assets/icon2.png'
                 />

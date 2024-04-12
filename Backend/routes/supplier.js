@@ -15,7 +15,6 @@ router.post('/', async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         itemType: req.body.itemType,
-        supplierType: req.body.supplierType,
         deliveryDate: req.body.deliveryDate
     });
     supplier = await supplier.save();
@@ -45,7 +44,6 @@ router.put('/:id', async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         itemType: req.body.itemType,
-        supplierType: req.body.supplierType, 
         deliveryDate: req.body.deliveryDate
     }, { new: true });
 

@@ -19,14 +19,13 @@ const milkingSessions = require("./routes/milkingSessionRoute");
 const order = require("./routes/order");
 const item = require("./routes/item");
 const milkingData = require("./routes/milkingDataRoute");
+const processCrud = require("./routes/processCrud");
 const pdf = require("./routes/pdf");
 const pasture=require("./routes/pastureDetails");
 const temperatureSendRcv = require("./routes/temperatureSendRcv");
-const processCrud = require("./routes/processCrud");
-const productBatchCrud = require("./routes/productBatchCrud");
 const payment = require("./routes/payments");
 const session=require("./routes/sessions");
-const waste=require("./routes/effluentRoutes");
+const effluentRoutes=require("./routes/effluentRoutes");
 
 if (!config.get("jwtPrivateKey")) {
   console.log("FATA ERROR: jwtPrivateKey is not defined");
@@ -72,10 +71,9 @@ app.use("/api/milkingSessions", milkingSessions);
 
 app.use("/api/milkingData", milkingData);
 
-//production management
 app.use("/api/processCrud", processCrud);
+
 app.use("/api/temperatureSendRcv", temperatureSendRcv);
-app.use("/api/productBatchCrud", productBatchCrud);
 
 app.use("/api/invoice", pdf);
 
@@ -83,10 +81,9 @@ app.use("/api/pastureDetails",pasture);
 
 app.use("/api/payments", payment);
 
-
 app.use("/api/sessions", session);
 
-app.use("/api/effluentRoutes",waste);
+app.use("/api/effluentRoutes",effluentRoutes);
 
 const server = http.createServer(app); // Create an HTTP server using Express app
 

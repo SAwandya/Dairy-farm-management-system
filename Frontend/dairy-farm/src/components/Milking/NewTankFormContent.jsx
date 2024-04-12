@@ -23,6 +23,7 @@ const NewTankFormContent = () => {
             specialNotes
         })
         .then(result => {
+            // console.log(result);
             navigate('/milkingStorage');
             Swal.fire({
                 position: "top-end",
@@ -70,7 +71,7 @@ const NewTankFormContent = () => {
                         <TextField
                             name="tankId"
                             label="Tank ID:"
-                            type="number"
+                            type="string"
                             value={tankId}
                             onChange={(e) => setTankId(e.target.value)}
                             fullWidth

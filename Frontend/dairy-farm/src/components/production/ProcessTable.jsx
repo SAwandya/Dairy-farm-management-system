@@ -67,8 +67,6 @@ function ProcessTable() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[1, 5, 10, 20, 24]}
-      
-     
       />
     </Paper>
     
