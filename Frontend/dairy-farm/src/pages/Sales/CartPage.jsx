@@ -14,6 +14,7 @@ import purchaseService from "../../services/Sales/purchaseService";
 import useCart from "../../hooks/useCarts";
 import useGameQueryStore from "../../store";
 import { useNavigate } from "react-router-dom";
+import addCartService from "../../services/Sales/addCartService";
 
 const OrderPage = () => {
   const { getCurrentUser } = useAuth();
@@ -23,6 +24,12 @@ const OrderPage = () => {
   const SetSelectedQuantity = useGameQueryStore((s) => s.SetSelectedQuantity);
 
   const SetSelectedProduct = useGameQueryStore((s) => s.SetSelectedProduct);
+
+  const [open, openchange] = React.useState(false);
+
+  const [opennotify, setOpennotify] = React.useState(false);
+
+  const [selectedId, setSelecetId] = React.useState(null);
 
   const navigate = useNavigate();
 
@@ -34,6 +41,23 @@ const OrderPage = () => {
     SetSelectedProduct(cart.product);
 
     navigate("/checkout");
+  };
+
+  const handleDelete = (cartId) => {
+    console.log("submited");
+    setSelecetId(cartId);
+    setOpennotify(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    addCartService
+      .delete(selectedId)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -92,7 +116,7 @@ const OrderPage = () => {
                   </Button>
 
                   <Button
-                    // onClick={() => handleDelete(purchase._id)}
+                    onClick={() => handleDelete(cart._id)}
                     variant="contained"
                     sx={{
                       background: "#DF2E38",
@@ -109,6 +133,13 @@ const OrderPage = () => {
           </React.Fragment>
         ))}
       </Container>
+
+      <MessagePop
+        opennotify={opennotify}
+        setOpennotify={setOpennotify}
+        refetch={refetch}
+        handlefunction={handleDeleteConfirm}
+      />
     </>
   );
 };
