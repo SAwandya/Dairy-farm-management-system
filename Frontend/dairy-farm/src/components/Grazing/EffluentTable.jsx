@@ -103,7 +103,7 @@ function EffluentTable({ rows, headers, handleEdit, handleDelete }) {
                   </TableSortLabel>
                 </StyledTableCell>
               ))}
-              <StyledTableCell>Action</StyledTableCell>
+             
             </TableRow>
           </TableHead>
           <TableBody>
@@ -114,14 +114,7 @@ function EffluentTable({ rows, headers, handleEdit, handleDelete }) {
                     {row[key]}
                   </StyledTableCell>
                 ))}
-                <StyledTableCell>
-                  <IconButton onClick={() => handleEdit(row._id)} color="primary">
-                    <Edit />
-                  </IconButton>
-                  <IconButton onClick={() => handleDelete(row._id)} color="secondary">
-                    <Delete />
-                  </IconButton>
-                </StyledTableCell>
+                
               </StyledTableRow>
             ))}
             {emptyRows > 0 && (

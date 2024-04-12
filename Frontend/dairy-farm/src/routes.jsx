@@ -49,10 +49,6 @@ import PasturePage from "./pages/Grazing/PasturePage";
 import SessionPage from "./pages/Grazing/SessionPage";
 import Report from "./pages/Grazing/Report";
 import EffluentPage from "./pages/Grazing/EffluentPage";
-import { RemoveFromQueue } from "@mui/icons-material";
-import Session from "./pages/Grazing/GrazingSession";
-import CartPage from "./pages/Sales/CartPage";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -234,6 +230,16 @@ const router = createBrowserRouter([
     path: "/waste",
     element: <EffluentPage />,
   },
+  {
+    path: "/dashboard",
+    element: <GrazingDashboard />,
+  },
+  {
+    path: "/rotation",
+    element: <RotationInfo />,
+  },
+
+  
 
   {
     path: "/task",

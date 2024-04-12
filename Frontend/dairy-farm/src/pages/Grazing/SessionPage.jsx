@@ -7,7 +7,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import SessionForm from '../../components/Grazing/SessionForm';
 
-axios.defaults.baseURL = 'http://localhost:3000/api/sessions'; // Updated baseURL
+
 
 function SessionPage() {
   const [dataList, setDataList] = useState([]);
@@ -68,8 +68,8 @@ function SessionPage() {
   const handleNewSessionSubmit = async (newSessionData) => {
     try {
       const response = editFormData ?
-        await axios.put(`/sessions/${editFormData._id}`, newSessionData) :
-        await axios.post('/sessions', newSessionData);
+        await axios.put(`http://localhost:3000/api/sessions/${editFormData._id}`, newSessionData) :
+        await axios.post('http://localhost:3000/api/sessions', newSessionData);
 
       if (response.status === 200 || response.status === 201) {
         fetchData();

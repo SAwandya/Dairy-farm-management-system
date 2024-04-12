@@ -103,7 +103,7 @@ function GrazingTable({ rows, headers }) {
                   </TableSortLabel>
                 </StyledTableCell>
               ))}
-              <StyledTableCell>Action</StyledTableCell> {/* Action column added here */}
+              
             </TableRow>
           </TableHead>
           <TableBody>
@@ -114,14 +114,7 @@ function GrazingTable({ rows, headers }) {
                     {value}
                   </StyledTableCell>
                 ))}
-                <StyledTableCell>
-                  <IconButton onClick={() => console.log('Edit clicked')} color="primary">
-                    <Edit />
-                  </IconButton>
-                  <IconButton onClick={() => console.log('Delete clicked')} color="secondary">
-                    <Delete />
-                  </IconButton>
-                </StyledTableCell>
+                
               </StyledTableRow>
             ))}
             {emptyRows > 0 && (
