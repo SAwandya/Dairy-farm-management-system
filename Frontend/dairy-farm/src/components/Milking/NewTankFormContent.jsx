@@ -15,7 +15,7 @@ const NewTankFormContent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        axios.post("http://localhost:3000/api/storageTank", {
+        axios.post("http://localhost:3000/api/milkingStorage", {
             tankId,
             capacity,
             installedDate,
