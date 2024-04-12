@@ -61,7 +61,7 @@ function ProcessCardContainer() {
           const currentTimeString = `${hours}:${minutes}`;
           console.log('current time :', currentTimeString);
 
-          if (schDate === currentDate && process.scheduleTime === currentTimeString) 
+          if (schDate === currentDate && process.scheduleTime <= currentTimeString) 
           {
             return true; // Show processes scheduled for today
           }
