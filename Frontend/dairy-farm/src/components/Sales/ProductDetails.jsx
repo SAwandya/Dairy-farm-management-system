@@ -15,6 +15,7 @@ import { Alert } from "@mui/material";
 import purchaseService from "../../services/Sales/purchaseService";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import addCartService from "../../services/Sales/addCartService";
 
 const ProductDetails = () => {
   const {
@@ -27,12 +28,15 @@ const ProductDetails = () => {
 
   const SetSelectedQuantity = useGameQueryStore((s) => s.SetSelectedQuantity);
 
+  const selectedBuyAddButton = useGameQueryStore((s) => s.selectedBuyAddButton);
+
+  const { getCurrentUser } = useAuth();
+
   let navigate = useNavigate();
 
-  const [ error, setError ] = useState(null);
+  const [error, setError] = useState(null);
 
   const onSubmit = (data) => {
-
     if (data.quantity > selectedProduct.quantity) {
       setError(
         "Quantity entered " +
@@ -44,10 +48,26 @@ const ProductDetails = () => {
     } else {
       setError(null);
       SetSelectedQuantity(data);
-      navigate("/checkout");
-    }
+      if (selectedBuyAddButton == "buy") {
+        navigate("/checkout");
+      } else {
+        const cart = {
+          quantity: data.quantity,
+          productId: selectedProduct._id,
+          customerId: getCurrentUser()._id,
+        };
 
-    
+        addCartService
+          .post(cart)
+          .then((res) => {
+            console.log(res.data);
+            navigate("/salescarts");
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
+    }
   };
 
   React.useEffect(() => {
@@ -129,7 +149,7 @@ const ProductDetails = () => {
                   Buy
                 </Button>
 
-                <Link to='/'>
+                <Link to="/">
                   <Button
                     type="submit"
                     variant="contained"
@@ -137,7 +157,7 @@ const ProductDetails = () => {
                       backgroundColor: "#DF2E38",
                       marginTop: "20px",
                       marginLeft: "10px",
-                      color: 'black'
+                      color: "black",
                     }}
                   >
                     Cancel
