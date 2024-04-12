@@ -21,6 +21,7 @@ import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
 import ProductionDashboard from "./pages/Production/ProductionDashboard";
 import ProcessPlanning from "./pages/Production/ProcessPlanning";
 import StorageRoom from "./pages/Production/StorageRoom"
+import ProductInventory from "./pages/Production/ProductInventory";
 
 import MilkingSessions from './pages/Milking/MilkingSessions';
 import MilkingSessionSchedule from './pages/Milking/MilkingSessionSchedule';
@@ -48,9 +49,6 @@ import PasturePage from "./pages/Grazing/PasturePage";
 import SessionPage from "./pages/Grazing/SessionPage";
 import Report from "./pages/Grazing/Report";
 import EffluentPage from "./pages/Grazing/EffluentPage";
-import GrazingDashboard from "./pages/Grazing/GrazingDashboard";
-import RotationInfo from "./pages/Grazing/RotationInfo";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -78,6 +76,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <OrderPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/salescarts",
+        element: (
+          <ProtectedRoute>
+            <CartPage/>
           </ProtectedRoute>
         ),
       },
@@ -131,7 +137,7 @@ const router = createBrowserRouter([
     path: "/breedAnim",
     element: <BreedCard />,
   },
-  
+
   {
     path: "/milkingdashboard",
     element: <MilkingDashboard />,
@@ -182,15 +188,13 @@ const router = createBrowserRouter([
     element: <AddNewTank />,
   },
 
-  {
-    path: "/homeM",
-    element: <HomePageM />,
-  },
+  { path: "/homeM", element: <HomePageM />},
 
   //Production Management Paths
   { path: "/productiondashboard", element: <ProductionDashboard /> },
   { path: "/processplanning", element: <ProcessPlanning /> },
   { path: "/StorageRoom", element: <StorageRoom /> } ,  
+  { path: "/ProductInventory", element: <ProductInventory/> },
 
   {
     path: "/financetrans",
@@ -213,7 +217,7 @@ const router = createBrowserRouter([
     path: "/pasture",
     element: <PasturePage />,
   },
-  
+
   {
     path: "/session",
     element: <SessionPage />,
