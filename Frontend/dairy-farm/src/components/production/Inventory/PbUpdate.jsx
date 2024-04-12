@@ -5,7 +5,7 @@ import MuiAlert from '@mui/material/Alert';
 import { Edit as EditIcon } from '@mui/icons-material';
 import axios from 'axios';
 
-function ProductBatchForm({  id ,onSubmitSuccess }) {
+function ProductBatchForm({  id ,onUpdated }) {
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState('');
   const [milkQuantity, setMilkQuantity] = useState('');
@@ -28,12 +28,14 @@ function ProductBatchForm({  id ,onSubmitSuccess }) {
     try {
       const response = await axios.get(`http://localhost:3000/api/ProductBatchCrud/productBatch/${id}`);
       const productBatchData = response.data;
+      const formattedManufactureDate = new Date(productBatchData.manufactureDate).toISOString().split('T')[0];
+      const formattedExpiryDate = new Date(productBatchData.expiryDate).toISOString().split('T')[0];
       setProduct(productBatchData.name);
       setMilkQuantity(productBatchData.variant);
       setQuantity(productBatchData.quantity);
-      setManufactureDate(productBatchData.manufactureDate);
+      setManufactureDate(formattedManufactureDate);
       setManufactureTime(productBatchData.manufactureTime);
-      setExpiryDate(productBatchData.expiryDate);
+      setExpiryDate(formattedExpiryDate);
       setBatchId(productBatchData.batchId);
     } catch (error) {
       console.error('Error fetching product batch data:', error);
@@ -66,6 +68,7 @@ function ProductBatchForm({  id ,onSubmitSuccess }) {
         batchId,
       };
       await updateProductBatch(id, formData);
+      onUpdated();
       setSuccessMessage('Product batch updated successfully');
       onSubmitSuccess(); // Notify parent component about the success
     } catch (error) {
