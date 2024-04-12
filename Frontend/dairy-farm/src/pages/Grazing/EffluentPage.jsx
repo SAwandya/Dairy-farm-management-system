@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Card, CardContent, IconButton, Tooltip } from '@mui/material';
 import { AddCircleOutline, Edit, Delete } from '@mui/icons-material';
-import GrazingTable from '../../components/Grazing/GrazingTable';
-import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
+import EffluentTable from '../../components/Grazing/EffluentTable';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import PastureForm from '../../components/Grazing/PastureForm';
+import EffluentForm from '../../components/Grazing/EffluentForm';
+import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
 
-function PasturePage() {
+function EffluentPage() {
   const [dataList, setDataList] = useState([]);
   const [openFormDialog, setOpenFormDialog] = useState(false);
   const [editFormData, setEditFormData] = useState(null);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/pastureDetails'); // Corrected base URL
+      const response = await axios.get('http://localhost:3000/api/effluentRoutes');
       setDataList(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -30,28 +26,32 @@ function PasturePage() {
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:3000/api/pastureDetails/delete/${id}`); // Corrected URL
+      const response = await axios.delete(`http://localhost:3000/api/effluentRoutes/delete/${id}`);
       if (response.status === 200) {
         fetchData();
         Swal.fire({
           title: 'Deleted!',
-          text: 'The pasture detail has been deleted.',
+          text: 'The effluent detail has been deleted.',
           icon: 'success'
         });
       } else {
         Swal.fire({
           title: 'Error!',
-          text: 'Failed to delete the pasture detail.',
+          text: 'Failed to delete the effluent detail.',
           icon: 'error'
         });
       }
     } catch (error) {
-      console.error('Error deleting pasture:', error);
+      console.error('Error deleting effluent:', error);
       Swal.fire({
         title: 'Error!',
-        text: 'Failed to delete pasture detail. Please try again later.',
+        text: 'Failed to delete effluent detail. Please try again later.',
         icon: 'error',
       });
     }
@@ -63,37 +63,37 @@ function PasturePage() {
     setOpenFormDialog(true);
   };
 
-  const handleNewPastureSubmit = async (newPastureData) => {
+  const handleNewEffluentSubmit = async (newEffluentData) => {
     try {
       if (editFormData) {
-        const response = await axios.put(`http://localhost:3000/api/pastureDetails/update/${editFormData._id}`, newPastureData); // Corrected URL
+        const response = await axios.put(`http://localhost:3000/api/effluentRoutes/update/${editFormData._id}`, newEffluentData);
         if (response.status === 200) {
           fetchData();
           Swal.fire({
             title: 'Success!',
-            text: 'Pasture block updated successfully.',
+            text: 'Effluent detail updated successfully.',
             icon: 'success',
           });
         } else {
           Swal.fire({
             title: 'Error!',
-            text: 'Failed to update pasture block.',
+            text: 'Failed to update effluent detail.',
             icon: 'error',
           });
         }
       } else {
-        const response = await axios.post('http://localhost:3000/api/pastureDetails/add', newPastureData); // Corrected URL
+        const response = await axios.post('http://localhost:3000/api/effluentRoutes/add', newEffluentData);
         if (response.status === 201) {
           fetchData();
           Swal.fire({
             title: 'Success!',
-            text: 'New pasture block added successfully.',
+            text: 'New effluent detail added successfully.',
             icon: 'success',
           });
         } else {
           Swal.fire({
             title: 'Error!',
-            text: 'Failed to add new pasture block.',
+            text: 'Failed to add new effluent detail.',
             icon: 'error',
           });
         }
@@ -109,11 +109,10 @@ function PasturePage() {
   };
 
   const headers = [
-    'Area',
-    'Fertilizer Used',
-    'Feeding Capacity',
-    'Assigned Employee',
-    'Type of Plants Planted',
+    'Date',
+    'Grazing Area',
+    'Amount of Waste Collected (kg)',
+    'Type of Waste',
     'Action',
   ];
 
@@ -129,10 +128,10 @@ function PasturePage() {
           minHeight: '100vh',
         }}
       >
-        <Grid container spacing={2} justifyContent="center" style={{ width: '100%', marginRight: '3rem',marginLeft: '8rem' }}>
+        <Grid container spacing={2} justifyContent="center" style={{ width: '100%', marginRight: '3rem', marginLeft: '8rem' }}>
           <Grid item xs={12}>
             <Grid container justifyContent="flex-end">
-              <Tooltip title="Add New Pasture Block">
+              <Tooltip title="Add New Effluent Detail">
                 <IconButton
                   onClick={() => setOpenFormDialog(true)}
                   style={{ marginTop: '1rem', marginRight: '1rem' }}
@@ -142,17 +141,16 @@ function PasturePage() {
               </Tooltip>
             </Grid>
           </Grid>
-          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '1rem', marginLeft: '2rem',display: 'flex', justifyContent: 'right',width:'100%' }}>
+          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '1rem', marginLeft: '2rem', display: 'flex', justifyContent: 'right', width: '100%' }}>
             <Card>
               <CardContent>
-                <GrazingTable
+                <EffluentTable
                   headers={headers}
                   rows={dataList.map((item) => ({
-                    'Area': item.area,
-                    'Fertilizer Used': item.fertilizerUsed,
-                    'Feeding Capacity': item.feedingCapacity,
-                    'Assigned Employee': item.assignedEmployee,
-                    'Type of Plants Planted': item.typeOfPlantsPlanted,
+                    'Date': new Date(item.date).toLocaleDateString(),
+                    'Grazing Area': item.grazingArea,
+                    'Amount of Waste Collected (kg)': item.wasteCollected,
+                    'Type of Waste': item.wasteType,
                     'Action': (
                       <div>
                         <IconButton onClick={() => handleEdit(item._id)} color="primary">
@@ -169,10 +167,10 @@ function PasturePage() {
             </Card>
           </Grid>
         </Grid>
-        <PastureForm
+        <EffluentForm
           open={openFormDialog}
           handleClose={() => setOpenFormDialog(false)}
-          handleSubmit={handleNewPastureSubmit}
+          handleSubmit={handleNewEffluentSubmit}
           initialData={editFormData}
         />
       </Container>
@@ -180,4 +178,4 @@ function PasturePage() {
   );
 }
 
-export default PasturePage;
+export default EffluentPage;

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,8 +10,8 @@ import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TextField from '@mui/material/TextField';
-import { Box, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Box, IconButton } from '@mui/material';
+import { Edit, Delete } from '@mui/icons-material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${theme.breakpoints.up('sm')} `]: {
@@ -37,7 +37,7 @@ const StyledTableContainer = styled(TableContainer)({
   maxWidth: '1200px', 
 });
 
-function CustomizedTables({ rows, headers }) {
+function EffluentTable({ rows, headers, handleEdit, handleDelete }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchText, setSearchText] = useState('');
@@ -72,19 +72,22 @@ function CustomizedTables({ rows, headers }) {
 
   const filteredRows = sortedRows.filter(row =>
     Object.values(row).some(value =>
-      value.toString().toLowerCase().includes(searchText.toLowerCase())
+      value && value.toString().toLowerCase().includes(searchText.toLowerCase())
     )
   );
 
   return (
     <Box mt={4} display="flex" flexDirection="column" alignItems="center">
-      <TextField
-        label="Search"
-        variant="outlined"
-        value={searchText}
-        onChange={handleSearch}
-        style={{ marginBottom: '1rem', width: '80%' }}
-      />
+      <div>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchText}
+          onChange={handleSearch}
+          style={{ marginBottom: '1rem', width: '80%' }}
+        />
+      </div>
+      
       <StyledTableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
@@ -100,21 +103,30 @@ function CustomizedTables({ rows, headers }) {
                   </TableSortLabel>
                 </StyledTableCell>
               ))}
+              <StyledTableCell>Action</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rowIndex) => (
               <StyledTableRow key={rowIndex}>
-                {Object.values(row).map((value, colIndex) => (
+                {Object.keys(row).map((key, colIndex) => (
                   <StyledTableCell key={colIndex} align="left">
-                    {value}
+                    {row[key]}
                   </StyledTableCell>
                 ))}
+                <StyledTableCell>
+                  <IconButton onClick={() => handleEdit(row._id)} color="primary">
+                    <Edit />
+                  </IconButton>
+                  <IconButton onClick={() => handleDelete(row._id)} color="secondary">
+                    <Delete />
+                  </IconButton>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={headers.length} />
+                <TableCell colSpan={headers.length + 1} />
               </TableRow>
             )}
           </TableBody>
@@ -134,4 +146,4 @@ function CustomizedTables({ rows, headers }) {
   );
 }
 
-export default CustomizedTables;
+export default EffluentTable;
