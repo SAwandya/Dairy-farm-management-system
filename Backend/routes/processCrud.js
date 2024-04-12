@@ -12,12 +12,16 @@ router.post('/process', async (req, res) => {
     // Parse scheduleDateTime into separate date and time
     const [scheduleDate, scheduleTime] = scheduleDateTime.split(' ');
 
+    //get current Date and time
+    const startTime =  new Date(); 
+
     // Create a new Process document using the extracted fields
     const process = await Process.create({
       product,
       milkQuantity,
       ingredients,
       specialNotes,
+      startTime,
       scheduleDate,
       scheduleTime,
       status

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const productBatchSchema = new mongoose.Schema({
   productId: {
     type: String,
-    required: true,
+    //required: true,
   },
   name: {
     type: String,
@@ -12,7 +12,7 @@ const productBatchSchema = new mongoose.Schema({
   },
   variant: {
     type: String,
-    required: true
+
   },
   quantity: {
     type: Number,

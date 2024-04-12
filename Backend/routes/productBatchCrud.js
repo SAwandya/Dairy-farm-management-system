@@ -16,7 +16,7 @@ router.post('/productBatch', async (req, res) => {
       variant, 
       quantity,
       manufactureDate, 
-      manufactureTime, 
+      manufactureTime,   
       expiryDate, 
       batchId, 
       released, 
