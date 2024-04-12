@@ -17,10 +17,6 @@ const ProcessSchema = new mongoose.Schema({
   specialNotes: {
     type: String
   },
-  startTime:{
-    type: Date
-  },
-  
   scheduleDate: {
     type: Date
   },

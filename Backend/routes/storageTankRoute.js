@@ -24,6 +24,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// GET method to fetch all milking sessions
 router.get('/', async (req, res) => {
     try {
         const storageTank = await StorageTank.find();

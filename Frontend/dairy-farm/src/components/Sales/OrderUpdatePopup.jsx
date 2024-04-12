@@ -18,12 +18,9 @@ import { Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
 import messageService from "../../services/Sales/messageService";
 import purchaseService from "../../services/Sales/purchaseService";
-import useDelivery from "../../hooks/useDelivery";
 
 const OrderUpdatePopup = (props) => {
   const navigate = useNavigate();
-
-  const { open, openchange, purchaseId, refetch, purchase } = props;
 
   const {
     handleSubmit,
@@ -96,14 +93,19 @@ const OrderUpdatePopup = (props) => {
     purchaseService
       .Update(purchaseId, data)
       .then((res) => {
-        console.log(res);
-        refetch();
+        console.log(res.data);
         openchange(false);
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
+
+  const { open, openchange, purchaseId, refetch, purchase } = props;
+
+  console.log(purchase?.deliveryDetails.firstName);
+
+  // const { firstName } = purchase.deliveryDetails;
 
   return (
     <>
@@ -130,31 +132,13 @@ const OrderUpdatePopup = (props) => {
             <Box sx={{ display: "flex" }}>
               <Box sx={{ marginRight: "10px" }}>
                 <TextField
-                  {...register("quantity", { required: true })}
-                  id="quantity"
-                  type="number"
-                  label="Quantity"
-                  sx={{ marginBottom: "20px" }}
-                  fullWidth
-                  defaultValue={purchase?.quantity}
-                  error={errors?.quantity ? true : false}
-                  helperText={
-                    errors?.quantity && (
-                      <Alert severity="error">
-                        The First name filed is canot be empty{" "}
-                      </Alert>
-                    )
-                  }
-                />
-
-                <TextField
                   {...register("firstName", { required: true })}
                   id="firstName"
                   type="text"
                   label="First name"
                   sx={{ marginBottom: "20px" }}
                   fullWidth
-                  defaultValue={purchase?.delivery.firstName}
+                  defaultValue={purchase?.deliveryDetails.firstName}
                   error={errors?.firstName ? true : false}
                   helperText={
                     errors?.firstName && (
@@ -172,7 +156,7 @@ const OrderUpdatePopup = (props) => {
                   label="Last name"
                   sx={{ marginBottom: "20px" }}
                   fullWidth
-                  defaultValue={purchase?.delivery.lastName}
+                  defaultValue={purchase?.deliveryDetails.lastName}
                   error={errors?.lastName ? true : false}
                   helperText={
                     errors?.lastName && (
@@ -190,7 +174,7 @@ const OrderUpdatePopup = (props) => {
                   type="text"
                   sx={{ marginBottom: "20px" }}
                   fullWidth
-                  defaultValue={purchase?.delivery.address1}
+                  defaultValue={purchase?.deliveryDetails.address1}
                   error={errors?.address1 ? true : false}
                   helperText={
                     errors?.address1 && (
@@ -208,7 +192,7 @@ const OrderUpdatePopup = (props) => {
                   type="text"
                   sx={{ marginBottom: "20px" }}
                   fullWidth
-                  defaultValue={purchase?.delivery.address2}
+                  defaultValue={purchase?.deliveryDetails.address2}
                   error={errors?.address2 ? true : false}
                   helperText={
                     errors?.address2 && (
@@ -228,7 +212,7 @@ const OrderUpdatePopup = (props) => {
                   label="City"
                   sx={{ marginBottom: "20px" }}
                   fullWidth
-                  defaultValue={purchase?.delivery.city}
+                  defaultValue={purchase?.deliveryDetails.city}
                   error={errors?.city ? true : false}
                   helperText={
                     errors?.city && (
@@ -246,12 +230,65 @@ const OrderUpdatePopup = (props) => {
                   label="State"
                   type="text"
                   sx={{ marginBottom: "20px" }}
-                  defaultValue={purchase?.delivery.state}
+                  defaultValue={purchase?.deliveryDetails.state}
                   error={errors?.state ? true : false}
                   helperText={
                     errors?.state && (
                       <Alert severity="error">
                         The state filed is canot be empty{" "}
+                      </Alert>
+                    )
+                  }
+                />
+
+                <TextField
+                  {...register("cardNumber", { required: true })}
+                  id="cardNumber"
+                  label="Card number"
+                  type="number"
+                  fullWidth
+                  sx={{ marginBottom: "20px" }}
+                  error={errors?.cardNumber ? true : false}
+                  helperText={
+                    errors?.cardNumber && (
+                      <Alert severity="error">
+                        The card number filed is canot be empty{" "}
+                      </Alert>
+                    )
+                  }
+                />
+
+                <TextField
+                  {...register("cardName", { required: true })}
+                  id="cardName"
+                  fullWidth
+                  type="text"
+                  label="Card name"
+                  sx={{ marginBottom: "20px" }}
+                  defaultValue={purchase?.paymentDetails.cardName}
+                  error={errors?.cardName ? true : false}
+                  helperText={
+                    errors?.cardName && (
+                      <Alert severity="error">
+                        The card name filed is canot be empty{" "}
+                      </Alert>
+                    )
+                  }
+                />
+
+                <TextField
+                  {...register("expDate", { required: true })}
+                  id="expDate"
+                  label="Expire date"
+                  type="date"
+                  fullWidth
+                  sx={{ marginBottom: "20px" }}
+                  InputLabelProps={{ shrink: true }}
+                  error={errors?.expDate ? true : false}
+                  helperText={
+                    errors?.expDate && (
+                      <Alert severity="error">
+                        The expire date is canot be empty{" "}
                       </Alert>
                     )
                   }
