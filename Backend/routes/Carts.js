@@ -43,4 +43,23 @@ router.post("/", async (req, res) => {
   res.send(cart);
 });
 
+router.delete("/:id", async (req, res) => {
+  let cart = await Cart.findById(req.params.id);
+
+  const product = await Product.findByIdAndUpdate(
+    cart?.product._id,
+    {
+      $inc: { quantity: +cart.quantity },
+    },
+    { quantity: true }
+  );
+
+  cart = await Cart.findByIdAndDelete(req.params.id);
+
+  if (!cart)
+    return res.status(400).send("The cart with the given id not found");
+
+  res.send(cart);
+});
+
 module.exports = router;

@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* bubini */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url('../assets/bg.png'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed; 
+    padding-bottom: 250px;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+}
