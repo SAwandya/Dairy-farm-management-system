@@ -48,6 +48,9 @@ import PasturePage from "./pages/Grazing/PasturePage";
 import SessionPage from "./pages/Grazing/SessionPage";
 import Report from "./pages/Grazing/Report";
 import EffluentPage from "./pages/Grazing/EffluentPage";
+import GrazingDashboard from "./pages/Grazing/GrazingDashboard";
+import RotationInfo from "./pages/Grazing/RotationInfo";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -223,6 +226,16 @@ const router = createBrowserRouter([
     path: "/waste",
     element: <EffluentPage />,
   },
+  {
+    path: "/dashboard",
+    element: <GrazingDashboard />,
+  },
+  {
+    path: "/rotation",
+    element: <RotationInfo />,
+  },
+
+  
 
   {
     path: "/task",
