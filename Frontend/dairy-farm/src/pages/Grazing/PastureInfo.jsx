@@ -50,9 +50,14 @@ function PastureInfo() {
           
           
         </Box>
-        <Typography align="center" variant="h4">Pastures</Typography>
-        <Container sx={{ margin: 0 }}>
-          <Grid container spacing={2}>
+        <Typography align="center" variant="h5">Pasture Details</Typography>
+        <Box sx={{ textAlign: 'right', marginRight:'16px' }}>
+          <Button variant="contained" color="primary" href="http://localhost:5173/pasture">
+            See More
+          </Button>
+        </Box>
+        <Container sx={{ margin: 16,marginTop: '20px' }}>
+          <Grid container spacing={7}>
             {pastures.map(pasture => (
               <Grid item xs={12} sm={6} md={6} lg={6} key={pasture._id} gap={20}>
                 <PastureCard pasture={pasture}/>
@@ -60,11 +65,7 @@ function PastureInfo() {
             ))}
           </Grid>
         </Container>
-        <Box sx={{ textAlign: 'center', marginTop: '20px' }}>
-          <Button variant="contained" color="primary" href="http://localhost:5173/pasture">
-            See More
-          </Button>
-        </Box>
+        
       </Box>
     </Box>
   );

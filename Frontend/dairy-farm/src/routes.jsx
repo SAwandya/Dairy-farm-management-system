@@ -46,8 +46,10 @@ import EmployeeR from "./pages/Employees/EmployeeR";
 import MilkingStorage from "./pages/Milking/MilkingStorage";
 import AddNewTank from "./pages/Milking/AddNewTank";
 import PasturePage from "./pages/Grazing/PasturePage";
+import SessionPage from "./pages/Grazing/SessionPage";
+import Report from "./pages/Grazing/Report";
+import EffluentPage from "./pages/Grazing/EffluentPage";
 import { RemoveFromQueue } from "@mui/icons-material";
-
 import Session from "./pages/Grazing/GrazingSession";
 import CartPage from "./pages/Sales/CartPage";
 
@@ -210,7 +212,7 @@ const router = createBrowserRouter([
     path: "/milkingSessions",
     element: <MilkingSessions />,
   },
-
+//grazing management
   {
     path: "/pastureinfo",
     element: <PastureInfo />,
@@ -222,8 +224,17 @@ const router = createBrowserRouter([
 
   {
     path: "/session",
-    element: <Session />,
+    element: <SessionPage />,
   },
+  {
+    path: "/report",
+    element: <Report />,
+  },
+  {
+    path: "/waste",
+    element: <EffluentPage />,
+  },
+
   {
     path: "/task",
     element: <Task />,

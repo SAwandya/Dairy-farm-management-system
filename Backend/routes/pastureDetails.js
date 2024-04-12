@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const PastureDetail = require("../models/pastureDetails");
 
-// http://localhost:8070/pastureDetails/add
 router.route("/add").post((req, res) => {
     const { area, fertilizerUsed, feedingCapacity, assignedEmployee, typeOfPlantsPlanted } = req.body;
 
@@ -24,7 +23,6 @@ router.route("/add").post((req, res) => {
         });
 });
 
-// http://localhost:8070/pastureDetails
 router.route("/").get((req, res) => {
     PastureDetail.find()
         .then(pastureDetails => {
@@ -36,7 +34,6 @@ router.route("/").get((req, res) => {
         });
 });
 
-// http://localhost:8070/pastureDetails/update/p0001
 router.route("/update/:pastureId").put(async (req, res) => {
     const { area, fertilizerUsed, feedingCapacity, assignedEmployee, typeOfPlantsPlanted } = req.body;
     const pastureId = req.params.pastureId;
@@ -63,7 +60,6 @@ router.route("/update/:pastureId").put(async (req, res) => {
     }
 });
 
-// http://localhost:8070/pastureDetails/delete/p0001
 router.route("/delete/:pastureId").delete(async (req, res) => {
     const pastureId = req.params.pastureId;
 
@@ -81,7 +77,6 @@ router.route("/delete/:pastureId").delete(async (req, res) => {
     }
 });
 
-// Get a pasture detail by ID
 router.route("/get/:pastureId").get(async (req, res) => {
     const pastureId = req.params.pastureId;
 
