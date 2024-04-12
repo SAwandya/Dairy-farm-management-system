@@ -19,6 +19,8 @@ const milkingSessions = require("./routes/milkingSessionRoute");
 const order = require("./routes/order");
 const item = require("./routes/item");
 const milkingData = require("./routes/milkingDataRoute");
+const milkingStorage = require("./routes/storageTankRoute");
+const processCrud = require("./routes/processCrud");
 const pdf = require("./routes/pdf");
 const pasture=require("./routes/pastureDetails");
 const temperatureSendRcv = require("./routes/temperatureSendRcv");
@@ -74,6 +76,8 @@ app.use("/api/item", item);
 app.use("/api/milkingSessions", milkingSessions);
 
 app.use("/api/milkingData", milkingData);
+
+app.use("/api/milkingStorage", milkingStorage);
 
 //production management
 app.use("/api/processCrud", processCrud);

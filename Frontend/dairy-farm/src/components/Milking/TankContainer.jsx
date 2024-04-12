@@ -13,7 +13,7 @@ const TankContainer = () => {
   useEffect(() => {
     const fetchTanks = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/storageTank');
+        const response = await axios.get('http://localhost:3000/api/milkingStorage');
         if (response.data.success) {
           setTanks(response.data.data);
           setTotalPages(Math.ceil(response.data.data.length / tanksPerPage));
@@ -45,22 +45,22 @@ const TankContainer = () => {
             }}
         >Storage</h2>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', padding: '24px', paddingTop: '0px', width: '80vw' }}>
-        <Grid
-          style={{
-            display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'space-between',
-            padding: '24px',
-            paddingTop: '10px',
-            width: '80vw'
-          }}
-        >
-          {tanks.slice(startIndex, endIndex).map((tank) => (
-            <Grid key={tank._id} item xs={4}>
-              <TankCard tank={{ ...tank}} />
+            <Grid
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between',
+                padding: '24px',
+                paddingTop: '10px',
+                width: '80vw'
+              }}
+            >
+              {tanks.slice(startIndex, endIndex).map((tank) => (
+                <Grid key={tank._id} item xs={4}>
+                  <TankCard tank={{ ...tank}} />
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
             <Pagination
                 count={totalPages}
                 page={page}

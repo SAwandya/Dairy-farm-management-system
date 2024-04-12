@@ -10,6 +10,9 @@ const storageTankSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    availableMilk: {
+      type: Number,
+    },
     installedDate: {
         type: Date,
         required: true
