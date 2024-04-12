@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const EffluentDetail = require("../models/effluentDetails");
 
-// Add a new effluent detail
-router.route("/add").post((req, res) => {
+// http://localhost:3000/effluentRoutes/add
+router.route(" http://localhost:3000/effluentRoutes/add").post((req, res) => {
     const { date, grazingArea, wasteCollected, wasteType } = req.body;
 
     const newEffluentDetail = new EffluentDetail({
@@ -23,7 +23,7 @@ router.route("/add").post((req, res) => {
         });
 });
 
-// Get all effluent details
+// http://localhost:8070/effluentDetails
 router.route("/").get((req, res) => {
     EffluentDetail.find()
         .then(effluentDetails => {
@@ -35,48 +35,7 @@ router.route("/").get((req, res) => {
         });
 });
 
-// Get waste type counts
-router.route("/count-waste-types").get(async (req, res) => {
-    try {
-        const wasteTypeCounts = await EffluentDetail.aggregate([
-            { $group: { _id: "$wasteType", totalAmount: { $sum: "$wasteCollected" } } }
-        ]);
-
-        // Map the waste types to specific categories
-        const categorizedCounts = {
-            livestockManure: 0,
-            other: 0,
-            discardedProduction: 0,
-            weeds: 0
-        };
-
-        wasteTypeCounts.forEach(typeCount => {
-            switch (typeCount._id) {
-                case 'livestockManure':
-                    categorizedCounts.livestockManure = typeCount.totalAmount;
-                    break;
-                case 'other':
-                    categorizedCounts.other = typeCount.totalAmount;
-                    break;
-                case 'discardedProduction':
-                    categorizedCounts.discardedProduction = typeCount.totalAmount;
-                    break;
-                case 'weeds':
-                    categorizedCounts.weeds = typeCount.totalAmount;
-                    break;
-                default:
-                    break;
-            }
-        });
-
-        res.json(categorizedCounts);
-    } catch (error) {
-        console.error("Error retrieving waste type counts:", error);
-        res.status(500).json({ error: "Failed to retrieve waste type counts" });
-    }
-});
-
-// Update an effluent detail
+// http://localhost:8070/effluentDetails/update/:effluentId
 router.route("/update/:effluentId").put(async (req, res) => {
     const { date, grazingArea, wasteCollected, wasteType } = req.body;
     const effluentId = req.params.effluentId;
@@ -102,7 +61,7 @@ router.route("/update/:effluentId").put(async (req, res) => {
     }
 });
 
-// Delete an effluent detail
+// http://localhost:8070/effluentDetails/delete/:effluentId
 router.route("/delete/:effluentId").delete(async (req, res) => {
     const effluentId = req.params.effluentId;
 
