@@ -15,7 +15,7 @@ const stageTimes = {
   'Mixing': 1,
   'Pasteurization': 1,
   'Homogenization': 1,
-  'Freezing':2
+  'Freezing':360
   
 };
 
@@ -37,26 +37,31 @@ function ProcessCardContainer() {
 
       const filteredProcesses = response.data.filter(process => {
 
-        if (process.status === 'started') 
-        {
+        if (process.status === 'started') {
           const startDate = new Date(process.startTime).toISOString().split('T')[0]; // Get start date of the process
-
+          
+          if (startDate === currentDate) {
+            return true; // Show processes started today
+          } 
+          
+          else {
+            return false; // Hide other processes
+          }
+        }
+        
+        else if (process.status === 'scheduled' ) 
+        {
+          // Get start date of the process
+          const schDate = new Date(process.scheduleDate).toISOString().split('T')[0]; 
+          
+          // Get current time
           const currentTime = new Date();
           const hours = currentTime.getHours().toString().padStart(2, '0'); // Get hours and pad with leading zero
           const minutes = currentTime.getMinutes().toString().padStart(2, '0'); // Get minutes and pad with leading zero 
           const currentTimeString = `${hours}:${minutes}`;
-          
+          console.log('current time :', currentTimeString);
 
-          if (startDate === currentDate && process.scheduleTime === currentTimeString) 
-          {
-            return true; // Show processes started today
-          }
-        } 
-        else if (process.status === 'scheduled' ) 
-        {
-          const schDate = new Date(process.scheduleDate).toISOString().split('T')[0]; // Get start date of the process
-
-          if (schDate === currentDate) 
+          if (schDate === currentDate && process.scheduleTime === currentTimeString) 
           {
             return true; // Show processes scheduled for today
           }
