@@ -9,7 +9,6 @@ router.post('/', async (req, res) => {
     }
     try {
         const newMilkingSession = new milkingSession({
-            sessionId: req.body.sessionId,
             date: req.body.date,
             time: req.body.time,
             cowGroup: req.body.cowGroup,

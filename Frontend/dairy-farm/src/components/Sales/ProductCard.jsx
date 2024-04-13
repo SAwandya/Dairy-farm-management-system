@@ -14,8 +14,12 @@ const ProductCard = (props) => {
 
   const SetSelectedProduct = useGameQueryStore((s) => s.SetSelectedProduct);
 
-  const handleSubmit = (event) => {
+  const SetselectedBuyAddButton = useGameQueryStore((s) => s.SetselectedBuyAddButton);
+
+  const handleSubmit = (event, button) => {
     console.log("submited");
+
+    SetselectedBuyAddButton(button);
 
     SetSelectedProduct(product);
   };
@@ -75,7 +79,7 @@ const ProductCard = (props) => {
       >
         <Link to="/productdetails">
           <Button
-            onClick={(event) => handleSubmit(event)}
+            onClick={(event, buy) => handleSubmit(event, 'buy')}
             type="submit"
             variant="solid"
             color="danger"
@@ -89,7 +93,7 @@ const ProductCard = (props) => {
             Buy
           </Button>
           <Button
-            onClick={(event) => handleSubmit(event)}
+            onClick={(event, add) => handleSubmit(event, 'add')}
             type="submit"
             variant="solid"
             color="success"

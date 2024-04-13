@@ -6,6 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { BarChart } from "@mui/x-charts/BarChart";
 import usePurcahse from "../../hooks/usePurcahses";
+import { color } from "@mui/system";
 
 const SalesChart2 = () => {
   const [seriesNb, setSeriesNb] = React.useState(2);
@@ -54,7 +55,7 @@ const SalesChart2 = () => {
     }
 
     groupedData[productType][year][month] +=
-      order.quantity * order.product.price * 100;
+      order.quantity * order.product.price * 20;
   });
 
   // Step 3: Create the series array
@@ -63,49 +64,58 @@ const SalesChart2 = () => {
     const data = [];
     for (const year in groupedData[productType]) {
       for (const month in groupedData[productType][year]) {
-        data.push(groupedData[productType][year][month]);
+        console.log(month);
+        const value = groupedData[productType][year][month];
+        data[month-1] = value;
       }
     }
+
+    const maxLength = 12;
+    for (let i = 0; i < maxLength; i++) {
+      if (typeof data[i] === "undefined") {
+        data[i] = 0;
+      }
+    }
+
     series.push({ label: productType, data });
   }
 
   console.log(series);
 
+  // groupedData can be set to generate report
+
+  // const newseries = series
+  //   .slice(0, seriesNb)
+  //   .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }));
+
+  // console.log(series);
+
   const [seriesData, setSeriesData] = React.useState([]);
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <>
       <BarChart
-        height={400}
+        height={370}
         series={series
           .slice(0, seriesNb)
           .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }))}
         skipAnimation={skipAnimation}
-        width={1000}
+        width={1100}
       />
-      <FormControlLabel
-        checked={skipAnimation}
-        control={
-          <Checkbox
-            onChange={(event) => setSkipAnimation(event.target.checked)}
-          />
-        }
-        label="skipAnimation"
-        labelPlacement="end"
-      />
-      <Typography id="input-item-number" gutterBottom>
-        Number of items
+
+      <Typography color="white" id="input-item-number" gutterBottom>
+        Number of months
       </Typography>
       <Slider
         value={itemNb}
         onChange={handleItemNbChange}
         valueLabelDisplay="auto"
         min={1}
-        max={20}
+        max={15}
         aria-labelledby="input-item-number"
       />
-      <Typography id="input-series-number" gutterBottom>
-        Number of series
+      <Typography color="white" id="input-series-number" gutterBottom>
+        Number of Products
       </Typography>
       <Slider
         value={seriesNb}
@@ -115,7 +125,7 @@ const SalesChart2 = () => {
         max={10}
         aria-labelledby="input-series-number"
       />
-    </Box>
+    </>
   );
 };
 

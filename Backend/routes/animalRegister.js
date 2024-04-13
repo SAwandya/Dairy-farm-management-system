@@ -59,6 +59,16 @@ router.get('/retrieve/:id', async (req, res) => {
     }
 });
 
+router.get('/batches', async (req, res) => {
+    try {
+        const batches = await veterinary.distinct("batch");
+        res.status(200).json({ success: true, data: batches });
+    } catch (error) {
+        console.error("Error fetching batch values:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch batch values" });
+    }
+});
+
 // Update by id
 router.put('/update/:id', async (req, res) => {
     try {
