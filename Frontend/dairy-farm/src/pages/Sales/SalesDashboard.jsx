@@ -73,7 +73,7 @@ const Drawer = styled(MuiDrawer, {
     }),
     boxSizing: "border-box",
     ...(!open && {
-      overflowX: "hidden",
+      overflow: "hidden",
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -88,25 +88,11 @@ const Drawer = styled(MuiDrawer, {
 
 const defaultTheme = createTheme();
 
-const customTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#5dbea3",
-    },
-    secondary: {
-      main: "#f44336",
-    },
-  },
-  typography: {
-    fontFamily: "Arial, sans-serif",
-  },
-});
-
 const SalesDashboard = () => {
   const { data, error, isLoading, refetch } = useProducts();
 
-  const publishPro = data?.filter((value) => value.publish !== "false");
-  const unpublishPro = data?.filter((value) => value.publish === "false");
+  const publishPro = data?.filter((value) => value.publish === false);
+  const unpublishPro = data?.filter((value) => value.publish === true);
 
   const publishlen = publishPro?.length || 0;
 
@@ -138,10 +124,14 @@ const SalesDashboard = () => {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider
+  
+      theme={defaultTheme}
+    >
       <Box
         sx={{
           display: "flex",
+          overflow: "hidden",
         }}
       >
         <CssBaseline />
@@ -239,7 +229,7 @@ const SalesDashboard = () => {
             flexGrow: 1,
             height: "100vh",
             width: "100vw",
-            overflow: "auto",
+            overflow: "hidden",
           }}
         >
           <Toolbar sx={{ backgroundColor: "#38775B" }} />
@@ -304,9 +294,9 @@ const SalesDashboard = () => {
                       paddingBottom: "40px",
                     }}
                   >
-                    <BgCard data={allProduct} />
-                    <BgCard data={publishlen} />
-                    <BgCard data={unpublishlen} />
+                    <BgCard data={allProduct} text="Total number of products" />
+                    <BgCard data={publishlen} text="Published products" />
+                    <BgCard data={unpublishlen} text="Unpublished products" />
                   </Box>
                   <Paper
                     sx={{ p: 2, display: "flex", flexDirection: "column" }}
