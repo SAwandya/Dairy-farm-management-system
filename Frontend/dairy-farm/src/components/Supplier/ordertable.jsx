@@ -212,7 +212,7 @@ const OrderTable = () => {
               <TableRow key={row._id || index} className={classes.row}>
                 <TableCell style={{ display: "none" }}>{row._id}</TableCell>
                 <TableCell>
-                  {itemTypes.find(item => item.itemName === row.orderType)?.itemName}
+                  {itemTypes.find(item => item._id === row.orderType)?.itemName}
                   {/* {row.orderType} */}
                 </TableCell>
                 <TableCell>
@@ -436,7 +436,6 @@ function useCreateOrder() {
           ...order,
           _id: undefined,
           orderStatus: "Pending",
-          supplierName: supplier.name,
         }),
       });
       return response.json();
