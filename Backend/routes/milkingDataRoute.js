@@ -35,4 +35,18 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:milkBatchId', async (req, res) => {
+    const { milkBatchId } = req.params;
+    try {
+        const milkBatch = await MilkingData.findOne({ milkBatchId });
+        if (!milkBatch) {
+            return res.status(404).json({ success: false, error: 'Milk batch not found' });
+        }
+        res.status(200).json({ success: true, amountOfMilk: milkBatch.amountOfMilk });
+    } catch (error) {
+        console.error('Error fetching amount of milk:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch amount of milk' });
+    }
+});
+
 module.exports = router;

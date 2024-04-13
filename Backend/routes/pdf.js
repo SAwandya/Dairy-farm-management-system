@@ -3,7 +3,7 @@ const pdfService = require("../service/pdf-service");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const pdfBuffer = await pdfService.buildPDF();
     res.set({

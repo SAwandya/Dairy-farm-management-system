@@ -25,6 +25,7 @@ import SalesOrders from "../../components/Sales/SalesOrders";
 import ProductList from "../../components/Sales/ProductList";
 import CustomerList from "../../components/Sales/CustomerList";
 import SalesChart2 from "../../components/Sales/SalesChart2";
+import SalesChart3 from "../../components/Sales/SalesCharts";
 
 function Copyright(props) {
   return (
@@ -240,7 +241,9 @@ const SalesDashboard = () => {
                       display: "flex",
                       flexDirection: "column",
                       height: 600,
-                      width: 1000,
+                      width: 1200,
+                      background: "#114232",
+                      padding: '60px'
                     }}
                   >
                     <SalesChart2 />
