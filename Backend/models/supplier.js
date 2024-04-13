@@ -20,7 +20,7 @@ const supplierSchema = new mongoose.Schema({
     supplierType: {
         type: String,
         required: true,
-        enum: ['Contracted', 'Permanent'], // Only allow these values
+        enum: ['Contracted', 'Permanent'],
     },
 
     avgDeliveryTime: {

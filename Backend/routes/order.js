@@ -14,8 +14,8 @@ router.post('/', async (req, res) => {
     let order = new Order({
 
         orderType: req.body.orderType,
+        supplierName: req.body.supplierName,
         orderStatus: req.body.orderStatus,
-        // orderStatus: 'Pending',
         quantity: req.body.quantity,
         advanceFee: req.body.advanceFee,
         deliveryDate: req.body.deliveryDate
@@ -45,6 +45,7 @@ router.put('/:id', async (req, res) => {
 
     const order = await Order.findByIdAndUpdate(req.params.id, {
         orderType: req.body.orderType,
+        supplierName: req.body.supplierName,
         orderStatus: req.body.orderStatus,
         quantity: req.body.quantity,
         advanceFee: req.body.advanceFee,
