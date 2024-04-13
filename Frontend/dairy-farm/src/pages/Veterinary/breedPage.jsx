@@ -4,6 +4,7 @@ import BgCard from '../../components/Veterinary/bgCard';
 import DateV from '../../components/Veterinary/DateV';
 import Sidebar from '../../components/Veterinary/vetNav';
 import BreedingCards from './bredding';
+import FemaleCowTable from './femaleCowTable';
 
 function BreedPage() {
     return (
@@ -24,6 +25,11 @@ function BreedPage() {
                 <BgCard>
                     <BreedingCards/>
                 </BgCard>
+                <h4 style={{ marginTop: 40, marginBottom: '20px' }}>Pregnancy Cycle Track</h4>
+                <div style={{ marginTop: '100px',fontFamily: 'Poppins, sans-serif' }}>
+                <FemaleCowTable/>
+                </div>
+               
             </div>
         </div>
     );
