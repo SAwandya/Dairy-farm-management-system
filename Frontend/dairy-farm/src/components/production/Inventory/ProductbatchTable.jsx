@@ -45,6 +45,7 @@ function ProductBatchTable() {
   }));
 
   const columns = [
+    { field: 'id', headerName: 'No', flex: 1},
     { field: 'ProductId', headerName: 'ID', flex: 1 },
     { field: 'Name', headerName: 'Product', flex: 1 },
     { field: 'Variant', headerName: 'Variant', flex: 1 },
@@ -57,9 +58,10 @@ function ProductBatchTable() {
     { field: 'deleteAction', headerName: 'Delete', renderCell: (params) => params.row.deleteAction, width: 100 },
     { field: 'updateAction', headerName: 'Update', renderCell: (params) => params.row.updateAction, width: 100 },
   ];
+  
 
   return (
-<Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '50vh', overflow: 'auto' }}>      
+<Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh', overflow: 'auto' }}>      
 <DataGrid
         rows={rows}
         columns={columns}
