@@ -26,6 +26,8 @@ import ProductList from "../../components/Sales/ProductList";
 import CustomerList from "../../components/Sales/CustomerList";
 import SalesChart2 from "../../components/Sales/SalesChart2";
 import SalesChart3 from "../../components/Sales/SalesCharts";
+import BgCard from "../../components/Sales/bgCard";
+import useProducts from "../../hooks/useProducts";
 
 function Copyright(props) {
   return (
@@ -71,7 +73,7 @@ const Drawer = styled(MuiDrawer, {
     }),
     boxSizing: "border-box",
     ...(!open && {
-      overflowX: "hidden",
+      overflow: "hidden",
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -84,24 +86,22 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const customTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#5dbea3",
-    },
-    secondary: {
-      main: "#f44336",
-    },
-  },
-  typography: {
-    fontFamily: "Arial, sans-serif",
-  },
-});
-
 const SalesDashboard = () => {
+  const { data, error, isLoading, refetch } = useProducts();
+
+  const publishPro = data?.filter((value) => value.publish === false);
+  const unpublishPro = data?.filter((value) => value.publish === true);
+
+  const publishlen = publishPro?.length || 0;
+
+  const unpublishlen = unpublishPro?.length || 0;
+
+  const allProduct = data?.length || 0;
+
+  console.log(unpublishlen);
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -124,10 +124,14 @@ const SalesDashboard = () => {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider
+  
+      theme={defaultTheme}
+    >
       <Box
         sx={{
           display: "flex",
+          overflow: "hidden",
         }}
       >
         <CssBaseline />
@@ -225,7 +229,7 @@ const SalesDashboard = () => {
             flexGrow: 1,
             height: "100vh",
             width: "100vw",
-            overflow: "auto",
+            overflow: "hidden",
           }}
         >
           <Toolbar sx={{ backgroundColor: "#38775B" }} />
@@ -243,7 +247,7 @@ const SalesDashboard = () => {
                       height: 600,
                       width: 1200,
                       background: "#114232",
-                      padding: '60px'
+                      padding: "60px",
                     }}
                   >
                     <SalesChart2 />
@@ -282,9 +286,24 @@ const SalesDashboard = () => {
             {/* Recent Orders */}
             <Grid item xs={12}>
               {selected == "product" ? (
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <ProductList />
-                </Paper>
+                <>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      paddingBottom: "40px",
+                    }}
+                  >
+                    <BgCard data={allProduct} text="Total number of products" />
+                    <BgCard data={publishlen} text="Published products" />
+                    <BgCard data={unpublishlen} text="Unpublished products" />
+                  </Box>
+                  <Paper
+                    sx={{ p: 2, display: "flex", flexDirection: "column" }}
+                  >
+                    <ProductList />
+                  </Paper>
+                </>
               ) : null}
             </Grid>
 

@@ -76,6 +76,7 @@ const ProductList = () => {
 
   return (
     <React.Fragment>
+
       <Container sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', marginBottom: '20px' }}>
         <SalesTitle>Recent Products</SalesTitle>
 
@@ -114,9 +115,9 @@ const ProductList = () => {
                 </Link>
               </TableCell>
               <TableCell>
-                {product.publish == false ? (
+                {product.publish == true ? (
                   <Button
-                    onClick={() => handlePublish(product._id, true)}
+                    onClick={() => handlePublish(product._id, false)}
                     variant="outlined"
                     size="medium"
                     color="error"
@@ -125,7 +126,7 @@ const ProductList = () => {
                   </Button>
                 ) : (
                   <Button
-                    onClick={() => handlePublish(product._id, false)}
+                    onClick={() => handlePublish(product._id, true)}
                     variant="outlined"
                     size="medium"
                     color="error"
