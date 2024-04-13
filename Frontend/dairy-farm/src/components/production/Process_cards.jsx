@@ -12,8 +12,8 @@ const preparationTimes = {
 
 const stageTimes = {
 
-  'Mixing': 1,
-  'Pasteurization': 1,
+  'Mixing': 0.3,
+  'Pasteurization': 0.7,
   'Homogenization': 1,
   'Freezing':360
   
@@ -83,7 +83,7 @@ function ProcessCardContainer() {
         const currentTime = new Date(); // Current time
         const elapsedTime = currentTime - startTime; // Elapsed time since start
         const stage = getCurrentStage(elapsedTime);
-        const totalTime =  5 * 60 * 1000; // Total time in milliseconds
+        const totalTime =  2 * 60 * 1000; // Total time in milliseconds
         let remainingTime;
         let timeRemaining;
         let progress;

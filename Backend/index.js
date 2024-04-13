@@ -20,7 +20,6 @@ const order = require("./routes/order");
 const item = require("./routes/item");
 const milkingData = require("./routes/milkingDataRoute");
 const milkingStorage = require("./routes/storageTankRoute");
-const processCrud = require("./routes/processCrud");
 const pdf = require("./routes/pdf");
 const pasture=require("./routes/pastureDetails");
 const temperatureSendRcv = require("./routes/temperatureSendRcv");
