@@ -139,8 +139,8 @@ function ProcessUpdateButton({ id , onUpdated }) {
               onChange={(e) => setProduct(e.target.value)}
               label="Product"
             >
-              <MenuItem value="Chocolate icecream">Chocolate icecream</MenuItem>
-              <MenuItem value="Vanilla icecream">Vanilla icecream</MenuItem>
+              <MenuItem value="Chocolate Icecream">Chocolate icecream</MenuItem>
+              <MenuItem value="Vanilla Icecream">Vanilla icecream</MenuItem>
               <MenuItem value="Milk">Milk</MenuItem>
               <MenuItem value="Yoghurt">Yoghurt</MenuItem>
             </Select>

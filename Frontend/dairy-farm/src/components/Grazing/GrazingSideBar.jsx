@@ -56,7 +56,7 @@ function Sidebar() {
 
             <NavigationLink
               icon={<DonutSmallIcon />}
-              text="Data"
+              text="Effluent"
               isActive={activeSection === "grazing-data"}
               onClick={() => handleNavigation("grazing-data")}
             />

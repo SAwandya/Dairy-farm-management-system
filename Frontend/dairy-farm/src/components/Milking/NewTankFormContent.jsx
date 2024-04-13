@@ -15,7 +15,7 @@ const NewTankFormContent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        axios.post("http://localhost:3000/api/storageTank", {
+        axios.post("http://localhost:3000/api/milkingStorage", {
             tankId,
             capacity,
             installedDate,
@@ -23,7 +23,6 @@ const NewTankFormContent = () => {
             specialNotes
         })
         .then(result => {
-            // console.log(result);
             navigate('/milkingStorage');
             Swal.fire({
                 position: "top-end",
@@ -71,7 +70,7 @@ const NewTankFormContent = () => {
                         <TextField
                             name="tankId"
                             label="Tank ID:"
-                            type="string"
+                            type="number"
                             value={tankId}
                             onChange={(e) => setTankId(e.target.value)}
                             fullWidth
