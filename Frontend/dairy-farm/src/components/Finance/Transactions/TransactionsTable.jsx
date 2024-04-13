@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Table,
@@ -22,6 +22,7 @@ import {
   FormControl,
   Box,
 } from "@mui/material";
+import axios from "axios";
 
 const departments = [
   "Veterinary",
@@ -37,134 +38,14 @@ const departments = [
 
 const TransactionsTable = () => {
   const [transactions, setTransactions] = useState([
-  {
-    id: 1,
-    date: new Date().toISOString().split("T")[0],
-    type: "income",
-    description: "Salary",
-    department: "Finance",
-    value: 2000,
-  },
-  {
-    id: 2,
-    date: new Date().toISOString().split("T")[0],
-    type: "expense",
-    description: "Groceries",
-    department: "Sales",
-    value: 100,
-  },
-  {
-    id: 3,
-    date: new Date().toISOString().split("T")[0],
-    type: "income",
-    description: "Consulting",
-    department: "HR",
-    value: 1500,
-  },
-  {
-    id: 4,
-    date: new Date().toISOString().split("T")[0],
-    type: "expense",
-    description: "Equipment Purchase",
-    department: "Production",
-    value: 5000,
-  },
-  {
-    id: 5,
-    date: new Date().toISOString().split("T")[0],
-    type: "expense",
-    description: "Office Supplies",
-    department: "HR",
-    value: 300,
-  },
-  {
-    id: 6,
-    date: new Date().toISOString().split("T")[0],
-    type: "income",
-    description: "Service Revenue",
-    department: "Miscellaneous",
-    value: 1200,
-  },
-  {
-    id: 7,
-    date: new Date().toISOString().split("T")[0],
-    type: "expense",
-    description: "Utilities",
-    department: "Finance",
-    value: 400,
-  },
-  {
-    id: 8,
-    date: new Date().toISOString().split("T")[0],
-    type: "income",
-    description: "Product Sales",
-    department: "Sales",
-    value: 3000,
-  },
-  {
-    id: 9,
-    date: new Date().toISOString().split("T")[0],
-    type: "expense",
-    description: "Rent",
-    department: "Finance",
-    value: 2000,
-  },
-  {
-    id: 10,
-    date: new Date().toISOString().split("T")[0],
-    type: "expense",
-    description: "Marketing",
-    department: "CRM",
-    value: 800,
-  },
-  {
-    id: 11,
-    date: new Date().toISOString().split("T")[0],
-    type: "income",
-    description: "Training Fees",
-    department: "HR",
-    value: 1800,
-  },
-  {
-    id: 12,
-    date: new Date().toISOString().split("T")[0],
-    type: "expense",
-    description: "Travel Expenses",
-    department: "Miscellaneous",
-    value: 600,
-  },
-  {
-    id: 13,
-    date: new Date().toISOString().split("T")[0],
-    type: "income",
-    description: "Consultation Fees",
-    department: "CRM",
-    value: 2200,
-  },
-  {
-    id: 14,
-    date: new Date().toISOString().split("T")[0],
-    type: "expense",
-    description: "Research & Development",
-    department: "Production",
-    value: 3500,
-  },
-  {
-    id: 15,
-    date: new Date().toISOString().split("T")[0],
-    type: "income",
-    description: "Royalties",
-    department: "Miscellaneous",
-    value: 500,
-  },
-    // Add more dummy data...
+
   ]);
   const [showIncome, setShowIncome] = useState(true);
   const [showExpense, setShowExpense] = useState(true);
   const [openAddDialog, setOpenAddDialog] = useState(false);
   const [newTransaction, setNewTransaction] = useState({
     date: new Date().toISOString().split("T")[0],
-    type: "income",
+    type: "Income",
     description: "",
     department: "",
     value: "0",
@@ -182,32 +63,44 @@ const TransactionsTable = () => {
     setShowExpense(event.target.checked);
   };
 
-  const handleAddTransaction = () => {
+  const handleAddTransaction = async () => {
     // Validate each field before adding the transaction
     if (
-      newTransaction.date &&
-      newTransaction.type &&
-      newTransaction.description &&
-      newTransaction.department &&
-      newTransaction.value
-    ) {
-      setTransactions([newTransaction, ...transactions]);
+    newTransaction.type &&
+    newTransaction.description &&
+    newTransaction.department &&
+    newTransaction.value
+  ) {
+    try {
+      const response = await axios.post("http://localhost:3000/api/transaction", newTransaction);
+      console.log("Transaction added successfully:", response.data);
+      
+      // Update the transactions state with the new transaction
+      setTransactions([...transactions, response.data]);
       setOpenAddDialog(false);
+      
       // Reset newTransaction state
       setNewTransaction({
-        date: new Date().toISOString().split("T")[0],
-        type: "income",
+        type: "Income",
         description: "",
         department: "",
         value: "0",
       });
+    } catch (error) {
+      console.error("Error adding transaction:", error);
+    }
+  }
+  {
     }
   };
+
 
   const handleEditTransaction = (transaction) => {
     setSelectedTransaction(transaction);
     setEditDialogOpen(true);
+    console.log()
   };
+
 
   const handleDeleteConfirmation = (transaction) => {
     setTransactionToDelete(transaction);
@@ -265,19 +158,52 @@ const TransactionsTable = () => {
     }));
   };
 
-  const filteredTransactions = transactions.filter((transaction) => {
+  
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const filteredTransactions = data?.filter((transaction) => {
     if (showIncome && showExpense) {
       return true;
     }
     if (showIncome) {
-      return transaction.type === "income";
+      return transaction.type === "Income";
     }
     if (showExpense) {
-      return transaction.type === "expense";
+      return transaction.type === "Expense";
     }
     return false;
   });
+  
 
+
+ useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/transaction");
+        setData(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+
+    fetchData();
+
+
+    // Clean-up function
+    return () => {
+      // Perform any clean-up (if necessary)
+    };
+  }, [data]); // Empty dependency array to run effect only once
+
+  console.log(data)
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
   return (
     <Container>
       <Box
@@ -339,8 +265,8 @@ const TransactionsTable = () => {
                 onChange={handleNewTransactionChange}
                 label="Type"
               >
-                <MenuItem value="income">Income</MenuItem>
-                <MenuItem value="expense">Expense</MenuItem>
+                <MenuItem value="Income">Income</MenuItem>
+                <MenuItem value="Expense">Expense</MenuItem>
               </Select>
             </FormControl>
             <TextField
@@ -414,8 +340,8 @@ const TransactionsTable = () => {
                 onChange={handleEditTransactionChange}
                 label="Type"
               >
-                <MenuItem value="income">Income</MenuItem>
-                <MenuItem value="expense">Expense</MenuItem>
+                <MenuItem value="Income">Income</MenuItem>
+                <MenuItem value="Expense">Expense</MenuItem>
               </Select>
             </FormControl>
             <TextField
