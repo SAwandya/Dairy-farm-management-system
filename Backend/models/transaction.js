@@ -15,6 +15,10 @@ const transactionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    department: {
+        type: String,
+        required: true
+    },
     value: {
         type: Number,
         required: true
@@ -28,6 +32,7 @@ function validateTransaction(transaction) {
     const schema = Joi.object({
         type: Joi.string().valid('Income', 'Expense').default('Expense'),
         description: Joi.string().required(),
+        department: Joi.string().required(),
         value: Joi.number().required()
     });
 
