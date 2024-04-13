@@ -15,12 +15,11 @@ function TemperatureDisplay() {
 
     socket.onopen = () => {
       console.log('Connected to WebSocket server');
-      setStatus('Sensors Active');
-
     };
 
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      setStatus('Sensors Active');
       console.log('Received temperature update:', data.temperature);
       setTemperature(data.temperature-11.1);
       setExceedsLimit(data.temperature > 38);

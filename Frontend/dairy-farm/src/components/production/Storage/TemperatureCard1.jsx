@@ -7,18 +7,16 @@ function TemperatureDisplay() {
   const [exceedsLimit, setExceedsLimit] = useState(false);
   const [status, setStatus] = useState('Sensors Inactive!');
 
-
   useEffect(() => {
     const socket = new WebSocket('ws://localhost:3030'); // Connect to WebSocket server
 
     socket.onopen = () => {
       console.log('Connected to WebSocket server');
-      setStatus('Sensors Active');
-
     };
 
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      setStatus('Sensors Active');
       console.log('Received temperature update:', data.temperature);
       setTemperature(data.temperature);
       setExceedsLimit(data.temperature > 31);
