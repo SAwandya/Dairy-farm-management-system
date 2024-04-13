@@ -179,7 +179,7 @@ const SupplierTable = () => {
               <TableCell>Email</TableCell>
               <TableCell>Item Type</TableCell>
               <TableCell>Supplier Type</TableCell>
-              <TableCell>Delivery Date</TableCell>
+              <TableCell>Average Delivery</TableCell>
               <TableCell>Edit</TableCell>
               <TableCell>Delete</TableCell>
             </TableRow>
@@ -198,7 +198,7 @@ const SupplierTable = () => {
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.itemType}</TableCell>
                 <TableCell>{row.supplierType}</TableCell>
-                <TableCell>{row.deliveryDate.substring(0, 10)}</TableCell>
+                <TableCell>{row.avgDeliveryTime}</TableCell>
                 <TableCell>
                   <IconButton
                     aria-label="edit"
@@ -279,12 +279,12 @@ const SupplierTable = () => {
             </FormControl>
             <TextField
               margin="dense"
-              id="deliveryDate"
-              label="Delivery Date"
-              type="date"
+              id="avgDeliveryTime"
+              label="Average Time to Delivery"
+              type="number"
               fullWidth
               onChange={(e) =>
-                setNewRow({ ...newRow, deliveryDate: e.target.value })
+                setNewRow({ ...newRow, avgDeliveryTime: e.target.value })
               }
               InputLabelProps={{
                 shrink: true,
@@ -373,13 +373,13 @@ const SupplierTable = () => {
             </FormControl>
             <TextField
               margin="dense"
-              id="deliveryDate"
-              label="Delivery Date"
-              type="date"
+              id="avgDeliveryTime"
+              label="Average Time to Delivery"
+              type="number"
               fullWidth
-              value={currentRow?.deliveryDate}
+              value={currentRow?.avgDeliveryTime}
               onChange={(e) =>
-                setCurrentRow({ ...currentRow, deliveryDate: e.target.value })
+                setCurrentRow({ ...currentRow, avgDeliveryTime: e.target.value })
               }
               InputLabelProps={{
                 shrink: true,
@@ -503,11 +503,3 @@ const ExampleWithProviders = () => (
   </QueryClientProvider>
 );
 
-const validateRequired = (value) => !!value.length;
-const validateEmail = (email) =>
-  !!email.length &&
-  email
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );

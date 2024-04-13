@@ -20,13 +20,13 @@ const supplierSchema = new mongoose.Schema({
     supplierType: {
         type: String,
         required: true,
-        enum: ['Contracted', 'Permanent'], // Only allow these values
+        enum: ['Contracted', 'Permanent'],
     },
 
-    deliveryDate: {
-        type: Date,
+    avgDeliveryTime: {
+        type: Number,
         required: true,
-    }
+      },
 });
 
 const Supplier = mongoose.model("Suppliers", supplierSchema);
@@ -37,7 +37,7 @@ function validateSupplier(supplier) {
         email: Joi.string().required(),
         itemType: Joi.string().required(),
         supplierType: Joi.string().valid('Contracted', 'Permanent').required(),
-        deliveryDate: Joi.date().required()
+        avgDeliveryTime: Joi.number().required()
     });
 
     var result = schema.validate(supplier);
