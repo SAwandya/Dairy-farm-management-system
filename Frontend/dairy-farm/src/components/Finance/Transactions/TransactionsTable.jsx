@@ -67,6 +67,8 @@ const TransactionsTable = () => {
   });
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [transactionToDelete, setTransactionToDelete] = useState(null);
 
   const handleShowIncomeChange = (event) => {
     setShowIncome(event.target.checked);
@@ -103,8 +105,19 @@ const TransactionsTable = () => {
     setEditDialogOpen(true);
   };
 
-  const handleDeleteTransaction = (id) => {
-    setTransactions(transactions.filter((transaction) => transaction.id !== id));
+  const handleDeleteConfirmation = (transaction) => {
+    setTransactionToDelete(transaction);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDeleteTransaction = () => {
+    setTransactions(transactions.filter((transaction) => transaction.id !== transactionToDelete.id));
+    setDeleteDialogOpen(false);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogOpen(false);
+    setTransactionToDelete(null);
   };
 
   const handleCloseEditDialog = () => {
@@ -168,6 +181,8 @@ const TransactionsTable = () => {
           backgroundColor: "#f0f0f0",
           padding: "20px",
           borderRadius: "10px",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <FormControlLabel
@@ -193,7 +208,7 @@ const TransactionsTable = () => {
         <Button
           variant="contained"
           onClick={() => setOpenAddDialog(true)}
-          sx={{ marginLeft: "auto", marginTop: 1 }}
+          sx={{ marginTop: 1 }}
         >
           Add Transaction
         </Button>
@@ -343,6 +358,22 @@ const TransactionsTable = () => {
             </Button>
           </DialogActions>
         </Dialog>
+        <Dialog
+          open={deleteDialogOpen}
+          onClose={handleCloseDeleteDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle>{"Are you sure you want to delete this transaction?"}</DialogTitle>
+          <DialogActions>
+            <Button onClick={handleCloseDeleteDialog} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleDeleteTransaction} color="error" autoFocus>
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
         <TableContainer component={Paper} sx={{ width: "100%", marginTop: 2 }}>
           <Table>
             <TableHead>
@@ -367,7 +398,7 @@ const TransactionsTable = () => {
                     <Button onClick={() => handleEditTransaction(transaction)}>
                       Edit
                     </Button>
-                    <Button onClick={() => handleDeleteTransaction(transaction.id)}>
+                    <Button onClick={() => handleDeleteConfirmation(transaction)} color="error">
                       Delete
                     </Button>
                   </TableCell>

@@ -1,8 +1,9 @@
 import React from "react";
 import Container from "@mui/material/Container";
 import Financesidebar from "../../components/Finance/Financesidebar";
+import BudgetTable from "../../components/Finance/Budgets/BudgetTable";
 
-function FinanceTransactions() {
+function FinanceBudgets() {
   return (
     <Container
       className="main-container"
@@ -12,9 +13,9 @@ function FinanceTransactions() {
       }}
     >
       <Financesidebar />
-      <TransactionsTable />
+      <BudgetTable/>
     </Container>
   );
 }
 
-export default FinanceTransactions;
+export default FinanceBudgets;
