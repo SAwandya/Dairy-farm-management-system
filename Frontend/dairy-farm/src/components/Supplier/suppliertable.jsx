@@ -33,21 +33,7 @@ import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
-
-// const useStyles = makeStyles({
-
-//   root: {
-//     display: 'flex',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//     marginBottom: theme.spacing(2),
-//   },
-
-//   table: {
-//     minWidth: 650,
-//   },
-
-// });
+import validateForm from "./ValidateForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,6 +49,14 @@ const useStyles = makeStyles((theme) => ({
   addButton: {
     marginLeft: "auto",
   },
+  row: {
+    "&:nth-child(odd)": {
+      backgroundColor: "#f2f2f2",
+    },
+    "&:nth-child(even)": {
+      backgroundColor: "#e0f7fa",
+    },
+  },
 }));
 
 const SupplierTable = () => {
@@ -70,7 +64,15 @@ const SupplierTable = () => {
 
   const [open, setOpen] = React.useState(false);
   const [currentRow, setCurrentRow] = React.useState(null);
+  const [validationErrors, setValidationErrors] = React.useState(null);
   const { mutate } = useUpdateUser();
+
+  const [openAdd, setOpenAdd] = React.useState(false);
+  const [newRow, setNewRow] = React.useState({});
+  const mutationAdd = useCreateUser();
+  const mutationDelete = useDeleteUser();
+  const { data, isLoading, isError } = useGetUsers();
+  const [search, setSearch] = React.useState("");
 
   const handleClickOpen = (row) => {
     setCurrentRow(row);
@@ -82,19 +84,28 @@ const SupplierTable = () => {
   };
 
   const handleUpdate = () => {
-    mutate(currentRow);
-    setOpen(false);
-  };
+    console.log(currentRow);
+    const errors = validateForm(currentRow);
+    if (Object.values(errors).some((error) => error)) {
+      setValidationErrors(errors);
+      return;
+    }
 
-  const mutationDelete = useDeleteUser();
+    let data = { ...currentRow, __v: undefined };
+
+    mutate(data, {
+      onSuccess: () => {
+        setOpen(false);
+      },
+      onError: (error) => {
+        console.error("An error occurred:", error);
+      },
+    });
+  };
 
   const handleDelete = (id) => {
     mutationDelete.mutate(id);
   };
-
-  const [openAdd, setOpenAdd] = React.useState(false);
-  const [newRow, setNewRow] = React.useState({});
-  const mutationAdd = useCreateUser();
 
   const handleClickOpenAdd = () => {
     setOpenAdd(true);
@@ -108,10 +119,6 @@ const SupplierTable = () => {
     mutationAdd.mutate(newRow);
     setOpenAdd(false);
   };
-
-  const { data, isLoading, isError } = useGetUsers();
-
-  const [search, setSearch] = React.useState("");
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
@@ -167,7 +174,7 @@ const SupplierTable = () => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Id</TableCell>
+              <TableCell style={{ display: "none" }}>Id</TableCell>
               <TableCell>Supplier Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Item Type</TableCell>
@@ -178,9 +185,13 @@ const SupplierTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredData?.map((row) => (
-              <TableRow key={row._id}>
-                <TableCell component="th" scope="row">
+            {filteredData?.map((row, index) => (
+              <TableRow key={row._id} className={classes.row}>
+                <TableCell
+                  style={{ display: "none" }}
+                  component="th"
+                  scope="row"
+                >
                   {row._id}
                 </TableCell>
                 <TableCell>{row.name}</TableCell>
@@ -192,6 +203,7 @@ const SupplierTable = () => {
                   <IconButton
                     aria-label="edit"
                     onClick={() => handleClickOpen(row)}
+                    color="primary"
                   >
                     <EditIcon />
                   </IconButton>
@@ -200,6 +212,7 @@ const SupplierTable = () => {
                   <IconButton
                     aria-label="delete"
                     onClick={() => handleDelete(row._id)}
+                    color="secondary"
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -293,6 +306,15 @@ const SupplierTable = () => {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Update User</DialogTitle>
+          {validationErrors && (
+            <div>
+              {Object.entries(validationErrors).map(([key, value]) => (
+                <p key={key} style={{ color: "red", paddingLeft: "25px"}}>
+                  {value}
+                </p>
+              ))}
+            </div>
+          )}
           <DialogContent>
             <TextField
               autoFocus
@@ -306,6 +328,7 @@ const SupplierTable = () => {
                 setCurrentRow({ ...currentRow, name: e.target.value })
               }
             />
+
             <TextField
               margin="dense"
               id="email"
@@ -318,28 +341,34 @@ const SupplierTable = () => {
               }
             />
             <FormControl fullWidth>
-                  <InputLabel id="edit-itemType-label">Item Type</InputLabel>
-                  <Select
-                    labelId="edit-itemType-label"
-                    id="edit-itemType"
-                    value={currentRow?.itemType}
-                    onChange={(e) => setCurrentRow({ ...currentRow, itemType: e.target.value })}
-                  >
-                    <MenuItem value={'Bottles'}>Bottle</MenuItem>
-                    <MenuItem value={'Gloves'}>Glove</MenuItem>
-                    <MenuItem value={'Grass'}>Grass</MenuItem>
-                  </Select>
+              <InputLabel id="edit-itemType-label">Item Type</InputLabel>
+              <Select
+                labelId="edit-itemType-label"
+                id="edit-itemType"
+                value={currentRow?.itemType}
+                onChange={(e) =>
+                  setCurrentRow({ ...currentRow, itemType: e.target.value })
+                }
+              >
+                <MenuItem value={"Bottles"}>Bottle</MenuItem>
+                <MenuItem value={"Gloves"}>Glove</MenuItem>
+                <MenuItem value={"Grass"}>Grass</MenuItem>
+              </Select>
             </FormControl>
             <FormControl fullWidth>
-              <InputLabel id="edit-supplierType-label">Supplier Type</InputLabel>
+              <InputLabel id="edit-supplierType-label">
+                Supplier Type
+              </InputLabel>
               <Select
                 labelId="edit-supplierType-label"
                 id="edit-supplierType"
                 value={currentRow?.supplierType}
-                onChange={(e) => setCurrentRow({ ...currentRow, supplierType: e.target.value })}
+                onChange={(e) =>
+                  setCurrentRow({ ...currentRow, supplierType: e.target.value })
+                }
               >
-                <MenuItem value={'Contracted'}>Contracted</MenuItem>
-                <MenuItem value={'Permanent'}>Permanent</MenuItem>
+                <MenuItem value={"Contracted"}>Contracted</MenuItem>
+                <MenuItem value={"Permanent"}>Permanent</MenuItem>
               </Select>
             </FormControl>
             <TextField
@@ -482,16 +511,3 @@ const validateEmail = (email) =>
     .match(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
-
-function validateUser(user) {
-  return {
-    firstName: !validateRequired(user.firstName)
-      ? "First Name is Required"
-      : "",
-    lastName: !validateRequired(user.lastName) ? "Last Name is Required" : "",
-    email: !validateEmail(user.email) ? "Incorrect Email Format" : "",
-    supplierType: !validateRequired(user.supplierType)
-      ? "Supplier Type is Required"
-      : "",
-  };
-}
