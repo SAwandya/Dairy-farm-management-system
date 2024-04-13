@@ -1,23 +1,39 @@
-import React, { useState } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, TextField, Button, Box, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { TextField, Button, Box, Typography, Select, MenuItem } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const ScheduleFormContent = () => {
-    const [sessionId, setSessionId] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [cowGroup, setCowGroup] = useState('');
     const [status, setStatus] = useState('Incomplete');
     const [specialNotes, setSpecialNotes] = useState('');
+    const [batchOptions, setBatchOptions] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchBatchOptions();
+    }, []);
+
+    const fetchBatchOptions = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/api/animalReg/batches');
+            if (response.data.success) {
+                setBatchOptions(response.data.data);
+            } else {
+                console.error('Failed to fetch batch options:', response.data.error);
+            }
+        } catch (error) {
+            console.error('Error fetching batch options:', error);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
     
         axios.post("http://localhost:3000/api/milkingSessions", {
-            sessionId,
             date,
             time,
             cowGroup,
@@ -64,22 +80,13 @@ const ScheduleFormContent = () => {
                             fontFamily: 'Poppins',
                             fontWeight: '600',
                             textAlign: 'center',
-                            fontSize: '42px'
+                            fontSize: '42px',
+                            marginBottom: '36px'
                         }}
                     >
                         Scheduling Form
                     </Typography>
                     <form onSubmit={handleSubmit}>
-                        <TextField
-                            name="sessionId"
-                            label="Session ID"
-                            type="number"
-                            value={sessionId}
-                            onChange={(e) => setSessionId(e.target.value)}
-                            fullWidth
-                            required
-                            margin="normal"
-                        />
                         <TextField
                             name="date"
                             label="Date"
@@ -88,7 +95,9 @@ const ScheduleFormContent = () => {
                             onChange={(e) => setDate(e.target.value)}
                             fullWidth
                             required
-                            margin="normal"
+                            style={{
+                                marginBottom: '16px'
+                            }}
                         />
                         <TextField
                             name="time"
@@ -98,17 +107,31 @@ const ScheduleFormContent = () => {
                             onChange={(e) => setTime(e.target.value)}
                             fullWidth
                             required
-                            margin="normal"
+                            style={{
+                                marginBottom: '16px'
+                            }}
                         />
-                        <TextField
+                        <Select
                             name="cowGroup"
                             label="Cow Group"
                             value={cowGroup}
                             onChange={(e) => setCowGroup(e.target.value)}
                             fullWidth
                             required
-                            margin="normal"
-                        />
+                            displayEmpty
+                            style={{
+                                marginBottom: '16px'
+                            }}
+                        >
+                            <MenuItem value="" disabled>
+                                Select Cow Group
+                            </MenuItem>
+                            {batchOptions.map((batch) => (
+                                <MenuItem key={batch} value={batch}>
+                                    {batch}
+                                </MenuItem>
+                            ))}
+                        </Select>
                         <TextField
                             name="specialNotes"
                             label="Special Notes"
@@ -116,10 +139,24 @@ const ScheduleFormContent = () => {
                             onChange={(e) => setSpecialNotes(e.target.value)}
                             fullWidth
                             multiline
-                            rows={4}
-                            margin="normal"
+                            rows={6}
+                            style={{
+                                marginBottom: '48px'
+                            }}
                         />
-                        <Button type="submit" variant="contained" color="primary" fullWidth>
+                        <Button type="submit" variant="contained" color="primary" fullWidth
+                            style={{
+                                backgroundColor: '#38775B',
+                                color: '#fff',
+                                width: '100%',
+                                fontFamily: 'Poppins, sans-serif',
+                                textTransform: 'none',
+                                fontWeight: '600',
+                                fontSize: '18px',
+                                marginBottom: '22px',
+                                borderRadius: '15px'
+                            }}    
+                        >
                             Add Milk Session
                         </Button>
                     </form>
