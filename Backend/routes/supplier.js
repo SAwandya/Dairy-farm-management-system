@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
         email: req.body.email,
         itemType: req.body.itemType,
         supplierType: req.body.supplierType,
-        deliveryDate: req.body.deliveryDate
+        avgDeliveryTime: req.body.avgDeliveryTime
     });
     supplier = await supplier.save();
 
@@ -47,7 +47,7 @@ router.put('/:id', async (req, res) => {
         email: req.body.email,
         itemType: req.body.itemType,
         supplierType: req.body.supplierType, 
-        deliveryDate: req.body.deliveryDate
+        avgDeliveryTime: req.body.avgDeliveryTime
     }, { new: true });
 
     if (!supplier) return res.status(404).send('The supplier with the given ID was not found.');
