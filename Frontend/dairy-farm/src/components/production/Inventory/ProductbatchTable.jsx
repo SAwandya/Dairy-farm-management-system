@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Paper } from '@mui/material';
+import { Paper, TextField } from '@mui/material'; // Import TextField for input fields
 import PbDelete from '../Inventory/PbDelete';
 import PbUpdate from '../Inventory/PbUpdate';
 import axios from 'axios';
 
 function ProductBatchTable() {
   const [productBatches, setProductBatches] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredRows, setFilteredRows] = useState([]);
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    filterRows();
+  }, [searchQuery, productBatches]);
 
   const fetchData = async () => {
     try {
@@ -29,7 +35,20 @@ function ProductBatchTable() {
     fetchData(); // Refetch data after update
   };
 
-  const rows = productBatches.map((productBatch, index) => ({
+  const filterRows = () => {
+    const filtered = productBatches.filter(
+      row =>
+        row.productId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        row.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredRows(filtered);
+  };
+
+  const handleSearchChange = event => {
+    setSearchQuery(event.target.value);
+  };
+
+  const rows = filteredRows.map((productBatch, index) => ({
     id: index + 1,
     ProductId: productBatch.productId,
     Name: productBatch.name,
@@ -58,11 +77,18 @@ function ProductBatchTable() {
     { field: 'deleteAction', headerName: 'Delete', renderCell: (params) => params.row.deleteAction, width: 100 },
     { field: 'updateAction', headerName: 'Update', renderCell: (params) => params.row.updateAction, width: 100 },
   ];
-  
 
   return (
-<Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh', overflow: 'auto' }}>      
-<DataGrid
+    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh', overflow: 'auto' }}>  
+      {/* Input field for searching */}
+      <TextField
+        label="Search"
+        variant="outlined"
+        value={searchQuery}
+        onChange={handleSearchChange}
+        style={{ marginBottom: 10 }}
+      />    
+      <DataGrid
         rows={rows}
         columns={columns}
         pageSize={5}
