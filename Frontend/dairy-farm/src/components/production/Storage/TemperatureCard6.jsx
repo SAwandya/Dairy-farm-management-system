@@ -22,7 +22,7 @@ function TemperatureDisplay() {
       setStatus('Sensors Active');
       console.log('Received temperature update:', data.temperature);
       setTemperature(data.temperature-11.1);
-      setExceedsLimit(data.temperature > 38);
+      setExceedsLimit(data.temperature > 40);
     };
 
     socket.onerror = (error) => {
