@@ -61,8 +61,8 @@ const OrderTable = () => {
               ...validationErrors,
               orderStatus: undefined,
             }),
-          disabled: true, // Add this line to disable the field
-          defaultValue: 'Pending' ,// Add this line to set the default value to 'pending'
+          disabled: true,
+          defaultValue: 'Pending' ,
           style: { display: 'none' } 
         },
       },
@@ -132,14 +132,14 @@ const OrderTable = () => {
   const { mutateAsync: deleteOrder, isPending: isDeletingOrder } =
     useDeleteOrder();
 
-  //CREATE action
+  //CREATE 
   const handleCreateOrder = async ({ values, table }) => {
     console.log(values); // log the values being sent
     await createOrder({ ...values, orderStatus: 'Pending' }); // Set orderStatus to 'pending' by default
     table.setCreatingRow(null); //exit creating mode
   };
 
-  //UPDATE action
+  //UPDATE 
   const handleSaveOrder = async ({ values, table }) => {
     await updateOrder(values);
     table.setEditingRow(null); //exit editing mode
@@ -218,13 +218,7 @@ const OrderTable = () => {
       <Button
         variant="contained"
         onClick={() => {
-          table.setCreatingRow(true); //simplest way to open the create row modal with no default values
-          //or you can pass in a row object to set default values with the `createRow` helper function
-          // table.setCreatingRow(
-          //   createRow(table, {
-          //     //optionally pass in default values for the new row, useful for nested data or other complex scenarios
-          //   }),
-          // );
+          table.setCreatingRow(true);
         }}
       >
         Place Order
@@ -329,12 +323,6 @@ function useDeleteOrder() {
 
 const queryClient = new QueryClient();
 
-const ExampleWithProviders = () => (
-  //Put this with your other react-query providers near root of your app
-  <QueryClientProvider client={queryClient}>
-    <OrderTable />
-  </QueryClientProvider>
-);
 
 export default OrderTable;
 
