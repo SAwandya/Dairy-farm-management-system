@@ -7,6 +7,10 @@ import Checkbox from "@mui/material/Checkbox";
 import { BarChart } from "@mui/x-charts/BarChart";
 import usePurcahse from "../../hooks/usePurcahses";
 import { color } from "@mui/system";
+import { Button } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import pdfService from "../../services/Sales/pdfService";
+import AnalysisRep from "../../pages/Sales/AnalysisRep";
 
 const SalesChart2 = () => {
   const [seriesNb, setSeriesNb] = React.useState(2);
@@ -64,7 +68,6 @@ const SalesChart2 = () => {
     const data = [];
     for (const year in groupedData[productType]) {
       for (const month in groupedData[productType][year]) {
-        console.log(month);
         const value = groupedData[productType][year][month];
         data[month-1] = value;
       }
@@ -80,17 +83,23 @@ const SalesChart2 = () => {
     series.push({ label: productType, data });
   }
 
-  console.log(series);
-
   // groupedData can be set to generate report
 
-  // const newseries = series
-  //   .slice(0, seriesNb)
-  //   .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }));
+  const newseries = series
+    .slice(0, seriesNb)
+    .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }));
 
-  // console.log(series);
+  console.log(newseries);
 
   const [seriesData, setSeriesData] = React.useState([]);
+
+  // const handleDownload = () => {
+  //   pdfService.download().then(res => {
+  //     console.log('Download success')
+  //   }).catch(err => {
+  //     console.log('err');
+  //   })
+  // }
 
   return (
     <>
@@ -125,6 +134,7 @@ const SalesChart2 = () => {
         max={10}
         aria-labelledby="input-series-number"
       />
+      <AnalysisRep newseries={newseries} />
     </>
   );
 };
