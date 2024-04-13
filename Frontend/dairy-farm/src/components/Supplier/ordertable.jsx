@@ -114,6 +114,8 @@ const OrderTable = () => {
 
     let data = { ...currentRow, __v: undefined };
 
+    console.log(data);
+
     mutate(data, {
       onSuccess: () => {
         setOpen(false);
@@ -341,8 +343,8 @@ const OrderTable = () => {
             </div>
           )}
           <DialogContent>
-            <FormControl fullWidth margin="dense">
-              <InputLabel id="orderType-label">Order Type</InputLabel>
+            <FormControl fullWidth>
+            <InputLabel id="supplier-label">Order Type</InputLabel>
               <Select
                 labelId="orderType-label"
                 id="orderType"
@@ -351,8 +353,11 @@ const OrderTable = () => {
                   setCurrentRow({ ...currentRow, orderType: e.target.value })
                 }
               >
-                <MenuItem value={"Bottles"}>Bottles</MenuItem>
-                <MenuItem value={"Gloves"}>Gloves</MenuItem>
+                {itemTypes.map((item) => (
+                  <MenuItem key={item._id} value={item._id}>
+                    {item.itemName}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl fullWidth margin="dense">
@@ -360,11 +365,11 @@ const OrderTable = () => {
               <Select
                 labelId="supplier-label"
                 id="supplier"
-                value={newRow.supplier}
-                onChange={(e) => setNewRow({ ...newRow, supplier: e.target.value })}
+                value={currentRow?.supplier}
+                onChange={(e) => setCurrentRow({ ...currentRow, supplierName: e.target.value })}
               >
                 {suppliers.map((supplier) => (
-                  <MenuItem key={supplier._id} value={supplier._id}>
+                  <MenuItem key={supplier._id} value={supplier.name}>
                     {supplier.name}
                   </MenuItem>
                 ))}
@@ -481,11 +486,9 @@ function useUpdateOrder() {
       );
       return response.json();
     },
-    onMutate: (updatedOrder) => {
-      queryClient.setQueryData(["orders"], (prevOrders) =>
-        prevOrders?.map((prevOrder) =>
-          prevOrder._id === updatedOrder._id ? updatedOrder : prevOrder
-        )
+    onSuccess: (data, variables) => {
+      queryClient.setQueryData(["orders"], (old) =>
+        old?.map((d) => (d._id === variables._id ? data : d))
       );
     },
   });

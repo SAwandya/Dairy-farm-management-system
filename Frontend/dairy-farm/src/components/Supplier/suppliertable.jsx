@@ -34,6 +34,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import validateForm from "./ValidateForm";
+import { useState, useEffect } from 'react';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,6 +63,13 @@ const useStyles = makeStyles((theme) => ({
 
 const SupplierTable = () => {
   const classes = useStyles();
+
+  const [itemTypes, setItemTypes] = useState([]);
+  useEffect(() => {
+  fetch('http://localhost:3000/api/item')
+    .then(response => response.json())
+    .then(data => setItemTypes(data));
+  }, []);
 
   const [open, setOpen] = React.useState(false);
   const [currentRow, setCurrentRow] = React.useState(null);
@@ -248,19 +257,19 @@ const SupplierTable = () => {
               fullWidth
               onChange={(e) => setNewRow({ ...newRow, email: e.target.value })}
             />
-            <FormControl fullWidth>
+            <FormControl fullWidth margin="dense">
               <InputLabel id="itemType-label">Item Type</InputLabel>
               <Select
                 labelId="itemType-label"
                 id="itemType"
                 value={newRow.itemType}
-                onChange={(e) =>
-                  setNewRow({ ...newRow, itemType: e.target.value })
-                }
+                onChange={(e) => setNewRow({ ...newRow, itemType: e.target.value })}
               >
-                <MenuItem value={"Bottles"}>Bottles</MenuItem>
-                <MenuItem value={"Gloves"}>Gloves</MenuItem>
-                <MenuItem value={"Grass"}>Grass</MenuItem>
+                {itemTypes.map((item) => (
+                  <MenuItem key={item._id} value={item._id}>
+                    {item.itemName}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl fullWidth>
@@ -340,19 +349,19 @@ const SupplierTable = () => {
                 setCurrentRow({ ...currentRow, email: e.target.value })
               }
             />
-            <FormControl fullWidth>
-              <InputLabel id="edit-itemType-label">Item Type</InputLabel>
+          <FormControl fullWidth margin="dense">
+              <InputLabel id="itemType-label">itemType Type</InputLabel>
               <Select
-                labelId="edit-itemType-label"
-                id="edit-itemType"
-                value={currentRow?.itemType}
-                onChange={(e) =>
-                  setCurrentRow({ ...currentRow, itemType: e.target.value })
-                }
+                labelId="itemType-label"
+                id="itemType"
+                value={newRow.itemType}
+                onChange={(e) => setCurrentRow({ ...currentRow, itemType: e.target.value })}
               >
-                <MenuItem value={"Bottles"}>Bottle</MenuItem>
-                <MenuItem value={"Gloves"}>Glove</MenuItem>
-                <MenuItem value={"Grass"}>Grass</MenuItem>
+                {itemTypes.map((item) => (
+                  <MenuItem key={item._id} value={item.itemName}>
+                    {item.itemName}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl fullWidth>
@@ -458,7 +467,7 @@ function useUpdateUser() {
           body: JSON.stringify({
             ...user,
             _id: undefined,
-            supplierType: user.supplierType,
+            
           }),
         }
       );
