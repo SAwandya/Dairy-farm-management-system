@@ -76,6 +76,7 @@ const ProductList = () => {
 
   return (
     <React.Fragment>
+
       <Container sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', marginBottom: '20px' }}>
         <SalesTitle>Recent Products</SalesTitle>
 

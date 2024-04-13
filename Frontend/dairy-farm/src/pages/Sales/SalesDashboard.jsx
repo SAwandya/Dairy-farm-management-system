@@ -26,6 +26,8 @@ import ProductList from "../../components/Sales/ProductList";
 import CustomerList from "../../components/Sales/CustomerList";
 import SalesChart2 from "../../components/Sales/SalesChart2";
 import SalesChart3 from "../../components/Sales/SalesCharts";
+import BgCard from "../../components/Sales/bgCard";
+import useProducts from "../../hooks/useProducts";
 
 function Copyright(props) {
   return (
@@ -84,7 +86,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 const customTheme = createTheme({
@@ -102,6 +103,19 @@ const customTheme = createTheme({
 });
 
 const SalesDashboard = () => {
+  const { data, error, isLoading, refetch } = useProducts();
+
+  const publishPro = data?.filter((value) => value.publish !== "false");
+  const unpublishPro = data?.filter((value) => value.publish === "false");
+
+  const publishlen = publishPro?.length || 0;
+
+  const unpublishlen = unpublishPro?.length || 0;
+
+  const allProduct = data?.length || 0;
+
+  console.log(unpublishlen);
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -243,7 +257,7 @@ const SalesDashboard = () => {
                       height: 600,
                       width: 1200,
                       background: "#114232",
-                      padding: '60px'
+                      padding: "60px",
                     }}
                   >
                     <SalesChart2 />
@@ -282,9 +296,24 @@ const SalesDashboard = () => {
             {/* Recent Orders */}
             <Grid item xs={12}>
               {selected == "product" ? (
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <ProductList />
-                </Paper>
+                <>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      paddingBottom: "40px",
+                    }}
+                  >
+                    <BgCard data={allProduct} />
+                    <BgCard data={publishlen} />
+                    <BgCard data={unpublishlen} />
+                  </Box>
+                  <Paper
+                    sx={{ p: 2, display: "flex", flexDirection: "column" }}
+                  >
+                    <ProductList />
+                  </Paper>
+                </>
               ) : null}
             </Grid>
 
