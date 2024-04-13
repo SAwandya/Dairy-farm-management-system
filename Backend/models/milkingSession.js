@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const milkSessionSchema = new mongoose.Schema({
   sessionId: {
     type: Number,
-    required: true,
     unique: true
   },
   date: {
@@ -25,6 +24,19 @@ const milkSessionSchema = new mongoose.Schema({
   },
   specialNotes: String
 }, { timestamps: false });
+
+milkSessionSchema.pre('save', async function(next) {
+  try {
+    if (!this.sessionId) {
+      const lastSession = await MilkSession.findOne({}, {}, { sort: { 'sessionId': -1 } });
+      const nextId = lastSession ? lastSession.sessionId + 1 : 1;
+      this.sessionId = nextId;
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 const MilkSession = mongoose.model('MilkSession', milkSessionSchema);
 
