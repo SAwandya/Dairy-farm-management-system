@@ -2,37 +2,41 @@ const express = require("express");
 const mongoose = require('mongoose');
 
 const router = express.Router();
-const { validate, Order } = require("../models/order");
+const { validate, Inventory } = require("../models/inventory");
+const { Item } = require("../models/item");
 
-// Create
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    let order = new Order({
+    let inventory = new Inventory({
         orderType: req.body.orderType,
         supplierName: req.body.supplierName,
-        // add other properties...
+        quantity: req.body.quantity,
     });
-    order = await order.save();
+    inventory = await inventory.save();
 
-    res.send(order);
+    res.send(inventory);
 });
 
-// Read all
 router.get('/', async (req, res) => {
-    const orders = await Order.find();
-    res.send(orders);
+    let inventory = await inventory.find();
+
+    inventory = inventory.map(async inventory => {
+        const item = await Item.findById(inventory.orderType);
+        return {...inventory._doc, item: item};
+    });
+    inventory = await Promise.all(inventory);
+
+    res.send(inventory);
 });
 
-// Read one
 router.get('/:id', async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (!order) return res.status(404).send('The order with the given ID was not found.');
     res.send(order);
 });
 
-// Update
 router.put('/:id', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -40,7 +44,6 @@ router.put('/:id', async (req, res) => {
     const order = await Order.findByIdAndUpdate(req.params.id, {
         orderType: req.body.orderType,
         supplierName: req.body.supplierName,
-        // add other properties...
     }, { new: true });
 
     if (!order) return res.status(404).send('The order with the given ID was not found.');
@@ -48,7 +51,6 @@ router.put('/:id', async (req, res) => {
     res.send(order);
 });
 
-// Delete
 router.delete('/:id', async (req, res) => {
     const order = await Order.findByIdAndDelete(req.params.id);
     if (!order) return res.status(404).send('The order with the given ID was not found.');

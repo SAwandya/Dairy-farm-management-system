@@ -56,10 +56,9 @@ const Inventory = () => {
         </TableHead>
         <TableBody>
           {pendingOrders && pendingOrders.map(order => {
-            // const itemName = getItemNameByID(order.orderType);
             return (
               <TableRow key={order._id}>
-                <TableCell>{order.orderType}</TableCell>
+                <TableCell>{order.item.itemName}</TableCell>
                 <TableCell>{order.quantity}</TableCell>
                 <TableCell>{order.supplierName}</TableCell>
                 <TableCell>
@@ -115,6 +114,22 @@ function useUpdateOrderStatus() {
           }),
         }
       );
+
+      const inventoryResponse = await fetch(
+        `http://localhost:3000/api/inventory`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderType: orderFields.orderType,
+            supplierName: orderFields.supplierName,
+            quantity: orderFields.quantity
+         }),
+        }
+      );
+
       return response.json();
     },
     onSuccess: () => {
@@ -122,25 +137,3 @@ function useUpdateOrderStatus() {
     },
   });
 }
-
-
-// function getItemNameByID(itemID) {
-//   const [itemName, setItemName] = useState('');
-
-//   useEffect(() => {
-//     const fetchItemName = async () => {
-//       try {
-//         const response = await fetch(`http://localhost:3000/api/item/${itemID}`);
-//         const data = await response.json();
-//         setItemName(data.itemName);
-//       } catch (error) {
-//         console.error('Error fetching item name:', error);
-//       }
-//     };
-
-//     fetchItemName();
-    
-//   }, [itemID]);
-
-//   return itemName;
-// }
