@@ -95,6 +95,7 @@ function useGetPendingOrders() {
 function useUpdateOrderStatus() {
   const queryClient = useQueryClient();
   return useMutation({
+    queryKey: ["pendingOrders"],
     mutationFn: async (orderId) => {
       const orderResponse = await fetch(`http://localhost:3000/api/order/${orderId}`);
       const order = await orderResponse.json();
