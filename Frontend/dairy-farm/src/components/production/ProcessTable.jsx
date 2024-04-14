@@ -45,14 +45,14 @@ function ProcessTable() {
   }));
 
   const columns = [
-    { field: 'id', headerName: 'ID' },
-    { field: 'product', headerName: 'Product' },
-    { field: 'milkQuantity', headerName: 'Milk Quantity' },
-    { field: 'ingredients', headerName: 'Ingredients' },
-    { field: 'specialNotes', headerName: 'Special Notes' },
-    { field: 'scheduleDate', headerName: 'Schedule Date' },
-    { field: 'scheduleTime', headerName: 'Schedule Time' },
-    { field: 'status', headerName: 'Status' },
+    { field: 'id', headerName: 'ID',maxWidth:60  },
+    { field: 'product', headerName: 'Product' ,minWidth: 170},
+    { field: 'milkQuantity', headerName: 'Milk Quantity',minWidth: 120 },
+    { field: 'ingredients', headerName: 'Ingredients',minWidth: 170 },
+    { field: 'specialNotes', headerName: 'Special Notes',minWidth: 130 },
+    { field: 'scheduleDate', headerName: 'Schedule Date',minWidth: 140 },
+    { field: 'scheduleTime', headerName: 'Schedule Time' ,minWidth: 130},
+    { field: 'status', headerName: 'Status' ,minWidth: 160},
     { field: 'deleteAction', headerName: 'Delete', renderCell: (params) => params.row.deleteAction, width: 100 },
     { field: 'updateAction', headerName: 'Update', renderCell: (params) => params.row.updateAction, width: 100 },
   ];
@@ -61,7 +61,7 @@ function ProcessTable() {
     
     
 
-    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '50vh', overflow: 'auto' }}>
+    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh', overflow: 'auto' }}>
       <DataGrid
         rows={rows}
         columns={columns}

@@ -37,7 +37,7 @@ function ScheduledProcesses() {
     }
   };
 
-  // Define the columns for the DataGrid
+  // Define the columns for the DataGrid 
   const columns = [
     { field: 'id', headerName: 'ID', },
     { field: 'product', headerName: 'Product',minWidth: 150},
