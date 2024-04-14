@@ -98,9 +98,12 @@ const TransactionsTable = () => {
   const handleEditTransaction = (transaction) => {
     setSelectedTransaction(transaction);
     setEditDialogOpen(true);
-    console.log()
+    console.log(transactions);
   };
 
+  useEffect(() => {
+  console.log(transactions);
+}, [transactions]);
 
   const handleDeleteConfirmation = (transaction) => {
     setTransactionToDelete(transaction);
@@ -110,6 +113,18 @@ const TransactionsTable = () => {
   const handleDeleteTransaction = () => {
     setTransactions(transactions.filter((transaction) => transaction.id !== transactionToDelete.id));
     setDeleteDialogOpen(false);
+
+    axios.delete(`http://localhost:3000/api/transaction/${transactionToDelete._id}`)
+    .then(() => {
+      // Remove the deleted transaction from the local state
+      setTransactions(transactions.filter((transaction) => transaction.id !== transactionToDelete.id));
+      setDeleteDialogOpen(false);
+      setTransactionToDelete(null);
+    })
+    .catch((error) => {
+      console.error("Error deleting transaction:", error);
+      // Handle error (e.g., show an error message)
+    });
   };
 
   const handleCloseDeleteDialog = () => {
@@ -122,14 +137,47 @@ const TransactionsTable = () => {
     setSelectedTransaction(null);
   };
 
-  const handleSaveEdit = () => {
+  const handleSaveEdit = async () => {
     setTransactions(
       transactions.map((transaction) =>
         transaction.id === selectedTransaction.id ? selectedTransaction : transaction
       )
     );
+
+    console.log(transactions)
+
+  //           if (
+  //   transactions.type &&
+  //   transactions.description &&
+  //   transactions.department &&
+  //   transactions.value
+  // ) {
+  //   try {
+  //     const response = await axios.put("http://localhost:3000/api/transaction/" + transaction._id, transactions);
+  //     console.log("Transaction added successfully:", response.data);
+      
+  //     // Update the transactions state with the new transaction
+  //     setTransactions([...transactions, response.data]);
+  //     setOpenAddDialog(false);
+      
+  //     // Reset newTransaction state
+  //     setNewTransaction({
+  //       type: "Income",
+  //       description: "",
+  //       department: "",
+  //       value: "0",
+  //     });
+  //   } catch (error) {
+  //     console.error("Error adding transaction:", error);
+  //   }
+  // }
+  // {
+  //   }
+
     setEditDialogOpen(false);
     setSelectedTransaction(null);
+
+
   };
 
   const handleNewTransactionChange = (event) => {
@@ -198,9 +246,8 @@ const TransactionsTable = () => {
     return () => {
       // Perform any clean-up (if necessary)
     };
-  }, [data]); // Empty dependency array to run effect only once
+  }, []); // Empty dependency array to run effect only once
 
-  console.log(data)
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -213,6 +260,7 @@ const TransactionsTable = () => {
           borderRadius: "10px",
           flexDirection: "column",
           alignItems: "center",
+
         }}
       >
         <FormControlLabel
@@ -418,7 +466,7 @@ const TransactionsTable = () => {
             </TableHead>
             <TableBody>
               {filteredTransactions.map((transaction) => (
-                <TableRow key={transaction.id}>
+                <TableRow key={transaction._id}>
                   <TableCell>{transaction.date}</TableCell>
                   <TableCell>{transaction.type}</TableCell>
                   <TableCell>{transaction.description}</TableCell>
