@@ -29,12 +29,16 @@ function CreateEmployee() {
 
 
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-     axios.post("http://localhost:3000/api/employee/createEmployee", {
-      employeeId,
+    
+    // Validate the form
+    const isValid = validateForm();
+    
+    if (isValid) {
+      // Form is valid, proceed with submission
+      axios.post("http://localhost:3000/api/employee/createEmployee", {
+        employeeId,
         employeeName,
         position,
         contactNumber,
@@ -43,12 +47,15 @@ function CreateEmployee() {
       })
       .then(result => {
         console.log(result);
-        navigate('/employeedashboard');
+        navigate('/allemployee');
       })
       .catch(err => console.log(err));
-    
+    } else {
+      // Form is invalid, do not submit
+      console.log('Form validation failed');
+    }
   };
-
+  
   
 
   const validateForm = () => {

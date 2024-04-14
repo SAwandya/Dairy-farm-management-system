@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CustomizedTables from '../../components/Veterinary/table';
+import CustomizedTables from '../../components/Employees/etable';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
