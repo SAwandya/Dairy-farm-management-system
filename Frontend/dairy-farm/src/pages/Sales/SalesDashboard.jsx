@@ -131,7 +131,7 @@ const SalesDashboard = () => {
       <Box
         sx={{
           display: "flex",
-          overflow: "hidden",
+          overflow: "auto",
         }}
       >
         <CssBaseline />
@@ -229,7 +229,7 @@ const SalesDashboard = () => {
             flexGrow: 1,
             height: "100vh",
             width: "100vw",
-            overflow: "hidden",
+            overflow: "auto",
           }}
         >
           <Toolbar sx={{ backgroundColor: "#38775B" }} />
@@ -244,7 +244,7 @@ const SalesDashboard = () => {
                       p: 2,
                       display: "flex",
                       flexDirection: "column",
-                      height: 600,
+                      height: 800,
                       width: 1200,
                       background: "#114232",
                       padding: "60px",
@@ -310,7 +310,7 @@ const SalesDashboard = () => {
             {/* Customer List */}
             <Grid item xs={12}>
               {selected == "customer" ? (
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+                <Paper sx={{ p: 2, display: "flex", flexDirection: "column", width: "160vh" }}>
                   <CustomerList />
                 </Paper>
               ) : null}
