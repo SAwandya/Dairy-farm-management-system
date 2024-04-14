@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import dayjs from 'dayjs';
 import {
   Table,
@@ -13,8 +13,6 @@ import {
   Button,
   IconButton,
   Collapse,
-  FormControlLabel,
-  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
@@ -52,7 +50,7 @@ const MilkingSessionsTable = () => {
   const [issues, setIssues] = useState('');
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, sessionId) => {
       e.preventDefault();
 
       try {
@@ -64,6 +62,8 @@ const MilkingSessionsTable = () => {
               issues
           });
 
+          const updateSessionResponse = await axios.put(`http://localhost:3000/api/milkingSessions/${sessionId}/complete`);
+          
           if (response.data.success) {
               // Reset form fields after successful submission
               setMilkBatchId('');
@@ -86,6 +86,7 @@ const MilkingSessionsTable = () => {
                   text: 'Something went wrong!',
               });
           }
+
       } catch (err) {
           console.log(err);
           Swal.fire({
@@ -296,18 +297,10 @@ const MilkingSessionsTable = () => {
                     <Collapse in={index === openFormIndex && sessionToEdit === null}>
                       <div>
                         {index === openFormIndex && sessionToEdit === null && (
-                          <form onSubmit={handleSubmit} style={{borderBottom: '6px solid #38775B'}}>
-                            <TextField
-                                label="Milk Batch ID"
-                                onChange={(e) => setMilkBatchId(e.target.value)}
-                                type="number"
-                                variant="outlined"
-                                fullWidth
-                                margin="normal"
-                              />
+                          <form onSubmit={(e) => handleSubmit(e, session._id)} style={{borderBottom: '6px solid #38775B'}}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                               <TextField
-                                label="Amount of Milk"
+                                label="Amount of Milk (in Litres)"
                                 onChange={(e) => setAmountOfMilk(e.target.value)}
                                 type="number"
                                 variant="outlined"

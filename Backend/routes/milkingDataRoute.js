@@ -2,14 +2,16 @@ const express = require('express');
 const router = express.Router();
 const MilkingData = require('../models/milkingData');
 
-// POST method to add a new milking session
 router.post('/', async (req, res) => {
     if (!req.body) {
         return res.status(400).send({ message: "Content can not be empty" });
     }
     try {
+        const existingMilkingData = await MilkingData.find();
+        const milkBatchId = existingMilkingData.length + 1;
+
         const newMilkingData = new MilkingData({
-            milkBatchId: req.body.milkBatchId,
+            milkBatchId,
             amountOfMilk: req.body.amountOfMilk,
             duration: req.body.duration,
             qualityCheckResult: req.body.qualityCheckResult,
@@ -24,10 +26,17 @@ router.post('/', async (req, res) => {
     }
 });
 
-// GET method to fetch all milking sessions
 router.get('/', async (req, res) => {
     try {
-        const milkingData = await MilkingData.find();
+        const { date } = req.query;
+        let milkingData;
+        if (date) {
+            // If date is provided, filter milking data based on the date
+            milkingData = await MilkingData.find({ createdAt: { $gte: new Date(date) } });
+        } else {
+            // If date is not provided, fetch all milking data
+            milkingData = await MilkingData.find();
+        }
         res.status(200).json({ success: true, data: milkingData });
     } catch (error) {
         console.error('Error fetching milking data:', error);
@@ -48,5 +57,7 @@ router.get('/:milkBatchId', async (req, res) => {
         res.status(500).json({ success: false, error: 'Failed to fetch amount of milk' });
     }
 });
+
+
 
 module.exports = router;
