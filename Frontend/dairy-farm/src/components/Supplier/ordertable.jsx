@@ -427,7 +427,6 @@ const OrderTable = () => {
 };
 
 
-//CREATE hook (post new order to api)
 function useCreateOrder() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -457,7 +456,6 @@ function useCreateOrder() {
   });
 }
 
-//READ hook (get orders from api)
 function useGetOrders() {
   return useQuery({
     queryKey: ["orders"],
@@ -469,7 +467,6 @@ function useGetOrders() {
   });
 }
 
-//UPDATE hook (put order in api)
 function useUpdateOrder() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -516,7 +513,6 @@ function useUpdateOrder() {
 //   });
 // }
 
-//DELETE hook (delete order in api)
 function useDeleteOrder() {
   const queryClient = useQueryClient();
   return useMutation({

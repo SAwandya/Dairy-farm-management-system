@@ -411,7 +411,6 @@ const SupplierTable = () => {
 
 export default SupplierTable;
 
-//CREATE hook (post new user to api)
 function useCreateUser() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -440,7 +439,6 @@ function useCreateUser() {
   });
 }
 
-//READ hook (get users from api)
 function useGetUsers() {
   return useQuery({
     queryKey: ["users"],
@@ -452,7 +450,6 @@ function useGetUsers() {
   });
 }
 
-//UPDATE hook (put user in api)
 function useUpdateUser() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -483,7 +480,6 @@ function useUpdateUser() {
   });
 }
 
-//DELETE hook (delete user in api)
 function useDeleteUser() {
   const queryClient = useQueryClient();
   return useMutation({
