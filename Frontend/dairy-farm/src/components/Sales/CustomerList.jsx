@@ -13,7 +13,8 @@ import useCustomers from "../../hooks/useCustomers";
 import approveService from "../../services/Sales/approveService";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
-
+import userService from "../../services/Sales/userService";
+import MessagePop from "./MessagePop";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -21,6 +22,10 @@ function preventDefault(event) {
 
 const CustomerList = () => {
   const { data, error, isLoading, refetch } = useCustomers();
+
+  const [opennotify, setOpennotify] = React.useState(false);
+
+  const [selectedId, setSelecetId] = React.useState(null);
 
   const SetSelectedProductUpdate = useGameQueryStore(
     (s) => s.SetSelectedProductUpdate
@@ -48,6 +53,23 @@ const CustomerList = () => {
       })
       .catch((err) => {
         console.log(err.message);
+      });
+  };
+
+  const handleDelete = (customerId) => {
+    console.log("submited");
+    setSelecetId(customerId);
+    setOpennotify(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    userService
+      .delete(selectedId)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -99,7 +121,12 @@ const CustomerList = () => {
                 )}
               </TableCell>
               <TableCell>
-                <Button variant="outlined" size="medium" color="error">
+                <Button
+                  onClick={() => handleDelete(customer._id)}
+                  variant="outlined"
+                  size="medium"
+                  color="error"
+                >
                   Delete
                 </Button>
               </TableCell>
@@ -120,6 +147,13 @@ const CustomerList = () => {
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more orders
       </Link>
+
+      <MessagePop
+        opennotify={opennotify}
+        setOpennotify={setOpennotify}
+        refetch={refetch}
+        handlefunction={handleDeleteConfirm}
+      />
     </>
   );
 };
