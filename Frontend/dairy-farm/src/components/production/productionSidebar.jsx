@@ -53,7 +53,6 @@ function Sidebar() {
           />
         </Link>
         <Link to="/processPlanning" style={{ textDecoration: 'none', color: 'inherit' }}>
-
           <NavigationLink
             icon={<AccessTimeFilledIcon />}
             text="Process"
@@ -61,13 +60,6 @@ function Sidebar() {
             onClick={() => handleNavigation("Process")}
           />
          </Link>
-          <NavigationLink
-            icon={<DonutSmallIcon />}
-            text="QC Test"
-            isActive={activeSection === "QcTest"}
-            onClick={() => handleNavigation("QcTest")}
-            
-          />
           <Link to="/productInventory" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<WaterDropIcon />}
@@ -84,6 +76,14 @@ function Sidebar() {
             onClick={() => handleNavigation("storage")}
           />
           </Link>  
+          <Link to="/processPlanning" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <NavigationLink
+            icon={<DonutSmallIcon />}
+            text="QC Test"
+            isActive={activeSection === "QcTest"}
+            onClick={() => handleNavigation("QcTest")} 
+          /> 
+          </Link>
         </List>
       </Box>
 

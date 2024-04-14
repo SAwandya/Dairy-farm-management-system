@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Paper, TextField, Box } from '@mui/material'; // Import TextField for input fields
 import PbDelete from '../Inventory/PbDelete';
 import PbUpdate from '../Inventory/PbUpdate';
+import eventBus from '../../../ProductionUtils/EventBus';
 import axios from 'axios';
 
 function ProductBatchTable() {
@@ -12,6 +13,15 @@ function ProductBatchTable() {
 
   useEffect(() => {
     fetchData();
+    const handleFormSubmitted = () => {
+      fetchData(); // Call fetchData when form is submitted
+    };
+    eventBus.on('formSubmitted', handleFormSubmitted);
+
+    // Unsubscribe from 'formSubmitted' event when component unmounts
+    return () => {
+      eventBus.off('formSubmitted', handleFormSubmitted);
+    };
   }, []);
 
   useEffect(() => {

@@ -10,6 +10,6 @@ function Welcome() {
             <Date />
         </Box>
     );
-}
+} 
 
 export default Welcome;
