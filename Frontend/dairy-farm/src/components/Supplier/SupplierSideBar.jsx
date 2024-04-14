@@ -90,6 +90,7 @@ function Sidebar() {
         </Link>
         </List>
       </Box>
+      
       <Box className="user-actions">
         <List>
           <NavigationLink
@@ -109,5 +110,6 @@ function Sidebar() {
     </Box>
   );
 }
+
 
 export default Sidebar;
