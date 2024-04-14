@@ -5,18 +5,14 @@ import Process_ingredientsTable from "../../components/production/Process_ingred
 import ProcessCard from "../../components/production/Process_cards"
 import Process_resTable from "../../components/production/Process_resTable"
 import Testdialog from "../../pages/Production/Testdialog"
-import ProcessTable from "../../components/production/ProcessTable";
-
-
+import ProcessTable from "../../components/production/ProcessTable"
 import { Container,Box,Typography,Button} from "@mui/material"
 import Grid2 from "@mui/material/Unstable_Grid2";
 
 
 function ProcessPlanning() {
     
-    
-    
-    return (
+return (
        
 <Container maxWidth="100vw" style={{ margin: 0, padding: 0,overflow:'hidden' }}>
   {/*, height: '100vh', overflow: 'hidden' */}

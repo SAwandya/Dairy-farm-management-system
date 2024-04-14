@@ -2,18 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Paper, styled } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
+import { minWidth } from '@mui/system';
 
-// Custom styled Paper component to hide inner scrollbars
-const CustomPaper = styled(Paper)({
-  height: 400,
-  width: '100%',
-  '& .MuiDataGrid-main': {
-    overflow: 'hidden !important',
-  },
-  '& .MuiDataGrid-window': {
-    overflowY: 'hidden !important',
-  },
-});
 
 function ScheduledProcesses() {
   const [scheduledProcesses, setScheduledProcesses] = useState([]);
@@ -49,9 +39,9 @@ function ScheduledProcesses() {
 
   // Define the columns for the DataGrid
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'product', headerName: 'Product', width: 200 },
-    { field: 'Time', headerName: 'Time', width: 200 },
+    { field: 'id', headerName: 'ID', },
+    { field: 'product', headerName: 'Product',minWidth: 150},
+    { field: 'Time', headerName: 'Time',  },
   ];
 
   // Convert scheduledProcesses into rows for the DataGrid
@@ -62,7 +52,8 @@ function ScheduledProcesses() {
   }));
 
   return (
-    <CustomPaper>
+
+    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '50vh',minHeight:'30vh', overflow: 'auto', }}>  
       <DataGrid
         rows={rows}
         columns={columns}
@@ -70,7 +61,7 @@ function ScheduledProcesses() {
         rowsPerPageOptions={[5, 10, 20]}
         disableSelectionOnClick
       />
-    </CustomPaper>
+    </Paper>
   );
 }
 

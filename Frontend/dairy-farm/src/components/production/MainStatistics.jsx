@@ -8,13 +8,11 @@ function MainStatistics() {
     return (
         <Box>
             <Typography
-                variant="h3"
-                className='main-stats-title'
+                variant="h6"
+                fontWeight="bold"
                 sx={{
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    marginTop: '0px',
-                    mb:2
+                    mb:2,
+                    ml:1
                 }}
             >Today's Main Statistics</Typography>
 
