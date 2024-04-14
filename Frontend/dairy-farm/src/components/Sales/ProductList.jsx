@@ -33,8 +33,8 @@ const ProductList = () => {
     (s) => s.SetSelectedProductPublish
   );
 
-  const handleUpdate = (id) => {
-    SetSelectedProductUpdate(id);
+  const handleUpdate = (product) => {
+    SetSelectedProductUpdate(product);
   };
 
   const handlePublish = (id, publish) => {
@@ -105,7 +105,7 @@ const ProductList = () => {
               <TableCell>
                 <Link to="/productupdate">
                   <Button
-                    onClick={() => handleUpdate(product._id)}
+                    onClick={() => handleUpdate(product)}
                     variant="contained"
                     size="medium"
                     color="success"

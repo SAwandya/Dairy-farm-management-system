@@ -7,8 +7,6 @@ export default function BgCard(props) {
 
   const { data, text } = props;
 
-  console.log(data);
-
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Card

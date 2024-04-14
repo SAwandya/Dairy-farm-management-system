@@ -100,8 +100,6 @@ const SalesDashboard = () => {
 
   const allProduct = data?.length || 0;
 
-  console.log(unpublishlen);
-
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);

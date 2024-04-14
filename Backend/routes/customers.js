@@ -55,4 +55,13 @@ router.put("/approve/:id", async (req, res) => {
   res.send(customer);
 });
 
+router.delete("/:id", async (req, res) => {
+  let customer = await Customer.findByIdAndDelete(req.params.id);
+
+  if (!customer)
+    return res.status(400).send("The customer with the given id not found");
+
+  res.send(customer);
+});
+
 module.exports = router;
