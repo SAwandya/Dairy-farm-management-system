@@ -23,6 +23,7 @@ import {
   Box,
 } from "@mui/material";
 import axios from "axios";
+import '../../../styles/Finance/MainDashboard/DashboardContent.css';
 
 const departments = [
   "Veterinary",
@@ -252,8 +253,8 @@ const TransactionsTable = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   return (
-    <Container>
-      <Box
+    <Container className="container">
+      <Box className="paper"
         sx={{
           backgroundColor: "#f0f0f0",
           padding: "20px",
@@ -452,7 +453,7 @@ const TransactionsTable = () => {
             </Button>
           </DialogActions>
         </Dialog>
-        <TableContainer component={Paper} sx={{ width: "100%", marginTop: 2 }}>
+        <TableContainer component={Paper} className="tableContainer" sx={{ width: "100%", marginTop: 2 }}>
           <Table>
             <TableHead>
               <TableRow>
