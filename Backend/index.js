@@ -31,6 +31,7 @@ const waste=require("./routes/effluentRoutes");
 const cart = require("./routes/Carts");
 const salesDelivery = require("./routes/salesDelivery");
 const inventory = require("./routes/inventory");
+const transaction = require("./routes/transaction");
 
 if (!config.get("jwtPrivateKey")) {
   console.log("FATA ERROR: jwtPrivateKey is not defined");
@@ -98,6 +99,8 @@ app.use("/api/carts", cart);
 app.use("/api/salesdelivery", salesDelivery);
 
 app.use("/api/inventory", inventory);
+
+app.use("/api/transaction", transaction);
 
 
 const server = http.createServer(app); // Create an HTTP server using Express app

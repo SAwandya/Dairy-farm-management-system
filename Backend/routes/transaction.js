@@ -11,8 +11,10 @@ router.post('/', async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message);
 
     let transaction = new Transaction({
+        date: req.body.date,
         type: req.body.type,
         description: req.body.description,
+        department: req.body.department,
         value: req.body.value
     });
     transaction = await transaction.save();
@@ -35,12 +37,14 @@ router.get('/:id', async (req, res) => {
 
 // Update
 router.put('/:id', async (req, res) => {
-    const { error } = validateTransaction(req.body);
+    const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     const transaction = await Transaction.findByIdAndUpdate(req.params.id, {
+        date: req.body.date,
         type: req.body.type,
         description: req.body.description,
+        department: req.body.department,
         value: req.body.value
     }, { new: true });
 

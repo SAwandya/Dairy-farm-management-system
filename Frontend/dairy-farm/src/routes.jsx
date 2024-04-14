@@ -56,6 +56,7 @@ import EffluentPage from "./pages/Grazing/EffluentPage";
 import { RemoveFromQueue } from "@mui/icons-material";
 import Session from "./pages/Grazing/GrazingSession";
 import CartPage from "./pages/Sales/CartPage";
+import FinanceBudgets from "./pages/Finance/FinanceBudgets";
 
 const router = createBrowserRouter([
   {
@@ -221,6 +222,10 @@ const router = createBrowserRouter([
   {
     path: "/financetrans",
     element: <FinanceTransactions />,
+  },
+  {
+    path: "/financebud",
+    element: <FinanceBudgets />,
   },
   {
     path: "/scheduleForm",
