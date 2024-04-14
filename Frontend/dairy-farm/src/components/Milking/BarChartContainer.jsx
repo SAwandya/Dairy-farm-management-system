@@ -1,9 +1,9 @@
 import React from 'react';
-import StatGraph from './StatGraph';
+import MilkingBarChart from './MilkingBarChart';
 import { Box, Typography } from '@mui/material';
 
-function ChartCard() {
-    return(
+function BarChartContainer({ selectedOption }) {
+    return (
         <Box className="chart-card-container">
             <Typography
                 variant="h3"
@@ -22,9 +22,9 @@ function ChartCard() {
                     marginTop: '8px'
                 }}
             >Past 7 Days</Typography>
-            <StatGraph/>
+            <MilkingBarChart selectedTimePeriod={selectedOption} />
         </Box>
     )
 }
 
-export default ChartCard;
+export default BarChartContainer;
