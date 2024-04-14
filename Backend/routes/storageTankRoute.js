@@ -8,7 +8,6 @@ router.post('/', async (req, res) => {
     }
     try {
         const newStorageTank = new StorageTank({
-            tankId: req.body.tankId,
             capacity: req.body.capacity,
             installedDate: req.body.installedDate,
             manufacturer: req.body.manufacturer,
