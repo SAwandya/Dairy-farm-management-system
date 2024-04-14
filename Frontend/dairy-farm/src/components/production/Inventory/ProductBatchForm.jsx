@@ -3,10 +3,14 @@ import Draggable from 'react-draggable';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText,Checkbox, TextField, Select, MenuItem, FormControl, InputLabel, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { FormControlLabel } from '@mui/material';
-
+import eventBus from '../../../ProductionUtils/EventBus';
 import axios from 'axios';
 
-function ProductBatchForm({ onSubmitSuccess }) {
+const handleFormSubmitSuccess = () => {
+  eventBus.emit('formSubmitted');
+};
+
+function ProductBatchForm() {
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState('');
   const [milkQuantity, setMilkQuantity] = useState('');
@@ -48,7 +52,9 @@ function ProductBatchForm({ onSubmitSuccess }) {
         //storageLocation
       };
       await submitFormToDatabase(formData);
+      handleFormSubmitSuccess();
       setSuccessMessage('Form submitted successfully');
+
       //onSubmitSuccess(); // Call the parent component callback function to notify success
       setProduct('');
     setMilkQuantity('');

@@ -10,13 +10,7 @@ function DashboardContent() {
         <Box className="dashboard-content">
             <Welcome/>
             <MainStatistics/>
-            <Box className="dashboard-below-container">
-                
-                <TankStatusCard/>
-                <TankStatusCard/>
-                
-                
-            </Box>
+           
         </Box>
     );
   }
