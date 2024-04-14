@@ -10,7 +10,6 @@ import ProductDetails from "./components/Sales/ProductDetails";
 import CheckOut from "./components/Sales/CheckOut";
 import ProductUpdate from "./pages/Sales/ProductUpdate";
 import SalesDashboard from "./pages/Sales/SalesDashboard";
-import MilkingDashboard from "./pages/Milking/MilkingDashboard";
 import Employee from "./pages/Employees/Employee";
 import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
@@ -21,13 +20,23 @@ import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
 import ProductionDashboard from "./pages/Production/ProductionDashboard";
 import ProcessPlanning from "./pages/Production/ProcessPlanning";
 import StorageRoom from "./pages/Production/StorageRoom"
+import ProductInventory from "./pages/Production/ProductInventory";
 
+//Milking Management - Pages
+import MilkingDashboard from "./pages/Milking/MilkingDashboard";
 import MilkingSessions from './pages/Milking/MilkingSessions';
 import MilkingSessionSchedule from './pages/Milking/MilkingSessionSchedule';
+import MilkingData from './pages/Milking/MilkingData';
+import MilkingStorage from "./pages/Milking/MilkingStorage";
+import AddNewTank from "./pages/Milking/AddNewTank";
+import DataForProduction from "./pages/Milking/DataForProduction";
+import MilkingReport from "./pages/Milking/MilkingReport";
+
 import HomePageM from "./pages/HomeMain";
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 import SupplierOrder from "./pages/Supplier/SupplierOrder";
 import ItemDashboard from "./pages/Supplier/ItemDashboard";
+import InventoryDashboard from "./pages/Supplier/InventoryDashboard";
 import Health from "./pages/Veterinary/health";
 import VaccineAnim from "./pages/Veterinary/vaccineAnim";
 import BreedCard from "./pages/Veterinary/breedPage";
@@ -38,13 +47,18 @@ import CreateTask from "./pages/Employees/CreateTask"
 import UpdateTask from "./pages/Employees/UpdateTask"
 import AllEmployee from "./pages/Employees/AllEmployee";
 import AllTask from "./pages/Employees/AllTask";
-import MilkingData from './pages/Milking/MilkingData';
 import AnimReport from "./pages/Veterinary/VetReport";
 import EmployeeReport from "./pages/Employees/Employee_report";
 import EmployeeR from "./pages/Employees/EmployeeR";
-import MilkingStorage from "./pages/Milking/MilkingStorage";
-import AddNewTank from "./pages/Milking/AddNewTank";
 import PasturePage from "./pages/Grazing/PasturePage";
+import SessionPage from "./pages/Grazing/SessionPage";
+import Report from "./pages/Grazing/Report";
+import EffluentPage from "./pages/Grazing/EffluentPage";
+import { RemoveFromQueue } from "@mui/icons-material";
+import Session from "./pages/Grazing/GrazingSession";
+import CartPage from "./pages/Sales/CartPage";
+import FinanceBudgets from "./pages/Finance/FinanceBudgets";
+// import OrdReportDisplay from "./pages/Supplier/OrdReportDisplay";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +87,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <OrderPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/salescarts",
+        element: (
+          <ProtectedRoute>
+            <CartPage/>
           </ProtectedRoute>
         ),
       },
@@ -126,10 +148,7 @@ const router = createBrowserRouter([
     path: "/breedAnim",
     element: <BreedCard />,
   },
-  {
-    path: "/pasture",
-    element: <PasturePage />,
-  },
+
   {
     path: "/milkingdashboard",
     element: <MilkingDashboard />,
@@ -138,6 +157,32 @@ const router = createBrowserRouter([
     path: "/milkingData",
     element: <MilkingData />,
   },
+  {
+    path: "/milkingSessions",
+    element: <MilkingSessions />,
+  },
+  {
+    path: "/milkingStorage",
+    element: <MilkingStorage />,
+  },
+  {
+    path: "/addNewTank",
+    element: <AddNewTank />,
+  },
+  {
+    path: "/milkingSessions",
+    element: <MilkingSessions />,
+  },
+  {
+    path: "/dataForProduction",
+    element: <DataForProduction />,
+  },
+  {
+    path: "/milkingReport",
+    element: <MilkingReport />
+  },
+
+
   {
     path: "/employeedashboard",
     element: <Employee />,
@@ -164,49 +209,57 @@ const router = createBrowserRouter([
     element: <ItemDashboard />,
   },
   {
+    path: "/inventory",
+    element: <InventoryDashboard />,
+  },
+  {
     path: "/financedashboard",
     element: <FinanceMainDashboard />,
   },
-  {
-    path: "/milkingSessions",
-    element: <MilkingSessions />,
-  },
-  {
-    path: "/milkingStorage",
-    element: <MilkingStorage />,
-  },
-  {
-    path: "/addNewTank",
-    element: <AddNewTank />,
-  },
 
-  {
-    path: "/homeM",
-    element: <HomePageM />,
-  },
+  { path: "/homeM", element: <HomePageM />},
 
   //Production Management Paths
   { path: "/productiondashboard", element: <ProductionDashboard /> },
   { path: "/processplanning", element: <ProcessPlanning /> },
   { path: "/StorageRoom", element: <StorageRoom /> } ,  
+  { path: "/ProductInventory", element: <ProductInventory/> },
 
   {
     path: "/financetrans",
     element: <FinanceTransactions />,
   },
   {
+    path: "/financebud",
+    element: <FinanceBudgets />,
+  },
+  {
     path: "/scheduleForm",
     element: <MilkingSessionSchedule />,
   },
-  {
-    path: "/milkingSessions",
-    element: <MilkingSessions />,
-  },
-
+//grazing management
   {
     path: "/pastureinfo",
     element: <PastureInfo />,
   },
+  {
+    path: "/pasture",
+    element: <PasturePage />,
+  },
+
+  {
+    path: "/session",
+    element: <SessionPage />,
+  },
+  {
+    path: "/report",
+    element: <Report />,
+  },
+  {
+    path: "/waste",
+    element: <EffluentPage />,
+  },
+
   {
     path: "/task",
     element: <Task />,
@@ -235,6 +288,10 @@ const router = createBrowserRouter([
     path: "/empreport",
     element: <EmployeeReport />,
   },
+  // {
+  //   path: "/reportOrder",
+  //   element: <OrdReportDisplay />,
+  // },
 ]);
 
 export default router;

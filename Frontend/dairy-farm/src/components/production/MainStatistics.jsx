@@ -1,7 +1,7 @@
 
 import { Box } from '@mui/material';
 import React from 'react';
-import Typography from '@mui/material/Typography';
+import { Typography,Stack} from '@mui/material';
 import StatsCard from './StatsCard';
 
 function MainStatistics() {
@@ -13,32 +13,43 @@ function MainStatistics() {
                 sx={{
                     fontSize: '18px',
                     fontWeight: '600',
-                    marginTop: '20px'
+                    marginTop: '0px',
+                    mb:2
                 }}
             >Today's Main Statistics</Typography>
 
-            <Box className="stat-cards-container">
-                <StatsCard
-                    title='Total Sessions'
+
+            <Stack direction="row" spacing={5}>
+                
+                    <StatsCard
+                    title='Ongoing Processes'
                     value='10'
-                    icon='../../../src/assets/icon1.png'
-                />
-                <StatsCard
-                    title='Completed Sessions'
+                    icon='../../../src/assets/icon1.png'/>
+                
+                    <StatsCard
+                    title='Upcoming Processes'
                     value='8'
-                    icon='../../../src/assets/icon1.png'
-                />
-                <StatsCard
-                    title='Total Milk Collected'
+                    icon='../../../src/assets/icon1.png'/>
+                               
+                    <StatsCard
+                    title='Raw Milk Quantity '
                     value='1000L'
                     icon='../../../src/assets/icon2.png'
-                />
-                <StatsCard
-                    title='Amount of Tanks'
-                    value='2'
-                    icon='../../../src/assets/icon3.png'
-                />
-            </Box>
+                    />
+                    
+                    <StatsCard
+                    title='Temperature Status'
+                    value='Normal'
+                    icon='../../../src/assets/icon3.png'/>
+                
+
+
+            </Stack>
+                
+                
+               
+                
+            
         </Box>
     );
 }

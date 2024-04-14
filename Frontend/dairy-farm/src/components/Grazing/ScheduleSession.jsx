@@ -6,7 +6,7 @@ function ScheduleSessionForm() {
   const [formData, setFormData] = useState({
     date: '',
     time: '',
-    content: '',
+    typeOfSession: '',
     grazingArea: '',
     cowBatch: '',
     assignedEmployee: '',
@@ -48,7 +48,7 @@ function ScheduleSessionForm() {
     setFormData({
       date: '',
       time: '',
-      content: '',
+      typeOfSession: '',
       grazingArea: '',
       cowBatch: '',
       assignedEmployee: '',
@@ -103,10 +103,10 @@ function ScheduleSessionForm() {
               <Grid item xs={12}>
                 <FormControl fullWidth>
                   <TextField
-                    id="content"
-                    name="content"
-                    label="Content"
-                    value={formData.content}
+                    id="typeOfSession"
+                    name="typeOfSession"
+                    label="Type of Session"
+                    value={formData.typeOfSession}
                     onChange={handleChange}
                   />
                 </FormControl>

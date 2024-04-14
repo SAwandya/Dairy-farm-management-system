@@ -202,7 +202,7 @@ const NavBar = () => {
           </Search>
 
           <Stack direction="row" spacing={2}>
-            <Link to='/'>
+            <Link to="/">
               <Button
                 sx={{
                   backgroundColor: "rgba(155, 207, 83, 0.8)",
@@ -230,18 +230,20 @@ const NavBar = () => {
                 MY ORDERS
               </Button>
             </Link>
-            <Button
-              sx={{
-                backgroundColor: "rgba(155, 207, 83, 0.8)",
-                fontSize: "17px",
-                fontWeight: "bold",
-                width: "150px",
-                color: "#191919",
-                borderRadius: "10px",
-              }}
-            >
-              CART
-            </Button>
+            <Link to="/salescarts">
+              <Button
+                sx={{
+                  backgroundColor: "rgba(155, 207, 83, 0.8)",
+                  fontSize: "17px",
+                  fontWeight: "bold",
+                  width: "150px",
+                  color: "#191919",
+                  borderRadius: "10px",
+                }}
+              >
+                CART
+              </Button>
+            </Link>
           </Stack>
 
           <Box sx={{ flexGrow: 1 }} />

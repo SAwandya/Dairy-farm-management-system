@@ -5,7 +5,7 @@ import { borderRadius } from '@mui/system';
 function TemperatureDisplay() {
   const [temperature, setTemperature] = useState(null);
   const [exceedsLimit, setExceedsLimit] = useState(false);
-  const [status, setStatus] = useState('Sensors Inactive');
+  const [status, setStatus] = useState('Sensors Inactive!');
 
 
 
@@ -14,15 +14,14 @@ function TemperatureDisplay() {
 
     socket.onopen = () => {
       console.log('Connected to WebSocket server');
-      setStatus('Sensors Active');
-
     };
 
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      setStatus('Sensors Active');
       console.log('Received temperature update:', data.temperature);
       setTemperature(data.temperature-5.9);
-      setExceedsLimit(data.temperature > 36);
+      setExceedsLimit(data.temperature > 38.5);
     };
 
     socket.onerror = (error) => {
@@ -31,7 +30,7 @@ function TemperatureDisplay() {
 
     socket.onclose = () => {
       console.log('Disconnected from WebSocket server');
-      setStatus('Sensors Inactive');
+      setStatus('Sensors Inactive!');
 
     };
 
@@ -76,8 +75,11 @@ function TemperatureDisplay() {
         </div>
 
         <Typography align="center" variant="h5" component="h2">Temperature Range: 20-31</Typography>
-        <Typography align="center" variant="h6" component="h2" sx={{ margin: '10px 0', color: ' gray' }}> Status: {status} </Typography>
-
+        <Typography align="center" variant="h6" component="h2" 
+                    sx={{ margin: '10px 0', 
+                          color: status === 'Sensors Inactive!' ? 'red' : 'gray'}}> 
+                          Status: {status} 
+        </Typography>
         {exceedsLimit && (
           <Typography align="center" variant="h6" component="h3" sx={{ color: 'red', marginTop: '10px' }}>
             Temperature exceeds maximum limit!

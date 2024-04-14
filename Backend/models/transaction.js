@@ -8,9 +8,14 @@ const transactionSchema = new mongoose.Schema({
     },    
     type: {
         type: String,
-        required: true
+        enum: ['Income', 'Expense'],
+        default: 'Expense'
     },
     description: {
+        type: String,
+        required: true
+    },
+    department: {
         type: String,
         required: true
     },
@@ -25,8 +30,10 @@ const Transaction = mongoose.model('Transaction', transactionSchema);
 
 function validateTransaction(transaction) {
     const schema = Joi.object({
-        type: Joi.string().required(),
+        date: Joi.date().required(),
+        type: Joi.string().valid('Income', 'Expense').default('Expense'),
         description: Joi.string().required(),
+        department: Joi.string().required(),
         value: Joi.number().required()
     });
 
@@ -34,6 +41,6 @@ function validateTransaction(transaction) {
     return result;
 }
 
-exports.validateTransaction = validateTransaction;
+exports.validate = validateTransaction;
 exports.Transaction = Transaction;
 exports.transactionSchema = transactionSchema;

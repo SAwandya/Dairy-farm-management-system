@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Button, Grid, Card, CardContent } from '@mui/material';
-import Table from '../../components/Grazing/Table';
+import { Container, Grid, Card, CardContent, IconButton, Tooltip } from '@mui/material';
+import { AddCircleOutline, Edit, Delete } from '@mui/icons-material';
+import GrazingTable from '../../components/Grazing/GrazingTable';
 import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import PastureForm from '../../components/Grazing/PastureForm'; // Import the PastureForm component
-
-
-axios.defaults.baseURL = 'http://localhost:3000/api/pastureDetails';
+import PastureForm from '../../components/Grazing/PastureForm';
 
 function PasturePage() {
   const [dataList, setDataList] = useState([]);
   const [openFormDialog, setOpenFormDialog] = useState(false);
-  const [editFormData, setEditFormData] = useState(null); // State to hold data for editing
+  const [editFormData, setEditFormData] = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('/');
+      const response = await axios.get('http://localhost:3000/api/pastureDetails'); // Corrected base URL
       setDataList(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -28,13 +30,9 @@ function PasturePage() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`/delete/${id}`);
+      const response = await axios.delete(`http://localhost:3000/api/pastureDetails/delete/${id}`); // Corrected URL
       if (response.status === 200) {
         fetchData();
         Swal.fire({
@@ -67,26 +65,44 @@ function PasturePage() {
 
   const handleNewPastureSubmit = async (newPastureData) => {
     try {
-      const response = await axios.post('/add', newPastureData);
-      if (response.status === 201) {
-        fetchData();
-        Swal.fire({
-          title: 'Success!',
-          text: 'New pasture block added successfully.',
-          icon: 'success',
-        });
+      if (editFormData) {
+        const response = await axios.put(`http://localhost:3000/api/pastureDetails/update/${editFormData._id}`, newPastureData); // Corrected URL
+        if (response.status === 200) {
+          fetchData();
+          Swal.fire({
+            title: 'Success!',
+            text: 'Pasture block updated successfully.',
+            icon: 'success',
+          });
+        } else {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Failed to update pasture block.',
+            icon: 'error',
+          });
+        }
       } else {
-        Swal.fire({
-          title: 'Error!',
-          text: 'Failed to add new pasture block.',
-          icon: 'error',
-        });
+        const response = await axios.post('http://localhost:3000/api/pastureDetails/add', newPastureData); // Corrected URL
+        if (response.status === 201) {
+          fetchData();
+          Swal.fire({
+            title: 'Success!',
+            text: 'New pasture block added successfully.',
+            icon: 'success',
+          });
+        } else {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Failed to add new pasture block.',
+            icon: 'error',
+          });
+        }
       }
     } catch (error) {
-      console.error('Error adding new pasture block:', error);
+      console.error('Error:', error);
       Swal.fire({
         title: 'Error!',
-        text: 'Failed to add new pasture block. Please try again later.',
+        text: 'An error occurred. Please try again later.',
         icon: 'error',
       });
     }
@@ -103,33 +119,33 @@ function PasturePage() {
 
   return (
     <div>
-      
+      <GrazingSideBar sx={{ position: 'fixed', left: 0, top: 0, height: '100vh' }} />
       <Container
         className="main-container"
         sx={{
           display: 'flex',
-          
           alignItems: 'center',
+          justifyContent: 'center',
           minHeight: '100vh',
         }}
       >
-        < GrazingSideBar sx={{ display: 'flex', left: 0, top: 0 }} />
-        
-        <Grid   container spacing={3} justifyContent="center" style={{ width: '80%',marginRight: '1rem' }}>
+        <Grid container spacing={2} justifyContent="center" style={{ width: '100%', marginRight: '3rem',marginLeft: '8rem' }}>
           <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => setOpenFormDialog(true)}
-              style={{ position: 'absolute', top: 0, right: 0, marginTop: '1rem', marginRight: '1rem' }}
-            >
-              Add New Pasture Block
-            </Button>
+            <Grid container justifyContent="flex-end">
+              <Tooltip title="Add New Pasture Block">
+                <IconButton
+                  onClick={() => setOpenFormDialog(true)}
+                  style={{ marginTop: '1rem', marginRight: '1rem' }}
+                >
+                  <AddCircleOutline color="primary" fontSize="large" />
+                </IconButton>
+              </Tooltip>
+            </Grid>
           </Grid>
-          <Grid item xs={100} style={{marginTop: '1rem', marginRight: '1rem' ,display: 'flex', justifyContent: 'center' }}>
-            <Card >
+          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '1rem', marginLeft: '2rem',display: 'flex', justifyContent: 'right',width:'100%' }}>
+            <Card>
               <CardContent>
-                <Table
+                <GrazingTable
                   headers={headers}
                   rows={dataList.map((item) => ({
                     'Area': item.area,
@@ -139,12 +155,12 @@ function PasturePage() {
                     'Type of Plants Planted': item.typeOfPlantsPlanted,
                     'Action': (
                       <div>
-                        <Button onClick={() => handleEdit(item._id)} variant="outlined" color="primary">
-                          Edit
-                        </Button>
-                        <Button onClick={() => handleDelete(item._id)} variant="outlined" color="secondary">
-                          Delete
-                        </Button>
+                        <IconButton onClick={() => handleEdit(item._id)} color="primary">
+                          <Edit />
+                        </IconButton>
+                        <IconButton onClick={() => handleDelete(item._id)} color="secondary">
+                          <Delete />
+                        </IconButton>
                       </div>
                     ),
                   }))}
@@ -153,8 +169,6 @@ function PasturePage() {
             </Card>
           </Grid>
         </Grid>
-    
-        
         <PastureForm
           open={openFormDialog}
           handleClose={() => setOpenFormDialog(false)}

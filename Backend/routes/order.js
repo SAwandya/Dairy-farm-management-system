@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const router = express.Router();
 const { validate, Order } = require("../models/order");
+const { Item } = require("../models/item");
 const c = require("config");
 const { number } = require("joi");
 
@@ -14,8 +15,8 @@ router.post('/', async (req, res) => {
     let order = new Order({
 
         orderType: req.body.orderType,
+        supplierName: req.body.supplierName,
         orderStatus: req.body.orderStatus,
-        // orderStatus: 'Pending',
         quantity: req.body.quantity,
         advanceFee: req.body.advanceFee,
         deliveryDate: req.body.deliveryDate
@@ -27,7 +28,13 @@ router.post('/', async (req, res) => {
 
 // Read all
 router.get('/', async (req, res) => {
-    const orders = await Order.find();
+    let orders = await Order.find();
+    orders = orders.map(async order => {
+        // console.log({...order});
+        const item = await Item.findById(order.orderType);
+        return {...order._doc, item: item};
+    });
+    orders = await Promise.all(orders);
     res.send(orders);
 });
 
@@ -45,6 +52,7 @@ router.put('/:id', async (req, res) => {
 
     const order = await Order.findByIdAndUpdate(req.params.id, {
         orderType: req.body.orderType,
+        supplierName: req.body.supplierName,
         orderStatus: req.body.orderStatus,
         quantity: req.body.quantity,
         advanceFee: req.body.advanceFee,

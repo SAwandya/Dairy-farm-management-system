@@ -9,7 +9,6 @@ router.post('/', async (req, res) => {
     }
     try {
         const newMilkingSession = new milkingSession({
-            sessionId: req.body.sessionId,
             date: req.body.date,
             time: req.body.time,
             cowGroup: req.body.cowGroup,
@@ -45,6 +44,23 @@ router.put('/:id', async (req, res) => {
     } catch (error) {
         console.error('Error updating milk session:', error);
         res.status(500).json({ success: false, error: 'Failed to update milk session' });
+    }
+});
+
+router.put('/:id/complete', async (req, res) => {
+    try {
+        const updatedSession = await milkingSession.findByIdAndUpdate(
+            req.params.id,
+            { status: 'Completed' },
+            { new: true }
+        );
+        if (!updatedSession) {
+            return res.status(404).json({ success: false, error: 'Milking session not found' });
+        }
+        res.status(200).json({ success: true, data: updatedSession });
+    } catch (error) {
+        console.error('Error updating milk session status:', error);
+        res.status(500).json({ success: false, error: 'Failed to update milk session status' });
     }
 });
 
