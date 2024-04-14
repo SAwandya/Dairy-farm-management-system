@@ -35,8 +35,6 @@ const CustomerList = () => {
     (s) => s.SetSelectedProductPublish
   );
 
-  console.log(data);
-
   const handleUpdate = (id) => {
     SetSelectedProductUpdate(id);
   };

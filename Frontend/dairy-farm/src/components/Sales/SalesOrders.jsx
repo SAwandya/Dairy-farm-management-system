@@ -138,6 +138,7 @@ const SalesOrders = () => {
                 <Button
                   onClick={() => functionopenpopup(purchase._id)}
                   variant="outlined"
+                  disabled={ purchase.approve == true ? true : false }
                   size="medium"
                   color="error"
                 >

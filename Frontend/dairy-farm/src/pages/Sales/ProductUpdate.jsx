@@ -17,32 +17,19 @@ import InputField from "../../components/Sales/InputField";
 import productService from "../../services/Sales/productService";
 import useGameQueryStore from "../../store";
 import { useNavigate } from "react-router-dom";
+import useProducts from "../../hooks/useProducts";
+import useProduct from "../../hooks/useProduct";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 const ProductUpdate = () => {
   const selectedProductUpdate = useGameQueryStore(
     (s) => s.selectedProductUpdate
   );
+
+  // const { data: selcetedData } = useProduct(selectedProductUpdate);
+
+  console.log(selectedProductUpdate);
 
   const navigate = useNavigate();
 
@@ -56,7 +43,7 @@ const ProductUpdate = () => {
 
   const onSubmit = (data) => {
     productService
-      .Update(selectedProductUpdate, data)
+      .Update(selectedProductUpdate._id, data)
       .then((res) => {
         console.log("Updated successfuly");
         setMessage("Update success");
@@ -80,9 +67,6 @@ const ProductUpdate = () => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
           <Typography component="h1" variant="h5">
             Update Product
           </Typography>
@@ -98,6 +82,7 @@ const ProductUpdate = () => {
                   id="name"
                   label="Product name"
                   type="text"
+                  defaultValue={selectedProductUpdate?.name}
                   signup={{
                     ...register("name", { required: true }),
                   }}
@@ -110,6 +95,7 @@ const ProductUpdate = () => {
                   id="description"
                   label="Description"
                   type="text"
+                  defaultValue={selectedProductUpdate?.description}
                   signup={{
                     ...register("description", {
                       required: true,
@@ -124,6 +110,7 @@ const ProductUpdate = () => {
                 <InputField
                   id="category"
                   label="Category"
+                  defaultValue={selectedProductUpdate?.category}
                   type="text"
                   signup={{
                     ...register("category", { required: true }),
@@ -137,8 +124,14 @@ const ProductUpdate = () => {
                   id="price"
                   label="Unit price"
                   type="number"
+                  defaultValue={selectedProductUpdate?.price}
                   signup={{
-                    ...register("price", { required: true }),
+                    ...register("price", {
+                      required: true,
+                      validate: {
+                        positive: (v) => parseInt(v) > 0,
+                      },
+                    }),
                   }}
                   errors={errors.price}
                   minLength="10"
@@ -149,9 +142,15 @@ const ProductUpdate = () => {
                 <InputField
                   id="quantity"
                   label="Quantity"
-                  type="text"
+                  defaultValue={selectedProductUpdate?.quantity}
+                  type="number"
                   signup={{
-                    ...register("quantity", { required: true }),
+                    ...register("quantity", {
+                      required: true,
+                      validate: {
+                        positive: (v) => parseInt(v) > 0,
+                      },
+                    }),
                   }}
                   errors={errors.quantity}
                   minLength="5"
@@ -162,6 +161,7 @@ const ProductUpdate = () => {
                   id="unitOfMeasurement"
                   label="Unit Of Measurement"
                   type="text"
+                  defaultValue={selectedProductUpdate?.unitOfMeasurement}
                   signup={{
                     ...register("unitOfMeasurement", {
                       required: true,
@@ -176,9 +176,16 @@ const ProductUpdate = () => {
                 <InputField
                   id="expirationDate"
                   label="ExpirationDate"
-                  type="date"
+                  defaultValue={selectedProductUpdate?.expirationDate.substring(
+                    0,
+                    10
+                  )}
+                  type="text"
                   signup={{
-                    ...register("expirationDate", { required: true }),
+                    ...register("expirationDate", {
+                      required: true,
+                      valueAsDate: true,
+                    }),
                   }}
                   errors={errors.expirationDate}
                 />
@@ -188,11 +195,18 @@ const ProductUpdate = () => {
                 <InputField
                   id="manufacDtae"
                   label="Manufacture date"
-                  type="date"
+                  type="text"
+                  defaultValue={selectedProductUpdate?.manufacDtae.substring(
+                    0,
+                    10
+                  )}
                   signup={{
-                    ...register("manufacDtae", { required: true }),
+                    ...register("manufacDtae", {
+                      required: true,
+                      valueAsDate: true,
+                    }),
                   }}
-                  errors={errors.password}
+                  errors={errors.manufacDtae}
                 />
               </Grid>
             </Grid>
@@ -211,7 +225,6 @@ const ProductUpdate = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

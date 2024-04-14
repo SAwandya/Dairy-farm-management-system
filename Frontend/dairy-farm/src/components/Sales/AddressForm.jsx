@@ -13,7 +13,7 @@ const AddressForm = (props) => {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Shipping address
+        Delivery details
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -75,7 +75,7 @@ const AddressForm = (props) => {
           
           <InputField
             id="state"
-            label="state"
+            label="province"
             type="text"
             signup={{
               ...register("state", { required: true }),
