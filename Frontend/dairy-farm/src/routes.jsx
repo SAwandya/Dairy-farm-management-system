@@ -57,6 +57,7 @@ import { RemoveFromQueue } from "@mui/icons-material";
 import Session from "./pages/Grazing/GrazingSession";
 import CartPage from "./pages/Sales/CartPage";
 import FinanceBudgets from "./pages/Finance/FinanceBudgets";
+// import OrdReportDisplay from "./pages/Supplier/OrdReportDisplay";
 
 const router = createBrowserRouter([
   {
@@ -282,6 +283,10 @@ const router = createBrowserRouter([
     path: "/empreport",
     element: <EmployeeReport />,
   },
+  // {
+  //   path: "/reportOrder",
+  //   element: <OrdReportDisplay />,
+  // },
 ]);
 
 export default router;
