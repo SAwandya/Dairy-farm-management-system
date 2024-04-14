@@ -11,6 +11,7 @@ import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import usePayment from "../../hooks/usePayment";
 import { useAuth } from "../../contexts/AuthContext";
+import { Box } from "@mui/material";
 
 const PaymentForm = (props) => {
   const { register, errors } = props;
@@ -88,7 +89,7 @@ const PaymentForm = (props) => {
             signup={{
               ...register("expDate", {
                 required: currentPayment == "" ? true : false,
-                validate: isDateValid,
+                validate: currentPayment == "" ? isDateValid : undefined,
               }),
             }}
             errors={errors.expDate}
@@ -133,14 +134,19 @@ const PaymentForm = (props) => {
             name="radio-buttons-group"
           >
             {data?.map((payment) => (
-              <FormControlLabel
-                key={payment._id}
-                value={payment.cardNumber}
-                control={<Radio />}
-                label={payment.cardNumber}
-                onChange={() => handlePayment(payment)}
-              />
+              <Box sx={{ backgroundColor: "#90EE90", borderRadius: '10px', padding: "10px", margin: '5px' }}>
+                <FormControlLabel
+                  key={payment._id}
+                  value={payment.cardNumber}
+                  control={<Radio />}
+                  label={
+                    payment.cardNumber.toString().substring(0, 5) + "******"
+                  }
+                  onChange={() => handlePayment(payment)}
+                />
+              </Box>
             ))}
+
             <FormControlLabel
               value=""
               onChange={() => handlePayment("")}
