@@ -18,19 +18,15 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 
 
 function StorageRoom() {
-    
-    
-    
-    return (
+return (
        
 <Container maxWidth="100vw" style={{ margin: 0, padding: 0,overflow:'hidden' }}>
   {/*, height: '100vh', overflow: 'hidden'  */}
 
      
-  <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:5}}>
+  <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:2}}>
         <Grid2 item xs={1} sm={1}><ProductionSidebar/></Grid2>
-        
-        <Grid2 item xs={11} sm={11} md={11} align="center"><Typography variant="h4" align="center">Storage room Temperature Meters</Typography></Grid2> 
+        <Grid2 item xs={11} sm={11} md={11} align="center"><Typography variant="h4" fontWeight="bold" align="center">Storage room Temperature Meters</Typography></Grid2> 
         
 
       </Grid2>
