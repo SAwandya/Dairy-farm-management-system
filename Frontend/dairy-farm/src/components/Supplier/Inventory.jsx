@@ -1,65 +1,133 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import React from 'react';
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { makeStyles } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import AddIcon from "@material-ui/icons/Add";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
 
-function Inventory() {
-  const [inventory, setInventory] = useState([]);
-  const [item, setItem] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [supplier, setSupplier] = useState('');
 
-  useEffect(() => {
-    fetchInventory();
-  }, []);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 650,
+  },
+  addButton: {
+    marginLeft: "auto",
+  },
+  row: {
+    "&:nth-child(odd)": {
+      backgroundColor: "#f2f2f2",
+    },
+    "&:nth-child(even)": {
+      backgroundColor: "#e0f7fa",
+    },
+  },
+}));
 
-  const fetchInventory = async () => {
-    const response = await fetch('http://localhost:3000/api/inventory');
-    const data = await response.json();
-    setInventory(data);
-  };
+const Inventory = () => {
+  const classes = useStyles();
+  const { data: pendingOrders, isLoading } = useGetPendingOrders();
+  const updateOrderStatus = useUpdateOrderStatus();
 
-  const addInventory = async (e) => {
-    e.preventDefault();
-    const newInventory = { item, quantity, supplier };
-    await fetch('http://localhost:3000/api/inventory', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newInventory),
-    });
-    fetchInventory();
-  };
+  
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div>
-      <form onSubmit={addInventory}>
-        <TextField value={item} onChange={e => setItem(e.target.value)} label="Item" required />
-        <TextField value={quantity} onChange={e => setQuantity(e.target.value)} label="Quantity" required />
-        <TextField value={supplier} onChange={e => setSupplier(e.target.value)} label="Supplier" required />
-        <Button type="submit" variant="contained">Add</Button>
-      </form>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Item</TableCell>
-              <TableCell>Quantity</TableCell>
-              <TableCell>Supplier</TableCell>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Item</TableCell>
+            <TableCell>Quantity</TableCell>
+            <TableCell>Supplier</TableCell>
+            <TableCell>Approve Order</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {pendingOrders && pendingOrders.map(order => ( 
+            <TableRow key={order._id}>
+              <TableCell>{order.orderType}</TableCell>
+              <TableCell>{order.quantity}</TableCell>
+              <TableCell>{order.supplierName}</TableCell>
+              <TableCell>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => updateOrderStatus.mutate(order._id)}
+                >
+                  Approve Order
+                </Button>
+              </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {inventory.map(item => (
-              <TableRow key={item._id}>
-                <TableCell>{item.item}</TableCell>
-                <TableCell>{item.quantity}</TableCell>
-                <TableCell>{item.supplier}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
-}
+};
 
 export default Inventory;
+
+function useGetPendingOrders() {
+  return useQuery({
+    queryKey: ["pendingOrders"],
+    queryFn: async () => {
+      const response = await fetch("http://localhost:3000/api/order");
+      const data = await response.json();
+      return data.filter(order => order.orderStatus === "Pending");
+    },
+    refetchOnWindowFocus: false,
+  });
+}
+function useUpdateOrderStatus() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (orderId) => {
+      const orderResponse = await fetch(`http://localhost:3000/api/order/${orderId}`);
+      const order = await orderResponse.json();
+
+      // Exclude _id and __v from the order fields
+      const { _id, __v, ...orderFields } = order;
+
+      // Update the order status
+      const response = await fetch(
+        `http://localhost:3000/api/order/${orderId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ 
+            ...orderFields, // Include all the current order fields except _id and __v
+            orderStatus: "Received" // Override the orderStatus
+          }),
+        }
+      );
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries('pendingOrders'); // Invalidate the 'pendingOrders' query to refetch the data
+    },
+  });
+}
