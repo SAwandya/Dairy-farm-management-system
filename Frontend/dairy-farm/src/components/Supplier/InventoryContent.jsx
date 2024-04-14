@@ -9,10 +9,10 @@ function InventoryContent() {
     return (
         <Box className="dashboard-content-supply">
             <Welcome/>
-
+{/* 
             <Box className="dashboard-content-supply">
                 <MainStatistics/>
-            </Box>
+            </Box> */}
             
             <Box className="dashboard-content-supply">
                 <Inventory/>
