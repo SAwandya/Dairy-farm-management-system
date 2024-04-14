@@ -90,8 +90,6 @@ function Sidebar() {
         </Link>
         </List>
       </Box>
-
-      {/* Profile and Logout */}
       <Box className="user-actions">
         <List>
           <NavigationLink
