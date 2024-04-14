@@ -26,7 +26,7 @@ function ProductInventory() {
 
       <Grid2 container sx={{ width: '100vw', position: 'relative' }}>
         <Grid2 item xs={1}sm={1}><ProductionSidebar/></Grid2>
-        <Grid2 item xs={10} sx={{ml:3,mr:3,mt:3}}><Typography variant="h4" align="center">Product Batches</Typography></Grid2>
+        <Grid2 item xs={10} sx={{ml:3,mr:3,mt:3,}} ><Typography variant="h4" align="center" fontWeight="bold">Product Batches</Typography></Grid2>
       </Grid2>
       <Grid2 container sx={{ width: '100vw', position: 'relative' }}>
         <Grid2 item xs={1}sm={1}></Grid2>

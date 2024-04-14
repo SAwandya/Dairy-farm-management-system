@@ -27,19 +27,19 @@ function MainStatistics() {
                     icon='../../../src/assets/icon1.png'/>
                 
                     <StatsCard
-                    title='upcomming processes'
+                    title='Upcoming Processes'
                     value='8'
                     icon='../../../src/assets/icon1.png'/>
                                
                     <StatsCard
-                    title='Total Milk Collected'
+                    title='Raw Milk Quantity '
                     value='1000L'
                     icon='../../../src/assets/icon2.png'
                     />
                     
                     <StatsCard
-                    title='Amount of Tanks'
-                    value='2'
+                    title='Temperature Status'
+                    value='Normal'
                     icon='../../../src/assets/icon3.png'/>
                 
 

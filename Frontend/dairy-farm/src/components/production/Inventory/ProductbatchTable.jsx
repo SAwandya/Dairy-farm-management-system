@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Paper, TextField, Box } from '@mui/material'; // Import TextField for input fields
+import { Paper, TextField, Box,Container } from '@mui/material'; // Import TextField for input fields
 import PbDelete from '../Inventory/PbDelete';
 import PbUpdate from '../Inventory/PbUpdate';
+import Grid2 from "@mui/material/Unstable_Grid2";
 import eventBus from '../../../ProductionUtils/EventBus';
 import axios from 'axios';
 
@@ -91,18 +92,21 @@ function ProductBatchTable() {
   return (
     
     
-      
-      <div>
-      <TextField
+      <Container>
+
+  <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:-2,}}>
+        <Grid2 item xs={10} sm={10} sx={{ml:-2.6, }}>
+        <TextField
         label="Search"
         variant="outlined"
         value={searchQuery}
         onChange={handleSearchChange}
         style={{ marginBottom: 10 }}
-     />       
+     />   
 
-      <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh', overflow: 'auto' }}>  
+    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh',minHeight:'30vh', overflow: 'auto',overflow: 'auto' }}>  
         <DataGrid
+        sx={{minHeight:'30vh', }}
           rows={rows}
           columns={columns}
           pageSize={5}
@@ -110,8 +114,17 @@ function ProductBatchTable() {
           disableExtendRowFullWidth
         />
       </Paper>
-      </div>
 
+        </Grid2>
+      
+    
+      
+      </Grid2>
+
+
+
+      </Container>
+      
       
       
   );
