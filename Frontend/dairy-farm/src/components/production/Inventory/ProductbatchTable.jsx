@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Paper, TextField } from '@mui/material'; // Import TextField for input fields
+import { Paper, TextField, Box } from '@mui/material'; // Import TextField for input fields
 import PbDelete from '../Inventory/PbDelete';
 import PbUpdate from '../Inventory/PbUpdate';
 import axios from 'axios';
@@ -79,42 +79,31 @@ function ProductBatchTable() {
   ];
 
   return (
-    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh', overflow: 'auto' }}>  
-      {/* Input field for searching */}
+    
+    
+      
+      <div>
       <TextField
         label="Search"
         variant="outlined"
         value={searchQuery}
         onChange={handleSearchChange}
         style={{ marginBottom: 10 }}
-      />    
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[1, 5, 10, 20, 24]}
-        disableExtendRowFullWidth
-         // Prevent the table header from scrolling
-        sx={{
-          '& .MuiDataGrid-root': {
-            backgroundColor: '#fff',
-          },
-          '& .MuiDataGrid-cell': {
-            color: '#333',
-            fontSize: '0.875rem',
-          },
-          '& .MuiDataGrid-row': {
-            borderBottom: '1px solid #e0e0e0',
-          },
-          '& .MuiDataGrid-header': {
-            backgroundColor: '#f5f5f5',
-          },
-          '& .MuiDataGrid-colCellTitle': {
-            fontWeight: 'bold',
-          },
-        }}
-      />
-    </Paper>
+     />       
+
+      <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh', overflow: 'auto' }}>  
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[1, 5, 10, 20, 24]}
+          disableExtendRowFullWidth
+        />
+      </Paper>
+      </div>
+
+      
+      
   );
 }
 
