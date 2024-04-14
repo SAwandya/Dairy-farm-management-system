@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
+
 
 const InventorySchema = new mongoose.Schema({
-  item: {
+  orderType: {
     type: String,
     required: true,
     trim: true,
@@ -10,7 +12,7 @@ const InventorySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  supplier: {
+  supplierName: {
     type: String,
     required: true,
     trim: true,
@@ -21,7 +23,22 @@ const InventorySchema = new mongoose.Schema({
   },
 });
 
+
+
 const Inventory = mongoose.model('Inventory', InventorySchema);
 
+function validateInventory(inventory) {
+  const schema = Joi.object({
+    orderType: Joi.string().trim().required(),
+    quantity: Joi.number().required(),
+    supplierName: Joi.string().trim().required(),
+    lastUpdated: Joi.date(),
+  });
+
+  const result = schema.validate(inventory);
+  return result;
+}
+
+exports.validate = validateInventory;
 exports.Inventory = Inventory;
 exports.InventorySchema = InventorySchema;

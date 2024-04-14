@@ -6,18 +6,8 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { makeStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import  { useState, useEffect } from 'react';
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import AddIcon from "@material-ui/icons/Add";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,22 +55,24 @@ const Inventory = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {pendingOrders && pendingOrders.map(order => ( 
-            <TableRow key={order._id}>
-              <TableCell>{order.orderType}</TableCell>
-              <TableCell>{order.quantity}</TableCell>
-              <TableCell>{order.supplierName}</TableCell>
-              <TableCell>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => updateOrderStatus.mutate(order._id)}
-                >
-                  Approve Order
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {pendingOrders && pendingOrders.map(order => {
+            return (
+              <TableRow key={order._id}>
+                <TableCell>{order.item.itemName}</TableCell>
+                <TableCell>{order.quantity}</TableCell>
+                <TableCell>{order.supplierName}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => updateOrderStatus.mutate(order._id)}
+                  >
+                    Approve Order
+                  </Button>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>
@@ -107,10 +99,8 @@ function useUpdateOrderStatus() {
       const orderResponse = await fetch(`http://localhost:3000/api/order/${orderId}`);
       const order = await orderResponse.json();
 
-      // Exclude _id and __v from the order fields
       const { _id, __v, ...orderFields } = order;
 
-      // Update the order status
       const response = await fetch(
         `http://localhost:3000/api/order/${orderId}`,
         {
@@ -119,15 +109,31 @@ function useUpdateOrderStatus() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ 
-            ...orderFields, // Include all the current order fields except _id and __v
-            orderStatus: "Received" // Override the orderStatus
+            ...orderFields, 
+            orderStatus: "Received" 
           }),
         }
       );
+
+      const inventoryResponse = await fetch(
+        `http://localhost:3000/api/inventory`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderType: orderFields.orderType,
+            supplierName: orderFields.supplierName,
+            quantity: orderFields.quantity
+         }),
+        }
+      );
+
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('pendingOrders'); // Invalidate the 'pendingOrders' query to refetch the data
+      queryClient.invalidateQueries('pendingOrders');
     },
   });
 }
