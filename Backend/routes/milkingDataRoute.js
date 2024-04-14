@@ -44,6 +44,37 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:timePeriod', async (req, res) => {
+    const { timePeriod } = req.params;
+    let milkingData;
+    try {
+        switch (timePeriod) {
+            case 'last7days':
+                const last7DaysDate = new Date();
+                last7DaysDate.setDate(last7DaysDate.getDate() - 6); // Subtract 6 days to get the range
+                milkingData = await MilkingData.find({ createdAt: { $gte: last7DaysDate } });
+                break;
+            case 'lastMonth':
+                const lastMonthDate = new Date();
+                lastMonthDate.setMonth(lastMonthDate.getMonth() - 1); // Subtract 1 month to get the range
+                milkingData = await MilkingData.find({ createdAt: { $gte: lastMonthDate } });
+                break;
+            case 'last6months':
+                const last6MonthsDate = new Date();
+                last6MonthsDate.setMonth(last6MonthsDate.getMonth() - 6); // Subtract 6 months to get the range
+                milkingData = await MilkingData.find({ createdAt: { $gte: last6MonthsDate } });
+                break;
+            default:
+                milkingData = await MilkingData.find(); // Fetch all milking data if time period is not specified
+                break;
+        }
+        res.status(200).json({ success: true, data: milkingData });
+    } catch (error) {
+        console.error('Error fetching milking data:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch milking data' });
+    }
+});
+
 router.get('/:milkBatchId', async (req, res) => {
     const { milkBatchId } = req.params;
     try {

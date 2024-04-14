@@ -1,8 +1,8 @@
 import React from 'react';
-import StatGraph from './StatGraph';
+import MilkingPieChart from './MilkingPieChart';
 import { Box, Typography } from '@mui/material';
 
-function ChartCard() {
+function PieChartContainer() {
     return(
         <Box className="chart-card-container">
             <Typography
@@ -12,19 +12,19 @@ function ChartCard() {
                     fontSize: '18px',
                     fontWeight: '600',
                 }}
-            >Collected Litres of Raw Milk</Typography>
+            >Quality Check Results</Typography>
             <Typography
                 variant="h3"
                 className='graph-card-subtitle'
                 sx={{
                     fontSize: '16px',
                     fontWeight: '400',
-                    marginTop: '8px'
+                    marginTop: '8px',
                 }}
             >Past 7 Days</Typography>
-            <StatGraph/>
+            <MilkingPieChart/>
         </Box>
     )
 }
 
-export default ChartCard;
+export default PieChartContainer;
