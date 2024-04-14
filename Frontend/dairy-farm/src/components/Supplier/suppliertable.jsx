@@ -35,6 +35,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import validateForm from "./ValidateForm";
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -99,21 +101,36 @@ const SupplierTable = () => {
       setValidationErrors(errors);
       return;
     }
-
+  
     let data = { ...currentRow, __v: undefined };
-
+  
     mutate(data, {
       onSuccess: () => {
         setOpen(false);
+        Swal.fire('Success', 'Supplier updated successfully', 'success');
       },
       onError: (error) => {
         console.error("An error occurred:", error);
+        Swal.fire('Error', 'An error occurred while updating the supplier', 'error');
       },
     });
   };
 
   const handleDelete = (id) => {
-    mutationDelete.mutate(id);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        mutationDelete.mutate(id);
+        Swal.fire('Deleted!', 'The supplier has been deleted.', 'success')
+      }
+    })
   };
 
   const handleClickOpenAdd = () => {
@@ -125,8 +142,16 @@ const SupplierTable = () => {
   };
 
   const handleAdd = () => {
-    mutationAdd.mutate(newRow);
-    setOpenAdd(false);
+    mutationAdd.mutate(newRow, {
+      onSuccess: () => {
+        setOpenAdd(false);
+        Swal.fire('Success', 'Supplier added successfully', 'success');
+      },
+      onError: (error) => {
+        console.error("An error occurred:", error);
+        Swal.fire('Error', 'An error occurred while adding the supplier', 'error');
+      },
+    });
   };
 
   const handleSearchChange = (event) => {

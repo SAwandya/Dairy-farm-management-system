@@ -32,6 +32,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,15 +121,30 @@ const OrderTable = () => {
     mutate(data, {
       onSuccess: () => {
         setOpen(false);
+        Swal.fire('Success', 'Order updated successfully', 'success');
       },
       onError: (error) => {
         console.error("An error occurred:", error);
+        Swal.fire('Error', 'An error occurred while updating the order', 'error');
       },
     });
   };
 
   const handleDelete = (id) => {
-    mutationDelete.mutate(id);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        mutationDelete.mutate(id);
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
+      }
+    })
   };
 
   const handleClickOpenAdd = () => {
@@ -139,9 +156,17 @@ const OrderTable = () => {
   };
 
   const handleAdd = () => {
-    mutationAdd.mutate(newRow);
-    console.log(newRow);
-    setOpenAdd(false);
+    mutationAdd.mutate(newRow, {
+      onSuccess: () => {
+        console.log(newRow);
+        setOpenAdd(false);
+        Swal.fire('Success', 'Order added successfully', 'success');
+      },
+      onError: (error) => {
+        console.error("An error occurred:", error);
+        Swal.fire('Error', 'An error occurred while adding the order', 'error');
+      },
+    });
   };
 
   const handleSearchChange = (event) => {
