@@ -47,6 +47,23 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+router.put('/:id/complete', async (req, res) => {
+    try {
+        const updatedSession = await milkingSession.findByIdAndUpdate(
+            req.params.id,
+            { status: 'Completed' },
+            { new: true }
+        );
+        if (!updatedSession) {
+            return res.status(404).json({ success: false, error: 'Milking session not found' });
+        }
+        res.status(200).json({ success: true, data: updatedSession });
+    } catch (error) {
+        console.error('Error updating milk session status:', error);
+        res.status(500).json({ success: false, error: 'Failed to update milk session status' });
+    }
+});
+
 router.delete('/:id', async (req, res) => {
     try {
         const deletedSession = await milkingSession.findByIdAndDelete(req.params.id);
