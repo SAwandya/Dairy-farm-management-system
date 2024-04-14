@@ -6,6 +6,7 @@ import "jspdf-autotable";
 import companyLogo from "../../assets/sidebar-logo.png";
 import DownloadIcon from "@mui/icons-material/Download";
 import IconButton from "@mui/material/IconButton";
+import { Button } from "@mui/material";
 
 const AnalysisRep = (props) => {
   const { newseries } = props;
@@ -126,14 +127,17 @@ const AnalysisRep = (props) => {
 
   return (
     <div>
-      <IconButton
+
+      <Button
+      sx={{ marginTop: '40px' }}
         onClick={() => {
           generatePDF(dataList);
         }}
-        className="bg-gray-800 text-center hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer lg:mt-0 mt-3"
+        variant="contained"
+        endIcon={<DownloadIcon />}
       >
-        <DownloadIcon />
-      </IconButton>
+        Download PDF
+      </Button>
     </div>
   );
 };
