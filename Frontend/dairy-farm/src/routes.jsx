@@ -42,6 +42,8 @@ import VaccineAnim from "./pages/Veterinary/vaccineAnim";
 import BreedCard from "./pages/Veterinary/breedPage";
 import PastureInfo from "../../dairy-farm/src/pages/Grazing/PastureInfo";
 import OrderPage from "./pages/Sales/OrderPage";
+
+//Emlployee management
 import Task from "./pages/Employees/Task"
 import CreateTask from "./pages/Employees/CreateTask"
 import UpdateTask from "./pages/Employees/UpdateTask"
@@ -50,6 +52,10 @@ import AllTask from "./pages/Employees/AllTask";
 import AnimReport from "./pages/Veterinary/VetReport";
 import EmployeeReport from "./pages/Employees/Employee_report";
 import EmployeeR from "./pages/Employees/EmployeeR";
+import EProfile from "./pages/Employees/EProfile"
+import LeaveForm from "./pages/Employees/LeaveForm"
+import LeaveDetails from "./pages/Employees/LeaveDetails";
+
 import PasturePage from "./pages/Grazing/PasturePage";
 import SessionPage from "./pages/Grazing/SessionPage";
 import Report from "./pages/Grazing/Report";
@@ -292,6 +298,19 @@ const router = createBrowserRouter([
   //   path: "/reportOrder",
   //   element: <OrdReportDisplay />,
   // },
+
+  {
+    path: "/eprofile",
+    element: <EProfile />,
+  },
+  {
+    path: "/leaveform",
+    element: <LeaveForm />,
+  },
+  {
+    path: "/leavedetails",
+    element: <LeaveDetails />,
+  },
 ]);
 
 export default router;
