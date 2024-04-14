@@ -51,17 +51,21 @@ function ProcessCardContainer() {
         
         else if (process.status === 'scheduled' ) 
         {
+          const [scheduleHours, scheduleMinutes] = process.scheduleTime.split(':').map(Number);
+
           // Get start date of the process
           const schDate = new Date(process.scheduleDate).toISOString().split('T')[0]; 
           
           // Get current time
           const currentTime = new Date();
-          const hours = currentTime.getHours().toString().padStart(2, '0'); // Get hours and pad with leading zero
-          const minutes = currentTime.getMinutes().toString().padStart(2, '0'); // Get minutes and pad with leading zero 
-          const currentTimeString = `${hours}:${minutes}`;
-          console.log('current time :', currentTimeString);
+          const currentHours = currentTime.getHours()
+          const currentMinutes = currentTime.getMinutes() 
+          //console.log('sch time',scheduleHours,scheduleMinutes);
+          console.log('cur time ',currentHours,currentMinutes);
 
-          if (schDate === currentDate && process.scheduleTime <= currentTimeString) 
+          if ((schDate === currentDate &&
+             (currentHours > scheduleHours || 
+            ( currentHours === scheduleHours && currentMinutes >= scheduleMinutes))))
           {
             return true; // Show processes scheduled for today
           }
