@@ -3,6 +3,7 @@ import { Card, CardContent, Typography, Grid } from "@mui/material";
 import '../../../../styles/Finance/MainDashboard/ThreeCards.css'
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
+import { Link } from "react-router-dom";
 
 //comment
 
@@ -20,7 +21,8 @@ function ThreeCards() {
             </Typography>
           </CardContent>
           <CardActions style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-        <Button borderRadius='5px' sx={{ backgroundColor: '#FBFFEC', color: 'black', fontFamily: 'poppins', borderRadius: 5, fontSize: '10px' }}>View</Button>
+        <Button borderRadius='5px' sx={{ backgroundColor: '#FBFFEC', color: 'black', fontFamily: 'poppins', borderRadius: 5, fontSize: '10px' }}>
+          <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit' }}>View</Link></Button>
       </CardActions>
         </Card>
 
@@ -36,7 +38,8 @@ function ThreeCards() {
             </Typography>
           </CardContent>
         <CardActions style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-        <Button borderRadius='5px' sx={{ backgroundColor: '#FBFFEC', color: 'black', fontFamily: 'poppins', borderRadius: 5, fontSize: '10px' }}>View</Button>
+        <Button borderRadius='5px' sx={{ backgroundColor: '#FBFFEC', color: 'black', fontFamily: 'poppins', borderRadius: 5, fontSize: '10px' }}>
+          <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit' }}>View</Link></Button>
       </CardActions>
         </Card>
 
@@ -52,7 +55,8 @@ function ThreeCards() {
             </Typography>
           </CardContent>
           <CardActions style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-        <Button borderRadius='5px' sx={{ backgroundColor: '#FBFFEC', color: 'black', fontFamily: 'poppins', borderRadius: 5, fontSize: '10px' }}>View</Button>
+        <Button borderRadius='5px' sx={{ backgroundColor: '#FBFFEC', color: 'black', fontFamily: 'poppins', borderRadius: 5, fontSize: '10px' }}>
+          <Link to="/financebud" style={{ textDecoration: 'none', color: 'inherit' }}>View</Link></Button>
       </CardActions>
         </Card>
       </Grid>

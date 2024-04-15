@@ -94,7 +94,9 @@ const BudgetTable = () => {
                   variant="outlined"
                   sx={{ marginRight: 1 }}
                 >
+                  <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit' }}>
                   View Transactions
+                  </Link>
                 </Button>
               </Box>
             </Paper>
