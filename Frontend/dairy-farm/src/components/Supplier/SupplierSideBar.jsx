@@ -19,8 +19,8 @@ function Sidebar() {
   };
 
   return (
-    <Box className="sidebar">
-      <Box className="sidebar-logo-container">
+    <Box className="sidebar" sx={{position:'fixed',left:0,top:0}}>
+      <Box className="sidebar-logo-container" >
         <img
           className="sidebar-logo"
           src="../../src/assets/sidebar-logo.png"

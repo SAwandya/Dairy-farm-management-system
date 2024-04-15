@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/main.css';
 import BgCard from '../../components/Veterinary/bgCard';
 import DateV from '../../components/Veterinary/DateV';
-import Sidebar from '../../components/Veterinary/vetNav';
+import Sidebar from '../../components/Supplier/SupplierSideBar';
 import OrderReport from './OrderReport';
 
 function OrdReportDisplay() {
