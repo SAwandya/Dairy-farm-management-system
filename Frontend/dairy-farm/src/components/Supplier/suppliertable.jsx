@@ -95,7 +95,11 @@ const SupplierTable = () => {
   };
 
   const handleUpdate = () => {
-    console.log(currentRow);
+    if (currentRow.avgDeliveryTime < 0) {
+      handleClose();
+      Swal.fire('Error', 'Average Delivery Time cannot be a negative value', 'error');
+      return;
+    }
     const errors = validateForm(currentRow);
     if (Object.values(errors).some((error) => error)) {
       setValidationErrors(errors);
@@ -142,6 +146,11 @@ const SupplierTable = () => {
   };
 
   const handleAdd = () => {
+    if (newRow.avgDeliveryTime < 0) {
+      handleCloseAdd();
+      Swal.fire('Error', 'Average Delivery Time cannot be a negative value', 'error');
+      return;
+    }
     mutationAdd.mutate(newRow, {
       onSuccess: () => {
         setOpenAdd(false);
