@@ -56,13 +56,15 @@ import EProfile from "./pages/Employees/EProfile"
 import LeaveForm from "./pages/Employees/LeaveForm"
 import LeaveDetails from "./pages/Employees/LeaveDetails";
 
+
 import PasturePage from "./pages/Grazing/PasturePage";
 import SessionPage from "./pages/Grazing/SessionPage";
 import Report from "./pages/Grazing/Report";
 import EffluentPage from "./pages/Grazing/EffluentPage";
 import { RemoveFromQueue } from "@mui/icons-material";
-import Session from "./pages/Grazing/GrazingSession";
+import GrazingDashboard from "./pages/Grazing/GrazingDashboard";
 import CartPage from "./pages/Sales/CartPage";
+import RotationInfo from "./pages/Grazing/RotationInfo";
 import FinanceBudgets from "./pages/Finance/FinanceBudgets";
 import OrdReportDisplay from "./pages/Supplier/OrdReportDisplay";
 
@@ -264,6 +266,14 @@ const router = createBrowserRouter([
   {
     path: "/waste",
     element: <EffluentPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <GrazingDashboard />,
+  },
+  {
+    path: "/rotation",
+    element: <RotationInfo />,
   },
 
   {

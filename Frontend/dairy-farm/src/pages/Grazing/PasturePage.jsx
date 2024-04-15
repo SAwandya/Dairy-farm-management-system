@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Card, CardContent, IconButton, Tooltip } from '@mui/material';
+import { Container, Grid, Card, CardContent, IconButton, Tooltip,Box,Typography } from '@mui/material';
 import { AddCircleOutline, Edit, Delete } from '@mui/icons-material';
 import GrazingTable from '../../components/Grazing/GrazingTable';
 import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import PastureForm from '../../components/Grazing/PastureForm';
-
+import GrazingDate from '../../components/Grazing/GrazingDate';
+import Name from '../../components/Grazing/Name';
 function PasturePage() {
   const [dataList, setDataList] = useState([]);
   const [openFormDialog, setOpenFormDialog] = useState(false);
@@ -119,6 +120,14 @@ function PasturePage() {
 
   return (
     <div>
+       <Box className="dashboard-content">
+                <div align='center'></div>
+                <GrazingDate/>
+                <Name/>
+              
+              <Typography> Information regarding the currently maintained pastures is recorded here</Typography>
+              
+      </Box>
       <GrazingSideBar sx={{ position: 'fixed', left: 0, top: 0, height: '100vh' }} />
       <Container
         className="main-container"
@@ -142,7 +151,7 @@ function PasturePage() {
               </Tooltip>
             </Grid>
           </Grid>
-          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '1rem', marginLeft: '2rem',display: 'flex', justifyContent: 'right',width:'100%' }}>
+          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '0', marginLeft: '3rem',display: 'flex', justifyContent: 'right',width:'100%' }}>
             <Card>
               <CardContent>
                 <GrazingTable
@@ -154,15 +163,16 @@ function PasturePage() {
                     'Assigned Employee': item.assignedEmployee,
                     'Type of Plants Planted': item.typeOfPlantsPlanted,
                     'Action': (
-                      <div>
+                      <Box display="flex">
                         <IconButton onClick={() => handleEdit(item._id)} color="primary">
                           <Edit />
                         </IconButton>
-                        <IconButton onClick={() => handleDelete(item._id)} color="secondary">
-                          <Delete />
+                        <IconButton onClick={() => handleDelete(item._id)}>
+                          <Delete style={{ color: 'red' }} />
                         </IconButton>
-                      </div>
+                      </Box>
                     ),
+                    
                   }))}
                 />
               </CardContent>
