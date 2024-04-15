@@ -50,7 +50,7 @@ const HomePage = () => {
       <StyledCard>
         <CardContent>
           <Title>Product Management</Title>
-          <StyledButton variant="contained" href="/product-management">View Dashboard</StyledButton>
+          <StyledButton variant="contained" href="/ProductionDashboard">View Dashboard</StyledButton>
         </CardContent>
       </StyledCard>
       <StyledCard>
