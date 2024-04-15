@@ -11,9 +11,10 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { Link } from "react-router-dom";
+
 function Esidebar() {
   const [activeSection, setActiveSection] = useState("dashboard");
-//side bar
+
   const handleNavigation = (section) => {
     setActiveSection(section);
   };
@@ -31,46 +32,45 @@ function Esidebar() {
       {/* Navigation links */}
       <Box className="navigation-links">
         <List>
-        
-        
           <Link to="/employeedashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <NavigationLink
-            icon={<SpaceDashboardIcon />}
-            text="Dashboard"
-            isActive={activeSection === "employeedashboard"}
-            onClick={() => handleNavigation("employeedashboard")}
-            
-          />
+            <NavigationLink
+              icon={<SpaceDashboardIcon />}
+              text="Dashboard"
+              isActive={activeSection === "employeedashboard"}
+              onClick={() => handleNavigation("employeedashboard")}
+            />
           </Link>
           <Link to="/allemployee" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <NavigationLink
-            icon={<PersonAddAlt1Icon />}
-            text="Employees"
-            isActive={activeSection === "allemployee"}
-            onClick={() => handleNavigation("allemployee")}
-          />
+            <NavigationLink
+              icon={<PersonAddAlt1Icon />}
+              text="Employees"
+              isActive={activeSection === "allemployee"}
+              onClick={() => handleNavigation("allemployee")}
+            />
           </Link>
           <Link to="/task" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <NavigationLink
-            icon={<AssignmentIcon />}
-            text="Tasks"
-            isActive={activeSection === "task"}
-            onClick={() => handleNavigation("task")}
-          />
+            <NavigationLink
+              icon={<AssignmentIcon />}
+              text="Tasks"
+              isActive={activeSection === "task"}
+              onClick={() => handleNavigation("task")}
+            />
           </Link>
-          <NavigationLink
-            icon={<AccessTimeFilledIcon />}
-            text="Work"
-            isActive={activeSection === "workhours"}
-            onClick={() => handleNavigation("workhours")}
-          />
+          <Link to="/leavedetails" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<AccessTimeFilledIcon />}
+              text="Work"
+              isActive={activeSection === "workhours"}
+              onClick={() => handleNavigation("workhours")}
+            />
+          </Link>
           <Link to="/ereport" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <NavigationLink
-            icon={<AssessmentIcon />}
-            text="Reports"
-            isActive={activeSection === "ereport"}
-            onClick={() => handleNavigation("ereport")}
-          />
+            <NavigationLink
+              icon={<AssessmentIcon />}
+              text="Reports"
+              isActive={activeSection === "ereport"}
+              onClick={() => handleNavigation("ereport")}
+            />
           </Link>
         </List>
       </Box>
@@ -78,20 +78,20 @@ function Esidebar() {
       {/* Profile and Logout */}
       <Box className="user-actions">
         <List>
-          <NavigationLink
-            icon={<AccountCircleIcon />}
-            text="Profile"
-            isActive={activeSection === "profile"}
-            onClick={() => handleNavigation("profile")}
-          />
-            
+          <Link to="/eprofile" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<AccountCircleIcon />}
+              text="Profile"
+              isActive={activeSection === "profile"}
+              onClick={() => handleNavigation("profile")}
+            />
+          </Link>
           <NavigationLink
             icon={<LogoutIcon />}
             text="Logout"
             isActive={activeSection === "logout"}
             onClick={() => handleNavigation("logout")}
           />
-         
         </List>
       </Box>
     </Box>

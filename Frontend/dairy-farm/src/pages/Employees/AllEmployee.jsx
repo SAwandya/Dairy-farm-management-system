@@ -32,7 +32,8 @@ function AllEmployee() {
         axios.get("http://localhost:3000/api/employee/")
         .then(result => {
             console.log(result.data);
-            setDataList(result.data);
+            const sortedData = result.data.sort((a, b) => a.employeeId.localeCompare(b.employeeId));
+            setDataList(sortedData);
             setLoading(false);
         })
         .catch(err => {
@@ -141,10 +142,13 @@ function AllEmployee() {
     <ToastContainer />
             <div style={{ display: 'flex', minWidth: '1036px', overflow: 'hidden' }}>
                 <Esidebar/>
-                <Box sx={{ marginLeft: '12rem', marginTop:'50px' }}>
-                    <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' , fontFamily: 'Poppins' }}>
-                        Welcome Disara,
-                    </Typography>
+                <Box sx={{ marginLeft: '11rem', marginTop:'50px' }}>
+                <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                    Welcome Back,
+                </Typography>
+                <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                   Hello Disara,
+                </Typography>
                     <Box sx={{ position: 'absolute', top: 0, right: 0, padding: '1rem', zIndex: 999 }}>
                         <IconButton onClick={() => navigate('/employeedashboard')} color="inherit">
                             <CloseIcon />
