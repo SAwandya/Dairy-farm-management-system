@@ -9,9 +9,14 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
   const validateForm = () => {
     const currentDate = new Date();
     const selectedDate = new Date(rest.birthDate);
+    
+  if (rest.weight <= 0) {
+    setValidationError('Weight must be a positive number.');
+    return false;
+  }
 
     if (selectedDate >= currentDate) {
-      setValidationError('');
+      setValidationError('Date is invalid');
       return false;
     }
 
@@ -28,7 +33,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Date is Invalid!"
+        text: "Something Went Wrong!"
       });
     }
   };
