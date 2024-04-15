@@ -14,7 +14,7 @@ const EProfile = () => {
   const details = [
     { label: 'Name', value: 'Disara' },
     { label: 'NIC', value: '2001851029931' },
-    { label: 'Employee ID', value: 'EM001' },
+    { label: 'Employee ID', value: 'EM01' },
     { label: 'Gender', value: 'Female' },
     { label: 'Date of Birth', value: '2001/12/16' },
     { label: 'Position', value: 'HR Manager' },
