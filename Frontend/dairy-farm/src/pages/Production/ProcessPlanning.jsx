@@ -20,7 +20,7 @@ return (
       <Grid2 container sx={{mt:4,ml:3}} >
       <Grid2 item xs={1} sm={1}></Grid2>
         <Grid2 item xs={10} sm={3} sx={{ml:3}}><Typography variant="h4" fontWeight="bold" align="center">Ingredients</Typography></Grid2>
-        <Grid2 item xs={10} sm={3} sx={{ml:3}}><Typography variant="h4" fontWeight="bold" align="center">Ongoing Processes</Typography></Grid2> 
+        <Grid2 item xs={10} sm={3} sx={{ml:3}}><Typography variant="h4" fontWeight="bold" align="center">Processes</Typography></Grid2> 
         <Grid2 item xs={10} sm={4} sx={{ml:3}}><Typography variant="h4" fontWeight="bold" align="center">Equipements</Typography></Grid2> 
       </Grid2>
 
@@ -35,7 +35,7 @@ return (
       <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:4 }}>
         <Grid2 item xs={1} sm={1}></Grid2>
         <Grid2 item xs={10} sm={3} sx={{ml:3}}></Grid2>
-        <Grid2 item xs={10} sm={3} sx={{ml:3}} align="center"><Testdialog/></Grid2> 
+        <Grid2 item xs={10} sm={3} sx={{ml:5}} align="center"><Testdialog/></Grid2> 
         <Grid2 item xs={10} sm={4} sx={{ml:3}}></Grid2> 
       </Grid2>
       <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:6 }}>

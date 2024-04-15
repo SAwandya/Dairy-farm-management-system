@@ -20,7 +20,7 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 function StorageRoom() {
 return (
        
-<Container maxWidth="100vw" style={{ margin: 0, padding: 0,overflow:'hidden' }}>
+<Container maxWidth="100vw" style={{ margin: 0, padding: 0, overflow:'hidden' }}>
   {/*, height: '100vh', overflow: 'hidden'  */}
 
      

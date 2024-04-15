@@ -19,8 +19,14 @@ function ProductBatchForm() {
   const [manufactureTime, setManufactureTime] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [batchId , setBatchId] = useState('');
-  //const [released, setReleased] = useState(false);
-  //const [storageLocation, setStorageLocation] = useState('');
+  const [errors, setErrors] = useState({
+    product: '',
+    quantity: '',
+    manufactureDate: '',
+    manufactureTime: '',
+    expiryDate: '',
+    batchId: ''
+  });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -32,8 +38,50 @@ function ProductBatchForm() {
     setOpen(false);
   };
 
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = {};
+
+    if (!product) {
+      newErrors.product = 'Product is required';
+      valid = false;
+    }
+
+    if (!quantity) {
+      newErrors.quantity = 'Quantity is required';
+      valid = false;
+    }
+
+    if (!manufactureDate) {
+      newErrors.manufactureDate = 'Manufacture date is required';
+      valid = false;
+    }
+
+    if (!manufactureTime) {
+      newErrors.manufactureTime = 'Manufacture time is required';
+      valid = false;
+    }
+
+    if (!expiryDate) {
+      newErrors.expiryDate = 'Expiry date is required';
+      valid = false;
+    }
+
+    if (!batchId) {
+      newErrors.batchId = 'Batch ID is required';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   const handleSubmit = async () => {
     try {
+      if (!validateForm()) {
+        return;
+      }
+
       console.log('Form submitted');
       setOpen(false);
       const formData = {
@@ -116,6 +164,7 @@ function ProductBatchForm() {
                 <MenuItem value="Milk">Milk</MenuItem>
                 <MenuItem value="Yoghurt">Yoghurt</MenuItem>
               </Select>
+              {errors.product && <div style={{ color: 'red' }}>{errors.product}</div>}
             </FormControl>
             {product === 'Milk' || product.includes('icecream') ? (
               <FormControl fullWidth margin="normal">
@@ -139,6 +188,8 @@ function ProductBatchForm() {
               label="Quantity"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
+              error={!!errors.quantity}
+              helperText={errors.quantity}
             />
             <TextField
               fullWidth
@@ -151,6 +202,8 @@ function ProductBatchForm() {
               InputLabelProps={{
                 shrink: true,
               }}
+              error={!!errors.manufactureDate}
+              helperText={errors.manufactureDate}
             />
             <TextField
               fullWidth
@@ -163,6 +216,8 @@ function ProductBatchForm() {
               InputLabelProps={{
                 shrink: true,
               }}
+              error={!!errors.manufactureTime}
+              helperText={errors.manufactureTime}
             />
             <TextField
               fullWidth
@@ -175,6 +230,8 @@ function ProductBatchForm() {
               InputLabelProps={{
                 shrink: true,
               }}
+              error={!!errors.expiryDate}
+              helperText={errors.expiryDate}
             />
             <TextField
               fullWidth
@@ -182,7 +239,10 @@ function ProductBatchForm() {
               id="batchId"
               label="Batch Id"
               value={batchId}
-              onChange={(e) => setBatchId(e.target.value)} />
+              onChange={(e) => setBatchId(e.target.value)} 
+              error={!!errors.batchId}
+              helperText={errors.batchId}
+            />
              
           {/*  <FormControlLabel
               control={<Checkbox checked={released} onChange={(e) => setReleased(e.target.checked)} />}
