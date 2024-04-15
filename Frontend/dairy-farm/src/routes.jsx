@@ -12,7 +12,6 @@ import SalesDashboard from "./pages/Sales/SalesDashboard";
 import Employee from "./pages/Employees/Employee";
 import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
-import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
 
 //Production Management - Pages
@@ -60,19 +59,20 @@ import LeaveDetails from "./pages/Employees/LeaveDetails";
 //Supplier Management
 import SupProfile from "./pages/Supplier/supProfile";
 import SupplierOrder from "./pages/Supplier/SupplierOrder";
+import SupplierDashbord from "./pages/Supplier/SupplierDashboard"
 import ItemDashboard from "./pages/Supplier/ItemDashboard";
 import InventoryDashboard from "./pages/Supplier/InventoryDashboard";
 import OrderPage from "./pages/Sales/OrderPage";
 import OrdReportDisplay from "./pages/Supplier/OrdReportDisplay";
-
 
 import PasturePage from "./pages/Grazing/PasturePage";
 import SessionPage from "./pages/Grazing/SessionPage";
 import Report from "./pages/Grazing/Report";
 import EffluentPage from "./pages/Grazing/EffluentPage";
 import { RemoveFromQueue } from "@mui/icons-material";
-import Session from "./pages/Grazing/GrazingSession";
+import GrazingDashboard from "./pages/Grazing/GrazingDashboard";
 import CartPage from "./pages/Sales/CartPage";
+import RotationInfo from "./pages/Grazing/RotationInfo";
 import FinanceBudgets from "./pages/Finance/FinanceBudgets";
 
 
@@ -281,6 +281,14 @@ const router = createBrowserRouter([
   {
     path: "/waste",
     element: <EffluentPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <GrazingDashboard />,
+  },
+  {
+    path: "/rotation",
+    element: <RotationInfo />,
   },
 
   {

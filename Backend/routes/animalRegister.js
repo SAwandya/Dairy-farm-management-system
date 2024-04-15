@@ -61,7 +61,7 @@ router.get('/retrieve-males', async (req, res) => {
 // Retrieve animals
 router.get('/retrieve', async (req, res) => {
     try {
-        const data = await veterinary.find({ age: { $exists: true } }); // Retrieve all animals
+        const data = await veterinary.find({ age: { $exists: true } });
         res.json({ success: true, data });
     } catch (error) {
         res.status(500).json({ message: error.message || "Error occurred while retrieving" });

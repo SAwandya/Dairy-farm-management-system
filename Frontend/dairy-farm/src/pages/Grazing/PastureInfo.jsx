@@ -3,6 +3,8 @@ import axios from 'axios'; // Import Axios for API requests
 import PastureCard from '../../components/Grazing/PastureCard';
 import { Container, Grid, Box, Button, Typography } from '@mui/material';
 import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
+import GrazingDate from '../../components/Grazing/GrazingDate';
+import Name from '../../components/Grazing/Name';
 
 
 function PastureInfo() {
@@ -37,6 +39,7 @@ function PastureInfo() {
         minWidth: '1036px',
       }}
     >
+      
       <GrazingSideBar />
       <Box className="dashboard-content2">
         <Box
@@ -50,7 +53,14 @@ function PastureInfo() {
           
           
         </Box>
-        <Typography align="center" variant="h5">Pasture Details</Typography>
+        <Box className="dashboard-content">
+                <div align='center'></div>
+                <GrazingDate/>
+                <Name/>
+              
+              <Typography> Information regarding the  pasture maintainence is recorded here</Typography>
+              
+      </Box>
         <Box sx={{ textAlign: 'right', marginRight:'16px' }}>
           <Button variant="contained" color="primary" href="http://localhost:5173/pasture">
             See More
