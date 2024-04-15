@@ -104,10 +104,14 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
     id="birthDate"
     name="birthDate"
     type="date"
+    labelId="birthdate"
+    label="Birth Date"
     required
     onChange={handleOnChange}
     value={(rest.birthDate ? new Date(rest.birthDate).toISOString().split('T')[0] : '')}
-
+    InputLabelProps={{
+      shrink: true,
+    }}
   
     fullWidth
     sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}

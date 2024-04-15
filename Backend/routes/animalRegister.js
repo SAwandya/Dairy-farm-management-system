@@ -35,6 +35,29 @@ router.get('/count-females', async (req, res) => {
     }
 });
 
+//Retrieve  female cows
+router.get('/retrieve-females', async (req, res) => {
+    try {
+        const count = await veterinary.find({ $or: [{ gender: "female" }, { gender: "Female" }] });
+        res.json({ success: true, count });
+    } catch (error) {
+        console.error("Error fetching females:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch females" });
+    }
+});
+
+//Retrieve  male cows
+router.get('/retrieve-males', async (req, res) => {
+    try {
+        const count = await veterinary.find({ $or: [{ gender: "male" }, { gender: "Male" }] });
+        res.json({ success: true, count });
+    } catch (error) {
+        console.error("Error fetching males:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch males" });
+    }
+});
+
+
 // Retrieve animals
 router.get('/retrieve', async (req, res) => {
     try {
