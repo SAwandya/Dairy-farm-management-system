@@ -6,7 +6,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CustomTextField from '../../components/Employees/textfield'; 
 import em1 from '../../assets/em1.png';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function UpdateEmployee() {
   const { id } = useParams();
@@ -36,16 +38,35 @@ function UpdateEmployee() {
 
   const update = (e) => {
     e.preventDefault();
-
-    axios.put(`http://localhost:3000/api/employee/updateEmployee/${id}`, { employeeId ,employeeName,position, contactNumber,  email,basicSalary})
+  
+    axios.put(`http://localhost:3000/api/employee/updateEmployee/${id}`, { employeeId ,employeeName, position, contactNumber, email, basicSalary})
       .then(result => {
         console.log(result);
-        navigate('/employeedashboard');
+        toast.success('Employee updated successfully', {
+          position: "top-right", // Change the position to top-right
+          autoClose: 3000, // Close the toast after 3 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          onClose: () => {
+            navigate('/allemployee');
+          }
+        });
       })
       .catch(err => console.log(err));
   };
+  
+
+
   return (
+     
+    <div>
+    {/* Your app components */}
+    <ToastContainer />
     <Box
+    
       height={550}
       width={1000}
       my={4}
@@ -56,6 +77,9 @@ function UpdateEmployee() {
       p={2}
       sx={{ bgcolor: '#E7F1F7'}}
     >
+      
+      
+  
       <img src={em1} alt="Employee" className="em1" style={{ width: '400px', height: '400px' }} />
       <Box>
         <Typography variant="h5" style={{ marginBottom: '20px', fontWeight: 'bold', fontStyle: 'poppins' }}>
@@ -131,6 +155,7 @@ function UpdateEmployee() {
         </form>
       </Box>
     </Box>
+    </div>
   );
 
 }

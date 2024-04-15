@@ -2,6 +2,7 @@ const express = require('express');
 const EmployeeModel = require('../models/Employees');
 const router = express.Router();
 const TaskModel = require('../models/Tasks');
+const LeaveModel = require('../models/Leaves')
 router.post('/createEmployee', (req, res) => {
     EmployeeModel.create(req.body)
         .then(employees => res.json(employees))
@@ -63,4 +64,34 @@ router.delete('/deleteTask/:id', (req, res) => {
         .then(Task => res.json(Task))
         .catch(err => res.json(err));
 });
+router.post('/submitLeave', (req, res) => {
+    LeaveModel.create(req.body)
+        .then(leaves => res.json(leaves))
+        .catch(err => res.json(err));
+});
+router.get('/leave', (req, res) => {
+    LeaveModel.find({})
+        .then(leaves => res.json(leaves))
+        .catch(err => res.json(err));
+});
+
+
+router.put('/leave/:id', (req, res) => {
+    const id = req.params.id;
+    const { status } = req.body;
+
+    // Assuming you have a MongoDB model for leaves
+
+    // Find the leave by ID and update its status
+    LeaveModel.findByIdAndUpdate({ _id: id }, { status }, { new: true })
+        .then(updatedLeave => {
+            res.json(updatedLeave);
+        })
+        .catch(err => {
+            console.error('Error updating leave status:', err);
+            res.status(500).json({ error: 'Error updating leave status' });
+        });
+});
+
+
 module.exports = router;
