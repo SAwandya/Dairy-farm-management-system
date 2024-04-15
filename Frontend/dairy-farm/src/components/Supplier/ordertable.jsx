@@ -114,6 +114,24 @@ const OrderTable = () => {
   //   setValidationErrors(errors);
   //   return;
   // }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const deliveryDate = new Date(newRow.deliveryDate);
+  deliveryDate.setHours(0, 0, 0, 0);
+
+
+  if (deliveryDate < today) {
+    handleClose();
+    Swal.fire('Error', 'Delivery date cannot be a date in the past', 'error');
+    return;
+  }
+  
+  if (currentRow.quantity < 0 || currentRow.advanceFee < 0) {
+    handleClose();
+    Swal.fire('Error', 'Quantity and Advance Fee cannot be negative', 'error');
+    return;
+  }
     let data = { ...currentRow, __v: undefined };
 
     console.log(data);
@@ -156,6 +174,23 @@ const OrderTable = () => {
   };
 
   const handleAdd = () => {
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const deliveryDate = new Date(newRow.deliveryDate);
+    deliveryDate.setHours(0, 0, 0, 0);
+
+    if (deliveryDate < today) {
+      handleCloseAdd()
+      Swal.fire('Error', 'Delivery date cannot be a date in the past', 'error');
+      return;
+    }
+
+    if (newRow.quantity < 0 || newRow.advanceFee < 0) {
+      handleCloseAdd()
+      Swal.fire('Error', 'Quantity and Advance Fee cannot be negative', 'error');
+      return;
+    }
     mutationAdd.mutate(newRow, {
       onSuccess: () => {
         console.log(newRow);

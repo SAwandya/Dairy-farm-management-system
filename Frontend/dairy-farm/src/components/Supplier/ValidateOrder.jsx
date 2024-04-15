@@ -9,17 +9,21 @@ const validateOrder = (row) => {
     errors.quantity = "Quantity is required";
   } else if (isNaN(row.quantity)) {
     errors.quantity = "Quantity must be a number";
+  } else if (row.quantity < 0) {
+    errors.quantity = "Quantity cannot be a negative number";
   }
 
   if (!row.advanceFee) {
     errors.advanceFee = "Advance fee is required";
   } else if (isNaN(row.advanceFee)) {
     errors.advanceFee = "Advance fee must be a number";
+  } else if (row.advanceFee < 0) {
+    errors.advanceFee = "Advance fee cannot be a negative number";
   }
 
-//   if (!row.deliveryDate) {
-//     errors.deliveryDate = "Delivery date is required";
-//   }
+  // if (!row.deliveryDate) {
+  //   errors.deliveryDate = "Delivery date is required";
+  // }
 
   return errors;
 };
