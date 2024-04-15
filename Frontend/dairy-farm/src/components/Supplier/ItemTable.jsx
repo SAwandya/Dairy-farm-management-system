@@ -22,6 +22,7 @@ import {
 } from "@tanstack/react-query";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Swal from 'sweetalert2';
 
 const ItemsTable = () => {
   const [validationErrors, setValidationErrors] = useState({});
@@ -110,20 +111,43 @@ const ItemsTable = () => {
     useDeleteItem();
 
   const handleCreateItem = async ({ values, table }) => {
-    await createItem(values);
-    table.setCreatingRow(null);
+    try {
+      await createItem(values);
+      table.setCreatingRow(null);
+      Swal.fire('Success', 'Item added successfully', 'success');
+    } catch (error) {
+      console.error("An error occurred:", error);
+      Swal.fire('Error', 'An error occurred while adding the item', 'error');
+    }
   };
 
   const handleSaveItem = async ({ values, table }) => {
-    await updateItem(values);
-    table.setEditingRow(null);
-  };
-
-  const openDeleteConfirmModal = (row) => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
-      deleteItem(row.original._id);
+    try {
+      await updateItem(values);
+      table.setEditingRow(null);
+      Swal.fire('Success', 'Item updated successfully', 'success');
+    } catch (error) {
+      console.error("An error occurred:", error);
+      Swal.fire('Error', 'An error occurred while updating the item', 'error');
     }
   };
+
+const openDeleteConfirmModal = (row) => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      deleteItem(row.original._id);
+      Swal.fire('Deleted!', 'Your item has been deleted.', 'success')
+    }
+  })
+};
 
   const table = useMaterialReactTable({
     columns,

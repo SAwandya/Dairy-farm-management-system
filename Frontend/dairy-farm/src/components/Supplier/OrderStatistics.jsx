@@ -19,18 +19,18 @@ function MainStatistics() {
             <Box className="stat-cards-container">
                 <StatsCard
                     title='Total'
-                    value='10'
+                    value='5'
                     icon='../../../src/assets/icon1.png'
 
                 />
                 <StatsCard
                     title='Received'
-                    value='8'
+                    value='4'
                     icon='../../../src/assets/icon1.png'
                 />
                 <StatsCard
                     title='Pending'
-                    value='2'
+                    value='1'
                     icon='../../../src/assets/icon2.png'
                 />
             </Box>

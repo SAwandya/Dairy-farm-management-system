@@ -9,9 +9,11 @@ import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "react-router-dom";
+
 
 function Sidebar() {
-  const [activeSection, setActiveSection] = useState("dashboard");
+  const [activeSection, setActiveSection] = useState("");
 
   const handleNavigation = (section) => {
     setActiveSection(section);
@@ -41,38 +43,47 @@ function Sidebar() {
       {/* Navigation links */}
       <Box className="navigation-links">
         <List>
+        <Link to="/productionDashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
+
           <NavigationLink
             icon={<SpaceDashboardIcon />}
             text="Dashboard"
             isActive={activeSection === "dashboard"}
             onClick={() => handleNavigation("dashboard")}
-          
           />
+        </Link>
+        <Link to="/processPlanning" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<AccessTimeFilledIcon />}
             text="Process"
             isActive={activeSection === "Process"}
             onClick={() => handleNavigation("Process")}
           />
-          <NavigationLink
-            icon={<DonutSmallIcon />}
-            text="QC Test"
-            isActive={activeSection === "QcTest"}
-            onClick={() => handleNavigation("QcTest")}
-            
-          />
+         </Link>
+          <Link to="/productInventory" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<WaterDropIcon />}
             text="Inventory"
             isActive={activeSection === "inventory"}
             onClick={() => handleNavigation("inventory")}
           />
+          </Link>
+          <Link to="/storageRoom" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<AssessmentIcon />}
             text="Storage"
             isActive={activeSection === "storage"}
             onClick={() => handleNavigation("storage")}
           />
+          </Link>  
+          <Link to="/processPlanning" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <NavigationLink
+            icon={<DonutSmallIcon />}
+            text="QC Test"
+            isActive={activeSection === "QcTest"}
+            onClick={() => handleNavigation("QcTest")} 
+          /> 
+          </Link>
         </List>
       </Box>
 

@@ -33,8 +33,8 @@ const ProductList = () => {
     (s) => s.SetSelectedProductPublish
   );
 
-  const handleUpdate = (id) => {
-    SetSelectedProductUpdate(id);
+  const handleUpdate = (product) => {
+    SetSelectedProductUpdate(product);
   };
 
   const handlePublish = (id, publish) => {
@@ -76,6 +76,7 @@ const ProductList = () => {
 
   return (
     <React.Fragment>
+
       <Container sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', marginBottom: '20px' }}>
         <SalesTitle>Recent Products</SalesTitle>
 
@@ -104,7 +105,7 @@ const ProductList = () => {
               <TableCell>
                 <Link to="/productupdate">
                   <Button
-                    onClick={() => handleUpdate(product._id)}
+                    onClick={() => handleUpdate(product)}
                     variant="contained"
                     size="medium"
                     color="success"
@@ -114,9 +115,9 @@ const ProductList = () => {
                 </Link>
               </TableCell>
               <TableCell>
-                {product.publish == false ? (
+                {product.publish == true ? (
                   <Button
-                    onClick={() => handlePublish(product._id, true)}
+                    onClick={() => handlePublish(product._id, false)}
                     variant="outlined"
                     size="medium"
                     color="error"
@@ -125,7 +126,7 @@ const ProductList = () => {
                   </Button>
                 ) : (
                   <Button
-                    onClick={() => handlePublish(product._id, false)}
+                    onClick={() => handlePublish(product._id, true)}
                     variant="outlined"
                     size="medium"
                     color="error"

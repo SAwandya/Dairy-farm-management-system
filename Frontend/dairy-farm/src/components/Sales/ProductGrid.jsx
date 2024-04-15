@@ -7,7 +7,7 @@ import useProducts from "../../hooks/useProducts";
 const ProductGrid = () => {
   const { data, error, isLoading } = useProducts();
 
-  const filteredData = data?.filter((product) => product.publish == false);
+  const filteredData = data?.filter((product) => product.publish == true);
 
   return (
     <>

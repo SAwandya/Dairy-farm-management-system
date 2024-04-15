@@ -4,8 +4,17 @@ import { Alert } from "@mui/material";
 
 const InputField = (props) => {
 
-  const { id, label, type, signup, errors, minlength, defaultValue, disable } =
-    props;
+  const {
+    id,
+    label,
+    type,
+    signup,
+    errors,
+    minlength,
+    defaultValue,
+    disable,
+    inputProps,
+  } = props;
 
   return (
     <>
@@ -15,11 +24,11 @@ const InputField = (props) => {
         required
         disabled={disable}
         fullWidth
+        min={inputProps}
         defaultValue={defaultValue}
         label={label}
         type={type}
         {...signup}
-        autoFocus
         margin="normal"
       />
 
@@ -31,6 +40,13 @@ const InputField = (props) => {
           The {id} must be at leat {minlength}
         </Alert>
       )}
+      {errors?.type === "positive" && (
+        <Alert severity="error">Only valide prositive numbers</Alert>
+      )}
+      {errors?.type === "validate" && (
+        <Alert severity="error">Enter valide date</Alert>
+      )}
+      {/* {errors?.type && <Alert severity="error">{errors?.type}</Alert>} */}
     </>
   );
 };

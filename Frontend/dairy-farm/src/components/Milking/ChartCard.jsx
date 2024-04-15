@@ -27,4 +27,4 @@ function ChartCard() {
     )
 }
 
-export default ChartCard
+export default ChartCard;

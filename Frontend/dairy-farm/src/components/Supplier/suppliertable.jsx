@@ -1,19 +1,12 @@
-import { useMemo, useState } from "react";
-import {
-  MRT_EditActionButtons,
-  MaterialReactTable,
-  // createRow,
-  useMaterialReactTable,
-} from "material-react-table";
-import {
-  Box,
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 import {
   QueryClient,
   QueryClientProvider,
@@ -21,230 +14,428 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { fakeData, usStates } from "./makeData";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+
+import IconButton from "@material-ui/core/IconButton";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import AddIcon from "@material-ui/icons/Add";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Typography from "@material-ui/core/Typography";
+import Toolbar from "@material-ui/core/Toolbar";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from "@material-ui/icons/Search";
+import validateForm from "./ValidateForm";
+import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
+
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 650,
+  },
+
+  addButton: {
+    marginLeft: "auto",
+  },
+  row: {
+    "&:nth-child(odd)": {
+      backgroundColor: "#f2f2f2",
+    },
+    "&:nth-child(even)": {
+      backgroundColor: "#e0f7fa",
+    },
+  },
+}));
 
 const SupplierTable = () => {
-  const [validationErrors, setValidationErrors] = useState({});
+  const classes = useStyles();
 
-  const columns = useMemo(
-    () => [
-      {
-        accessorKey: "_id",
-        header: "Id",
-        enableEditing: false,
-        size: 80,
-        className: "hidden",
+  const [itemTypes, setItemTypes] = useState([]);
+  useEffect(() => {
+  fetch('http://localhost:3000/api/item')
+    .then(response => response.json())
+    .then(data => setItemTypes(data));
+  }, []);
+
+  const [open, setOpen] = React.useState(false);
+  const [currentRow, setCurrentRow] = React.useState(null);
+  const [validationErrors, setValidationErrors] = React.useState(null);
+  const { mutate } = useUpdateUser();
+
+  const [openAdd, setOpenAdd] = React.useState(false);
+  const [newRow, setNewRow] = React.useState({});
+  const mutationAdd = useCreateUser();
+  const mutationDelete = useDeleteUser();
+  const { data, isLoading, isError } = useGetUsers();
+  const [search, setSearch] = React.useState("");
+
+  const handleClickOpen = (row) => {
+    setCurrentRow(row);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleUpdate = () => {
+    console.log(currentRow);
+    const errors = validateForm(currentRow);
+    if (Object.values(errors).some((error) => error)) {
+      setValidationErrors(errors);
+      return;
+    }
+  
+    let data = { ...currentRow, __v: undefined };
+  
+    mutate(data, {
+      onSuccess: () => {
+        setOpen(false);
+        Swal.fire('Success', 'Supplier updated successfully', 'success');
       },
-      {
-        accessorKey: "name",
-        header: "Supplier Name",
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors?.name,
-          helperText: validationErrors?.name,
-          //remove any previous validation errors when user focuses on the input
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              name: undefined,
-            }),
-          //optionally add validation checking for onBlur or onChange
-        },
+      onError: (error) => {
+        console.error("An error occurred:", error);
+        Swal.fire('Error', 'An error occurred while updating the supplier', 'error');
       },
-      {
-        accessorKey: "email",
-        header: "Email",
-        muiEditTextFieldProps: {
-          type: "email",
-          required: true,
-          error: !!validationErrors?.email,
-          helperText: validationErrors?.email,
-          //remove any previous validation errors when user focuses on the input
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              email: undefined,
-            }),
-        },
+    });
+  };
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        mutationDelete.mutate(id);
+        Swal.fire('Deleted!', 'The supplier has been deleted.', 'success')
+      }
+    })
+  };
+
+  const handleClickOpenAdd = () => {
+    setOpenAdd(true);
+  };
+
+  const handleCloseAdd = () => {
+    setOpenAdd(false);
+  };
+
+  const handleAdd = () => {
+    mutationAdd.mutate(newRow, {
+      onSuccess: () => {
+        setOpenAdd(false);
+        Swal.fire('Success', 'Supplier added successfully', 'success');
       },
-      {
-        accessorKey: "itemType",
-        header: "Item Type",
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors?.itemType,
-          helperText: validationErrors?.itemType,
-          //remove any previous validation errors when user focuses on the input
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              itemType: undefined,
-            }),
-        },
+      onError: (error) => {
+        console.error("An error occurred:", error);
+        Swal.fire('Error', 'An error occurred while adding the supplier', 'error');
       },
-      {
-        accessorKey: "deliveryDate",
-        header: "Delivery Date",
-        muiEditTextFieldProps: {
-          type: "date",
-          required: true,
-          error: !!validationErrors?.deliveryDate,
-          helperText: validationErrors?.deliveryDate,
-          //remove any previous validation errors when user focuses on the input
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              deliveryDate: undefined,
-            }),
-          //optionally add validation checking for onBlur or onChange
-        },
-      },
-    ],
-    [validationErrors]
+    });
+  };
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredData = data?.filter((row) =>
+    Object.values(row).some((value) =>
+      value.toString().toLowerCase().includes(search.toLowerCase())
+    )
   );
 
-  //call CREATE hook
-  const { mutateAsync: createUser, isPending: isCreatingUser } =
-    useCreateUser();
-  //call READ hook
-  const {
-    data: fetchedUsers = [],
-    isError: isLoadingUsersError,
-    isFetching: isFetchingUsers,
-    isLoading: isLoadingUsers,
-  } = useGetUsers();
-  //call UPDATE hook
-  const { mutateAsync: updateUser, isPending: isUpdatingUser } =
-    useUpdateUser();
-  //call DELETE hook
-  const { mutateAsync: deleteUser, isPending: isDeletingUser } =
-    useDeleteUser();
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error occurred</div>;
 
-  //CREATE action
-  const handleCreateUser = async ({ values, table }) => {
-    // const newValidationErrors = validateUser(values);
-    // if (Object.values(newValidationErrors).some((error) => error)) {
-    //   setValidationErrors(newValidationErrors);
-    //   return;
-    // }
-    // setValidationErrors({});
-    await createUser(values);
-    table.setCreatingRow(null); //exit creating mode
-  };
+  return (
+    <div>
+      <div className={classes.root}>
+        <Typography variant="h6">Suppliers</Typography>
 
-  //UPDATE action
-  const handleSaveUser = async ({ values, table }) => {
-    // const newValidationErrors = validateUser(values);
-    // if (Object.values(newValidationErrors).some((error) => error)) {
-    //   setValidationErrors(newValidationErrors);
-    //   return;
-    // }
-    // setValidationErrors({});
-    await updateUser(values);
-    table.setEditingRow(null); //exit editing mode
-  };
+        <div div className={classes.root}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            onClick={handleClickOpenAdd}
+            className={classes.addButton}
+          >
+            Add Supplier
+          </Button>
+        </div>
+      </div>
 
-  //DELETE action
-  const openDeleteConfirmModal = (row) => {
-    if (window.confirm("Are you sure you want to delete this Supplier?")) {
-      deleteUser(row.original._id);
-    }
-  };
-
-  const table = useMaterialReactTable({
-    columns,
-    data: fetchedUsers,
-    createDisplayMode: "modal", //default ('row', and 'custom' are also available)
-    editDisplayMode: "modal", //default ('row', 'cell', 'table', and 'custom' are also available)
-    enableEditing: true,
-    getRowId: (row) => row.id,
-    muiToolbarAlertBannerProps: isLoadingUsersError
-      ? {
-          color: "error",
-          children: "Error loading data",
-        }
-      : undefined,
-    muiTableContainerProps: {
-      sx: {
-        minHeight: "500px",
-      },
-    },
-    onCreatingRowCancel: () => setValidationErrors({}),
-    onCreatingRowSave: handleCreateUser,
-    onEditingRowCancel: () => setValidationErrors({}),
-    onEditingRowSave: handleSaveUser,
-    //optionally customize modal content
-    renderCreateRowDialogContent: ({ table, row, internalEditComponents }) => (
-      <>
-        <DialogTitle variant="h3">Create New Supplier</DialogTitle>
-        <DialogContent
-          sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-        >
-          {internalEditComponents} {/* or render custom edit components here */}
-        </DialogContent>
-        <DialogActions>
-          <MRT_EditActionButtons variant="text" table={table} row={row} />
-        </DialogActions>
-      </>
-    ),
-    //optionally customize modal content
-    renderEditRowDialogContent: ({ table, row, internalEditComponents }) => (
-      <>
-        <DialogTitle variant="h3">Edit User</DialogTitle>
-        <DialogContent
-          sx={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
-        >
-          {internalEditComponents} {/* or render custom edit components here */}
-        </DialogContent>
-        <DialogActions>
-          <MRT_EditActionButtons variant="text" table={table} row={row} />
-        </DialogActions>
-      </>
-    ),
-    renderRowActions: ({ row, table }) => (
-      <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="Edit">
-          <IconButton onClick={() => table.setEditingRow(row)}>
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Delete">
-          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    ),
-    renderTopToolbarCustomActions: ({ table }) => (
-      <Button
-        variant="contained"
-        onClick={() => {
-          table.setCreatingRow(true); //simplest way to open the create row modal with no default values
-          //or you can pass in a row object to set default values with the `createRow` helper function
-          // table.setCreatingRow(
-          //   createRow(table, {
-          //     //optionally pass in default values for the new row, useful for nested data or other complex scenarios
-          //   }),
-          // );
-        }}
-      >
+      <TableContainer component={Paper}>
+        <Toolbar>
+          <TextField
+            id="search"
+            type="search"
+            value={search}
+            onChange={handleSearchChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          >
+            <InputLabel shrink htmlFor="search">
+              Search
+            </InputLabel>
+          </TextField>
+        </Toolbar>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ display: "none" }}>Id</TableCell>
+              <TableCell>Supplier Name</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Item Type</TableCell>
+              <TableCell>Supplier Type</TableCell>
+              <TableCell>Average Delivery</TableCell>
+              <TableCell>Edit</TableCell>
+              <TableCell>Delete</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredData?.map((row, index) => (
+              <TableRow key={row._id} className={classes.row}>
+                <TableCell
+                  style={{ display: "none" }}
+                  component="th"
+                  scope="row"
+                >
+                  {row._id}
+                </TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.email}</TableCell>
+                <TableCell>{row.itemType}</TableCell>
+                <TableCell>{row.supplierType}</TableCell>
+                <TableCell>{row.avgDeliveryTime}</TableCell>
+                <TableCell>
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => handleClickOpen(row)}
+                    color="primary"
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </TableCell>
+                <TableCell>
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => handleDelete(row._id)}
+                    color="secondary"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        {/* <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleClickOpenAdd}>
         Add Supplier
-      </Button>
-    ),
-    state: {
-      isLoading: isLoadingUsers,
-      isSaving: isCreatingUser || isUpdatingUser || isDeletingUser,
-      showAlertBanner: isLoadingUsersError,
-      showProgressBars: isFetchingUsers,
-    },
-  });
+      </Button> */}
+        <Dialog
+          open={openAdd}
+          onClose={handleCloseAdd}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Add Supplier</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Supplier Name"
+              type="text"
+              fullWidth
+              onChange={(e) => setNewRow({ ...newRow, name: e.target.value })}
+            />
+            <TextField
+              margin="dense"
+              id="email"
+              label="Email"
+              type="email"
+              fullWidth
+              onChange={(e) => setNewRow({ ...newRow, email: e.target.value })}
+            />
+            <FormControl fullWidth margin="dense">
+              <InputLabel id="itemType-label">Item Type</InputLabel>
+              <Select
+                labelId="itemType-label"
+                id="itemType"
+                value={newRow.itemType}
+                onChange={(e) => setNewRow({ ...newRow, itemType: e.target.value })}
+              >
+                {itemTypes.map((item) => (
+                  <MenuItem key={item._id} value={item.itemName}>
+                    {item.itemName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
+              <InputLabel id="supplierType-label">Supplier Type</InputLabel>
+              <Select
+                labelId="supplierType-label"
+                id="supplierType"
+                value={newRow.supplierType}
+                onChange={(e) =>
+                  setNewRow({ ...newRow, supplierType: e.target.value })
+                }
+              >
+                <MenuItem value={"Contracted"}>Contracted</MenuItem>
+                <MenuItem value={"Permanent"}>Permanent</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              margin="dense"
+              id="avgDeliveryTime"
+              label="Average Time to Delivery"
+              type="number"
+              fullWidth
+              onChange={(e) =>
+                setNewRow({ ...newRow, avgDeliveryTime: e.target.value })
+              }
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseAdd} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleAdd} color="primary">
+              Add
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Update User</DialogTitle>
+          {validationErrors && (
+            <div>
+              {Object.entries(validationErrors).map(([key, value]) => (
+                <p key={key} style={{ color: "red", paddingLeft: "25px"}}>
+                  {value}
+                </p>
+              ))}
+            </div>
+          )}
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Supplier Name"
+              type="text"
+              fullWidth
+              value={currentRow?.name}
+              onChange={(e) =>
+                setCurrentRow({ ...currentRow, name: e.target.value })
+              }
+            />
 
-  return <MaterialReactTable table={table} />;
+            <TextField
+              margin="dense"
+              id="email"
+              label="Email"
+              type="email"
+              fullWidth
+              value={currentRow?.email}
+              onChange={(e) =>
+                setCurrentRow({ ...currentRow, email: e.target.value })
+              }
+            />
+          <FormControl fullWidth margin="dense">
+              <InputLabel id="itemType-label">Item Type</InputLabel>
+              <Select
+                labelId="itemType-label"
+                id="itemType"
+                value={newRow.itemType}
+                onChange={(e) => setCurrentRow({ ...currentRow, itemType: e.target.value })}
+              >
+                {itemTypes.map((item) => (
+                  <MenuItem key={item._id} value={item.itemName}>
+                    {item.itemName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
+              <InputLabel id="edit-supplierType-label">
+                Supplier Type
+              </InputLabel>
+              <Select
+                labelId="edit-supplierType-label"
+                id="edit-supplierType"
+                value={currentRow?.supplierType}
+                onChange={(e) =>
+                  setCurrentRow({ ...currentRow, supplierType: e.target.value })
+                }
+              >
+                <MenuItem value={"Contracted"}>Contracted</MenuItem>
+                <MenuItem value={"Permanent"}>Permanent</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              margin="dense"
+              id="avgDeliveryTime"
+              label="Average Time to Delivery"
+              type="number"
+              fullWidth
+              value={currentRow?.avgDeliveryTime}
+              onChange={(e) =>
+                setCurrentRow({ ...currentRow, avgDeliveryTime: e.target.value })
+              }
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleUpdate} color="primary">
+              Update
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </TableContainer>
+    </div>
+  );
 };
 
-//CREATE hook (post new user to api)
+export default SupplierTable;
+
 function useCreateUser() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -254,7 +445,11 @@ function useCreateUser() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({...user, _id: undefined}),
+        body: JSON.stringify({
+          ...user,
+          _id: undefined,
+          supplierType: user.supplierType,
+        }),
       });
       return response.json();
     },
@@ -269,7 +464,6 @@ function useCreateUser() {
   });
 }
 
-//READ hook (get users from api)
 function useGetUsers() {
   return useQuery({
     queryKey: ["users"],
@@ -281,7 +475,6 @@ function useGetUsers() {
   });
 }
 
-//UPDATE hook (put user in api)
 function useUpdateUser() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -293,7 +486,11 @@ function useUpdateUser() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({...user, _id: undefined}),
+          body: JSON.stringify({
+            ...user,
+            _id: undefined,
+            
+          }),
         }
       );
       return response.json();
@@ -308,7 +505,6 @@ function useUpdateUser() {
   });
 }
 
-//DELETE hook (delete user in api)
 function useDeleteUser() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -332,32 +528,8 @@ function useDeleteUser() {
 const queryClient = new QueryClient();
 
 const ExampleWithProviders = () => (
-  //Put this with your other react-query providers near root of your app
   <QueryClientProvider client={queryClient}>
     <SupplierTable />
   </QueryClientProvider>
 );
-
-export default SupplierTable;
-
-const validateRequired = (value) => !!value.length;
-const validateEmail = (email) =>
-  !!email.length &&
-  email
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-
-function validateUser(user) {
-  return {
-    firstName: !validateRequired(user.firstName)
-      ? "First Name is Required"
-      : "",
-    lastName: !validateRequired(user.lastName) ? "Last Name is Required" : "",
-    email: !validateEmail(user.email) ? "Incorrect Email Format" : "",
-  };
-
-}
-
 

@@ -17,7 +17,10 @@ function Sidebar() {
     };
 
     return (
-        <Box className="sidebar">
+         <Box className="sidebar" sx={{
+            position: "fixed",
+            zIndex: 1, // Ensure it stays above other content
+        }}>
             
             <Box className="sidebar-logo-container">
                 <img className="sidebar-logo" src="../../src/assets/sidebar-logo.png" alt="Logo" />

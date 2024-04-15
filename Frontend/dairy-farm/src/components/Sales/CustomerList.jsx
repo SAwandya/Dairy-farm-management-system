@@ -13,54 +13,8 @@ import useCustomers from "../../hooks/useCustomers";
 import approveService from "../../services/Sales/approveService";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
-
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-  createData(
-    0,
-    "16 Mar, 2019",
-    "Elvis Presley",
-    "Tupelo, MS",
-    "VISA ⠀•••• 3719",
-    312.44
-  ),
-  createData(
-    1,
-    "16 Mar, 2019",
-    "Paul McCartney",
-    "London, UK",
-    "VISA ⠀•••• 2574",
-    866.99
-  ),
-  createData(
-    2,
-    "16 Mar, 2019",
-    "Tom Scholz",
-    "Boston, MA",
-    "MC ⠀•••• 1253",
-    100.81
-  ),
-  createData(
-    3,
-    "16 Mar, 2019",
-    "Michael Jackson",
-    "Gary, IN",
-    "AMEX ⠀•••• 2000",
-    654.39
-  ),
-  createData(
-    4,
-    "15 Mar, 2019",
-    "Bruce Springsteen",
-    "Long Branch, NJ",
-    "VISA ⠀•••• 5919",
-    212.79
-  ),
-];
+import userService from "../../services/Sales/userService";
+import MessagePop from "./MessagePop";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -69,6 +23,10 @@ function preventDefault(event) {
 const CustomerList = () => {
   const { data, error, isLoading, refetch } = useCustomers();
 
+  const [opennotify, setOpennotify] = React.useState(false);
+
+  const [selectedId, setSelecetId] = React.useState(null);
+
   const SetSelectedProductUpdate = useGameQueryStore(
     (s) => s.SetSelectedProductUpdate
   );
@@ -76,8 +34,6 @@ const CustomerList = () => {
   const SetSelectedProductPublish = useGameQueryStore(
     (s) => s.SetSelectedProductPublish
   );
-
-  console.log(data);
 
   const handleUpdate = (id) => {
     SetSelectedProductUpdate(id);
@@ -95,6 +51,23 @@ const CustomerList = () => {
       })
       .catch((err) => {
         console.log(err.message);
+      });
+  };
+
+  const handleDelete = (customerId) => {
+    console.log("submited");
+    setSelecetId(customerId);
+    setOpennotify(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    userService
+      .delete(selectedId)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -128,9 +101,9 @@ const CustomerList = () => {
                 {customer.approvel == false ? (
                   <Button
                     onClick={() => handleApprove(customer._id, true)}
-                    variant="outlined"
+                    variant="contained"
                     size="medium"
-                    color="error"
+                    color="success"
                   >
                     Approve
                   </Button>
@@ -146,7 +119,12 @@ const CustomerList = () => {
                 )}
               </TableCell>
               <TableCell>
-                <Button variant="outlined" size="medium" color="error">
+                <Button
+                  onClick={() => handleDelete(customer._id)}
+                  variant="outlined"
+                  size="medium"
+                  color="error"
+                >
                   Delete
                 </Button>
               </TableCell>
@@ -167,6 +145,13 @@ const CustomerList = () => {
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more orders
       </Link>
+
+      <MessagePop
+        opennotify={opennotify}
+        setOpennotify={setOpennotify}
+        refetch={refetch}
+        handlefunction={handleDeleteConfirm}
+      />
     </>
   );
 };

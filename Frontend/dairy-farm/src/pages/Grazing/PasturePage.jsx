@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Card, CardContent, IconButton, Tooltip } from '@mui/material';
 import { AddCircleOutline, Edit, Delete } from '@mui/icons-material';
-import Table from '../../components/Grazing/Table';
+import GrazingTable from '../../components/Grazing/GrazingTable';
 import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import PastureForm from '../../components/Grazing/PastureForm';
-
-axios.defaults.baseURL = 'http://localhost:3000/api/pastureDetails';
 
 function PasturePage() {
   const [dataList, setDataList] = useState([]);
   const [openFormDialog, setOpenFormDialog] = useState(false);
   const [editFormData, setEditFormData] = useState(null);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const fetchData = async () => {
     try {
-      const response = await axios.get('/');
+      const response = await axios.get('http://localhost:3000/api/pastureDetails'); // Corrected base URL
       setDataList(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -28,13 +30,9 @@ function PasturePage() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`/delete/${id}`);
+      const response = await axios.delete(`http://localhost:3000/api/pastureDetails/delete/${id}`); // Corrected URL
       if (response.status === 200) {
         fetchData();
         Swal.fire({
@@ -68,7 +66,7 @@ function PasturePage() {
   const handleNewPastureSubmit = async (newPastureData) => {
     try {
       if (editFormData) {
-        const response = await axios.put(`/update/${editFormData._id}`, newPastureData);
+        const response = await axios.put(`http://localhost:3000/api/pastureDetails/update/${editFormData._id}`, newPastureData); // Corrected URL
         if (response.status === 200) {
           fetchData();
           Swal.fire({
@@ -84,7 +82,7 @@ function PasturePage() {
           });
         }
       } else {
-        const response = await axios.post('/add', newPastureData);
+        const response = await axios.post('http://localhost:3000/api/pastureDetails/add', newPastureData); // Corrected URL
         if (response.status === 201) {
           fetchData();
           Swal.fire({
@@ -131,8 +129,6 @@ function PasturePage() {
           minHeight: '100vh',
         }}
       >
-        
-        
         <Grid container spacing={2} justifyContent="center" style={{ width: '100%', marginRight: '3rem',marginLeft: '8rem' }}>
           <Grid item xs={12}>
             <Grid container justifyContent="flex-end">
@@ -146,9 +142,10 @@ function PasturePage() {
               </Tooltip>
             </Grid>
           </Grid>
-          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '1rem', marginLeft: '2rem',display: 'flex', justifyContent: 'right' }}>
-            
-                <Table
+          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '1rem', marginLeft: '2rem',display: 'flex', justifyContent: 'right',width:'100%' }}>
+            <Card>
+              <CardContent>
+                <GrazingTable
                   headers={headers}
                   rows={dataList.map((item) => ({
                     'Area': item.area,
@@ -168,10 +165,10 @@ function PasturePage() {
                     ),
                   }))}
                 />
-             
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
-    
         <PastureForm
           open={openFormDialog}
           handleClose={() => setOpenFormDialog(false)}

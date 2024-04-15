@@ -9,10 +9,15 @@ const MilkingDataTable = () => {
   const [milkingData, setMilkingData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedIssues, setSelectedIssues] = useState(null);
+  const [filteredMilkingData, setFilteredMilkingData] = useState([]);
 
   useEffect(() => {
     fetchMilkingData();
   }, []);
+
+  useEffect(() => {
+    filterMilkingData();
+  }, [milkingData, selectedDate]);
 
   const fetchMilkingData = async () => {
     try {
@@ -26,6 +31,35 @@ const MilkingDataTable = () => {
       console.error('Error fetching milking data:', error);
     }
   };
+
+  const filterMilkingData = () => {
+    if (!selectedDate) {
+      const todayMidnight = new Date();
+      todayMidnight.setHours(0, 0, 0, 0);
+      const filteredData = milkingData.filter(data => {
+        const dataDate = new Date(data.createdAt);
+        return (
+          dataDate.getFullYear() === todayMidnight.getFullYear() &&
+          dataDate.getMonth() === todayMidnight.getMonth() &&
+          dataDate.getDate() === todayMidnight.getDate()
+        );
+      });
+      setFilteredMilkingData(filteredData);
+    } else {
+      const selectedDateMidnight = new Date(selectedDate);
+      selectedDateMidnight.setHours(0, 0, 0, 0);
+      const filteredData = milkingData.filter(data => {
+        const dataDate = new Date(data.createdAt);
+        return (
+          dataDate.getFullYear() === selectedDateMidnight.getFullYear() &&
+          dataDate.getMonth() === selectedDateMidnight.getMonth() &&
+          dataDate.getDate() === selectedDateMidnight.getDate()
+        );
+      });
+      setFilteredMilkingData(filteredData);
+    }
+  };
+  
 
   const handleShowIssues = (issues) => {
     setSelectedIssues(issues);
@@ -57,7 +91,8 @@ const MilkingDataTable = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>Milk Batch ID</TableCell>
+            <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>Milk Batch</TableCell>
+            <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>Collected Date</TableCell>
             <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>Amount of Milk(Liters)</TableCell>
             <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>Duration(In Minutes)</TableCell>
             <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>Quality Check Status</TableCell>
@@ -65,13 +100,14 @@ const MilkingDataTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {milkingData.map((data) => (
+          {filteredMilkingData.map((data) => (
             <TableRow key={data._id}>
-              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>{data.milkBatchId}</TableCell>
-              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>{data.amountOfMilk}</TableCell>
-              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>{data.duration}</TableCell>
-              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>{data.qualityCheckResult}</TableCell>
-              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px' }}>
+              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px', backgroundColor: 'rgba(0,0,0,0.03)' }}>{data.milkBatchId}</TableCell>
+              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px', backgroundColor: 'rgba(0,0,0,0.03)' }}>{new Date(data.createdAt).toISOString().split('T')[0]}</TableCell>
+              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px', backgroundColor: 'rgba(0,0,0,0.03)' }}>{data.amountOfMilk}</TableCell>
+              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px', backgroundColor: 'rgba(0,0,0,0.03)' }}>{data.duration}</TableCell>
+              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px', backgroundColor: 'rgba(0,0,0,0.03)' }}>{data.qualityCheckResult}</TableCell>
+              <TableCell style={{ textAlign: 'center', fontFamily: 'Poppins', fontSize: '18px', backgroundColor: 'rgba(0,0,0,0.03)' }}>
                 {data.issues ? (
                   <a href="#" onClick={() => handleShowIssues(data.issues)} className='specialNotesLink'>Click here</a>
                 ) : <em>No issues recorded</em>}
@@ -80,7 +116,6 @@ const MilkingDataTable = () => {
           ))}
         </TableBody>
       </Table>
-      {/* Popup Dialog for Issues */}
       <Dialog open={selectedIssues !== null} onClose={handleCloseIssues}>
         <DialogTitle>Issues Details</DialogTitle>
         <DialogContent>
