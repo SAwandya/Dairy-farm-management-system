@@ -41,12 +41,12 @@ function PastureInfo() {
     >
       
       <GrazingSideBar />
-      <Box className="dashboard-content2">
+      <Box className="A">
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center',
+            alignItems: 'right',
             marginBottom: '20px',
           }}
         >
@@ -62,11 +62,11 @@ function PastureInfo() {
               
       </Box>
         <Box sx={{ textAlign: 'right', marginRight:'16px' }}>
-          <Button variant="contained" color="primary" href="http://localhost:5173/pasture">
+          <Button variant="contained" color="primary" href="/pasture">
             See More
           </Button>
         </Box>
-        <Container sx={{ margin: 16,marginTop: '20px' }}>
+        <Container sx={{ margin: 25,marginTop: '20px'  }}>
           <Grid container spacing={7}>
             {pastures.map(pasture => (
               <Grid item xs={12} sm={6} md={6} lg={6} key={pasture._id} gap={20}>

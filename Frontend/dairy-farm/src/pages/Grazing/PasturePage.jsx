@@ -151,7 +151,7 @@ function PasturePage() {
               </Tooltip>
             </Grid>
           </Grid>
-          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '0', marginLeft: '3rem',display: 'flex', justifyContent: 'right',width:'100%' }}>
+          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '0', marginLeft: '11rem',display: 'flex', justifyContent: 'right',width:'100%' }}>
             <Card>
               <CardContent>
                 <GrazingTable
