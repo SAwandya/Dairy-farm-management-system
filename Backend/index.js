@@ -27,6 +27,9 @@ const temperatureSendRcv = require("./routes/temperatureSendRcv");
 const productBatchCrud = require("./routes/productBatchCrud");
 const payment = require("./routes/payments");
 const session=require("./routes/sessions");
+
+const cart = require("./routes/Carts");
+const salesDelivery = require("./routes/salesDelivery");
 const effluentRoutes=require("./routes/effluentRoutes");
 
 if (!config.get("jwtPrivateKey")) {
@@ -89,7 +92,7 @@ app.use("/api/payments", payment);
 
 app.use("/api/sessions", session);
 
-app.use("/api/effluentRoutes",effluentRoutes);
+app.use("/api/effluentRoutes",waste);
 
 const server = http.createServer(app); // Create an HTTP server using Express app
 

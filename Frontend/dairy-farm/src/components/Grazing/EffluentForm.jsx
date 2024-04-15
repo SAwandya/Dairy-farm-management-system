@@ -128,7 +128,7 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
             <MenuItem value="discardedProduction">Discarded Production</MenuItem>
             <MenuItem value="other">Other</MenuItem>
           </Select>
-          <FormHelperText>{errors.wasteType}</FormHelperText>
+          {errors.wasteType && <FormHelperText>{errors.wasteType}</FormHelperText>}
         </FormControl>
       </DialogContent>
       <DialogActions>
