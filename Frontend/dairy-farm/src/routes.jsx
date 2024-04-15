@@ -33,9 +33,7 @@ import MilkingReport from "./pages/Milking/MilkingReport";
 
 import HomePageM from "./pages/HomeMain";
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
-import SupplierOrder from "./pages/Supplier/SupplierOrder";
-import ItemDashboard from "./pages/Supplier/ItemDashboard";
-import InventoryDashboard from "./pages/Supplier/InventoryDashboard";
+
 //Veterinary
 import VetDashboard from "./pages/Veterinary/AnimmalDash";
 import AnimalRegistry from "./pages/Veterinary/AnimalReg";
@@ -46,7 +44,6 @@ import AnimReport from "./pages/Veterinary/VetReport";
 import VetProf from "./pages/Veterinary/vetPfofile";
 
 import PastureInfo from "../../dairy-farm/src/pages/Grazing/PastureInfo";
-import OrderPage from "./pages/Sales/OrderPage";
 
 //Emlployee management
 import Task from "./pages/Employees/Task"
@@ -60,6 +57,15 @@ import EProfile from "./pages/Employees/EProfile"
 import LeaveForm from "./pages/Employees/LeaveForm"
 import LeaveDetails from "./pages/Employees/LeaveDetails";
 
+//Supplier Management
+import SupProfile from "./pages/Supplier/supProfile";
+import SupplierOrder from "./pages/Supplier/SupplierOrder";
+import ItemDashboard from "./pages/Supplier/ItemDashboard";
+import InventoryDashboard from "./pages/Supplier/InventoryDashboard";
+import OrderPage from "./pages/Sales/OrderPage";
+import OrdReportDisplay from "./pages/Supplier/OrdReportDisplay";
+
+
 import PasturePage from "./pages/Grazing/PasturePage";
 import SessionPage from "./pages/Grazing/SessionPage";
 import Report from "./pages/Grazing/Report";
@@ -68,7 +74,7 @@ import { RemoveFromQueue } from "@mui/icons-material";
 import Session from "./pages/Grazing/GrazingSession";
 import CartPage from "./pages/Sales/CartPage";
 import FinanceBudgets from "./pages/Finance/FinanceBudgets";
-import OrdReportDisplay from "./pages/Supplier/OrdReportDisplay";
+
 
 const router = createBrowserRouter([
   {
@@ -305,10 +311,10 @@ const router = createBrowserRouter([
     path: "/empreport",
     element: <EmployeeReport />,
   },
-  // {
-  //   path: "/reportOrder",
-  //   element: <OrdReportDisplay />,
-  // },
+  {
+    path: "/reportOrder",
+    element: <OrdReportDisplay />,
+  },
 
   {
     path: "/eprofile",
@@ -321,6 +327,10 @@ const router = createBrowserRouter([
   {
     path: "/leavedetails",
     element: <LeaveDetails />,
+  },
+  {
+    path: "/supProfile",
+    element: <SupProfile />,
   },
 ]);
 
