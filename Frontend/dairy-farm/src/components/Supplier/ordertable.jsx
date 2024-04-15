@@ -519,27 +519,6 @@ function useUpdateOrder() {
   });
 }
 
-// function useUpdateOrder() {
-//   const queryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: async (order) => {
-//       const response = await fetch(
-//         `http://localhost:3000/api/order/${order._id}`, 
-//         {
-//           method: 'PUT',
-//           headers: {
-//             'Content-Type': 'application/json',
-//           },
-//           body: JSON.stringify(order),
-//         }
-//       );
-//       return response.json();
-//     },
-//     onSuccess: () => {
-//       queryClient.invalidateQueries('orders');
-//     },
-//   });
-// }
 
 function useDeleteOrder() {
   const queryClient = useQueryClient();
