@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CustomizedTables from '../../components/Veterinary/table';
+import CustomizedTables from '../../components/Employees/etable';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
@@ -140,7 +140,7 @@ function Task() {
         <div>
         <div style={{ display: 'flex', minWidth: '1036px' }}>
    <Esidebar/>
-        <Box sx={{ marginLeft: '15rem', marginTop:'50px', marginRight: '-14rem',width: '80%' }}>
+        <Box sx={{ marginLeft: '12rem', marginTop:'50px', marginRight: '0rem',width: '86%' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold',fontFamily: 'Poppins' }}>
                 Welcome Disara,
             </Typography>

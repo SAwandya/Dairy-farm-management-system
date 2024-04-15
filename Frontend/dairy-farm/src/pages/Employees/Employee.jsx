@@ -126,7 +126,7 @@ function Employee() {
         <div>
         <div style={{ display: 'flex', minWidth: '1036px',overflow: 'hidden'  }}>
             <Esidebar/>
-            <Box sx={{ marginLeft: '15rem',marginTop:'50px' ,overflow: 'hidden',width:'80%' }}>
+            <Box sx={{ marginLeft: '12rem',marginTop:'50px' ,overflow: 'hidden',width:'86%' }}>
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                     Welcome Disara,
                 </Typography>
