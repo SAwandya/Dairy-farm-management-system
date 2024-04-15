@@ -12,7 +12,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: '#EAEAEA',
     color: theme.palette.common.black,
-    fontSize: 17,
+    fontSize: 16,
     fontFamily: 'Poppins, sans-serif'
     
   },
@@ -34,7 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const StyledTableContainer = styled(TableContainer)({
   margin: '0 auto',
-  maxWidth: '1700px', 
+  maxWidth: '1600px', 
 });
 
 function CustomizedTables(props) {

@@ -8,7 +8,7 @@ import axios from 'axios';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Esidebar from "../../components/Employees/esidebar";
 
 function LeaveDetails() {
     const [leaves, setLeaves] = useState([]);
@@ -128,7 +128,9 @@ function LeaveDetails() {
     const [showTable1, setShowTable1] = useState(true);
 
     return (
-        <Box sx={{ marginLeft: '12rem', marginTop: '50px' }}>
+        <div style={{ display: 'flex', minWidth: '1036px', overflow: 'hidden' }}>
+        <Esidebar/>
+        <Box sx={{ marginLeft: '17rem', marginTop: '50px' }}>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                 Leave Details
             </Typography>
@@ -145,7 +147,7 @@ function LeaveDetails() {
                     startIcon={<ArrowForwardIcon />}
                     onClick={() => setShowTable1(!showTable1)}
                 >
-                    Table 1
+                   Leave Summary
                 </Button>
             </Box>
             {showTable1 ? (
@@ -227,6 +229,7 @@ function LeaveDetails() {
             
             <ToastContainer />
         </Box>
+        </div>
     );
 }
 
