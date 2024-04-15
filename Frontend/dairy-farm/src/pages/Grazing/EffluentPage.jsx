@@ -6,7 +6,9 @@
     import Swal from 'sweetalert2';
     import EffluentForm from '../../components/Grazing/EffluentForm';
     import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
-
+    import GrazingDate from '../../components/Grazing/GrazingDate';
+    import Name from '../../components/Grazing/Name';
+    
     function EffluentPage() {
     const [dataList, setDataList] = useState([]);
     const [openFormDialog, setOpenFormDialog] = useState(false);
@@ -109,7 +111,7 @@
 
     const headers = [
         'Date',
-        'Grazing Area',
+        ' Area',
         'Amount of Waste Collected (kg)',
         'Type of Waste',
         'Action',
@@ -117,6 +119,14 @@
 
     return (
         <div>
+            <Box className="dashboard-content">
+                <div align='center'></div>
+                <GrazingDate/>
+                <Name/>
+              
+              <Typography> Information regarding the  waste management is recorded here</Typography>
+              
+      </Box>
             
         <GrazingSideBar sx={{ position: 'fixed', left: 0, top: 0, height: '100vh' }} />
         <Container
@@ -128,6 +138,7 @@
             minHeight: '100vh',
             }}
         >
+            
             <Grid container spacing={2} justifyContent="center" style={{ width: '100%', marginRight: '3rem', marginLeft: '7rem' }}>
             <Grid item xs={12}>
                 <Grid container justifyContent="flex-end">
@@ -152,15 +163,16 @@
                         'Amount of Waste Collected (kg)': item.wasteCollected,
                         'Type of Waste': item.wasteType,
                         'Action': (
-                        <div>
-                            <IconButton onClick={() => handleEdit(item._id)} color="primary">
-                            <Edit />
-                            </IconButton>
-                            <IconButton onClick={() => handleDelete(item._id)} color="secondary">
-                            <Delete />
-                            </IconButton>
-                        </div>
-                        ),
+                            <Box display="flex">
+                              <IconButton onClick={() => handleEdit(item._id)} color="primary">
+                                <Edit />
+                              </IconButton>
+                              <IconButton onClick={() => handleDelete(item._id)}>
+                                <Delete style={{ color: 'red' }} />
+                              </IconButton>
+                            </Box>
+                          ),
+                          
                     }))}
                     />
                 </CardContent>

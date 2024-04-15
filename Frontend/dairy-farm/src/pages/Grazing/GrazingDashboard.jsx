@@ -3,32 +3,51 @@ import GrazingSideBar from "../../components/Grazing/GrazingSideBar";
 import Container from "@mui/material/Container";
 import { Box, Typography } from '@mui/material';
 import WasteTypeBarChart from "../../components/Grazing/WasteTypeBarChart";
+import GrazingDate from "../../components/Grazing/GrazingDate";
+import Name from "../../components/Grazing/Name";
+import SessionPieChart from "../../components/Grazing/SessionPieChart";
+
+
 
 function GrazingDashboard() {
     return (
+        
+        
         <Container
             className="main-container"
             sx={{
                 display: 'flex',
-                flexDirection: 'column', // Display children elements in a column
-                alignItems: 'center', // Center the content horizontally
-                minHeight: '100vh', // Ensure the container takes full height of the viewport
+                flexDirection: 'column', 
+                 width:'100%'
+                
             }}
         >
-            <Box mt={5} textAlign="center"> {/* Add margin top and center align */}
-                <Typography variant="h4" className='welcome-text'>Welcome Back!</Typography>
-                <Typography variant="h3" className='welcome-name-value'>Ms.Janithya Imalki</Typography>
-            </Box>
+             <GrazingSideBar/>
+             <Box  width={1}className="dashboard-content">
+                
+                <GrazingDate/>
+                <Name/>
+                <Typography>Here is an overview of the  Overall Grazing Function </Typography>
+                <Box className="dashboard-below-container">
+            
+                <div >
+                    <WasteTypeBarChart />
+                    <div>
+                    <Typography align='center'fontSize={16} >Waste collected is mainly categorized in to four types</Typography>
+                    </div>
+                    
 
-            <Box mt={3} textAlign="center"> 
-                <Typography variant="h4" className='date-text'>Today:</Typography>
-                <Typography variant="h4" className='date-value'>20/03/2024</Typography>
+                </div> 
+                <div>
+                    <SessionPieChart/>
+                </div>
+                
+                </Box>
             </Box>
-
-            <GrazingSideBar />
-            <div></div>
-            <div align='center'><WasteTypeBarChart /></div>
-        </Container>
+            
+          
+            
+            </Container>
     );
 }
 

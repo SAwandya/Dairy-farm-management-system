@@ -20,7 +20,7 @@ const effluentDetailSchema = new Schema({
     },
     wasteType: {
         type: String,
-        enum: ['Weeds', 'Livestock Manure', 'Discarded Production', 'Other'],
+        enum: ['Weeds', 'livestockManure', ' dicardedProduction', 'other'],
         required: true
     }
 });

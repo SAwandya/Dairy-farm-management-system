@@ -5,7 +5,7 @@ import List from "@mui/material/List";
 import { Link } from "react-router-dom";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
-import DonutSmallIcon from "@mui/icons-material/DonutSmall";
+import RecyclingIcon from '@mui/icons-material/Recycling';
 import ScreenRotationAltIcon from '@mui/icons-material/ScreenRotationAlt';
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -63,20 +63,21 @@ import GrassIcon from '@mui/icons-material/Grass';
               
             <Link to="/waste" style={{ textDecoration: 'none', color: 'inherit' }}>
               <NavigationLink
-                icon={<DonutSmallIcon />}
+                icon={<RecyclingIcon />}
                 text="Effluent"
                 isActive={activeSection === "waste"}
                 onClick={() => handleNavigation("waste")}
               />
               </Link>
               
-            
+              <Link to="/rotation" style={{ textDecoration: 'none', color: 'inherit' }}>
               <NavigationLink
                 icon={<ScreenRotationAltIcon />}
                 text="Rotations"
                 isActive={activeSection === "rotations"}
                 onClick={() => handleNavigation("rotations")}
               />
+              </Link>
 
 
             <Link to="/report" style={{ textDecoration: 'none', color: 'inherit' }}>

@@ -1,5 +1,3 @@
-// SessionDetail.js
-
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -14,7 +12,8 @@ const sessionDetailSchema = new Schema({
     },
     typeOfSession: {
         type: String,
-        required: true
+        required: true,
+        enum: ["Morning", "Evening"] // Only allow "Feeding" and "Grazing" as valid values
     },
     grazingArea: {
         type: String,

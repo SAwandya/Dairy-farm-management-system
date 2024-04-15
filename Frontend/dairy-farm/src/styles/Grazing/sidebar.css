@@ -4,3 +4,8 @@
     position: fixed;
     
 }
+
+.dashboard-content {
+    margin: 40px 74px;
+    padding-left: 130px;
+}

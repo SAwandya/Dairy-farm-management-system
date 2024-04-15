@@ -98,7 +98,7 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
         <TextField
           fullWidth
           margin="normal"
-          label="Grazing Area"
+          label=" Area"
           name="grazingArea"
           value={formData.grazingArea}
           onChange={handleChange}

@@ -42,7 +42,7 @@ export default function StatGraph() {
       className='barchart'
       width={520}
       height={355}
-      series={[{ data: data.map(item => item.value), label: 'Types of Waste Collected', type: 'bar'}]}
+      series={[{ data: data.map(item => item.value), label: 'Types of Waste Collected in this month(kg)', type: 'bar'}]}
       xAxis={[{ scaleType: 'band', data: xLabels }]}
       sx={{
         backgroundColor: '#1a6952',

@@ -1,5 +1,3 @@
-// sessions.js
-
 const express = require("express");
 const router = express.Router();
 const SessionDetail = require("../models/SessionDetail");
@@ -59,6 +57,26 @@ router.delete("/:id", async (req, res) => {
             return res.status(404).send({ message: "Session not found" });
         }
         res.status(200).send({ message: "Session deleted successfully" });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+// Count total number of morning sessions
+router.get("/count/morning", async (req, res) => {
+    try {
+        const morningSessionsCount = await SessionDetail.countDocuments({ typeOfSession: "Morning" });
+        res.status(200).send({ count: morningSessionsCount });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+// Count total number of evening sessions
+router.get("/count/evening", async (req, res) => {
+    try {
+        const eveningSessionsCount = await SessionDetail.countDocuments({ typeOfSession: "Evening" });
+        res.status(200).send({ count: eveningSessionsCount });
     } catch (error) {
         res.status(500).send(error);
     }

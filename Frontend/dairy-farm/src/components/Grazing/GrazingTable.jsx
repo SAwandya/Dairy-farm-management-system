@@ -84,7 +84,7 @@ function GrazingTable({ rows, headers }) {
           variant="outlined"
           value={searchText}
           onChange={handleSearch}
-          style={{ marginBottom: '1rem', width: '80%' }}
+          style={{ marginBottom: '1rem',  }}
         />
       </div>
       

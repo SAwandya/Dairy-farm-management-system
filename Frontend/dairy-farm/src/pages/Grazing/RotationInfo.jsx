@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import Axios for API requests
-import RotationCard from '../../components/Grazing/RotationCard'; // Assuming you have created a RotationCard component
-import { Container, Grid, Box, Button, Typography } from '@mui/material';
+import axios from 'axios'; 
+import RotationCard from '../../components/Grazing/RotationCard'; // Import the SessionTable component
+import { Container, Box, Typography } from '@mui/material';
 import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
-
+import GrazingDate from '../../components/Grazing/GrazingDate';
+import Name from '../../components/Grazing/Name';
+import NewTable from '../../components/Grazing/NewTable';
 
 function RotationInfo() {
   const [rotations, setRotations] = useState([]);
 
   useEffect(() => {
     // Fetch rotation details from the backend API
-    axios.get('http://localhost:3000/api/sessions')
+    axios.get('http://localhost:3000/api/sessions') 
       .then(response => {
         setRotations(response.data);
       })
@@ -18,16 +20,6 @@ function RotationInfo() {
         console.error('Error fetching rotation details:', error);
       });
   }, []);
-
-  const [openFormDialog, setOpenFormDialog] = useState(false);
-
-  const handleOpenFormDialog = () => {
-    setOpenFormDialog(true);
-  };
-
-  const handleCloseFormDialog = () => {
-    setOpenFormDialog(false);
-  };
 
   return (
     <Box
@@ -47,21 +39,28 @@ function RotationInfo() {
             marginBottom: '20px',
           }}
         >
-          
-          
         </Box>
-        <Typography align="center" variant="h5">Rotation Details</Typography>
-        
-        <Container sx={{ margin: 16,marginTop: '20px' }}>
-          <Grid container spacing={7}>
-            {rotations.map(rotation => (
-              <Grid item xs={12} sm={6} md={6} lg={6} key={rotation._id} gap={20}>
-                <RotationCard rotation={rotation}/>
-              </Grid>
-            ))}
-          </Grid>
+        <Box className="dashboard-content">
+                
+                
+                <Name/>
+              
+              <Typography> As we make sure our cows are having great health ,</Typography>
+              <Typography>this displays the amount of time they are allowed to walk </Typography>
+              
+      </Box>
+        <Container sx={{ margin: 16, marginLeft:'250px' ,marginTop: '20px' }}>
+          <RotationCard rotations={rotations} />
+          
+          
         </Container>
-        
+        <div></div>
+          <div></div>
+        <Container sx={{ margin: 16, marginLeft:'250px' ,marginTop: '100px' }}>
+          
+         
+          <NewTable/> 
+        </Container>
       </Box>
     </Box>
   );

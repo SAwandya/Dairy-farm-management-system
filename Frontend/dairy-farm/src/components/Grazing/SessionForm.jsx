@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, TextField, FormHelperText } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, TextField, FormHelperText, Select, MenuItem, InputLabel } from '@mui/material';
 
 function SessionForm({ open, handleClose, handleSubmit, initialData }) {
   const [formData, setFormData] = useState(initialData || {});
@@ -20,12 +20,16 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
       newErrors.date = 'Date must be today or later';
       valid = false;
     }
+    if (!formData.time) {
+      newErrors.time = 'Time is required';
+      valid = false;
+    }
     if (!formData.grazingDuration || isNaN(formData.grazingDuration)) {
       newErrors.grazingDuration = 'Grazing Duration must be a number';
       valid = false;
     }
     if (!formData.onsiteFeedingDuration || isNaN(formData.onsiteFeedingDuration)) {
-      newErrors.onsiteFeedingDuration = 'Onsite Feeding Duration must be a number';
+      newErrors.onsiteFeedingDuration = 'Walking Duration must be a number';
       valid = false;
     }
     if (!formData.typeOfSession || formData.typeOfSession.trim() === '') {
@@ -64,9 +68,12 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>{isEditMode ? 'Edit Session' : 'Add New Session'}</DialogTitle>
       <DialogContent>
-        <form onSubmit={handleFormSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <img src='../../../src/assets/farm.jpeg' width={'100%'} height={'100%'}/>
+          </Grid>
+          <Grid item xs={6}>
+            <form onSubmit={handleFormSubmit}>
               <FormControl fullWidth error={!!errors.date}>
                 <TextField
                   id="date"
@@ -81,8 +88,6 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.date && <FormHelperText>{errors.date}</FormHelperText>}
               </FormControl>
-            </Grid>
-            <Grid item xs={6}>
               <FormControl fullWidth error={!!errors.time}>
                 <TextField
                   id="time"
@@ -97,20 +102,20 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.time && <FormHelperText>{errors.time}</FormHelperText>}
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
               <FormControl fullWidth error={!!errors.typeOfSession}>
-                <TextField
+                <InputLabel id="typeOfSession-label">Session Category</InputLabel>
+                <Select
+                  labelId="typeOfSession-label"
                   id="typeOfSession"
                   name="typeOfSession"
-                  label="Type of Session"
                   value={formData.typeOfSession || ''}
                   onChange={handleChange}
-                />
+                >
+                  <MenuItem value="Morning">Morning</MenuItem>
+                  <MenuItem value="Evening">Evening</MenuItem>
+                </Select>
                 {errors.typeOfSession && <FormHelperText>{errors.typeOfSession}</FormHelperText>}
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
               <FormControl fullWidth error={!!errors.grazingArea}>
                 <TextField
                   id="grazingArea"
@@ -121,8 +126,6 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.grazingArea && <FormHelperText>{errors.grazingArea}</FormHelperText>}
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
               <FormControl fullWidth error={!!errors.cowBatch}>
                 <TextField
                   id="cowBatch"
@@ -133,8 +136,6 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.cowBatch && <FormHelperText>{errors.cowBatch}</FormHelperText>}
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
               <FormControl fullWidth error={!!errors.assignedEmployee}>
                 <TextField
                   id="assignedEmployee"
@@ -145,10 +146,9 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.assignedEmployee && <FormHelperText>{errors.assignedEmployee}</FormHelperText>}
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
               <FormControl fullWidth error={!!errors.grazingDuration}>
-                <TextField                  id="grazingDuration"
+                <TextField
+                  id="grazingDuration"
                   name="grazingDuration"
                   label="Grazing Duration"
                   value={formData.grazingDuration || ''}
@@ -156,21 +156,19 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.grazingDuration && <FormHelperText>{errors.grazingDuration}</FormHelperText>}
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
               <FormControl fullWidth error={!!errors.onsiteFeedingDuration}>
                 <TextField
                   id="onsiteFeedingDuration"
                   name="onsiteFeedingDuration"
-                  label="Onsite Feeding Duration"
+                  label="Walking Duration"
                   value={formData.onsiteFeedingDuration || ''}
                   onChange={handleChange}
                 />
                 {errors.onsiteFeedingDuration && <FormHelperText>{errors.onsiteFeedingDuration}</FormHelperText>}
               </FormControl>
-            </Grid>
+            </form>
           </Grid>
-        </form>
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="secondary">
@@ -185,4 +183,3 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
 }
 
 export default SessionForm;
-
