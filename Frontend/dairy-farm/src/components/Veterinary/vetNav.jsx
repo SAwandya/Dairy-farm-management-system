@@ -86,12 +86,14 @@ function Sidebar() {
             onClick={() => handleNavigation("vetprofile")}
           />
           </Link>
+          <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<LogoutIcon />}
             text="Logout"
             isActive={activeSection === "logout"}
             onClick={() => handleNavigation("logout")}
           />
+          </Link>
         </List>
       </Box>
     </Box>
