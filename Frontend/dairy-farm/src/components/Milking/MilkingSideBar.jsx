@@ -77,7 +77,7 @@ function Sidebar() {
       {/* Profile and Logout */}
       <Box className="user-actions">
         <List>
-          <Link to="/milkingdashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to="/milkingProfile" style={{ textDecoration: 'none', color: 'inherit' }}>
             <NavigationLink
               icon={<AccountCircleIcon />}
               text="Profile"

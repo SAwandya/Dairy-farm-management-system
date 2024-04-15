@@ -31,6 +31,7 @@ import MilkingStorage from "./pages/Milking/MilkingStorage";
 import AddNewTank from "./pages/Milking/AddNewTank";
 import DataForProduction from "./pages/Milking/DataForProduction";
 import MilkingReport from "./pages/Milking/MilkingReport";
+import MilkingProfile from "./pages/Milking/MilkingProfile";
 
 import HomePageM from "./pages/HomeMain";
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
@@ -205,7 +206,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/milkingReport",
-    element: <MilkingReport />
+    element: <MilkingReport />,
+  },
+  {
+    path: "/milkingProfile",
+    element: <MilkingProfile />,
   },
 
 
