@@ -14,6 +14,7 @@ function FinanceTransactions() {
       }}
     >
       <Financesidebar />
+      {/* <TransactionsDashboard/> */}
       <TransactionsTable />
     </Container>
   );
