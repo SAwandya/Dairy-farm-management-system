@@ -55,6 +55,7 @@ const TransactionsTable = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleShowIncomeChange = (event) => {
     setShowIncome(event.target.checked);
@@ -64,9 +65,9 @@ const TransactionsTable = () => {
     setShowExpense(event.target.checked);
   };
 
-  const handleAddTransaction = async () => {
-    // Validate each field before adding the transaction
-    if (
+const handleAddTransaction = async () => {
+  // Validate each field before adding the transaction
+  if (
     newTransaction.type &&
     newTransaction.description &&
     newTransaction.department &&
@@ -76,12 +77,13 @@ const TransactionsTable = () => {
       const response = await axios.post("http://localhost:3000/api/transaction", newTransaction);
       console.log("Transaction added successfully:", response.data);
       
-      // Update the transactions state with the new transaction
-      setTransactions([...transactions, response.data]);
+      // Update the data state with the new transaction
+      setData(prevData => [...prevData, response.data]);
       setOpenAddDialog(false);
       
       // Reset newTransaction state
       setNewTransaction({
+        date: new Date().toISOString().split("T")[0],
         type: "Income",
         description: "",
         department: "",
@@ -91,9 +93,8 @@ const TransactionsTable = () => {
       console.error("Error adding transaction:", error);
     }
   }
-  {
-    }
-  };
+};
+
 
 
   const handleEditTransaction = (transaction) => {
@@ -111,22 +112,20 @@ const TransactionsTable = () => {
     setDeleteDialogOpen(true);
   };
 
-  const handleDeleteTransaction = () => {
-    setTransactions(transactions.filter((transaction) => transaction.id !== transactionToDelete.id));
-    setDeleteDialogOpen(false);
+const handleDeleteTransaction = async () => {
+  try {
+    await axios.delete(`http://localhost:3000/api/transaction/${transactionToDelete._id}`);
+    console.log("Transaction deleted successfully");
 
-    axios.delete(`http://localhost:3000/api/transaction/${transactionToDelete._id}`)
-    .then(() => {
-      // Remove the deleted transaction from the local state
-      setTransactions(transactions.filter((transaction) => transaction.id !== transactionToDelete.id));
-      setDeleteDialogOpen(false);
-      setTransactionToDelete(null);
-    })
-    .catch((error) => {
-      console.error("Error deleting transaction:", error);
-      // Handle error (e.g., show an error message)
-    });
-  };
+    // Update the data state to remove the deleted transaction
+    setData(prevData => prevData.filter(transaction => transaction._id !== transactionToDelete._id));
+    setDeleteDialogOpen(false);
+    setTransactionToDelete(null);
+  } catch (error) {
+    console.error("Error deleting transaction:", error);
+  }
+};
+
 
   const handleCloseDeleteDialog = () => {
     setDeleteDialogOpen(false);
@@ -249,6 +248,12 @@ const TransactionsTable = () => {
     };
   }, []); // Empty dependency array to run effect only once
 
+// Define the formatDate function inside your component or in a utilities file
+function formatDate(dateString) {
+  const options = {month: 'long', day: 'numeric' };
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', options);
+}
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -263,7 +268,14 @@ const TransactionsTable = () => {
           alignItems: "center",
 
         }}
-      >
+      >   
+      <TextField
+          label="Search Transactions"
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          sx={{ marginBottom: 2, width: "30%" }}
+        />
         <FormControlLabel
           control={
             <Checkbox
@@ -300,6 +312,8 @@ const TransactionsTable = () => {
               type="date"
               value={newTransaction.date}
               onChange={handleNewTransactionChange}
+              InputLabelProps={{ shrink: true }}
+              inputProps={{ max: new Date().toISOString().split("T")[0] }} // Set the max date to today
               sx={{ marginBottom: 2 }}
               fullWidth
               required
@@ -466,9 +480,13 @@ const TransactionsTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredTransactions.map((transaction) => (
+              {filteredTransactions
+                .filter((transaction) =>
+                  transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
+                )
+                .map((transaction) => (
                 <TableRow key={transaction._id}>
-                  <TableCell>{transaction.date}</TableCell>
+                  <TableCell>{formatDate(transaction.date)}</TableCell>
                   <TableCell>{transaction.type}</TableCell>
                   <TableCell>{transaction.description}</TableCell>
                   <TableCell>{transaction.department}</TableCell>

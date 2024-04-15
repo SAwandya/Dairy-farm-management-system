@@ -2,6 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Financesidebar from "../../components/Finance/Financesidebar";
 import TransactionsTable from "../../components/Finance/Transactions/TransactionsTable";
+import TransactionsDashboard from "../../components/Finance/Transactions/TransactionsDashboard";
 
 function FinanceTransactions() {
   return (
