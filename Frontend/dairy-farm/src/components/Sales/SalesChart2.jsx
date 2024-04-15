@@ -1,15 +1,8 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import { BarChart } from "@mui/x-charts/BarChart";
 import usePurcahse from "../../hooks/usePurcahses";
-import { color } from "@mui/system";
-import { Button } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import pdfService from "../../services/Sales/pdfService";
 import AnalysisRep from "../../pages/Sales/AnalysisRep";
 
 const SalesChart2 = () => {
@@ -44,7 +37,7 @@ const SalesChart2 = () => {
 
   const groupedData = {};
   orders?.forEach((order) => {
-    const month = order.orderDate.getMonth() + 1; // Months are zero-indexed, so add 1
+    const month = order.orderDate.getMonth() + 1; 
     const year = order.orderDate.getFullYear();
     const productType = order.product.name;
 
@@ -83,8 +76,6 @@ const SalesChart2 = () => {
     series.push({ label: productType, data });
   }
 
-  // groupedData can be set to generate report
-
   const newseries = series
     .slice(0, seriesNb)
     .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }));
@@ -92,14 +83,6 @@ const SalesChart2 = () => {
   console.log(newseries);
 
   const [seriesData, setSeriesData] = React.useState([]);
-
-  // const handleDownload = () => {
-  //   pdfService.download().then(res => {
-  //     console.log('Download success')
-  //   }).catch(err => {
-  //     console.log('err');
-  //   })
-  // }
 
   return (
     <>
