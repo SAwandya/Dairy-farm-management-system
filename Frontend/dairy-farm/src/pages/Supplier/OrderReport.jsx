@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import jspdf from 'jspdf';
 import 'jspdf-autotable';
 import companyLogo from '../../assets/sidebar-logo.png';
@@ -9,13 +8,12 @@ import {useQuery} from "@tanstack/react-query";
 
 
 const OrderReport = () => {
-        const location = useLocation();
         const [dataList, setDataList] = useState([]);
     
         const headers = [
+            'No',
             'Supplier',
-            'Item',
-            'Quantity Ordered',
+            'Advance Fee',
         ];
     
         const fetchOrders = async () => {
@@ -47,7 +45,7 @@ const OrderReport = () => {
                     const orderData = [
                         index + 1,
                         order.supplierName,
-                        order.item.itemName,
+                        order.advanceFee,
                         order.quantity,
                     ];
                     tableRows.push(orderData);
@@ -79,7 +77,7 @@ const OrderReport = () => {
         doc.text('Sri Lanka', margin, margin + 30);
 
         doc.setFontSize(10).text(`Date: ${date}`, margin, margin + 35);
-        doc.setFontSize(20).setTextColor(56, 119, 91).setFont('helvetica', 'bold').text('Order Report', margin, 70);
+        doc.setFontSize(20).setTextColor(56, 119, 91).setFont('helvetica', 'bold').text('Supply Advance Fees', margin, 70);
         doc.setFontSize(10).setFont('helvetica', 'normal').setTextColor(0, 0, 0).text(
             textParagraph,
             margin,
