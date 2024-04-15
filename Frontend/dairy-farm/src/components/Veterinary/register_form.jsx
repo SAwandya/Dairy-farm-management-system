@@ -100,24 +100,24 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
             <TextField id="age" name="age" label="Age" required onChange={handleOnChange} value={rest.age || ''} fullWidth sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }} />
           </Grid>
           <Grid item xs={6}>
-  <TextField
-    id="birthDate"
-    name="birthDate"
-    type="date"
-    labelId="birthdate"
-    label="Birth Date"
-    required
-    onChange={handleOnChange}
-    value={(rest.birthDate ? new Date(rest.birthDate).toISOString().split('T')[0] : '')}
-    InputLabelProps={{
-      shrink: true,
-    }}
-  
-    fullWidth
-    sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
-  />
-  {validationError && <span style={{ color: 'red' }}>{validationError}</span>}
-</Grid>
+          <TextField
+            id="birthDate"
+            name="birthDate"
+            type="date"
+            labelId="birthdate"
+            label="Birth Date"
+            required
+            onChange={handleOnChange}
+            value={(rest.birthDate ? new Date(rest.birthDate).toISOString().split('T')[0] : '')}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          
+            fullWidth
+            sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
+          />
+          {validationError && <span style={{ color: 'red' }}>{validationError}</span>}
+        </Grid>
 
 
         </Grid>
