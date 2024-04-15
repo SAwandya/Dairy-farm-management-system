@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
+import { Button,Box, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
+import eventBus from "../../ProductionUtils/EventBus"
+
+
+const handleFormSubmitSuccess = () => {
+  eventBus.emit('formSubmitted');
+};
 
 function NewProcessForm({ onSubmitSuccess }) {
   const [open, setOpen] = useState(false);
@@ -54,6 +60,8 @@ function NewProcessForm({ onSubmitSuccess }) {
       };
       await submitFormToDatabase(formData);
       //fetching results to ProcessTable
+      handleFormSubmitSuccess();
+      setSuccessMessage('Form submitted successfully');
       // Reset form fields after successful submission
       setProduct('');
       setMilkQuantity(0);
@@ -63,7 +71,6 @@ function NewProcessForm({ onSubmitSuccess }) {
       setScheduleTime('');
       setStatus('started'); // Reset status to 'started'
       setIsScheduled(false); // Reset scheduling checkbox
-      setSuccessMessage('Form submitted successfully');
     } catch (error) {
       console.error('Failed to submit form data:', error);
       setErrorMessage('Failed to submit form data');
@@ -94,22 +101,19 @@ function NewProcessForm({ onSubmitSuccess }) {
         <Dialog open={open} onClose={handleClose}
 
           sx={{
-            width: '26.6%',
-
+            width: '27.6%',
+            
             '& .MuiBackdrop-root': {
               backgroundColor: 'transparent',
               position: 'absolute',
             }
 
-          }} style={{ left: '33.4%', right: '37%', top: '8%',
-
-
-          }}
+          }} style={{ left: '36.8%', right: '37%', top: '6.3%',   }}
 
         >
-
-          <DialogTitle align="center">Add New Process</DialogTitle>
-          <DialogContent>
+              <Box  sx={{backgroundColor: '#F0F0F0', borderBottomLeftRadius:20,borderBottomRightRadius:20}} >
+          <DialogTitle align="center" fontWeight="bold">Add New Process</DialogTitle>
+          <DialogContent >
             <FormControl fullWidth margin="normal">
               <InputLabel id="product-label">Product</InputLabel>
               <Select
@@ -204,6 +208,7 @@ function NewProcessForm({ onSubmitSuccess }) {
               </div>
             )}
           </DialogContent>
+          </Box>
           <DialogActions>
             <Button onClick={handleCancel}>Cancel</Button>
             <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>

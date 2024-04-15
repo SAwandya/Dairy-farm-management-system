@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Paper } from '@mui/material';
 import ProcessUpdateButton from '../../components/production/ProcessUpdateButton';
 import ProcessDeleteButton from '../../components/production/ProcessDeleteButton';
-import NewProcessForm from '../../pages/Production/Testdialog';
+import eventBus from "../../ProductionUtils/EventBus";
 import axios from 'axios';
 
 function ProcessTable() {
@@ -11,6 +11,15 @@ function ProcessTable() {
 
   useEffect(() => {
     fetchData();
+    const handleFormSubmitted = () => {
+      fetchData(); // Call fetchData when form is submitted
+    };
+    eventBus.on('formSubmitted', handleFormSubmitted);
+
+    // Unsubscribe from 'formSubmitted' event when component unmounts
+    return () => {
+      eventBus.off('formSubmitted', handleFormSubmitted);
+    };
   }, []);
 
 
@@ -36,7 +45,7 @@ function ProcessTable() {
     product: process.product,
     milkQuantity: process.milkQuantity,
     ingredients: process.ingredients.join(', '), 
-    specialNotes: process.specialNotes,
+   // specialNotes: process.specialNotes,
     scheduleDate: process.scheduleDate ? new Date(process.scheduleDate).toLocaleDateString() : 'N/A',
     scheduleTime: process.scheduleTime,
     status: process.status,
@@ -45,14 +54,14 @@ function ProcessTable() {
   }));
 
   const columns = [
-    { field: 'id', headerName: 'ID' },
-    { field: 'product', headerName: 'Product' },
-    { field: 'milkQuantity', headerName: 'Milk Quantity' },
-    { field: 'ingredients', headerName: 'Ingredients' },
-    { field: 'specialNotes', headerName: 'Special Notes' },
-    { field: 'scheduleDate', headerName: 'Schedule Date' },
-    { field: 'scheduleTime', headerName: 'Schedule Time' },
-    { field: 'status', headerName: 'Status' },
+    { field: 'id', headerName: 'ID',maxWidth:60  },
+    { field: 'product', headerName: 'Product' ,minWidth: 170},
+    { field: 'milkQuantity', headerName: 'Milk Quantity',minWidth: 120 },
+    { field: 'ingredients', headerName: 'Ingredients',minWidth: 170 },
+   // { field: 'specialNotes', headerName: 'Special Notes',minWidth: 130 },
+    { field: 'scheduleDate', headerName: 'Schedule Date',minWidth: 140 },
+    { field: 'scheduleTime', headerName: 'Schedule Time' ,minWidth: 130},
+    { field: 'status', headerName: 'Status' ,minWidth: 160},
     { field: 'deleteAction', headerName: 'Delete', renderCell: (params) => params.row.deleteAction, width: 100 },
     { field: 'updateAction', headerName: 'Update', renderCell: (params) => params.row.updateAction, width: 100 },
   ];
@@ -61,7 +70,7 @@ function ProcessTable() {
     
     
 
-    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '50vh', overflow: 'auto' }}>
+    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh', overflow: 'auto' }}>
       <DataGrid
         rows={rows}
         columns={columns}
