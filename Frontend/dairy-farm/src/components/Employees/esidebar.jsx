@@ -59,7 +59,7 @@ function Esidebar() {
           <Link to="/leavedetails" style={{ textDecoration: 'none', color: 'inherit' }}>
             <NavigationLink
               icon={<AccessTimeFilledIcon />}
-              text="Work"
+              text="Leave"
               isActive={activeSection === "workhours"}
               onClick={() => handleNavigation("workhours")}
             />
