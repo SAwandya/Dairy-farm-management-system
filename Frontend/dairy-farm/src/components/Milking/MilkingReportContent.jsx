@@ -15,7 +15,7 @@ function MilkingReportContent() {
     return (
         <Box className="dashboard-content">
             <RadioButtonSet selectedOption={selectedOption} onOptionChange={handleOptionChange} />
-            <GeneratePDFBtn />
+            <GeneratePDFBtn selectedOption={selectedOption} />
             <div
                 style={{
                     display: 'flex',

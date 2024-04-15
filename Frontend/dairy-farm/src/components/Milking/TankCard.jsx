@@ -22,7 +22,10 @@ const TankCard = ({ tank }) => {
     try {
       const response = await axios.get('http://localhost:3000/api/milkingData');
       if (response.data.success) {
-        const batchIds = response.data.data.map(batch => batch.milkBatchId);
+        const allBatches = response.data.data;
+        const today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-mm-dd format
+        const todayBatches = allBatches.filter(batch => batch.createdAt.includes(today));
+        const batchIds = todayBatches.map(batch => batch.milkBatchId);
         setMilkBatchOptions(batchIds);
       } else {
         console.error('Failed to fetch milking data:', response.data.error);
@@ -31,6 +34,7 @@ const TankCard = ({ tank }) => {
       console.error('Error fetching milking data:', error);
     }
   };
+  
 
   const handleCancelClick = () => {
     setIsFlipped(previousFlippedState);

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const MilkingBarChart = ({ selectedTimePeriod }) => {
-  const [uData, setUData] = useState([1]);
+  const [uData, setUData] = useState([0]);
   const [xLabels, setXLabels] = useState(['q']);
 
   useEffect(() => {
@@ -99,23 +99,21 @@ const calculateSumPerMonth = (milkingData, months) => {
 
   const result = [];
   for (let i = 0; i < months; i++) {
-      const monthStart = new Date(startDate);
-      monthStart.setMonth(startDate.getMonth() + i);
-      const monthEnd = new Date(startDate);
-      monthEnd.setMonth(startDate.getMonth() + i + 1);
-      monthEnd.setDate(0); // Set to the last day of the month
+    const monthStart = new Date(startDate.getFullYear(), startDate.getMonth() + i, 1);
+    const monthEnd = new Date(startDate.getFullYear(), startDate.getMonth() + i + 1, 0);
 
-      const sum = milkingData.data.reduce((acc, curr) => {
-          const currDate = new Date(curr.createdAt);
-          if (currDate >= monthStart && currDate <= monthEnd) {
-              return acc + curr.amountOfMilk;
-          }
-          return acc;
-      }, 0);
-      result.push(sum);
+    const sum = milkingData.data.reduce((acc, curr) => {
+      const currDate = new Date(curr.createdAt);
+      if (currDate >= monthStart && currDate <= monthEnd) {
+        return acc + curr.amountOfMilk;
+      }
+      return acc;
+    }, 0);
+    result.push(sum);
   }
   return result;
 };
+
 
   const generateXLabels = (timePeriod) => {
     let labels = [];
