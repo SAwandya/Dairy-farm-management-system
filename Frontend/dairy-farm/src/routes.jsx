@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import VetDashboard from "./pages/Veterinary/AnimmalDash";
-import AnimalRegistry from "./pages/Veterinary/AnimalReg";
+
 import Layout from "./pages/Sales/Layout";
 import HomePage from "./pages/Sales/HomePage";
 import CustomerSignUp from "./pages/Sales/CustomerSignUp";
@@ -37,9 +36,15 @@ import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 import SupplierOrder from "./pages/Supplier/SupplierOrder";
 import ItemDashboard from "./pages/Supplier/ItemDashboard";
 import InventoryDashboard from "./pages/Supplier/InventoryDashboard";
+//Veterinary
+import VetDashboard from "./pages/Veterinary/AnimmalDash";
+import AnimalRegistry from "./pages/Veterinary/AnimalReg";
 import Health from "./pages/Veterinary/health";
 import VaccineAnim from "./pages/Veterinary/vaccineAnim";
 import BreedCard from "./pages/Veterinary/breedPage";
+import AnimReport from "./pages/Veterinary/VetReport";
+import VetProf from "./pages/Veterinary/vetPfofile";
+
 import PastureInfo from "../../dairy-farm/src/pages/Grazing/PastureInfo";
 import OrderPage from "./pages/Sales/OrderPage";
 
@@ -49,7 +54,6 @@ import CreateTask from "./pages/Employees/CreateTask"
 import UpdateTask from "./pages/Employees/UpdateTask"
 import AllEmployee from "./pages/Employees/AllEmployee";
 import AllTask from "./pages/Employees/AllTask";
-import AnimReport from "./pages/Veterinary/VetReport";
 import EmployeeReport from "./pages/Employees/Employee_report";
 import EmployeeR from "./pages/Employees/EmployeeR";
 import EProfile from "./pages/Employees/EProfile"
@@ -130,6 +134,8 @@ const router = createBrowserRouter([
     path: "/salesdashboard",
     element: <SalesDashboard />,
   },
+
+  //veterinary
   {
     path: "/vetdashboard",
     element: <VetDashboard />,
@@ -154,6 +160,11 @@ const router = createBrowserRouter([
     path: "/breedAnim",
     element: <BreedCard />,
   },
+  {
+    path: "/vetProf",
+    element: <VetProf />,
+  },
+
 
   {
     path: "/milkingdashboard",

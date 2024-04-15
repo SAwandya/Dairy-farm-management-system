@@ -78,12 +78,14 @@ function Sidebar() {
       
       <Box className="user-actions">
         <List>
+        <Link to="/vetProf" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<AccountCircleIcon />}
             text="Profile"
             isActive={activeSection === "vetprofile"}
             onClick={() => handleNavigation("vetprofile")}
           />
+          </Link>
           <NavigationLink
             icon={<LogoutIcon />}
             text="Logout"
