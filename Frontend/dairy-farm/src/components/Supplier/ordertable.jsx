@@ -78,6 +78,7 @@ const OrderTable = () => {
       });
   }, []);
 
+
   const [itemTypes, setItemTypes] = useState([]);
   useEffect(() => {
   fetch('http://localhost:3000/api/item')
@@ -113,7 +114,6 @@ const OrderTable = () => {
   //   setValidationErrors(errors);
   //   return;
   // }
-
     let data = { ...currentRow, __v: undefined };
 
     console.log(data);
@@ -374,8 +374,9 @@ const OrderTable = () => {
                 labelId="orderType-label"
                 id="orderType"
                 value={currentRow?.orderType}
-                onChange={(e) =>
+                onChange={(e) =>{
                   setCurrentRow({ ...currentRow, orderType: e.target.value })
+                }
                 }
               >
                 {itemTypes.map((item) => (
@@ -495,6 +496,7 @@ function useGetOrders() {
 function useUpdateOrder() {
   const queryClient = useQueryClient();
   return useMutation({
+    queryKey: ["orders"],
     mutationFn: async (order) => {
       const response = await fetch(
         `http://localhost:3000/api/order/${order._id}`,
@@ -506,6 +508,7 @@ function useUpdateOrder() {
           body: JSON.stringify({ ...order, _id: undefined }),
         }
       );
+      console.log(order);
       return response.json();
     },
     onSuccess: (data, variables) => {

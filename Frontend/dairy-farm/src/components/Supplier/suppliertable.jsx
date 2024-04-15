@@ -291,7 +291,7 @@ const SupplierTable = () => {
                 onChange={(e) => setNewRow({ ...newRow, itemType: e.target.value })}
               >
                 {itemTypes.map((item) => (
-                  <MenuItem key={item._id} value={item._id}>
+                  <MenuItem key={item._id} value={item.itemName}>
                     {item.itemName}
                   </MenuItem>
                 ))}
@@ -375,7 +375,7 @@ const SupplierTable = () => {
               }
             />
           <FormControl fullWidth margin="dense">
-              <InputLabel id="itemType-label">itemType Type</InputLabel>
+              <InputLabel id="itemType-label">Item Type</InputLabel>
               <Select
                 labelId="itemType-label"
                 id="itemType"
