@@ -218,6 +218,10 @@ const ProductUpdate = () => {
             >
               Update
             </Button>
+            <Button onClick={() => navigate('/salesdashboard')} variant="outlined" sx={{ mt: 3, mb: 2 }} type="submit" fullWidth>
+              Cancel
+            </Button>
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="#" variant="body2"></Link>

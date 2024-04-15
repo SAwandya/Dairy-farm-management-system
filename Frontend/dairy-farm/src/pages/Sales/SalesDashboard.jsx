@@ -122,10 +122,7 @@ const SalesDashboard = () => {
   };
 
   return (
-    <ThemeProvider
-  
-      theme={defaultTheme}
-    >
+    <ThemeProvider theme={defaultTheme}>
       <Box
         sx={{
           display: "flex",
@@ -133,8 +130,7 @@ const SalesDashboard = () => {
         }}
       >
         <CssBaseline />
-        <AppBar
-          position="absolute"
+        {/* <AppBar
           open={open}
           sx={{
             background: "url(../src/assets/background.png)",
@@ -174,12 +170,12 @@ const SalesDashboard = () => {
               </Badge>
             </IconButton>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
 
         <Drawer
           variant="permanent"
           open={open}
-          sx={{ backgroundColor: "#38775B" }}
+          sx={{ backgroundColor: "#38775B", position: 'fixed' }}
         >
           <Toolbar
             sx={{
@@ -204,10 +200,12 @@ const SalesDashboard = () => {
               height: "92vh",
               borderRadius: "0 0 50px 0",
               width: "130px",
+              position: "fixed",
+              top: "60px",
+              left: "0",
             }}
           >
             <MainListItems onSelect={handleClick} selectedTab={selected} />
-            {/* <Divider sx={{ my: 1 }} /> */}
             <SecondaryListItems />
           </List>
         </Drawer>
@@ -308,7 +306,14 @@ const SalesDashboard = () => {
             {/* Customer List */}
             <Grid item xs={12}>
               {selected == "customer" ? (
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column", width: "160vh" }}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "160vh",
+                  }}
+                >
                   <CustomerList />
                 </Paper>
               ) : null}
