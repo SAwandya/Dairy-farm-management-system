@@ -9,20 +9,26 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
   const validateForm = () => {
     const currentDate = new Date();
     const selectedDate = new Date(rest.birthDate);
-    
-  if (rest.weight <= 0) {
-    setValidationError('Weight must be a positive number.');
-    return false;
-  }
-
+  
+    let errors = [];
+  
+    if (rest.weight <= 0) {
+      errors.push('Weight must be a positive number.');
+    }
+  
     if (selectedDate >= currentDate) {
-      setValidationError('Date is invalid');
+      errors.push('Date is invalid');
+    }
+  
+    if (errors.length > 0) {
+      setValidationError(errors.join(' '));
       return false;
     }
-
+  
     setValidationError('');
     return true;
   };
+  
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -121,9 +127,9 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
             fullWidth
             sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
           />
-          {validationError && <span style={{ color: 'red' }}>{validationError}</span>}
+          
         </Grid>
-
+        {validationError && <span style={{ color: 'red',marginLeft:'30px' }}>{validationError}</span>}
 
         </Grid>
         <Button type="submit" variant="contained" color="primary" sx={{ marginTop: 2, borderRadius: 2 }}>Submit</Button>
