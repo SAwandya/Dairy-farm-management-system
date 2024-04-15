@@ -90,6 +90,8 @@ function Sidebar() {
       {/* Profile and Logout */}
       <Box className="user-actions">
         <List>
+        <Link to="/ProductionProfile" style={{ textDecoration: 'none', color: 'inherit' }}>
+
           <NavigationLink
           
             icon={<AccountCircleIcon />}
@@ -98,6 +100,7 @@ function Sidebar() {
             onClick={() => handleNavigation("profile")}
             path="/profile"
           />
+          </Link>
           <NavigationLink
             icon={<LogoutIcon />}
             text="Logout"
