@@ -98,7 +98,7 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
         <TextField
           fullWidth
           margin="normal"
-          label="Grazing Area"
+          label=" Area"
           name="grazingArea"
           value={formData.grazingArea}
           onChange={handleChange}
@@ -128,7 +128,7 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
             <MenuItem value="discardedProduction">Discarded Production</MenuItem>
             <MenuItem value="other">Other</MenuItem>
           </Select>
-          {errors.wasteType && <FormHelperText>{errors.wasteType}</FormHelperText>}
+          <FormHelperText>{errors.wasteType}</FormHelperText>
         </FormControl>
       </DialogContent>
       <DialogActions>

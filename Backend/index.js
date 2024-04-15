@@ -34,6 +34,7 @@ const salesDelivery = require("./routes/salesDelivery");
 const inventory = require("./routes/inventory");
 const transaction = require("./routes/transaction");
 
+
 if (!config.get("jwtPrivateKey")) {
   console.log("FATA ERROR: jwtPrivateKey is not defined");
   process.exit(1);
@@ -96,6 +97,7 @@ app.use("/api/payments", payment);
 app.use("/api/sessions", session);
 
 app.use("/api/effluentRoutes",waste);
+
 
 app.use("/api/carts", cart);
 
