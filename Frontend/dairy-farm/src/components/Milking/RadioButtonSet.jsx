@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { FormControl, FormControlLabel, Radio, RadioGroup, Button, Typography } from '@mui/material';
 
-function RadioButtonSet({ selectedOption, onOptionChange }) {
+function RadioButtonSet({ onOptionChange }) {
+  const [selectedOption, setSelectedOption] = useState('last7days');
+
   const handleOptionChange = (event) => {
-    onOptionChange(event.target.value);
+    setSelectedOption(event.target.value);
   };
 
   const handleApply = () => {
-    // You can directly call the onOptionChange function here if needed
-    // onOptionChange(selectedOption);
+    onOptionChange(selectedOption);
   };
 
   return (

@@ -155,7 +155,7 @@ const ScheduleFormContent = () => {
                                 fontSize: '18px',
                                 marginBottom: '22px',
                                 borderRadius: '15px'
-                            }}    
+                            }}
                         >
                             Add Milk Session
                         </Button>

@@ -3,6 +3,13 @@ import MilkingBarChart from './MilkingBarChart';
 import { Box, Typography } from '@mui/material';
 
 function BarChartContainer({ selectedOption }) {
+    
+    const timePeriodText = {
+        last7days: 'Past 7 Days',
+        lastMonth: 'Past Month',
+        last6months: 'Past 6 Months'
+    };
+
     return (
         <Box className="chart-card-container">
             <Typography
@@ -21,7 +28,9 @@ function BarChartContainer({ selectedOption }) {
                     fontWeight: '400',
                     marginTop: '8px'
                 }}
-            >Past 7 Days</Typography>
+            >
+                {timePeriodText[selectedOption]}
+            </Typography>
             <MilkingBarChart selectedTimePeriod={selectedOption} />
         </Box>
     )

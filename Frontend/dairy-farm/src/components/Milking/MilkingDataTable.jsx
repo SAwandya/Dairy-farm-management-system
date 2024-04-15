@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
+import { Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Pagination } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -10,6 +10,8 @@ const MilkingDataTable = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedIssues, setSelectedIssues] = useState(null);
   const [filteredMilkingData, setFilteredMilkingData] = useState([]);
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 7;
 
   useEffect(() => {
     fetchMilkingData();
@@ -17,7 +19,7 @@ const MilkingDataTable = () => {
 
   useEffect(() => {
     filterMilkingData();
-  }, [milkingData, selectedDate]);
+  }, [milkingData, selectedDate, page]);
 
   const fetchMilkingData = async () => {
     try {
@@ -33,10 +35,11 @@ const MilkingDataTable = () => {
   };
 
   const filterMilkingData = () => {
+    let filteredData = [...milkingData];
     if (!selectedDate) {
       const todayMidnight = new Date();
       todayMidnight.setHours(0, 0, 0, 0);
-      const filteredData = milkingData.filter(data => {
+      filteredData = filteredData.filter(data => {
         const dataDate = new Date(data.createdAt);
         return (
           dataDate.getFullYear() === todayMidnight.getFullYear() &&
@@ -44,11 +47,10 @@ const MilkingDataTable = () => {
           dataDate.getDate() === todayMidnight.getDate()
         );
       });
-      setFilteredMilkingData(filteredData);
     } else {
       const selectedDateMidnight = new Date(selectedDate);
       selectedDateMidnight.setHours(0, 0, 0, 0);
-      const filteredData = milkingData.filter(data => {
+      filteredData = filteredData.filter(data => {
         const dataDate = new Date(data.createdAt);
         return (
           dataDate.getFullYear() === selectedDateMidnight.getFullYear() &&
@@ -56,10 +58,16 @@ const MilkingDataTable = () => {
           dataDate.getDate() === selectedDateMidnight.getDate()
         );
       });
-      setFilteredMilkingData(filteredData);
     }
+    const startIndex = (page - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    setFilteredMilkingData(filteredData.slice(startIndex, endIndex));
   };
   
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
   const handleShowIssues = (issues) => {
     setSelectedIssues(issues);
@@ -116,6 +124,16 @@ const MilkingDataTable = () => {
           ))}
         </TableBody>
       </Table>
+      <Pagination
+        count={Math.ceil(milkingData.length / rowsPerPage)}
+        page={page}
+        onChange={handleChangePage}
+        variant="outlined"
+        shape="rounded"
+        size="large"
+        color="primary"
+        style={{ padding: '20px', display: 'flex', justifyContent: 'center' }}
+      />
       <Dialog open={selectedIssues !== null} onClose={handleCloseIssues}>
         <DialogTitle>Issues Details</DialogTitle>
         <DialogContent>
