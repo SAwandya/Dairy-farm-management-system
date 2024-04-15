@@ -34,7 +34,7 @@ function SessionPieChart() {
   ];
 
   return (
-    <div className="pie-chart-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: 300, marginLeft: 'auto', marginRight: 20 }}>
+    <div className="pie-chart-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: 300, marginLeft: 'auto', marginRight: 20,  marginTop:16}}>
       <CardContent>
         
         
