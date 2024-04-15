@@ -9,7 +9,7 @@ import em1 from '../../assets/em1.png';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
+import Esidebar from "../../components/Employees/esidebar";
 function UpdateEmployee() {
   const { id } = useParams();
   const [employeeId, setEmployeeId] = useState('');
@@ -61,7 +61,8 @@ function UpdateEmployee() {
 
 
   return (
-     
+    <div style={{ display: 'flex', minWidth: '1036px',overflow: 'hidden'  }}>
+    <Esidebar/>
     <div>
     {/* Your app components */}
     <ToastContainer />
@@ -155,6 +156,7 @@ function UpdateEmployee() {
         </form>
       </Box>
     </Box>
+    </div>
     </div>
   );
 

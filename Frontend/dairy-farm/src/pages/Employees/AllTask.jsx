@@ -27,7 +27,8 @@ function Task() {
         .then(result => {
             console.log(result.data);
             // Set the dataList state with the fetched data
-            setDataList(result.data);
+            const sortedData = result.data.sort((a, b) => a.taskID.localeCompare(b.taskID));
+            setDataList(sortedData);
             setLoading(false); // Set loading to false when data is fetched
         })
         .catch(err => {
@@ -63,6 +64,7 @@ function Task() {
    
 
     const handleDelete = (id) => {
+        // Show confirmation box
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',
@@ -73,18 +75,28 @@ function Task() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                // If the user confirms the deletion, proceed with the API call
-                axios.delete('http://localhost:3000/api/employee/deleteTask/' + id)
+                // If user confirms deletion, send delete request
+                axios.delete(`http://localhost:3000/api/employee/deleteTask/${id}`)
                     .then(res => {
                         console.log(res);
-                        window.location.reload();
+                        // Update the dataList state to remove the deleted task
+                        setDataList(prevDataList => prevDataList.filter(task => task._id !== id));
+                        // Show success toast upon successful deletion
+                        toast.success('Task deleted successfully', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined
+                        });
                     })
                     .catch(err => console.log(err));
             }
         });
     };
     
-
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -118,9 +130,12 @@ function Task() {
    <Esidebar/>
         
         <Box sx={{ marginLeft: '12rem', marginTop:'20px' }}>
-            <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' }}>
-                Welcome Disara,
-            </Typography>
+        <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                    Welcome Back,
+                </Typography>
+                <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                   Hello Disara,
+                </Typography>
 
             <Box
     sx={{
