@@ -15,7 +15,7 @@ const stageTimes = {
   'Mixing': 0.3,
   'Pasteurization': 0.7,
   'Homogenization': 1,
-  'Freezing':360
+  'Freezing':36000 
   
 };
 

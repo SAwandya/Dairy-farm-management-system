@@ -92,6 +92,8 @@ function ProductBatchForm({  id ,onUpdated }) {
 
   return (
     <div>
+          <div>
+
      <IconButton color="primary" onClick={handleClickOpen}>
         <EditIcon />
       </IconButton>
@@ -190,25 +192,29 @@ function ProductBatchForm({  id ,onUpdated }) {
           </DialogActions>
         </Dialog>
       </Draggable>
-      <Snackbar
-        open={!!successMessage}
-        autoHideDuration={2000}
-        onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-        <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity="success">
-          {successMessage}
-        </MuiAlert>
-      </Snackbar>
-      <Snackbar
-        open={!!errorMessage}
-        autoHideDuration={2000}
-        onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-        <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity="error">
-          {errorMessage}
-        </MuiAlert>
-      </Snackbar>
+      
     </div>
+
+<Snackbar
+open={!!successMessage}
+autoHideDuration={2000}
+onClose={handleSnackbarClose}
+anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+<MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity="success">
+  {successMessage}
+</MuiAlert>
+</Snackbar>
+<Snackbar
+open={!!errorMessage}
+autoHideDuration={2000}
+onClose={handleSnackbarClose}
+anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+<MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity="error">
+  {errorMessage}
+</MuiAlert>
+</Snackbar>
+    </div>
+
   );
 }
 

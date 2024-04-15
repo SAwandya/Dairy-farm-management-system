@@ -3,6 +3,12 @@ import Draggable from 'react-draggable';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
+import eventBus from "../../ProductionUtils/EventBus"
+
+
+const handleFormSubmitSuccess = () => {
+  eventBus.emit('formSubmitted');
+};
 
 function NewProcessForm({ onSubmitSuccess }) {
   const [open, setOpen] = useState(false);
@@ -54,6 +60,8 @@ function NewProcessForm({ onSubmitSuccess }) {
       };
       await submitFormToDatabase(formData);
       //fetching results to ProcessTable
+      handleFormSubmitSuccess();
+      setSuccessMessage('Form submitted successfully');
       // Reset form fields after successful submission
       setProduct('');
       setMilkQuantity(0);
@@ -63,7 +71,6 @@ function NewProcessForm({ onSubmitSuccess }) {
       setScheduleTime('');
       setStatus('started'); // Reset status to 'started'
       setIsScheduled(false); // Reset scheduling checkbox
-      setSuccessMessage('Form submitted successfully');
     } catch (error) {
       console.error('Failed to submit form data:', error);
       setErrorMessage('Failed to submit form data');
