@@ -19,6 +19,8 @@ import ProductionDashboard from "./pages/Production/ProductionDashboard";
 import ProcessPlanning from "./pages/Production/ProcessPlanning";
 import StorageRoom from "./pages/Production/StorageRoom"
 import ProductInventory from "./pages/Production/ProductInventory";
+import ProductionProfile from "./pages/Production/ProductionProfile";
+
 
 //Milking Management - Pages
 import MilkingDashboard from "./pages/Milking/MilkingDashboard";
@@ -74,6 +76,7 @@ import GrazingDashboard from "./pages/Grazing/GrazingDashboard";
 import CartPage from "./pages/Sales/CartPage";
 import RotationInfo from "./pages/Grazing/RotationInfo";
 import FinanceBudgets from "./pages/Finance/FinanceBudgets";
+
 
 
 const router = createBrowserRouter([
@@ -247,6 +250,7 @@ const router = createBrowserRouter([
   { path: "/processplanning", element: <ProcessPlanning /> },
   { path: "/StorageRoom", element: <StorageRoom /> } ,  
   { path: "/ProductInventory", element: <ProductInventory/> },
+  { path: "/ProductionProfile", element: <ProductionProfile/>},
 
   {
     path: "/financetrans",
