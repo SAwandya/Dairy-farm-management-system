@@ -263,7 +263,7 @@ const OrderTable = () => {
               <TableCell>Supplier</TableCell>
               <TableCell>Order Status</TableCell>
               <TableCell>Quantity</TableCell>
-              <TableCell>Advance Fee</TableCell>
+              <TableCell>Advance Fee(LKR)</TableCell>
               <TableCell>Delivery Date</TableCell>
               <TableCell>Edit</TableCell>
               <TableCell>Delete</TableCell>
