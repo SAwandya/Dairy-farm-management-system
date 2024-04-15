@@ -87,7 +87,7 @@ function ProcessCardContainer() {
         const currentTime = new Date(); // Current time
         const elapsedTime = currentTime - startTime; // Elapsed time since start
         const stage = getCurrentStage(elapsedTime);
-        const totalTime =  2 * 60 * 1000; // Total time in milliseconds
+        const totalTime =  20 * 60 * 1000; // Total time in milliseconds
         let remainingTime;
         let timeRemaining;
         let progress;

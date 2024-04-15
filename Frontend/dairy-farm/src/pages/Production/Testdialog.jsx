@@ -24,7 +24,7 @@ function NewProcessForm({ onSubmitSuccess }) {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const maxMilkQuantity = 1000; // Maximum milk quantity limit
+  const maxMilkQuantity = 1200; // Maximum milk quantity limit
 
   const handleClickOpen = () => {
     setOpen(true);
