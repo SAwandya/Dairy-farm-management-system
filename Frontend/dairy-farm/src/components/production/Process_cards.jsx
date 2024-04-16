@@ -25,9 +25,9 @@ function ProcessCardContainer() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       fetchData();
-    }, 1000); // Fetch data every second (adjust as needed)
+    }, 1000); // Fetch data every second 
   
-    return () => clearInterval(intervalId); // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId); // Clear the interval
   }, []);
 
   const fetchData = async () => {
@@ -67,7 +67,7 @@ function ProcessCardContainer() {
              (currentHours > scheduleHours || 
             ( currentHours === scheduleHours && currentMinutes >= scheduleMinutes))))
           {
-            return true; // Show processes scheduled for today
+            return true; //  scheduled processes in curent date
           }
           else
           {
@@ -87,7 +87,7 @@ function ProcessCardContainer() {
         const currentTime = new Date(); // Current time
         const elapsedTime = currentTime - startTime; // Elapsed time since start
         const stage = getCurrentStage(elapsedTime);
-        const totalTime =  20 * 60 * 1000; // Total time in milliseconds
+        const totalTime =  2 * 60 * 1000; // Total time in milliseconds
         let remainingTime;
         let timeRemaining;
         let progress;

@@ -26,7 +26,7 @@ return (
      
   <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:2}}>
         <Grid2 item xs={1} sm={1}><ProductionSidebar/></Grid2>
-        <Grid2 item xs={11} sm={11} md={11} align="center"><Typography variant="h4" fontWeight="bold" align="center">Storage room Temperature Meters</Typography></Grid2> 
+        <Grid2 item xs={11} sm={11} md={11} align="center"><Typography variant="h4" fontWeight="bold" align="center">Storage Room Temperature Meters</Typography></Grid2> 
         
 
       </Grid2>
