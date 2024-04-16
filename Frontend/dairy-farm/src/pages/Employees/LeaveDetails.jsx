@@ -42,10 +42,24 @@ function LeaveDetails() {
 
     const staticLeaves = [
         {
-            
+            id: 1,
+            employeeId: "EM15",
+            employeeName: "John Doe",
+            leaveType: "Medical",
+            reason: "Medical treatment",
+            startDate: "2022-10-01",
+            endDate: "2022-10-20",
+            status: "Pending"
         },
         {
-            
+            id: 2,
+            employeeId: "EM22",
+            employeeName: "Jane Smith",
+            leaveType: "Casual",
+            reason: "Family vacation",
+            startDate: "2022-10-05",
+            endDate: "2022-10-07",
+            status: "Approved"
         },
     ];
 
