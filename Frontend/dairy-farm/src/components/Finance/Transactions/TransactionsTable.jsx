@@ -332,7 +332,15 @@ function formatDate(dateString) {
         <Button
           variant="contained"
           onClick={() => setOpenAddDialog(true)}
-          sx={{ marginTop: 1 }}
+  sx={{
+    marginTop: 1,
+    color: 'white', // Text color
+    borderColor: 'green', // Border color
+    backgroundColor: '#38775B', // Background color
+    '&:hover': {
+      backgroundColor: '#45926F', // Dark green on hover
+    }
+  }}
         >
           Add Transaction
         </Button>
