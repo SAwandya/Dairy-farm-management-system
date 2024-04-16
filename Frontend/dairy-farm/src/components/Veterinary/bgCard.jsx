@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 export default function BgCard(props) {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <Card style={{ borderRadius: 6, backgroundColor: '#E7F1F7', width: 1200 }}>
+      <Card style={{ borderRadius: 6, backgroundColor: '#E7F1F7', width: 1200,marginBottom:'40px' }}>
         <CardContent>
           {props.children}
         </CardContent>
