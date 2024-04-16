@@ -292,7 +292,6 @@ function formatDate(dateString) {
   }}
   />
 </Snackbar>
-
       <Box className="paper"
         sx={{
           backgroundColor: "#f0f0f0",
