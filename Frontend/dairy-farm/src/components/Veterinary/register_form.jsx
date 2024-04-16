@@ -222,7 +222,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
             />
           </Grid>
           <Grid item xs={6}>
-            <TextField
+          <TextField
               id="birthDate"
               name="birthDate"
               type="date"
@@ -236,6 +236,10 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
               sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
               error={!!validationErrors.birthDate}
               helperText={validationErrors.birthDate}
+              // Add the max attribute to restrict dates after today
+              inputProps={{
+                max: new Date().toISOString().split('T')[0], // Max date is today
+              }}
             />
           </Grid>
         </Grid>
