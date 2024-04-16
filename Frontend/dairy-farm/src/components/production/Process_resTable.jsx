@@ -11,21 +11,21 @@ const columns = [
 ];
 
 const rows = [
-  { id: 1, equipment: 'Apple', total: 10, available:3 },
-  { id: 2, equipment: 'Banana', total: 20, available:3  },
- { id: 3, equipment: 'Orange', total: 15, available:3  },
-  { id: 1, equipment: 'Apple', total: 10 , available:3 },
-  { id: 2, equipment: 'Banana', total: 20 , available:3 },
-  { id: 3, equipment: 'Orange', total: 15 , available:3 },
-  { id: 1, equipment: 'Apple', total: 10 , available:3 },
-  { id: 2, equipment: 'Banana', total: 20, available:3  },
-  { id: 3, equipment: 'Orange', total: 15, available:3  },
-  { id: 1, equipment: 'Apple', total: 10 , available:3 },
-  { id: 2, equipment: 'Banana', total: 20, available:3  },
-  { id: 3, equipment: 'Orange', total: 15 , available:3 },
-  { id: 1, equipment: 'Apple', total: 10, available:3  },
-{ id: 2, equipment: 'Banana', total: 20 , available:3 },
-  { id: 3, equipment: 'Orange', total: 15, available:3  }
+  { id: 1, equipment: 'Freezers', total: 10, available:3 },
+  { id: 2, equipment: 'Mixers', total: 20, available:8  },
+ { id: 3, equipment: 'Homogenizers ', total: 15, available:3  },
+  { id: 1, equipment: 'Pasteurizers', total: 10 , available:6 },
+  { id: 2, equipment: 'Separators ', total: 20 , available:7 },
+  { id: 3, equipment: 'Filling Machines', total: 15 , available:4 },
+  { id: 1, equipment: 'Capping Machines', total: 10 , available:2 },
+  { id: 2, equipment: 'Boiler ', total: 20, available:3  },
+  { id: 3, equipment: 'pH Meters', total: 15, available:3  },
+  { id: 1, equipment: 'Shelving Units', total: 10 , available:5 },
+  { id: 2, equipment: 'Boiler', total: 20, available:15  },
+  { id: 3, equipment: 'Separators', total: 15 , available:3 },
+  { id: 1, equipment: 'Homogenizers', total: 10, available:3  },
+{ id: 2, equipment: 'Freezers', total: 20 , available:3 },
+  { id: 3, equipment: 'Boiler', total: 15, available:3  }
   
 ];
 

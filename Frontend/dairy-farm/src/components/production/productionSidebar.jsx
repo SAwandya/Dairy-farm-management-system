@@ -28,7 +28,7 @@ function Sidebar() {
         top: 0,
         left: 0,
         zIndex: 1000, // Adjust z-index if necessary
-        overflowY: 'auto',
+        overflowY: 'hidden',
         maxHeight: '100vh',  // Ensure the sidebar doesn't exceed viewport height
       }}
     >
@@ -90,6 +90,8 @@ function Sidebar() {
       {/* Profile and Logout */}
       <Box className="user-actions">
         <List>
+        <Link to="/ProductionProfile" style={{ textDecoration: 'none', color: 'inherit' }}>
+
           <NavigationLink
           
             icon={<AccountCircleIcon />}
@@ -98,6 +100,7 @@ function Sidebar() {
             onClick={() => handleNavigation("profile")}
             path="/profile"
           />
+          </Link>
           <NavigationLink
             icon={<LogoutIcon />}
             text="Logout"

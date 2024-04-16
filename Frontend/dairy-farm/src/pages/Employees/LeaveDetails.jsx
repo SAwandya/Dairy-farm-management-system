@@ -43,17 +43,17 @@ function LeaveDetails() {
     const staticLeaves = [
         {
             id: 1,
-            employeeId: "EMP05",
+            employeeId: "EM15",
             employeeName: "John Doe",
             leaveType: "Medical",
             reason: "Medical treatment",
             startDate: "2022-10-01",
             endDate: "2022-10-20",
-            status: "Pending"
+            status: "Approved"
         },
         {
             id: 2,
-            employeeId: "EMP002",
+            employeeId: "EM22",
             employeeName: "Jane Smith",
             leaveType: "Casual",
             reason: "Family vacation",
@@ -131,7 +131,13 @@ function LeaveDetails() {
         <div style={{ display: 'flex', minWidth: '1036px', overflow: 'hidden' }}>
         <Esidebar/>
         <Box sx={{ marginLeft: '17rem', marginTop: '50px' }}>
-            <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+        <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                    Welcome Back,
+                </Typography>
+                <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                   Hello Disara,
+                </Typography>
+            <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '25px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                 Leave Details
             </Typography>
             <Box
@@ -142,16 +148,17 @@ function LeaveDetails() {
                     padding: '1rem',
                 }}
             >
-                <Button
-                    variant="outlined"
-                    startIcon={<ArrowForwardIcon />}
-                    onClick={() => setShowTable1(!showTable1)}
-                >
-                   Leave Summary
-                </Button>
+               
             </Box>
             {showTable1 ? (
                 <TableCard>
+                     <Button
+                    variant="text"
+                    onClick={() => setShowTable1(!showTable1)}
+                    sx={{ position: 'absolute', top: 160, right: 280 }}
+                >
+                   Leave Summary
+                </Button>
                     <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px', fontWeight: 'bold' }}>
                         Leave Summary
                     </Typography>
@@ -176,6 +183,13 @@ function LeaveDetails() {
                 </TableCard>
             ) : (
                 <TableCard>
+                     <Button
+                    variant="text"
+                    onClick={() => setShowTable1(!showTable1)}
+                    sx={{ position: 'absolute', top: 160, right: 120 }}
+                >
+                   Leaves
+                </Button>
                     <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px', fontWeight: 'bold' }}>
                         Leaves
                     </Typography>

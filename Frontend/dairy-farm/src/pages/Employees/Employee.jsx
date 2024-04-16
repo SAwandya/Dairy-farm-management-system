@@ -32,7 +32,8 @@ function Employee() {
         .then(result => {
             console.log(result.data);
             // Set the dataList state with the fetched data
-            setDataList(result.data);
+            const sortedData = result.data.sort((a, b) => a.employeeId.localeCompare(b.employeeId));
+            setDataList(sortedData);
             setLoading(false); // Set loading to false when data is fetched
         })
         .catch(err => {
@@ -73,11 +74,8 @@ function Employee() {
         e.target.reset();
       };
   
-    const handleEdit = (id) => {
-        navigate(`/updateEmployee/${id}`);
-    };
-    
-    const handleDelete = (id) => {
+      const handleDelete = (id) => {
+        // Show confirmation box
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',
@@ -88,15 +86,36 @@ function Employee() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete('http://localhost:3000/api/employee/deleteEmployee/'+id)
+                // If user confirms deletion, send delete request
+                axios.delete(`http://localhost:3000/api/employee/deleteEmployee/${id}`)
                     .then(res => {
                         console.log(res);
-                        window.location.reload();
+                        // Show success toast upon successful deletion
+                        toast.success('Employee deleted successfully', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            onClose: () => {
+                                // Fetch updated employee list after deletion
+                                axios.get("http://localhost:3000/api/employee/")
+                                    .then(result => {
+                                        console.log(result.data);
+                                        // Update state with new list of employees
+                                        setDataList(result.data);
+                                    })
+                                    .catch(err => console.log(err));
+                            }
+                        });
                     })
                     .catch(err => console.log(err));
             }
         });
     };
+    
 
     const navigate = useNavigate();
 
@@ -121,14 +140,19 @@ function Employee() {
         (employee.contactNumber && employee.contactNumber.includes(searchTerm)) ||
         (employee.email && employee.email.toLowerCase().includes(searchTerm))
     );
+    // Count total employees and total tasks changed
+const totalEmployees = dataList.length;
     return (
         <body style={{ overflow: "hidden" }}>
         <div>
         <div style={{ display: 'flex', minWidth: '1036px',overflow: 'hidden'  }}>
             <Esidebar/>
-            <Box sx={{ marginLeft: '12rem',marginTop:'50px' ,overflow: 'hidden',width:'86%' }}>
-                <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
-                    Welcome Disara,
+            <Box sx={{ marginLeft: '11rem',marginTop:'50px' ,overflow: 'hidden',width:'86%' }}>
+            <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                    Welcome Back,
+                </Typography>
+                <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                   Hello Disara,
                 </Typography>
                 <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-15rem',marginTop:'10px'}}>
                     <BgCards>
@@ -139,7 +163,7 @@ function Employee() {
                             </IconButton>
                         </Typography>
                         <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
-                            45
+                        {totalEmployees}
                         </Typography>
                     </BgCards>
                     <BgCards>
@@ -166,7 +190,9 @@ function Employee() {
                     </BgCards>
                 </Box>
                 <TableCard>
-                   
+                <Typography variant="h5" sx={{ marginLeft: '4rem', fontSize: '20px' , fontWeight: 'bold'}}>
+                        Employee
+                    </Typography>
                     <Button variant="contained" color="success" onClick={handleClick} sx={{ marginBottom:'1rem',marginTop: '1rem', marginLeft: '70rem' }}>
                         Add New
                     </Button>
@@ -184,9 +210,7 @@ function Employee() {
                                 style: { marginBottom: '10px', width: '250px' ,borderRadius: '20px ', marginLeft: '1000px'}
                             }}
                         />
-                         <Typography variant="h5" sx={{ marginLeft: '4rem', fontSize: '20px' , fontWeight: 'bold'}}>
-                        Employee
-                    </Typography>
+                        
                     </div>
                     <CustomizedTables
                         headers={headers}

@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -16,25 +15,8 @@ import InputField from "../../components/Sales/InputField";
 import { useForm } from "react-hook-form";
 import authService from "../../services/Sales/authService";
 import { useAuth } from "../../contexts/AuthContext";
-import { Navigate } from "react-router-dom";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { Link, Navigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const defaultTheme = createTheme();
 
@@ -53,17 +35,27 @@ const CustomerSignIn = () => {
     authService
       .AuthenticateUser(data)
       .then((res) => {
-        login(res);
-        setError("");
+        console.log(res.customer.approvel);
+        if (res.customer.approvel == false) {
+          toast.error("Still you do not have approvel. Sign in after recieve approvel");
+        } else {
+          login(res.token);
+          setError("");
+        }
       })
       .catch((err) => {
         setError(err.response.data);
+        if (err.response.status == 400) {
+          console.log(err.response.status);
+          toast.error("Invalide Email or Password");
+        }
       });
-    console.log(data);
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <ToastContainer />
+
       <Container component="main" maxWidth="xs">
         {authToken && <Navigate to="/" replace={true} />}
         <CssBaseline />
@@ -118,20 +110,12 @@ const CustomerSignIn = () => {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <Link to="/signup">Don't have an account? Sign Up</Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

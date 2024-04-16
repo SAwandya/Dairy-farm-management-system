@@ -104,7 +104,7 @@ function ProductBatchTable() {
         style={{ marginBottom: 10 }}
      />   
 
-    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh',minHeight:'30vh', overflow: 'auto',overflow: 'auto' }}>  
+    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '70vh',minHeight:'30vh', overflow: 'auto' }}>  
         <DataGrid
         sx={{minHeight:'30vh', }}
           rows={rows}

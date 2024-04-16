@@ -93,18 +93,28 @@ function Sidebar() {
       
       <Box className="user-actions">
         <List>
+        <Link
+            to="/supProfile"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
           <NavigationLink
             icon={<AccountCircleIcon />}
             text="Profile"
             isActive={activeSection === "profile"}
             onClick={() => handleNavigation("profile")}
           />
+        </Link>
+        <Link
+            to="/homeM"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
           <NavigationLink
             icon={<LogoutIcon />}
             text="Logout"
             isActive={activeSection === "logout"}
             onClick={() => handleNavigation("logout")}
           />
+        </Link>
         </List>
       </Box>
     </Box>

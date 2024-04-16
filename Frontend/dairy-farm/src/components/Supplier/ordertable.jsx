@@ -33,6 +33,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import { FormHelperText } from '@mui/material';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -68,6 +69,30 @@ const OrderTable = () => {
   const handleSupplierChange = (event) => {
     setSelectedSupplierName(event.target.value);
   };
+
+  const validateForm = (row) => {
+    let errors = {};
+    let isValid = true;
+  
+    // Check for null or empty fields
+    const requiredFields = [
+      'orderType',
+      'supplierName',
+      'quantity',
+      'advanceFee',
+      'deliveryDate',
+    ];
+  
+    requiredFields.forEach(field => {
+      if (!row[field]) {
+        errors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required.`;
+        isValid = false;
+      }
+    });
+  
+    return { isValid, errors };
+  };
+  
 
   const [suppliers, setSuppliers] = useState([]);
   useEffect(() => {
@@ -109,11 +134,29 @@ const OrderTable = () => {
 
   const handleUpdate = () => {
 
-  // const errors = validateOrder(currentRow);
-  // if (Object.values(errors).some((error) => error)) {
-  //   setValidationErrors(errors);
-  //   return;
-  // }
+    const { isValid, errors } = validateForm(currentRow);
+    if (!isValid) {
+      setValidationErrors(errors);
+      return;
+    }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const deliveryDate = new Date(newRow.deliveryDate);
+  deliveryDate.setHours(0, 0, 0, 0);
+
+
+  if (deliveryDate < today) {
+    handleClose();
+    Swal.fire('Error', 'Delivery date cannot be a date in the past', 'error');
+    return;
+  }
+  
+  if (currentRow.quantity < 0 || currentRow.advanceFee < 0) {
+    handleClose();
+    Swal.fire('Error', 'Quantity and Advance Fee cannot be negative', 'error');
+    return;
+  }
     let data = { ...currentRow, __v: undefined };
 
     console.log(data);
@@ -156,6 +199,29 @@ const OrderTable = () => {
   };
 
   const handleAdd = () => {
+
+    const { isValid, errors } = validateForm(newRow);
+    if (!isValid) {
+      setValidationErrors(errors);
+      return;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const deliveryDate = new Date(newRow.deliveryDate);
+    deliveryDate.setHours(0, 0, 0, 0);
+
+    if (deliveryDate < today) {
+      handleCloseAdd()
+      Swal.fire('Error', 'Delivery date cannot be a date in the past', 'error');
+      return;
+    }
+
+    if (newRow.quantity < 0 || newRow.advanceFee < 0) {
+      handleCloseAdd()
+      Swal.fire('Error', 'Quantity and Advance Fee cannot be negative', 'error');
+      return;
+    }
     mutationAdd.mutate(newRow, {
       onSuccess: () => {
         console.log(newRow);
@@ -228,7 +294,7 @@ const OrderTable = () => {
               <TableCell>Supplier</TableCell>
               <TableCell>Order Status</TableCell>
               <TableCell>Quantity</TableCell>
-              <TableCell>Advance Fee</TableCell>
+              <TableCell>Advance Fee(LKR)</TableCell>
               <TableCell>Delivery Date</TableCell>
               <TableCell>Edit</TableCell>
               <TableCell>Delete</TableCell>
@@ -293,7 +359,9 @@ const OrderTable = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {validationErrors?.orderType && <FormHelperText>{validationErrors?.orderType}</FormHelperText>}
             </FormControl>
+
             <FormControl fullWidth margin="dense">
               <InputLabel id="supplier-label">Supplier</InputLabel>
               <Select
@@ -308,8 +376,12 @@ const OrderTable = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {validationErrors?.supplierName && <FormHelperText>{validationErrors?.supplierName}</FormHelperText>}
             </FormControl>
+
             <TextField
+              error={!!validationErrors?.quantity}
+              helperText={validationErrors?.quantity}
               margin="dense"
               id="quantity"
               label="Quantity"
@@ -320,6 +392,8 @@ const OrderTable = () => {
               }
             />
             <TextField
+              error={!!validationErrors?.advanceFee}
+              helperText={validationErrors?.advanceFee}
               margin="dense"
               id="advanceFee"
               label="Advance Fee"
@@ -330,6 +404,8 @@ const OrderTable = () => {
               }
             />
             <TextField
+              error={!!validationErrors?.deliveryDate}
+              helperText={validationErrors?.deliveryDate}
               margin="dense"
               id="deliveryDate"
               label="Delivery Date"
@@ -402,6 +478,8 @@ const OrderTable = () => {
               </Select>
             </FormControl>
             <TextField
+              error={!!validationErrors?.quantity}
+              helperText={validationErrors?.quantity}
               margin="dense"
               id="quantity"
               label="Quantity"
@@ -413,6 +491,8 @@ const OrderTable = () => {
               }
             />
             <TextField
+              error={!!validationErrors?.quantity}
+              helperText={validationErrors?.quantity}
               margin="dense"
               id="advanceFee"
               label="Advance Fee"

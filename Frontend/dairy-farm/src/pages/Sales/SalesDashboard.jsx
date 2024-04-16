@@ -3,31 +3,22 @@ import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import SecondaryListItems from "../../components/Sales/SecondaryListItems";
 import MainListItems from "../../components/Sales/MainListItems";
-import SalesChart from "../../components/Sales/SalesChart";
 import SalesDeposits from "../../components/Sales/SalesDeposits";
 import SalesOrders from "../../components/Sales/SalesOrders";
 import ProductList from "../../components/Sales/ProductList";
 import CustomerList from "../../components/Sales/CustomerList";
 import SalesChart2 from "../../components/Sales/SalesChart2";
-import SalesChart3 from "../../components/Sales/SalesCharts";
 import BgCard from "../../components/Sales/bgCard";
 import useProducts from "../../hooks/useProducts";
+import DateV from "../../components/Sales/DateV";
+import Name from "../../components/Sales/Name";
 
 function Copyright(props) {
   return (
@@ -41,24 +32,6 @@ function Copyright(props) {
 }
 
 const drawerWidth = 130;
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -100,11 +73,6 @@ const SalesDashboard = () => {
 
   const allProduct = data?.length || 0;
 
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
   const [selected, setSeleceted] = React.useState("product");
 
   const handleClick = (select) => {
@@ -126,56 +94,17 @@ const SalesDashboard = () => {
       <Box
         sx={{
           display: "flex",
-          overflow: "auto",
         }}
       >
         <CssBaseline />
-        {/* <AppBar
-          open={open}
-          sx={{
-            background: "url(../src/assets/background.png)",
-            backgroundColor: "#D2EBE6",
-            backgroundSize: "cover",
-          }}
-        >
-          <Toolbar
-            sx={{
-              pr: "24px", // keep right padding when drawer closed
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: "36px",
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h2"
-              variant="h6"
-              color="#191A19"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Sales Dashboard
-            </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-          </Toolbar>
-        </AppBar> */}
 
         <Drawer
           variant="permanent"
           open={open}
-          sx={{ backgroundColor: "#38775B", position: 'fixed' }}
+          sx={{
+            backgroundColor: "#38775B",
+            position: "fixed",
+          }}
         >
           <Toolbar
             sx={{
@@ -187,12 +116,8 @@ const SalesDashboard = () => {
               backgroundColor: "#38775B",
               width: "130px",
             }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          {/* <Divider /> */}
+          ></Toolbar>
+
           <List
             component="nav"
             sx={{
@@ -206,17 +131,12 @@ const SalesDashboard = () => {
             }}
           >
             <MainListItems onSelect={handleClick} selectedTab={selected} />
-            <SecondaryListItems />
           </List>
         </Drawer>
 
         <Box
           component="main"
           sx={{
-            // backgroundColor: (theme) =>
-            //   theme.palette.mode === "light"
-            //     ? theme.palette.grey[100]
-            //     : theme.palette.grey[900],
             background: "url(../src/assets/background.png)",
             backgroundColor: "#D2EBE6",
             backgroundSize: "cover",
@@ -225,14 +145,16 @@ const SalesDashboard = () => {
             flexGrow: 1,
             height: "100vh",
             width: "100vw",
-            overflow: "auto",
           }}
         >
-          <Toolbar sx={{ backgroundColor: "#38775B" }} />
+          <Box sx={{ margin: "70px" }}>
+            <DateV />
+          </Box>
+          <Box sx={{ marginLeft: "150px", marginTop: "-130px" }}>
+            <Name />
+          </Box>
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
-
               <Grid item xs={12} md={8} lg={9}>
                 {selected == "report" ? (
                   <Paper
@@ -244,6 +166,7 @@ const SalesDashboard = () => {
                       width: 1200,
                       background: "#114232",
                       padding: "60px",
+                      margin: "50px",
                     }}
                   >
                     <SalesChart2 />
@@ -251,7 +174,6 @@ const SalesDashboard = () => {
                 ) : null}
               </Grid>
 
-              {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 {selected == "deposit" ? (
                   <Paper
@@ -260,6 +182,7 @@ const SalesDashboard = () => {
                       display: "flex",
                       flexDirection: "column",
                       height: 240,
+                      margin: "50px",
                     }}
                   >
                     <SalesDeposits />
@@ -267,11 +190,14 @@ const SalesDashboard = () => {
                 ) : null}
               </Grid>
 
-              {/* Recent Orders */}
-              <Grid item xs={12}>
+              <Grid sx={{ marginLeft: "120px" }} item xs={12}>
                 {selected == "order" ? (
                   <Paper
-                    sx={{ p: 2, display: "flex", flexDirection: "column" }}
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
                   >
                     <SalesOrders />
                   </Paper>
@@ -279,8 +205,7 @@ const SalesDashboard = () => {
               </Grid>
             </Grid>
 
-            {/* Recent Orders */}
-            <Grid item xs={12}>
+            <Grid sx={{ marginLeft: "120px" }} item xs={12}>
               {selected == "product" ? (
                 <>
                   <Box
@@ -303,8 +228,7 @@ const SalesDashboard = () => {
               ) : null}
             </Grid>
 
-            {/* Customer List */}
-            <Grid item xs={12}>
+            <Grid sx={{ marginLeft: "50px" }} item xs={12}>
               {selected == "customer" ? (
                 <Paper
                   sx={{

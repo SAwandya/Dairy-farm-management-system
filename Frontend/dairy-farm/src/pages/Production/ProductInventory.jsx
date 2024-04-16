@@ -26,11 +26,10 @@ return (
 
       
 
-      <Grid2 container sx={{mt:4,mr:11}} >
-        <Grid2 item xs={1}></Grid2> 
-        <Grid2 item sm={3} align="center" ></Grid2>
-        <Grid2 item sm={3} align="center"><ProductBatchForm/></Grid2>
-        <Grid2 item sm={5} align="right"><InventoryReport/></Grid2>
+      <Grid2 container sx={{mt:4,ml:50}} >
+      <Grid2 item sm={7} align="right"></Grid2>
+        <Grid2 item sm={2} align="right"><ProductBatchForm/></Grid2>
+        <Grid2 item sm={2} align="left" sx={{ml:4}}><InventoryReport/></Grid2>
       </Grid2>
 
       </Container>

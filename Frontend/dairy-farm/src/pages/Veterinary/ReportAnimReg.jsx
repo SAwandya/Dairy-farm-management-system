@@ -82,7 +82,7 @@ const Userlist = () => {
 
    
     doc.setFontSize(10).setFont('helvetica').text('Nevil Nutri Feeds Pvt.Ltd', margin, margin + 10);
-    doc.text('No:241, Rdawana', margin, margin + 15);
+    doc.text('No:241, Radawana', margin, margin + 15);
     doc.text('Henagama Rd', margin, margin + 20);
     doc.text('Gampaha', margin, margin + 25);
     doc.text('Sri Lanka', margin, margin + 30);

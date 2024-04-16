@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Typography, Paper, Grid, LinearProgress, Button, Tooltip, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Slider, Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import { green } from "@mui/material/colors";
 
 const departments = [
   "Veterinary",
@@ -56,15 +57,15 @@ const BudgetTable = () => {
   };
 
   return (
-    <Container>
+    <Container sx={{ textAlign: 'center' }}>
       <Typography variant="h4" gutterBottom>
         Budget Overview
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={4} >
         {departments.map((department) => (
           <Grid item xs={12} md={6} lg={4} key={department}>
-            <Paper sx={{ padding: 2 }}>
-              <Typography variant="h6" gutterBottom>
+            <Paper sx={{ padding: 2, backgroundColor: '#E3F6EF'}}>
+              <Typography variant="h6" gutterBottom >
                 {department}
               </Typography>
               <Typography variant="body1" gutterBottom>
@@ -80,11 +81,19 @@ const BudgetTable = () => {
                   sx={{ height: 20, marginBottom: 2 }}
                 />
               </Tooltip>
-              <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Button
+              <Box display="flex" justifyContent="space-between" alignItems="center" >
+                <Button 
                   onClick={() => handleEditOpen(department)}
                   variant="outlined"
-                  sx={{ marginLeft: 1 }}
+                    sx={{
+                          marginLeft: 1,
+                          color: 'white', 
+                          borderColor: 'green', 
+                          backgroundColor: '#38775B', 
+                          '&:hover': {
+                            backgroundColor: '#45926F', 
+                          }
+                        }}
                 >
                   Edit
                 </Button>
@@ -92,9 +101,18 @@ const BudgetTable = () => {
                   component={Link}
                   to={`/department-transactions/${department}`}
                   variant="outlined"
-                  sx={{ marginRight: 1 }}
-                >
+                    sx={{
+                        marginLeft: 1,
+                        color: 'white', 
+                        borderColor: 'green', 
+                        backgroundColor: '#38775B', 
+                        '&:hover': {
+                          backgroundColor: '#45926F', 
+                        }
+                      }}                >
+                  <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit',  }}>
                   View Transactions
+                  </Link>
                 </Button>
               </Box>
             </Paper>
@@ -102,7 +120,7 @@ const BudgetTable = () => {
         ))}
       </Grid>
       <Dialog open={open} onClose={handleEditClose}>
-        <DialogTitle>Edit Budget</DialogTitle>
+        <DialogTitle> Edit Budget</DialogTitle>
         <DialogContent>
           <Box mb={2}>
             <Typography variant="body1" gutterBottom>

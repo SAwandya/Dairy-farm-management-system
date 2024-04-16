@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -15,29 +14,17 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import InputField from "../../components/Sales/InputField";
 import userService from "../../services/Sales/userService";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 const CustomerSignUp = () => {
+  const { login, authToken } = useAuth();
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -52,18 +39,26 @@ const CustomerSignUp = () => {
       .then((res) => {
         setUser(res.data);
         setMessage("Register success");
-        console.log(res.headers);
-        // localStorage.setItem("token", res.headers["x-auth-token"]);
+        console.log(res.data);
+
+        login(res.data);
+        navigate("/signin");
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status == 400) {
+          console.log(err.response.status);
+          toast.error("User already registered");
+        }
         setMessage(err);
       });
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <ToastContainer />
+
       <Container component="main" maxWidth="md">
+        {authToken && <Navigate to="/" replace={true} />}
         <CssBaseline />
         <Box
           sx={{
@@ -128,7 +123,13 @@ const CustomerSignUp = () => {
                   label="Contact number"
                   type="number"
                   signup={{
-                    ...register("phone", { required: true, minLength: 10 }),
+                    ...register("phone", {
+                      required: true,
+                      minLength: 10,
+                      validate: {
+                        positive: (v) => parseInt(v) > 0,
+                      },
+                    }),
                   }}
                   errors={errors.phone}
                   minLength="10"
@@ -166,7 +167,14 @@ const CustomerSignUp = () => {
                   label="Email"
                   type="email"
                   signup={{
-                    ...register("email", { required: true }),
+                    ...register("email", {
+                      required: true,
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                        message: "Invalid email format",
+                      },
+                    }),
                   }}
                   errors={errors.email}
                 />
@@ -183,15 +191,6 @@ const CustomerSignUp = () => {
                   errors={errors.password}
                 />
               </Grid>
-
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -203,14 +202,11 @@ const CustomerSignUp = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+                <Link to="/signin">Already have an account? Sign in</Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

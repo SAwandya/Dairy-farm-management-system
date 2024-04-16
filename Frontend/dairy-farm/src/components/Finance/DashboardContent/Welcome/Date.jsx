@@ -15,7 +15,7 @@ function Date() {
                         marginRight: '12px'
                     }}
                 />
-                <Typography variant="h1" className='date-value'>19/03/2024</Typography>
+                <Typography variant="h1" className='date-value'>16/04/2024</Typography>
             </Box>
         </Box>
     );

@@ -48,37 +48,44 @@ const TankCard = ({ tank }) => {
 
   const handleSaveClick = async () => {
     try {
-      if (!newMilkBatch && typeof amountToRemove === 'undefined') {
-        console.log('New milk batch and amount to remove are empty. Skipping addition and subtraction.');
-        return;
-      }
-  
-      if (newMilkBatch) {
-        const response = await axios.put(`http://localhost:3000/api/milkingStorage/${tankId}`, {
-          storedMilkBatches: [...storedMilkBatches, newMilkBatch]
-        });
-        console.log(response.data);
-    
-        const milkBatchResponse = await axios.get(`http://localhost:3000/api/milkingData/${newMilkBatch}`);
-        const amountOfMilk = milkBatchResponse.data.amountOfMilk;
-    
-        const updateAvailableMilkResponse = await axios.put(`http://localhost:3000/api/milkingStorage/updateAvailableMilk/${tankId}`, {
-          amountOfMilk
-        });
-        console.log(updateAvailableMilkResponse.data);
-      }
-  
-      if (typeof amountToRemove !== 'undefined') {
-        const subtractAvailableMilkResponse = await axios.put(`http://localhost:3000/api/milkingStorage/subtractAvailableMilk/${tankId}`, {
-          amountToSubtract: -amountToRemove
-        });
-        console.log(subtractAvailableMilkResponse.data);
-      }
+        if (!newMilkBatch && typeof amountToRemove === 'undefined') {
+            console.log('New milk batch and amount to remove are empty. Skipping addition and subtraction.');
+            return;
+        }
+
+        if (newMilkBatch) {
+            const milkBatchResponse = await axios.get(`http://localhost:3000/api/milkingData/${newMilkBatch}`);
+            
+            const milkBatch = milkBatchResponse.data.data.find(batch => batch.milkBatchId === newMilkBatch);
+
+            if (milkBatch) {
+                const amountOfMilk = milkBatch.amountOfMilk;
+                console.log('Amount of milk:', amountOfMilk);
+
+                const response = await axios.put(`http://localhost:3000/api/milkingStorage/${tankId}`, {
+                    storedMilkBatches: [...storedMilkBatches, newMilkBatch]
+                });
+                console.log(response.data);
+
+                const updateAvailableMilkResponse = await axios.put(`http://localhost:3000/api/milkingStorage/updateAvailableMilk/${tankId}`, {
+                    amountOfMilk: amountOfMilk 
+                });
+                console.log(updateAvailableMilkResponse.data);
+            } else {
+                console.error('Milk batch not found');
+            }
+        }
+
+        if (typeof amountToRemove !== 'undefined') {
+            const subtractAvailableMilkResponse = await axios.put(`http://localhost:3000/api/milkingStorage/subtractAvailableMilk/${tankId}`, {
+                amountToSubtract: -amountToRemove
+            });
+            console.log(subtractAvailableMilkResponse.data);
+        }
     } catch (error) {
-      console.error('Error updating stored milk batches:', error);
+        console.error('Error updating stored milk batches:', error);
     }
-  };
-  
+};
   
   const handleDeleteClick = () => {
     setOpenDialog(true);

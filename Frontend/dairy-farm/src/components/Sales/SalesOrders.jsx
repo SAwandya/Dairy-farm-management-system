@@ -90,7 +90,7 @@ const SalesOrders = () => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Quantity</TableCell>
+            <TableCell>Quantity(Packs)</TableCell>
             <TableCell>Customer name</TableCell>
             <TableCell align="right">Sale Amount</TableCell>
             <TableCell>Approve</TableCell>
@@ -104,7 +104,7 @@ const SalesOrders = () => {
               <TableCell>{purchase.quantity}</TableCell>
               <TableCell>{purchase.customer.name}</TableCell>
               <TableCell align="right">
-                {`$${purchase.product.price * purchase.quantity * 100}`}
+                {`${purchase.product.price * purchase.quantity * 20} LKR`}
               </TableCell>
               <TableCell>
                 {!purchase.approve ? (
@@ -121,24 +121,23 @@ const SalesOrders = () => {
                     </LoadingButton>
                   </Box>
                 ) : (
-                  
-                   <LoadingButton
-                      color="error"
-                      loading={buttonLoadingId == purchase._id}
-                      onClick={() => handleApprove(purchase._id, false)}
-                      loadingPosition="start"
-                      variant="outlined"
-                      startIcon={<SaveIcon />}
-                    >
-                      <span>Reject</span>
-                    </LoadingButton>
+                  <LoadingButton
+                    color="error"
+                    loading={buttonLoadingId == purchase._id}
+                    onClick={() => handleApprove(purchase._id, false)}
+                    loadingPosition="start"
+                    variant="outlined"
+                    startIcon={<SaveIcon />}
+                  >
+                    <span>Reject</span>
+                  </LoadingButton>
                 )}
               </TableCell>
               <TableCell>
                 <Button
                   onClick={() => functionopenpopup(purchase._id)}
                   variant="outlined"
-                  disabled={ purchase.approve == true ? true : false }
+                  disabled={purchase.approve == true ? true : false}
                   size="medium"
                   color="error"
                 >

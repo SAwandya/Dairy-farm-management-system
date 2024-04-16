@@ -24,6 +24,10 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import '../../../styles/Finance/MainDashboard/DashboardContent.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Snackbar, SnackbarContent } from "@mui/material";
+
 
 const departments = [
   "Veterinary",
@@ -56,6 +60,9 @@ const TransactionsTable = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [toastMessage, setToastMessage] = useState(null);
+const [toastOpen, setToastOpen] = useState(false);
+
 
   const handleShowIncomeChange = (event) => {
     setShowIncome(event.target.checked);
@@ -64,6 +71,14 @@ const TransactionsTable = () => {
   const handleShowExpenseChange = (event) => {
     setShowExpense(event.target.checked);
   };
+const handleToastOpen = (message) => {
+  setToastMessage(message);
+  setToastOpen(true);
+};
+
+const handleToastClose = () => {
+  setToastOpen(false);
+};
 
 const handleAddTransaction = async () => {
   // Validate each field before adding the transaction
@@ -76,6 +91,7 @@ const handleAddTransaction = async () => {
     try {
       const response = await axios.post("http://localhost:3000/api/transaction", newTransaction);
       console.log("Transaction added successfully:", response.data);
+      handleToastOpen("Transaction added successfully");
       
       // Update the data state with the new transaction
       setData(prevData => [...prevData, response.data]);
@@ -117,6 +133,8 @@ const handleDeleteTransaction = async () => {
     await axios.delete(`http://localhost:3000/api/transaction/${transactionToDelete._id}`);
     console.log("Transaction deleted successfully");
 
+    handleToastOpen("Transaction deleted successfully");
+
     // Update the data state to remove the deleted transaction
     setData(prevData => prevData.filter(transaction => transaction._id !== transactionToDelete._id));
     setDeleteDialogOpen(false);
@@ -143,9 +161,6 @@ const handleDeleteTransaction = async () => {
         transaction.id === selectedTransaction.id ? selectedTransaction : transaction
       )
     );
-
-    console.log(transactions)
-
   //           if (
   //   transactions.type &&
   //   transactions.description &&
@@ -176,7 +191,7 @@ const handleDeleteTransaction = async () => {
 
     setEditDialogOpen(false);
     setSelectedTransaction(null);
-
+    handleToastOpen("Transaction edited successfully");
 
   };
 
@@ -259,6 +274,24 @@ function formatDate(dateString) {
   if (error) return <p>Error: {error.message}</p>;
   return (
     <Container className="container">
+      <Snackbar
+  anchorOrigin={{
+    vertical: "bottom",
+    horizontal: "right",
+  }}
+  open={toastOpen}
+  autoHideDuration={2000}
+  onClose={handleToastClose}
+>
+  <SnackbarContent
+    message={toastMessage}
+    action={null}
+    style={{
+    backgroundColor: '#38775B', // Change to your desired background color
+    color: '#ffffff', // Change to your desired text color
+  }}
+  />
+</Snackbar>
       <Box className="paper"
         sx={{
           backgroundColor: "#f0f0f0",
@@ -299,7 +332,15 @@ function formatDate(dateString) {
         <Button
           variant="contained"
           onClick={() => setOpenAddDialog(true)}
-          sx={{ marginTop: 1 }}
+  sx={{
+    marginTop: 1,
+    color: 'white', // Text color
+    borderColor: 'green', // Border color
+    backgroundColor: '#38775B', // Background color
+    '&:hover': {
+      backgroundColor: '#45926F', // Dark green on hover
+    }
+  }}
         >
           Add Transaction
         </Button>

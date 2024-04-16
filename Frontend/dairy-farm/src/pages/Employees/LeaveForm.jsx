@@ -50,7 +50,7 @@ function LeaveForm() {
     })
     .then(result => {
       console.log(result);
-     // navigate('/leavedetails'); // Navigate to LeaveDetails.jsx after successful submission
+     navigate('/leavedetails'); // Navigate to LeaveDetails.jsx after successful submission
     })
     .catch(err => console.log(err));
   };
