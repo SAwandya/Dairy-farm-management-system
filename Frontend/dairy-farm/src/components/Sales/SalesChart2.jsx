@@ -53,7 +53,7 @@ const SalesChart2 = () => {
     }
 
     groupedData[productType][year][month] +=
-      order.quantity * order.product.price * 20;
+      order.quantity;
   });
 
   // Step 3: Create the series array
@@ -88,7 +88,7 @@ const SalesChart2 = () => {
   const chartSetting = {
     yAxis: [
       {
-        label: "rainfall (mm)",
+        label: "Quantity of the products(Packs)",
         color: "white",
       },
     ],

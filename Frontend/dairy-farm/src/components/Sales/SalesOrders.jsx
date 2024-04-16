@@ -90,7 +90,7 @@ const SalesOrders = () => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Quantity(Units)</TableCell>
+            <TableCell>Quantity(Packs)</TableCell>
             <TableCell>Customer name</TableCell>
             <TableCell align="right">Sale Amount</TableCell>
             <TableCell>Approve</TableCell>

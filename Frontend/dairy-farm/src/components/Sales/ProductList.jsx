@@ -87,7 +87,7 @@ const ProductList = () => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Quantity(Units)</TableCell>
+            <TableCell>Quantity(Packs)</TableCell>
             <TableCell>Category</TableCell>
             <TableCell align="right">Unit Price</TableCell>
             <TableCell>Update</TableCell>
