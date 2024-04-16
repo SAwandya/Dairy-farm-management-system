@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import { Button, TextField, Select, MenuItem, FormControl, InputLabel, Grid, Container,FormHelperText } from '@mui/material';
 
 const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
-  // Modify the state to hold an object of validation errors for each field
   const [validationErrors, setValidationErrors] = useState({});
 
   const validateForm = () => {
@@ -35,19 +34,18 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
       }
     });
 
-    // Check for weight being a positive number
+    // Check for weight positive
     if (rest.weight <= 0) {
       errors.weight = 'Weight must be a positive number.';
       isValid = false;
     }
 
-    // Check for invalid birth date
+    // Check for date is in past
     if (selectedDate >= currentDate) {
       errors.birthDate = 'Birth date must be in the past.';
       isValid = false;
     }
 
-    // Update validationErrors state
     setValidationErrors(errors);
     return isValid;
   };
@@ -236,7 +234,6 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
               sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
               error={!!validationErrors.birthDate}
               helperText={validationErrors.birthDate}
-              // Add the max attribute to restrict dates after today
               inputProps={{
                 max: new Date().toISOString().split('T')[0], // Max date is today
               }}
