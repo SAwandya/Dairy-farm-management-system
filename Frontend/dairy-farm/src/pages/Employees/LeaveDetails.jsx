@@ -49,7 +49,7 @@ function LeaveDetails() {
             reason: "Medical treatment",
             startDate: "2022-10-01",
             endDate: "2022-10-20",
-            status: "Pending"
+            status: "Approved"
         },
         {
             id: 2,
