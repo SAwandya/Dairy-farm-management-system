@@ -4,7 +4,7 @@ import React from 'react';
 
 function Name() {
     return (
-      <Box className="welcome-name" sx={{ margin: "100px" }}>
+      <Box className="welcome-name">
         <Typography variant="h4" className="welcome-text">
           Welcome Back!
         </Typography>
