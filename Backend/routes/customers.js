@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
   customer = new Customer({
     name: req.body.name,
     type: req.body.type,
-    address: req.body.type,
+    address: req.body.address,
     phone: req.body.phone,
     rep: req.body.rep,
     licenseNo: req.body.licenseNo,

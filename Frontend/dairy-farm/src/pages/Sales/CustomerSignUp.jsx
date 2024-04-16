@@ -167,7 +167,14 @@ const CustomerSignUp = () => {
                   label="Email"
                   type="email"
                   signup={{
-                    ...register("email", { required: true }),
+                    ...register("email", {
+                      required: true,
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                        message: "Invalid email format",
+                      },
+                    }),
                   }}
                   errors={errors.email}
                 />

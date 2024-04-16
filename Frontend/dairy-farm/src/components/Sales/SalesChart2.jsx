@@ -4,6 +4,7 @@ import Slider from "@mui/material/Slider";
 import { BarChart } from "@mui/x-charts/BarChart";
 import usePurcahse from "../../hooks/usePurcahses";
 import AnalysisRep from "../../pages/Sales/AnalysisRep";
+import { color } from "@mui/system";
 
 const SalesChart2 = () => {
   const [seriesNb, setSeriesNb] = React.useState(2);
@@ -84,6 +85,16 @@ const SalesChart2 = () => {
 
   const [seriesData, setSeriesData] = React.useState([]);
 
+  const chartSetting = {
+    yAxis: [
+      {
+        label: "rainfall (mm)",
+        color: "white",
+      },
+    ],
+  };
+  
+
   return (
     <>
       <BarChart
@@ -93,6 +104,7 @@ const SalesChart2 = () => {
           .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }))}
         skipAnimation={skipAnimation}
         width={1100}
+        {...chartSetting}
       />
 
       <Typography color="white" id="input-item-number" gutterBottom>
