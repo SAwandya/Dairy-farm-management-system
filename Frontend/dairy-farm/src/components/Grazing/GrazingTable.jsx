@@ -11,7 +11,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TextField from '@mui/material/TextField';
 import { Box, IconButton } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
+import { Edit, Delete } from '@mui/icons-material';  //already added 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${theme.breakpoints.up('sm')} `]: {

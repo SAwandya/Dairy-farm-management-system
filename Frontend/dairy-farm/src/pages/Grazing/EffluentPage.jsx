@@ -41,7 +41,7 @@
             text: 'The effluent detail has been deleted.',
             icon: 'success'
             });
-            fetchData(); // Update data after deletion
+            fetchData(); 
         } else {
             Swal.fire({
             title: 'Error!',
@@ -97,7 +97,7 @@
                 icon: 'error',
             });
             }
-            fetchData(); // Update data after adding
+            fetchData(); 
         }
         } catch (error) {
         console.error('Error:', error);

@@ -7,7 +7,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
   const isEditMode = !!initialData; // Check if it's in edit mode
 
   useEffect(() => {
-    // Reset form data when initialData changes (e.g., when editing)
+    
     setFormData(initialData || {});
   }, [initialData]);
 
@@ -27,11 +27,19 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
     if (!formData.grazingDuration || isNaN(formData.grazingDuration)) {
       newErrors.grazingDuration = 'Grazing Duration must be a number';
       valid = false;
-    }
-    if (!formData.onsiteFeedingDuration || isNaN(formData.onsiteFeedingDuration)) {
+  }  if (parseFloat(formData.grazingDuration) < 0) {
+      newErrors.grazingDuration = 'Grazing Duration cannot be negative';
+      valid = false;
+  }
+  
+  if (!formData.onsiteFeedingDuration || isNaN(formData.onsiteFeedingDuration)) {
       newErrors.onsiteFeedingDuration = 'Walking Duration must be a number';
       valid = false;
-    }
+  }  if (parseFloat(formData.onsiteFeedingDuration) < 0) {
+      newErrors.onsiteFeedingDuration = 'Walking Duration cannot be negative';
+      valid = false;
+  }
+  
     if (!formData.typeOfSession || formData.typeOfSession.trim() === '') {
       newErrors.typeOfSession = 'Type of Session is required';
       valid = false;

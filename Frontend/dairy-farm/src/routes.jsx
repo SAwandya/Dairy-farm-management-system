@@ -71,6 +71,7 @@ import CartPage from "./pages/Sales/CartPage";
 import RotationInfo from "./pages/Grazing/RotationInfo";
 import FinanceBudgets from "./pages/Finance/FinanceBudgets";
 import OrdReportDisplay from "./pages/Supplier/OrdReportDisplay";
+import GrazingProfile from "./pages/Grazing/GrazingProfile";
 
 const router = createBrowserRouter([
   {
@@ -285,6 +286,10 @@ const router = createBrowserRouter([
   {
     path: "/rotation",
     element: <RotationInfo />,
+  },
+  {
+    path: "/em08profile",
+    element: <GrazingProfile />,
   },
 
   {

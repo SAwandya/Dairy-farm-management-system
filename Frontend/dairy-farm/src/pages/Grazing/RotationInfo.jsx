@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
-import RotationCard from '../../components/Grazing/RotationCard'; // Import the SessionTable component
+import RotationCard from '../../components/Grazing/RotationCard'; //  SessionTable component!!!
 import { Container, Box, Typography } from '@mui/material';
 import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
 import GrazingDate from '../../components/Grazing/GrazingDate';
@@ -11,7 +11,7 @@ function RotationInfo() {
   const [rotations, setRotations] = useState([]);
 
   useEffect(() => {
-    // Fetch rotation details from the backend API
+    
     axios.get('http://localhost:3000/api/sessions') 
       .then(response => {
         setRotations(response.data);
