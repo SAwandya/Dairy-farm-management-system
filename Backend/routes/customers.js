@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
   customer = new Customer({
     name: req.body.name,
     type: req.body.type,
-    address: req.body.type,
+    address: req.body.address,
     phone: req.body.phone,
     rep: req.body.rep,
     licenseNo: req.body.licenseNo,
@@ -36,10 +36,12 @@ router.post("/", async (req, res) => {
 
   let token = jwt.sign({ _id: customer._id }, config.get("jwtPrivateKey"));
 
-  res.header("x-auth-token", token).send({
-    name: customer.name,
-    email: customer.email,
-  });
+  // res.header("x-auth-token", token).send({
+  //   name: customer.name,
+  //   email: customer.email,
+  // });
+
+  res.send(token);
 });
 
 router.put("/approve/:id", async (req, res) => {

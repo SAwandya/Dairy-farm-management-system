@@ -41,10 +41,13 @@ const InputField = (props) => {
         </Alert>
       )}
       {errors?.type === "positive" && (
-        <Alert severity="error">Only valide prositive numbers</Alert>
+        <Alert severity="error">Only valid prositive numbers</Alert>
       )}
       {errors?.type === "validate" && (
-        <Alert severity="error">Enter valide date</Alert>
+        <Alert severity="error">Enter valid date</Alert>
+      )}
+      {errors?.type === "pattern" && (
+        <Alert severity="error">Enter valid email address </Alert>
       )}
       {/* {errors?.type && <Alert severity="error">{errors?.type}</Alert>} */}
     </>
