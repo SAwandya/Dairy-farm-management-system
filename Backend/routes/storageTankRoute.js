@@ -59,7 +59,7 @@ router.put('/updateAvailableMilk/:tankId', async (req, res) => {
         const updatedTank = await StorageTank.findOneAndUpdate(
             { tankId },
             { $inc: { availableMilk: amountOfMilk } },
-            { new: true }
+            { new: true } 
         );
         if (!updatedTank) {
             return res.status(404).json({ success: false, error: 'Tank not found' });
