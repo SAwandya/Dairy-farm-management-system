@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {Customer} = require("../models/customer");
+const { Customer } = require("../models/customer");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("config");
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 
   const token = jwt.sign({ _id: customer._id }, config.get("jwtPrivateKey"));
 
-  res.send(token);
+  res.send({ token: token, customer: customer });
 });
 
 function validate(req) {

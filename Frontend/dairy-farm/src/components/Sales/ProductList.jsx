@@ -87,7 +87,7 @@ const ProductList = () => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Quantity</TableCell>
+            <TableCell>Quantity(Units)</TableCell>
             <TableCell>Category</TableCell>
             <TableCell align="right">Unit Price</TableCell>
             <TableCell>Update</TableCell>
@@ -101,7 +101,7 @@ const ProductList = () => {
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.quantity}</TableCell>
               <TableCell>{product.category}</TableCell>
-              <TableCell align="right">{`$${product.price}`}</TableCell>
+              <TableCell align="right">{`${product.price} LKR`}</TableCell>
               <TableCell>
                 <Link to="/productupdate">
                   <Button
