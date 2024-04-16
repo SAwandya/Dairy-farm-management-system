@@ -21,7 +21,7 @@ import { ToastContainer, toast } from "react-toastify";
 const defaultTheme = createTheme();
 
 const CustomerSignUp = () => {
-  const { login } = useAuth();
+  const { login, authToken } = useAuth();
 
   const navigate = useNavigate();
 
@@ -58,6 +58,7 @@ const CustomerSignUp = () => {
       <ToastContainer />
 
       <Container component="main" maxWidth="md">
+        {authToken && <Navigate to="/" replace={true} />}
         <CssBaseline />
         <Box
           sx={{
