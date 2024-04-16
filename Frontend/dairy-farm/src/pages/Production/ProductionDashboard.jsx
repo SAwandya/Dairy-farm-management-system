@@ -1,8 +1,6 @@
-import React from "react";
-import DashboardContent from "../../components/production/DashboardContent";
-import ProductionSidebar from "../../components/production/productionSidebar";
+import React from "react";import ProductionSidebar from "../../components/production/productionSidebar";
 import { Container,Box,Typography,Button} from "@mui/material"
-import Welcome from "../../components/production/Welcome";
+import Welcome from "../../components/production/Dashboard/Welcome";
 import MainStatistics from "../../components/production/MainStatistics";
 import ScheduledProcesses from "../../components/production/Dashboard/ScheduledProcesses"
 import MilikingData from "../../components/production/Dashboard/MilkingData"

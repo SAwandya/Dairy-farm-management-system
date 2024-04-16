@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+/*import { Box } from '@mui/material';
 import React from 'react';
 import Welcome from './Welcome'
 import MainStatistics from './MainStatistics';
@@ -15,4 +15,4 @@ function DashboardContent() {
     );
   }
   
-  export default DashboardContent;
+  export default DashboardContent; */
