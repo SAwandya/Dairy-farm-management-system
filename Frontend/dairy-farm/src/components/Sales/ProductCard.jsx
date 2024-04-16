@@ -37,9 +37,15 @@ const ProductCard = (props) => {
       <CardOverflow>
         <AspectRatio sx={{ minWidth: 200 }}>
           <img
-            src="https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286"
+            // src={product.category == 'Cheese' ? "https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286" }
             loading="lazy"
-            srcSet="../src/assets/cheese.png"
+            srcSet={
+              product.category == "Cheese"
+                ? "../src/assets/cheese.jpg"
+                : product.category == "Ice_cream"
+                ? "../src/assets/ice_cream.jpg"
+                : "../src/assets/yo_gurt.png"
+            }
             alt=""
             style={{
               width: "100%",
@@ -57,7 +63,7 @@ const ProductCard = (props) => {
 
         <Typography
           level="title-lg"
-          sx={{ mt: 1, fontWeight: "xl", fontSize:'22px' }}
+          sx={{ mt: 1, fontWeight: "xl", fontSize: "22px" }}
           endDecorator={
             <Chip component="span" size="lg" variant="soft" color="success">
               1 PACK = 20 Units
@@ -79,7 +85,7 @@ const ProductCard = (props) => {
       >
         <Link to="/productdetails">
           <Button
-            onClick={(event, buy) => handleSubmit(event, 'buy')}
+            onClick={(event, buy) => handleSubmit(event, "buy")}
             type="submit"
             variant="solid"
             color="danger"
@@ -93,7 +99,7 @@ const ProductCard = (props) => {
             Buy
           </Button>
           <Button
-            onClick={(event, add) => handleSubmit(event, 'add')}
+            onClick={(event, add) => handleSubmit(event, "add")}
             type="submit"
             variant="solid"
             color="success"
