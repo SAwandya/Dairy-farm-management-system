@@ -14,7 +14,7 @@ const ProductionProfile = () => {
 
   const details = [
     { label: 'Name :', value: 'Hasintha Dilshan' },
-    { label: 'NIC :', value: '200221300698' },
+    { label: 'ID :', value: 'IT22266828' },
     { label: 'Employee ID :', value: 'EM07' },
     { label: 'Gender :', value: 'Male' },
     { label: 'Date of Birth :', value: '2002/07/31' },
