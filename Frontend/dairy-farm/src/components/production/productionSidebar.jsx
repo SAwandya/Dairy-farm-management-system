@@ -101,6 +101,8 @@ function Sidebar() {
             path="/profile"
           />
           </Link>
+          <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
+
           <NavigationLink
             icon={<LogoutIcon />}
             text="Logout"
@@ -108,6 +110,7 @@ function Sidebar() {
             onClick={() => handleNavigation("logout")}
             path="/logout"
           />
+          </Link>
         </List>
       </Box>
     </Box>
