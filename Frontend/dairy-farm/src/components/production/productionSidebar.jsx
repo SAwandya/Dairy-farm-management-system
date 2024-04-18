@@ -33,11 +33,14 @@ function Sidebar() {
       }}
     >
       <Box className="sidebar-logo-container">
+      <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
+
         <img
           className="sidebar-logo"
           src="../../src/assets/sidebar-logo.png"
           alt="Logo"
         />
+        </Link>
       </Box>
 
       {/* Navigation links */}
@@ -76,7 +79,7 @@ function Sidebar() {
             onClick={() => handleNavigation("storage")}
           />
           </Link>  
-          <Link to="/processPlanning" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to="/QualityControll" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<DonutSmallIcon />}
             text="QC Test"
