@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Animaldb2 = require('../models/vacAnim');
-const AnimalRegistry = require('../models/animalreg');
+const {AnimalRegistry} = require('../models/animalreg');
 const ExamAnim = require('../models/exmAnim');
 
 
@@ -18,11 +18,7 @@ router.post("/create", async (req, res) => {
             return res.status(400).send({ success: false, message: "All fields are required" });
         }
 
-        
-        const animalExists = await AnimalRegistry.findOne({ earTag });
-        if (!animalExists) {
-            return res.status(400).send({ success: false, message: "Ear tag does not exist" });
-        }
+       
 
         const cow = new ExamAnim({
             earTag,

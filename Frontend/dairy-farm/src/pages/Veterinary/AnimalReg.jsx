@@ -195,10 +195,19 @@ function AnimalRegistry() {
         "Action",
     ];
 
+  
     const filteredData = dataList.filter(item => {
         if (!searchTerm) return true;
-        return Object.values(item).some(val => String(val).toLowerCase().includes(searchTerm.toLowerCase()));
+        const lowerSearchTerm = searchTerm.toLowerCase();
+        return Object.values(item).some(val => {
+            if (val !== null && val !== undefined) {
+                const lowerVal = String(val).toLowerCase();
+                return lowerVal.includes(lowerSearchTerm);
+            }
+            return false; 
+        });
     });
+
     
 
     const handleChangeRowsPerPage = (event) => {
