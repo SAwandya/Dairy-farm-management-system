@@ -16,6 +16,11 @@ router.post("/create", async (req, res) => {
             return res.status(400).send({ success: false, message: "All fields are required" });
         }
 
+        
+        const animalExists = await AnimalRegistry.findOne({ earTag });
+        if (!animalExists) {
+            return res.status(400).send({ success: false, message: "Ear tag does not exist" });
+        }
 
         const cow = new Animaldb2({
             earTag,
