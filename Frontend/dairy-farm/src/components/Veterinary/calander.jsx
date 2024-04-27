@@ -5,15 +5,15 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import CheckIcon from '@mui/icons-material/Check';
 import dayjs from 'dayjs';
-import axios from 'axios'; // Import axios for HTTP requests
+import axios from 'axios'; 
 
-// Styled Typography component for the headers
+
 const HeaderTypography = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
   fontWeight: 'bold',
 }));
 
-// Styled TableContainer component with transparent background color
+
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   backgroundColor: 'transparent',
 }));
@@ -24,7 +24,7 @@ const Calendar = ({ onNextDateData }) => {
   const [earTag, setEarTag] = useState([]);
   const [vaccine, setVaccine] = useState([]);
 
-  // Fetch data based on next date
+ 
   const fetchDataByDate = async (date) => {
     try {
       const response = await axios.get(`http://localhost:3000/api/vacAnim/date/${date}`);
@@ -38,16 +38,13 @@ const Calendar = ({ onNextDateData }) => {
     return [];
   };
 
-  // Event handler for date selection
+  
   const handleDateSelect = async (newValue) => {
-    setValue(newValue); // Update the selected date
-    const selectedDate = newValue.format('YYYY-MM-DD'); // Format the selected date
-
-    // Fetch data for the selected date
+    setValue(newValue); 
+    const selectedDate = newValue.format('YYYY-MM-DD'); 
     const data = await fetchDataByDate(selectedDate);
-    onNextDateData(data); // Send fetched data to the parent component
+    onNextDateData(data);
 
-    // Set earTag and vaccine based on fetched data
     if (data.length > 0) {
       const earTags = data.map(item => item.earTag);
       const vaccines = data.map(item => item.vaccine);
@@ -61,7 +58,7 @@ const Calendar = ({ onNextDateData }) => {
 
   useEffect(() => {
     if (Array.isArray(onNextDateData)) {
-      const nextDate = onNextDateData[0]?.date; // Assuming onNextDateData is an array of objects with a 'date' property
+      const nextDate = onNextDateData[0]?.date; 
       const highlighted = nextDate ? [dayjs(nextDate).date()] : [];
       setHighlightedDays(highlighted);
     }
