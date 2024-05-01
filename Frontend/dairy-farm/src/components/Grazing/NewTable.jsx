@@ -7,11 +7,11 @@ function NewTable() {
  
 
   useEffect(() => {
-    // Fetch sessions from the backend API
+   
     axios.get('http://localhost:3000/api/sessions')
       .then(response => {
         setSessions(response.data);
-        calculateTotalGrazingDuration(response.data); // Calculate total grazing duration
+        calculateTotalGrazingDuration(response.data); // total grazing duration
       })
       .catch(error => {
         console.error('Error fetching sessions:', error);

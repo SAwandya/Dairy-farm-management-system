@@ -16,7 +16,7 @@ function SessionPage() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/sessions'); // Correct endpoint
+      const response = await axios.get('http://localhost:3000/api/sessions'); 
       setDataList(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -47,7 +47,7 @@ function SessionPage() {
 
     if (confirmDelete.isConfirmed) {
       try {
-        const response = await axios.delete(`http://localhost:3000/api/sessions/${id}`); // Correct endpoint
+        const response = await axios.delete(`http://localhost:3000/api/sessions/${id}`); // by id
         if (response.status === 200) {
           fetchData();
           Swal.fire({

@@ -165,7 +165,7 @@ const NavBar = () => {
           backgroundColor: "rgba(255, 255, 255, 0.6)",
           marginTop: "20px",
           width: "180vh",
-          height: "12vh",
+          height: "9%",
           borderRadius: "17px",
           display: "flex",
           justifyContent: "center",

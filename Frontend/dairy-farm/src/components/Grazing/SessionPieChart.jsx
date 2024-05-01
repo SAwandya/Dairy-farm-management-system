@@ -70,7 +70,7 @@ function SessionPieChart() {
         </div>
         <div>
             <Typography align="center" fontStyle={"bold"} fontWeight={3}>
-         sessions conducted today in a pie chart
+         Today's sessions in a pie chart
         </Typography>
         </div>
       </div>

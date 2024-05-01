@@ -61,13 +61,13 @@ function ProductBatchTable() {
 
   const rows = filteredRows.map((productBatch, index) => ({
     id: index + 1,
-    ProductId: productBatch.productId,
+    //ProductId: productBatch.productId,
     Name: productBatch.name,
     Variant: productBatch.variant,
     Quantity: productBatch.quantity,
     ManufactureDate: productBatch.manufactureDate ? new Date(productBatch.manufactureDate).toLocaleDateString() : 'N/A',
     ManufactureTime: productBatch.manufactureTime,
-    //ExpiryDate: productBatch.expiryDate ? new Date(productBatch.expiryDate).toLocaleDateString() : 'N/A',
+    ExpiryDate: productBatch.expiryDate ? new Date(productBatch.expiryDate).toLocaleDateString() : 'N/A',
     BatchId: productBatch.batchId,
     Status: productBatch.released,
     deleteAction: <PbDelete id={productBatch._id} onDeleted={handleDeleted} />,
@@ -76,13 +76,13 @@ function ProductBatchTable() {
 
   const columns = [
     { field: 'id', headerName: 'No', flex: 1},
-    { field: 'ProductId', headerName: 'ID', flex: 1 },
+    //{ field: 'ProductId', headerName: 'ID', flex: 1 },
     { field: 'Name', headerName: 'Product', flex: 1 },
     { field: 'Variant', headerName: 'Variant', flex: 1 },
     { field: 'Quantity', headerName: 'Quantity', flex: 1 },
     { field: 'ManufactureDate', headerName: 'Manufacture Date', flex: 1 },
     { field: 'ManufactureTime', headerName: 'Manufacture Time', flex: 1 },
-    //{ field: 'ExpiryDate', headerName: 'Expiry Date', flex: 1 },
+    { field: 'ExpiryDate', headerName: 'Expiry Date', flex: 1 },
     { field: 'BatchId', headerName: 'Batch ID', flex: 1 },
     { field: 'Status', headerName: 'Status', flex: 1 },
     { field: 'deleteAction', headerName: 'Delete', renderCell: (params) => params.row.deleteAction, width: 100 },

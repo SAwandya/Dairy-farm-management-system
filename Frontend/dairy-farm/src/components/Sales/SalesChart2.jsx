@@ -1,16 +1,10 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import { BarChart } from "@mui/x-charts/BarChart";
 import usePurcahse from "../../hooks/usePurcahses";
-import { color } from "@mui/system";
-import { Button } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import pdfService from "../../services/Sales/pdfService";
 import AnalysisRep from "../../pages/Sales/AnalysisRep";
+import { color } from "@mui/system";
 
 const SalesChart2 = () => {
   const [seriesNb, setSeriesNb] = React.useState(2);
@@ -44,7 +38,7 @@ const SalesChart2 = () => {
 
   const groupedData = {};
   orders?.forEach((order) => {
-    const month = order.orderDate.getMonth() + 1; // Months are zero-indexed, so add 1
+    const month = order.orderDate.getMonth() + 1; 
     const year = order.orderDate.getFullYear();
     const productType = order.product.name;
 
@@ -59,7 +53,7 @@ const SalesChart2 = () => {
     }
 
     groupedData[productType][year][month] +=
-      order.quantity * order.product.price * 20;
+      order.quantity;
   });
 
   // Step 3: Create the series array
@@ -83,8 +77,6 @@ const SalesChart2 = () => {
     series.push({ label: productType, data });
   }
 
-  // groupedData can be set to generate report
-
   const newseries = series
     .slice(0, seriesNb)
     .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }));
@@ -93,13 +85,15 @@ const SalesChart2 = () => {
 
   const [seriesData, setSeriesData] = React.useState([]);
 
-  // const handleDownload = () => {
-  //   pdfService.download().then(res => {
-  //     console.log('Download success')
-  //   }).catch(err => {
-  //     console.log('err');
-  //   })
-  // }
+  const chartSetting = {
+    yAxis: [
+      {
+        label: "Quantity of the products(Packs)",
+        color: "white",
+      },
+    ],
+  };
+  
 
   return (
     <>
@@ -110,6 +104,7 @@ const SalesChart2 = () => {
           .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }))}
         skipAnimation={skipAnimation}
         width={1100}
+        {...chartSetting}
       />
 
       <Typography color="white" id="input-item-number" gutterBottom>

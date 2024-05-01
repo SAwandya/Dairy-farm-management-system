@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Swal from 'sweetalert2';
-import { Button, TextField, Select, MenuItem, FormControl, InputLabel, Grid, Container,FormHelperText } from '@mui/material';
+import {
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Grid,
+  Container,
+  FormHelperText,
+} from '@mui/material';
 
 const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
   const [validationErrors, setValidationErrors] = useState({});
 
-  const validateForm = () => {
+  // Validate form
+  const validateForm = (fieldName) => {
     const currentDate = new Date();
     const selectedDate = new Date(rest.birthDate);
-
     let errors = {};
     let isValid = true;
 
@@ -27,26 +37,35 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
       'birthDate',
     ];
 
-    requiredFields.forEach(field => {
+    requiredFields.forEach((field) => {
       if (!rest[field]) {
         errors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required.`;
         isValid = false;
       }
     });
 
-    // Check for weight positive
+    // Check for positive weight
     if (rest.weight <= 0) {
       errors.weight = 'Weight must be a positive number.';
       isValid = false;
     }
 
-    // Check for date is in past
+    // Check if birth date is in the past
     if (selectedDate >= currentDate) {
       errors.birthDate = 'Birth date must be in the past.';
       isValid = false;
     }
 
-    setValidationErrors(errors);
+    // Only update errors for the specific field
+    if (fieldName) {
+      setValidationErrors((prevErrors) => ({
+        ...prevErrors,
+        [fieldName]: errors[fieldName],
+      }));
+    } else {
+      setValidationErrors(errors);
+    }
+
     return isValid;
   };
 
@@ -58,20 +77,31 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Something went wrong!'
+        text: 'Something went wrong!',
       });
     }
   };
 
+  // Handle validation on blur
+  const handleOnBlur = (e) => {
+    const fieldName = e.target.name;
+    validateForm(fieldName);
+  };
+
   return (
-    <Container sx={{
-      backgroundColor: '#fff',
-      padding: 3,
-      borderRadius: 2,
-      boxShadow: '0px 3px 15px rgba(0,0,0,0.2)',
-      position: 'relative',
-    }}>
-      <CloseIcon sx={{ position: 'absolute', top: 22, right: 22, cursor: 'pointer' }} onClick={handleClose} />
+    <Container
+      sx={{
+        backgroundColor: '#fff',
+        padding: 3,
+        borderRadius: 2,
+        boxShadow: '0px 3px 15px rgba(0,0,0,0.2)',
+        position: 'relative',
+      }}
+    >
+      <CloseIcon
+        sx={{ position: 'absolute', top: 22, right: 22, cursor: 'pointer' }}
+        onClick={handleClose}
+      />
       <form onSubmit={handleFormSubmit}>
         <Grid container spacing={3} sx={{ marginBottom: 2, marginTop: 0 }}>
           <Grid item xs={6}>
@@ -80,6 +110,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
               name="earTag"
               label="Ear Tag ID"
               onChange={handleOnChange}
+              onBlur={handleOnBlur}
               value={rest.earTag || ''}
               fullWidth
               sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
@@ -95,10 +126,10 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
                 name="batch"
                 label="Batch"
                 onChange={handleOnChange}
+                onBlur={handleOnBlur}
                 value={rest.batch || ''}
                 sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
                 error={!!validationErrors.batch}
-                helperText={validationErrors.batch}
               >
                 <MenuItem value="F001">F001</MenuItem>
                 <MenuItem value="F002">F002</MenuItem>
@@ -122,6 +153,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
               name="location"
               label="Barn ID"
               onChange={handleOnChange}
+              onBlur={handleOnBlur}
               value={rest.location || ''}
               fullWidth
               sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
@@ -135,13 +167,14 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
               name="name"
               label="Name"
               onChange={handleOnChange}
+              onBlur={handleOnBlur}
               value={rest.name || ''}
               fullWidth
               sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
               error={!!validationErrors.name}
               helperText={validationErrors.name}
             />
-          </Grid> 
+          </Grid>
         </Grid>
         <Grid container spacing={3} sx={{ marginBottom: 2 }}>
           <Grid item xs={6}>
@@ -150,6 +183,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
               name="breed"
               label="Breed"
               onChange={handleOnChange}
+              onBlur={handleOnBlur}
               value={rest.breed || ''}
               fullWidth
               sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
@@ -164,6 +198,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
               label="Weight (kg)"
               type="number"
               onChange={handleOnChange}
+              onBlur={handleOnBlur}
               value={rest.weight || ''}
               fullWidth
               sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
@@ -179,6 +214,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
               name="color"
               label="Colour"
               onChange={handleOnChange}
+              onBlur={handleOnBlur}
               value={rest.color || ''}
               fullWidth
               sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
@@ -194,6 +230,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
                 name="gender"
                 label="Gender"
                 onChange={handleOnChange}
+                onBlur={handleOnBlur}
                 value={rest.gender || ''}
                 sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
                 error={!!validationErrors.gender}
@@ -212,6 +249,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
               name="age"
               label="Age"
               onChange={handleOnChange}
+              onBlur={handleOnBlur}
               value={rest.age || ''}
               fullWidth
               sx={{ width: 'calc(100% - 36px)', borderRadius: 2 }}
@@ -220,13 +258,14 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
             />
           </Grid>
           <Grid item xs={6}>
-          <TextField
+            <TextField
               id="birthDate"
               name="birthDate"
               type="date"
               label="Birth Date"
               onChange={handleOnChange}
-              value={(rest.birthDate ? new Date(rest.birthDate).toISOString().split('T')[0] : '')}
+              onBlur={handleOnBlur}
+              value={rest.birthDate ? new Date(rest.birthDate).toISOString().split('T')[0] : ''}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -240,7 +279,9 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
             />
           </Grid>
         </Grid>
-        <Button type="submit" variant="contained" color="primary" sx={{ marginTop: 2, borderRadius: 2 }}>Submit</Button>
+        <Button type="submit" variant="contained" color="primary" sx={{ marginTop: 2, borderRadius: 2 }}>
+          Submit
+        </Button>
       </form>
     </Container>
   );

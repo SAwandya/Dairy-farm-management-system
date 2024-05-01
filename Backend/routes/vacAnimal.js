@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Animaldb2 = require('../models/vacAnim');
-const AnimalRegistry = require('../models/animalreg');
+const { veterinary } = require('../models/animalreg');
 
 // Create and save a new animal
 router.post("/create", async (req, res) => {
@@ -17,7 +17,7 @@ router.post("/create", async (req, res) => {
         }
 
         
-        const animalExists = await AnimalRegistry.findOne({ earTag });
+        const animalExists = await veterinary.findOne({ earTag }); 
         if (!animalExists) {
             return res.status(400).send({ success: false, message: "Ear tag does not exist" });
         }
@@ -46,6 +46,16 @@ router.get('/retrieve', async (req, res) => {
         res.json({ success: true, data });
     } catch (error) {
         res.status(500).send({ message: error.message || "Error occurred while retrieving" });
+    }
+});
+// Retrieve animals by date
+router.get('/date/:date', async (req, res) => {
+    try {
+        const { date } = req.params;
+        const data = await Animaldb2.find({ nextdate: date });
+        res.json({ success: true, data });
+    } catch (error) {
+        res.status(500).send({ message: error.message || "Error occurred while retrieving data by date" });
     }
 });
 

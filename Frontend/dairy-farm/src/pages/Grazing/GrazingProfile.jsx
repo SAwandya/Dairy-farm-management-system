@@ -1,26 +1,26 @@
 import React from 'react';
 import { Container, Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import duvini from '../../assets/hasintha.png';
-import Sidebar from '../../components/production/productionSidebar';
+import janithya from '../../assets/janithya.jpg';
+import Sidebar from '../../components/Grazing/GrazingSideBar';
 
-const ProductionProfile = () => {
+const GrazingProfile = () => {
   const navigate = useNavigate();
 
   const handleLeave = () => {
-    // Navigate to the leave form
+    
     navigate(`/leaveform`);
   };
 
   const details = [
-    { label: 'Name :', value: 'Hasintha Dilshan' },
-    { label: 'ID :', value: 'IT22266828' },
-    { label: 'Employee ID :', value: 'EM07' },
-    { label: 'Gender :', value: 'Male' },
-    { label: 'Date of Birth :', value: '2002/07/31' },
-    { label: 'Position :', value: 'Production Manager' },
+    { label: 'Name :', value: 'Janithya Imalki' },
+    { label: 'NIC :', value: '200281702279' },
+    { label: 'Employee ID :', value: 'EM08' },
+    { label: 'Gender :', value: 'Female' },
+    { label: 'Date of Birth :', value: '2002/11/12' },
+    { label: 'Position :', value: 'Grazing Manager' },
     { label: 'Work Experience :', value: 'Over 2 years' },
-    { label: 'Address :', value: 'No. 111, Aselapura, Badulla' },
+    { label: 'Address :', value: 'No. 14, hazel road, Colombo ' },
   ];
 
   return (
@@ -50,7 +50,7 @@ const ProductionProfile = () => {
                 fontSize: '32px',
               }}
             >
-              Hello, Miss Duvini Ranaweera!
+              Hello, Miss Janithya Imalki!
             </Typography>
             <Typography
               variant="h5"
@@ -65,7 +65,7 @@ const ProductionProfile = () => {
             </Typography>
             <Box style={{ display: 'flex', alignItems: 'center' }}>
               <img
-                src={duvini}
+                src={janithya}
                 alt="Profile"
                 style={{
                   width: '300px',
@@ -122,4 +122,4 @@ const ProductionProfile = () => {
   );
 };
 
-export default ProductionProfile;
+export default GrazingProfile;

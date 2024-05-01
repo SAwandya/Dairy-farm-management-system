@@ -6,7 +6,7 @@ function SessionTable() {
   const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
-    // Fetch sessions from the backend API
+    
     axios.get('http://localhost:3000/api/sessions')
       .then(response => {
         setSessions(response.data);

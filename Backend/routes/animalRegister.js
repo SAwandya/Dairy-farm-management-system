@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { veterinary, schema } = require('../models/animalreg'); 
-const validateAnim = require('../middleware/vetMiddleWare');
 
 // Create and save a new animal
-router.post("/create", validateAnim(schema), async (req, res) => {
+router.post("/create",  async (req, res) => {
     try {
         const cow = new veterinary(req.body);
         const data = await cow.save();

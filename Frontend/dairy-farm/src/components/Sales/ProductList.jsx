@@ -17,6 +17,7 @@ import productService from "../../services/Sales/productService";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Search from "./Search";
 import { Container } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -45,6 +46,8 @@ const ProductList = () => {
       .then((res) => {
         console.log(res.data);
         console.log("success");
+        toast.success("successfull");
+
         refetch();
       })
       .catch((err) => {
@@ -57,6 +60,8 @@ const ProductList = () => {
       .Delete(id)
       .then((res) => {
         console.log(res.data);
+        toast.error("Successfully deleted");
+
         refetch();
       })
       .catch((err) => {
@@ -76,8 +81,16 @@ const ProductList = () => {
 
   return (
     <React.Fragment>
+      <ToastContainer />
 
-      <Container sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', marginBottom: '20px' }}>
+      <Container
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
+          marginBottom: "20px",
+        }}
+      >
         <SalesTitle>Recent Products</SalesTitle>
 
         <Search setQuery={setQuery} query={query} />
@@ -87,7 +100,7 @@ const ProductList = () => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Quantity</TableCell>
+            <TableCell>Quantity(Packs)</TableCell>
             <TableCell>Category</TableCell>
             <TableCell align="right">Unit Price</TableCell>
             <TableCell>Update</TableCell>
@@ -101,7 +114,7 @@ const ProductList = () => {
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.quantity}</TableCell>
               <TableCell>{product.category}</TableCell>
-              <TableCell align="right">{`$${product.price}`}</TableCell>
+              <TableCell align="right">{`${product.price} LKR`}</TableCell>
               <TableCell>
                 <Link to="/productupdate">
                   <Button

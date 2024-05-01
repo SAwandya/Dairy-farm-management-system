@@ -11,7 +11,7 @@ function PastureInfo() {
   const [pastures, setPastures] = useState([]);
 
   useEffect(() => {
-    // Fetch pasture details from the backend API
+    
     axios.get('http://localhost:3000/api/pastureDetails')
       .then(response => {
         setPastures(response.data);
@@ -61,10 +61,11 @@ function PastureInfo() {
               <Typography> Information regarding the  pasture maintainence is recorded here</Typography>
               
       </Box>
-        <Box sx={{ textAlign: 'right', marginRight:'16px' }}>
-          <Button variant="contained" color="primary" href="/pasture">
-            See More
-          </Button>
+        <Box sx={{ textAlign: 'right', marginRight:'25px' }}>
+        <Button variant="contained" style={{ backgroundColor: '#1a6952' }} href="/pasture">
+         Pasture Table
+        </Button>
+
         </Box>
         <Container sx={{ margin: 25,marginTop: '20px'  }}>
           <Grid container spacing={7}>
