@@ -20,16 +20,14 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    let inventory = await inventory.find();
-
-    inventory = inventory.map(async inventory => {
-        const item = await Item.findById(inventory.orderType);
-        return {...inventory._doc, item: item};
-    });
-    inventory = await Promise.all(inventory);
-
-    res.send(inventory);
-});
+    try {
+      const inventory = await Inventory.find(); 
+      res.json(inventory);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
 router.get('/:id', async (req, res) => {
     const order = await Order.findById(req.params.id);
