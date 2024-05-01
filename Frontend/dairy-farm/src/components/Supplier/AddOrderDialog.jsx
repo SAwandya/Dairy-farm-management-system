@@ -44,6 +44,38 @@ const AddOrderDialog = ({
     }
   };
 
+  const validateForm = (row, fieldName) => {
+    let errors = {};
+    let isValid = true;
+  
+    const requiredFields = [
+      "orderType",
+      "supplierName",
+      "quantity",
+      "advanceFee",
+      "deliveryDate",
+    ];
+  
+    const fieldsToValidate = fieldName ? [fieldName] : requiredFields;
+  
+    fieldsToValidate.forEach((field) => {
+      if (!row[field]) {
+        errors[field] = `${
+          field.charAt(0).toUpperCase() + field.slice(1)
+        } is required.`;
+        isValid = false;
+      }
+    });
+  
+    return { isValid, errors };
+  };
+  
+  const handleOnBlur = (e) => {
+    const fieldName = e.target.name;
+    const { errors } = validateForm(currentRow, fieldName);
+    setValidationErrors((prevErrors) => ({ ...prevErrors, ...errors }));
+  };
+
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Add Order</DialogTitle>
@@ -92,6 +124,7 @@ const AddOrderDialog = ({
           fullWidth
           value={newRow.quantity}
           onChange={handleQuantityChange}
+          onBlur={handleOnBlur}
         />
         <TextField
           error={!!advanceFeeError || !!validationErrors?.advanceFee}
@@ -103,6 +136,7 @@ const AddOrderDialog = ({
           fullWidth
           value={newRow.advanceFee}
           onChange={handleAdvanceFeeChange}
+          onBlur={handleOnBlur}
         />
         <TextField
           error={!!validationErrors?.deliveryDate}
