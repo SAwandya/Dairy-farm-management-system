@@ -6,6 +6,14 @@ const temperatureSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  humidity: {
+    type: Number,
+    required: true
+  },
+  moisture: {
+    type: Number,
+    required: true
+  },
   recordedAt: {
     type: Date,
     default: Date.now

@@ -1,59 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, CircularProgress } from '@mui/material';
 import { borderRadius } from '@mui/system';
-import alarmSound from '../../../assets/alarm2.wav';
+import alarmSound from '../../../assets/alarm.mp3';
+import entry from '../../../assets/entry.mp3';
+import axios from 'axios';
 
 function TemperatureDisplay() {
   const [temperature, setTemperature] = useState(null);
+ // const [temp, setTemp] = useState(null);
   const [exceedsLimit, setExceedsLimit] = useState(false);
   const [status, setStatus] = useState('Sensors Inactive!');
   const [alarmTriggered, setAlarmTriggered] = useState(false);
-
+  var tempLimit =33+2;
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3030'); // Connect to WebSocket server
-
-    socket.onopen = () => {
-      console.log('Connected to WebSocket server');
-    };
-
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setStatus('Sensors Active');
-      console.log('Received temperature update:', data.temperature);
-      setTemperature(data.temperature-3.3);
-      setExceedsLimit(data.temperature > 34.5);
-
-      // Trigger the alarm if temperature exceeds 31
-      if (data.temperature > 34.5) {
-        setAlarmTriggered(true);
-      } else {
-        setAlarmTriggered(false);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/temperatureSendRcv/data');
+        const { temperature } = response.data;
+        setTemperature(temperature-2);
+        //setTemp(temperature-4)
+        setExceedsLimit(temperature> tempLimit); 
+        setStatus('Sensors Active');
+      } catch (error) {
+        setStatus('Sensors Inactive!');
+        console.error('Error fetching data:', error);
       }
     };
 
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
+    const intervalId = setInterval(fetchData, 1000); // Fetch data every second
 
-    socket.onclose = () => {
-      console.log('Disconnected from WebSocket server');
-      setStatus('Sensors Inactive!');
+    return () => clearInterval(intervalId); // Clean up the interval
+
+  }, []); // run only once - empty arrays
+
+  useEffect(() => {
+    // Trigger alarm 
+    if (exceedsLimit) {
+      setAlarmTriggered(true);
+    } else {
       setAlarmTriggered(false);
-    };
+    }
+  }, [exceedsLimit]); // Run effect when exceedsLimit 
 
-    // Clean up the WebSocket connection on component unmount
-    return () => {
-      socket.close();
-    };
-  }, []);
+
 
   useEffect(() => {
     // Play the alarm sound when triggered
     if (alarmTriggered) {
       const audio = new Audio(alarmSound);
       audio.play();
-      
-
     }
   }, [alarmTriggered]);
 
@@ -62,8 +57,8 @@ function TemperatureDisplay() {
                 margin: '20px' , 
                 borderRadius:5 ,
                // backgroundColor: temperature > 31 ? '#ffcccc' : 'inherit', // Change background color based on temperature
-                border: temperature ? (temperature > 31 ? '5px solid red' : '5px solid blue') : '5px solid black',
-                backgroundColor: temperature && temperature > 31 ? '#ffcccc' : '#C4E4FF',
+                border: temperature ? (temperature > tempLimit ? '5px solid red' : '5px solid blue') : '5px solid black',
+                backgroundColor: temperature && temperature > tempLimit ? '#ffcccc' : '#C4E4FF',
     }}>
       <CardContent>
         <Typography align="center" variant="h5" component="h2">
@@ -85,18 +80,19 @@ function TemperatureDisplay() {
         >
           {temperature !== null ? (
             <Typography align="center"variant="h4"
-            sx={{ color: temperature && temperature > 31 ? 'red' : 'inherit' }}>{temperature !== null ? temperature.toFixed(1) : 'N/A'} °c</Typography>
+            sx={{ color: temperature && temperature > tempLimit ? 'red' : 'inherit' }}>{temperature !== null ? temperature.toFixed(1) : 'N/A'} °c</Typography>
           ) : (
             <CircularProgress />
           )}
         </div>
 
-        <Typography align="center" variant="h5" component="h2">Temperature Range: 20-31</Typography>
+        <Typography align="center" variant="h5" component="h2">Temperature Range: 20-33</Typography>
         <Typography align="center" variant="h6" component="h2" 
                     sx={{ margin: '10px 0', 
                           color: status === 'Sensors Inactive!' ? 'red' : 'gray'}}> 
                           Status: {status} 
-        </Typography>        {exceedsLimit && (
+        </Typography>        
+        {exceedsLimit && (
           <Typography align="center" variant="h6" component="h3" sx={{ color: 'red', marginTop: '10px' }}>
             Temperature exceeds limit!
           </Typography>
