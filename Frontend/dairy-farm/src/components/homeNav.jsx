@@ -171,6 +171,7 @@ const NavBar = () => {
           justifyContent: "center",
           color: "#1E5128",
           marginRight: "56px",
+         height: '9%'
         }}
       >
         <Toolbar>

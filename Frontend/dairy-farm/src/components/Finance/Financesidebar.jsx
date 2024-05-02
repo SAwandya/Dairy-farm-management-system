@@ -63,12 +63,14 @@ function Sidebar() {
             {/* Profile and Logout */}
             <Box className="user-actions">
                 <List>
+                    <Link to="/financeprofile" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <NavigationLink
                             icon={<AccountCircleIcon />}
                             text="Profile"
                             isActive={activeSection === 'profile'}
                             onClick={() => handleNavigation('profile')}
                     />
+                    </Link>
                     <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <NavigationLink
                         icon={<LogoutIcon />}
