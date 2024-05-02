@@ -12,7 +12,12 @@ import SalesDashboard from "./pages/Sales/SalesDashboard";
 import Employee from "./pages/Employees/Employee";
 import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
+
+//Finance Management - Pages
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
+import FinanceTransactions from "./pages/Finance/FinanceTransactions";
+import FinanceBudgets from "./pages/Finance/FinanceBudgets";
+import FinanceProfile from "./pages/Finance/FinanceProfile";
 
 //Production Management - Pages
 import ProductionDashboard from "./pages/Production/ProductionDashboard";
@@ -35,7 +40,6 @@ import MilkingReport from "./pages/Milking/MilkingReport";
 import MilkingProfile from "./pages/Milking/MilkingProfile";
 
 import HomePageM from "./pages/HomeMain";
-import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 
 //Veterinary
 import VetDashboard from "./pages/Veterinary/AnimmalDash";
@@ -78,8 +82,8 @@ import { RemoveFromQueue } from "@mui/icons-material";
 import GrazingDashboard from "./pages/Grazing/GrazingDashboard";
 import CartPage from "./pages/Sales/CartPage";
 import RotationInfo from "./pages/Grazing/RotationInfo";
-import FinanceBudgets from "./pages/Finance/FinanceBudgets";
 import GrazingProfile from "./pages/Grazing/GrazingProfile";
+
 
 const router = createBrowserRouter([
   {
@@ -249,6 +253,19 @@ const router = createBrowserRouter([
     element: <FinanceMainDashboard />,
   },
 
+  {
+    path: "/financeprofile",
+    element: <FinanceProfile />,
+  },
+    {
+    path: "/financetrans",
+    element: <FinanceTransactions />,
+  },
+  {
+    path: "/financebud",
+    element: <FinanceBudgets />,
+  },
+
   { path: "/homeM", element: <HomePageM />},
 
   //Production Management Paths
@@ -259,14 +276,7 @@ const router = createBrowserRouter([
   { path: "/ProductionProfile", element: <ProductionProfile/>},
   { path: "/QualityControll", element: <QualityControll/>},
 
-  {
-    path: "/financetrans",
-    element: <FinanceTransactions />,
-  },
-  {
-    path: "/financebud",
-    element: <FinanceBudgets />,
-  },
+
   {
     path: "/scheduleForm",
     element: <MilkingSessionSchedule />,
