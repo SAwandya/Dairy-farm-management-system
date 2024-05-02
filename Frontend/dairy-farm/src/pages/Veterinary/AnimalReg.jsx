@@ -226,11 +226,16 @@ function AnimalRegistry() {
                 padding: '10px', 
                 margin: '50px ', 
                 marginBottom: '20px',
-                paddingLeft:'130px', 
+                paddingLeft: '130px', 
+                flexDirection: 'column', 
               }}>
-                <DateV />
-                <h4>Welcome Back,</h4>
-                <h1>Duvini Ranaweera</h1>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <h4>Welcome Back,</h4>
+                        <h1>Duvini Ranaweera</h1>
+                    </div>
+                    <DateV />
+                </div>
                 {!addSection && !editSection && (
                 <Grid container spacing={2} style={{marginLeft:'740px'}}>
                 <Grid item xs={3}>

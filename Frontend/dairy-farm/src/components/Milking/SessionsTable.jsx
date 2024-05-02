@@ -367,6 +367,9 @@ const MilkingSessionsTable = () => {
                               <TextField
                                 label="Edit Date"
                                 type="date"
+                                InputLabelProps={{
+                                  shrink: true,
+                                }}
                                 variant="outlined"
                                 fullWidth
                                 margin="normal"
@@ -377,6 +380,9 @@ const MilkingSessionsTable = () => {
                               <TextField
                                 label="Edit Time"
                                 type="time"
+                                InputLabelProps={{
+                                  shrink: true,
+                                }}
                                 variant="outlined"
                                 fullWidth
                                 margin="normal"

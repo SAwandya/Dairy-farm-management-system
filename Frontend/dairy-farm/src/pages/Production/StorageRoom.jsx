@@ -8,14 +8,10 @@ import TemperatureCard3 from "../../components/production/Storage/TemperatureCar
 import TemperatureCard4 from "../../components/production/Storage/TemperatureCard4"
 import TemperatureCard5 from "../../components/production/Storage/TemperatureCard5"
 import TemperatureCard6 from "../../components/production/Storage/TemperatureCard6"
-
-
-
-
+import TemperatureCard1s from "../../components/production/Storage/TemperatureCard1s"
 
 import { Container,Box,Typography,Button} from "@mui/material"
 import Grid2 from "@mui/material/Unstable_Grid2";
-
 
 function StorageRoom() {
 return (
@@ -31,16 +27,16 @@ return (
 
       </Grid2>
 
-      <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:2}}>
+      <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:1}}>
         <Grid2 item xs={1} sm={1}></Grid2>
         <Grid2 item xs={1} sm={1}></Grid2>
-       <Grid2 item xs={10} sm={10} md={3} ><TemperatureCard1/></Grid2> 
+       <Grid2 item xs={10} sm={10} md={3} ><TemperatureCard1s/></Grid2> 
         <Grid2 item xs={10} sm={10} md={3}><TemperatureCard2/></Grid2> 
         <Grid2 item xs={10} sm={10} md={3}><TemperatureCard3/></Grid2> 
         <Grid2 item xs={1} sm={1}></Grid2>
 
       </Grid2>
-      <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:2}}>
+      <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:0}}>
         <Grid2 item xs={1} sm={1}></Grid2>
         <Grid2 item xs={1} sm={1}></Grid2>
        <Grid2 item xs={10} sm={10} md={3} ><TemperatureCard4/></Grid2> 

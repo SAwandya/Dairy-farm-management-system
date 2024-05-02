@@ -18,6 +18,7 @@ function VetDashboard() {
     }, []);
 
     const fetchTotalCount = async () => {
+      //total animal count
         try {
             const response = await axios.get("http://localhost:3000/api/animalReg/count");
             if (response.data.success) {
@@ -65,17 +66,24 @@ function VetDashboard() {
                 padding: '10px', 
                 margin: '50px ', 
                 marginBottom: '20px',
-                paddingLeft:'130px', 
+                paddingLeft: '130px', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                justifyContent: 'space-between', 
               }}>
-                <DateV />
-                <h4>Welcome Back,</h4>
-                <h1>Duvini Ranaweera</h1>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <h4>Welcome Back,</h4>
+                        <h1>Duvini Ranaweera</h1>
+                    </div>
+                    <DateV />
+                </div>
                 
                 <h4 style={{ marginTop: 20, marginBottom: '20px' }}>Overview</h4>
                 <div className='card-horizontal' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between',width:'600',marginRight:'130px',marginLeft:'130px' }}>
-                    <BasicCard title='Total Cows' imgs={cow} data={totalCount} />
-                    <BasicCard title='Sick Cows' imgs={cow} data={sickCount} />
-                    <BasicCard title='Pregnant' imgs={cow} data={breedCount} />
+                    <BasicCard title='Total Cows' imgs={cow} data={totalCount} links={"/animalReg"}/>
+                    <BasicCard title='Sick Cows' imgs={cow} data={sickCount} links={"/health"}/>
+                    <BasicCard title='Pregnant' imgs={cow} data={breedCount} links={"/breedAnim"} />
                 </div>
                 
                 <h4 style={{ marginTop: 40, marginBottom: '20px' }}>Navigate</h4>

@@ -18,12 +18,19 @@ function Health() {
                 flex: 1,
                 padding: '10px', 
                 margin: '50px ', 
-                marginBottom: '20px', 
-                paddingLeft:'130px', 
-            }}>
-                <DateV />
-                <h4>Welcome Back,</h4>
-                <h1>Duvini Ranaweera</h1>
+                marginBottom: '20px',
+                paddingLeft: '130px', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                justifyContent: 'space-between', 
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <h4>Welcome Back,</h4>
+                        <h1>Duvini Ranaweera</h1>
+                    </div>
+                    <DateV />
+                </div>
                 {!showVaccineAnim && !showExamineAnim &&(
                 <div>
                     <h4 style={{ marginTop: 40, marginBottom: '20px' }}>Animal List</h4>

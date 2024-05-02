@@ -20,6 +20,7 @@ import ProcessPlanning from "./pages/Production/ProcessPlanning";
 import StorageRoom from "./pages/Production/StorageRoom"
 import ProductInventory from "./pages/Production/ProductInventory";
 import ProductionProfile from "./pages/Production/ProductionProfile";
+import QualityControll from "./pages/Production/QualityControll";
 
 
 //Milking Management - Pages
@@ -68,6 +69,7 @@ import InventoryDashboard from "./pages/Supplier/InventoryDashboard";
 import OrderPage from "./pages/Sales/OrderPage";
 import OrdReportDisplay from "./pages/Supplier/OrdReportDisplay";
 
+//Grazing Management
 import PasturePage from "./pages/Grazing/PasturePage";
 import SessionPage from "./pages/Grazing/SessionPage";
 import Report from "./pages/Grazing/Report";
@@ -255,6 +257,7 @@ const router = createBrowserRouter([
   { path: "/StorageRoom", element: <StorageRoom /> } ,  
   { path: "/ProductInventory", element: <ProductInventory/> },
   { path: "/ProductionProfile", element: <ProductionProfile/>},
+  { path: "/QualityControll", element: <QualityControll/>},
 
   {
     path: "/financetrans",
