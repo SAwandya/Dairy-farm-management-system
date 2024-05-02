@@ -4,6 +4,7 @@ const { Product, validate } = require("../models/product");
 
 router.get("/", async (req, res) => {
   const products = await Product.find();
+
   res.send(products);
 });
 
