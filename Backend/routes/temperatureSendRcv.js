@@ -4,7 +4,6 @@ const WebSocket = require('ws'); // Import WebSocket module
 const Temperature = require('../models/temperature');
 
 // Define a function to periodically check and cleanup old data
-// Define a function to periodically check and cleanup old data
 async function cleanupOldData() {
   try {
     const threshold = 10; // Keep the last 10 entries
@@ -27,9 +26,7 @@ async function cleanupOldData() {
     console.error('Error cleaning up old data:', error);
   }
 }
-
 setInterval(cleanupOldData, 300000); // Runs every 5 min
-
 
 // POST route to receive temperature data
 router.post('/temperature', async (req, res) => {
