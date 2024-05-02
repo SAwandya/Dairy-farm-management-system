@@ -11,15 +11,22 @@ function BreedPage() {
         <div style={{ display: 'flex', height: '100vh',fontFamily: 'Poppins, sans-serif' }}>
             <Sidebar />
             <div style={{ 
-                flex: 1, 
+                flex: 1,
                 padding: '10px', 
                 margin: '50px ', 
                 marginBottom: '20px',
-                paddingLeft:'130px', 
+                paddingLeft: '130px', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                justifyContent: 'space-between', 
               }}>
-                <DateV />
-                <h4>Welcome Back,</h4>
-                <h1>Duvini Ranaweera</h1>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <h4>Welcome Back,</h4>
+                        <h1>Duvini Ranaweera</h1>
+                    </div>
+                    <DateV />
+                </div>
                 
                 <h4 style={{ marginTop: 20, marginBottom: '20px' }}>Pregnant Cow List</h4>
                 <BgCard>
