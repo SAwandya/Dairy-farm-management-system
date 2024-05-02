@@ -265,6 +265,10 @@ const router = createBrowserRouter([
     path: "/financebud",
     element: <FinanceBudgets />,
   },
+    {
+    path: "/financereport",
+    element: <FinanceReport />,
+  },
 
   { path: "/homeM", element: <HomePageM />},
 

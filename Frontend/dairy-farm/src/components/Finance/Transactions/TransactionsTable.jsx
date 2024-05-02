@@ -24,7 +24,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import '../../../styles/Finance/MainDashboard/DashboardContent.css';
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Snackbar, SnackbarContent } from "@mui/material";
 
@@ -62,6 +61,8 @@ const TransactionsTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [toastMessage, setToastMessage] = useState(null);
 const [toastOpen, setToastOpen] = useState(false);
+const [selectedDepartment, setSelectedDepartment] = useState("");
+
 
 
   const handleShowIncomeChange = (event) => {
@@ -108,6 +109,9 @@ const handleAddTransaction = async () => {
     } catch (error) {
       console.error("Error adding transaction:", error);
     }
+  } else {
+    // Display error message for incomplete fields
+    handleToastOpen("Please complete all fields." );
   }
 };
 
@@ -161,33 +165,33 @@ const handleDeleteTransaction = async () => {
         transaction.id === selectedTransaction.id ? selectedTransaction : transaction
       )
     );
-  //           if (
-  //   transactions.type &&
-  //   transactions.description &&
-  //   transactions.department &&
-  //   transactions.value
-  // ) {
-  //   try {
-  //     const response = await axios.put("http://localhost:3000/api/transaction/" + transaction._id, transactions);
-  //     console.log("Transaction added successfully:", response.data);
+            if (
+    transactions.type &&
+    transactions.description &&
+    transactions.department &&
+    transactions.value
+  ) {
+    try {
+      const response = await axios.put("http://localhost:3000/api/transaction/" + transaction._id, transactions);
+      console.log("Transaction added successfully:", response.data);
       
-  //     // Update the transactions state with the new transaction
-  //     setTransactions([...transactions, response.data]);
-  //     setOpenAddDialog(false);
+      // Update the transactions state with the new transaction
+      setTransactions([...transactions, response.data]);
+      setOpenAddDialog(false);
       
-  //     // Reset newTransaction state
-  //     setNewTransaction({
-  //       type: "Income",
-  //       description: "",
-  //       department: "",
-  //       value: "0",
-  //     });
-  //   } catch (error) {
-  //     console.error("Error adding transaction:", error);
-  //   }
-  // }
-  // {
-  //   }
+      // Reset newTransaction state
+      setNewTransaction({
+        type: "Income",
+        description: "",
+        department: "",
+        value: "0",
+      });
+    } catch (error) {
+      console.error("Error adding transaction:", error);
+    }
+  }
+  {
+    }
 
     setEditDialogOpen(false);
     setSelectedTransaction(null);
@@ -226,18 +230,27 @@ const handleDeleteTransaction = async () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const filteredTransactions = data?.filter((transaction) => {
-    if (showIncome && showExpense) {
-      return true;
-    }
-    if (showIncome) {
-      return transaction.type === "Income";
-    }
-    if (showExpense) {
-      return transaction.type === "Expense";
-    }
-    return false;
-  });
+const handleDepartmentChange = (event) => {
+  setSelectedDepartment(event.target.value);
+};
+
+const filteredTransactions = data?.filter((transaction) => {
+  if (showIncome && showExpense) {
+    return true;
+  }
+  if (showIncome) {
+    return transaction.type === "Income";
+  }
+  if (showExpense) {
+    return transaction.type === "Expense";
+  }
+  return false;
+}).filter(transaction => {
+  if (selectedDepartment === "") {
+    return true;
+  }
+  return transaction.department === selectedDepartment;
+});
   
 
 
@@ -273,77 +286,94 @@ function formatDate(dateString) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   return (
-    <Container className="container">
-      <Snackbar
-  anchorOrigin={{
-    vertical: "bottom",
-    horizontal: "right",
-  }}
-  open={toastOpen}
-  autoHideDuration={2000}
-  onClose={handleToastClose}
->
+    <Container className="container" sx={{ width: "400%" }}>
+            <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        open={toastOpen}
+        autoHideDuration={2000}
+        onClose={handleToastClose}
+      >
   <SnackbarContent
     message={toastMessage}
     action={null}
     style={{
     backgroundColor: '#38775B', // Change to your desired background color
     color: '#ffffff', // Change to your desired text color
+    backgroundColor: toastMessage === "Please complete all fields." ? '#FF0000' : '#38775B',
   }}
   />
 </Snackbar>
-      <Box className="paper"
-        sx={{
-          backgroundColor: "#f0f0f0",
-          padding: "20px",
-          borderRadius: "10px",
-          flexDirection: "column",
-          alignItems: "center",
-
-        }}
-      >   
-      <TextField
-          label="Search Transactions"
-          variant="outlined"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{ marginBottom: 2, width: "30%" }}
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={showIncome}
-              onChange={handleShowIncomeChange}
-              color="primary"
-            />
-          }
-          label="Income"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={showExpense}
-              onChange={handleShowExpenseChange}
-              color="primary"
-            />
-          }
-          label="Expense"
-        />
-        <Button
-          variant="contained"
-          onClick={() => setOpenAddDialog(true)}
+<Box className="paper"
   sx={{
-    marginTop: 1,
-    color: 'white', // Text color
-    borderColor: 'green', // Border color
-    backgroundColor: '#38775B', // Background color
-    '&:hover': {
-      backgroundColor: '#45926F', // Dark green on hover
-    }
+    backgroundColor: "#f0f0f0",
+    padding: "20px",
+    borderRadius: "10px",
+    flexDirection: "column",
+    alignItems: "center",
   }}
-        >
-          Add Transaction
-        </Button>
+>
+  <Box sx={{ display: 'flex', width: '100%', marginBottom: 1 }}>
+    <TextField
+      label="Search Transactions"
+      variant="outlined"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      sx={{ marginRight: 1, flex: 1 }} // Adjust margin and flex as needed
+    />
+    <FormControl fullWidth sx={{ flex: 1 }}>
+      <InputLabel id="department-filter-label">Filter by Department</InputLabel>
+      <Select
+        labelId="department-filter-label"
+        id="department-filter-select"
+        value={selectedDepartment}
+        onChange={handleDepartmentChange}
+        label="Filter by Department"
+      >
+        <MenuItem value="">All Departments</MenuItem>
+        {departments.map((department) => (
+          <MenuItem key={department} value={department}>
+            {department}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  </Box>
+  <FormControlLabel
+    control={
+      <Checkbox
+        checked={showIncome}
+        onChange={handleShowIncomeChange}
+        color="primary"
+      />
+    }
+    label="Income"
+  />
+  <FormControlLabel
+    control={
+      <Checkbox
+        checked={showExpense}
+        onChange={handleShowExpenseChange}
+        color="primary"
+      />
+    }
+    label="Expense"
+  />          <Button
+            variant="contained"
+            onClick={() => setOpenAddDialog(true)}
+            sx={{
+              color: 'white',
+              borderColor: 'green',
+              backgroundColor: '#38775B',
+              '&:hover': {
+                backgroundColor: '#45926F',
+                
+              },
+            }}
+          >Add Transaction</Button>
+
         <Dialog open={openAddDialog} onClose={() => setOpenAddDialog(false)}>
           <DialogTitle>Add New Transaction</DialogTitle>
           <DialogContent>
@@ -355,24 +385,11 @@ function formatDate(dateString) {
               onChange={handleNewTransactionChange}
               InputLabelProps={{ shrink: true }}
               inputProps={{ max: new Date().toISOString().split("T")[0] }} // Set the max date to today
-              sx={{ marginBottom: 2 }}
+              sx={{ marginBottom: 2 , marginTop: '7px' }}
               fullWidth
               required
             />
-            <FormControl fullWidth sx={{ marginBottom: 2 }} required>
-              <InputLabel id="type-label">Type</InputLabel>
-              <Select
-                labelId="type-label"
-                id="type-select"
-                name="type"
-                value={newTransaction.type}
-                onChange={handleNewTransactionChange}
-                label="Type"
-              >
-                <MenuItem value="Income">Income</MenuItem>
-                <MenuItem value="Expense">Expense</MenuItem>
-              </Select>
-            </FormControl>
+            
             <TextField
               name="description"
               label="Description"
@@ -430,7 +447,7 @@ function formatDate(dateString) {
               type="date"
               value={selectedTransaction ? selectedTransaction.date : ""}
               onChange={handleEditTransactionChange}
-              sx={{ marginBottom: 2 }}
+              sx={{ marginBottom: 2 , marginTop: '7px'}}
               fullWidth
               required
             />
