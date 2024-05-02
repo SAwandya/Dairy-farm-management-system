@@ -65,7 +65,6 @@ const MilkingSessionsTable = () => {
           const updateSessionResponse = await axios.put(`http://localhost:3000/api/milkingSessions/${sessionId}/complete`);
           
           if (response.data.success) {
-              // Reset form fields after successful submission
               setMilkBatchId('');
               setAmountOfMilk('');
               setDuration('');
