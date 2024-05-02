@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography } from '@mui/material';
-import SmallTank from './SmallTank'
+import SmallTank from './SmallTank';
+import axios from 'axios';
 
-function TankStausCard() {
+function TankStatusCard() {
+    const [storageTanks, setStorageTanks] = useState([]);
+
+    useEffect(() => {
+        fetchStorageTanks();
+    }, []);
+
+    const fetchStorageTanks = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/api/milkingStorage'); // Update the API endpoint
+            if (response.data.success) {
+                setStorageTanks(response.data.data);
+            } else {
+                console.error('Failed to fetch storage tanks:', response.data.error);
+            }
+        } catch (error) {
+            console.error('Error fetching storage tanks:', error);
+        }
+    };
+
     return (
         <Box className="chart-card-container">
             <Typography
@@ -13,13 +33,15 @@ function TankStausCard() {
                     fontWeight: '600',
                 }}
             >Tank Status</Typography>
-            <SmallTank tankID='#tank001' levelPercentage='60'/>
-            <SmallTank tankID='#tank002' levelPercentage='80'/>
-            <SmallTank tankID='#tank003' levelPercentage='0'/>
-            <SmallTank tankID='#tank004' levelPercentage='20'/>
-            <SmallTank tankID='#tank005' levelPercentage='50'/>
+            {storageTanks.map(tank => (
+                <SmallTank
+                    key={tank.tankId}
+                    tankID={`Tank #${tank.tankId}`}
+                    levelPercentage={(tank.availableMilk / tank.capacity) * 100}
+                />
+            ))}
         </Box>
     );
-  }
-  
-  export default TankStausCard;
+}
+
+export default TankStatusCard;
