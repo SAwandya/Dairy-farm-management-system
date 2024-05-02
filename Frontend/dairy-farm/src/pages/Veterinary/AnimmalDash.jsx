@@ -18,6 +18,7 @@ function VetDashboard() {
     }, []);
 
     const fetchTotalCount = async () => {
+      //total animal count
         try {
             const response = await axios.get("http://localhost:3000/api/animalReg/count");
             if (response.data.success) {
