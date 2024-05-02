@@ -18,6 +18,7 @@ import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 import FinanceBudgets from "./pages/Finance/FinanceBudgets";
 import FinanceProfile from "./pages/Finance/FinanceProfile";
+import FinanceReport from "./pages/Finance/FinanceReport";
 
 //Production Management - Pages
 import ProductionDashboard from "./pages/Production/ProductionDashboard";
