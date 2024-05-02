@@ -40,8 +40,6 @@ function TemperatureDisplay() {
     }
   }, [exceedsLimit]); // Run effect when exceedsLimit 
 
-
-
   useEffect(() => {
     // Play the alarm sound when triggered
     if (alarmTriggered) {
