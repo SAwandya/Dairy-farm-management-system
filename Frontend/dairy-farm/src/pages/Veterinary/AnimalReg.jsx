@@ -227,9 +227,7 @@ function AnimalRegistry() {
                 margin: '50px ', 
                 marginBottom: '20px',
                 paddingLeft: '130px', 
-                display: 'flex', 
                 flexDirection: 'column', 
-                justifyContent: 'space-between', 
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
