@@ -7,6 +7,7 @@ const { Payment, validatePayment } = require("../models/salesPayment");
 const { Customer } = require("../models/customer");
 const nodemailer = require("nodemailer");
 const Mailgen = require("mailgen");
+const ProductBatch = require("../models/ProductBatch");
 
 router.get("/", async (req, res) => {
   const purchase = await Purchase.find();
@@ -40,10 +41,12 @@ router.post("/", async (req, res) => {
   };
 
   const { error: paymentError } = validatePayment(paymentData);
-  if (paymentError) return res.status(400).send(paymentError.details[0].message);
+  if (paymentError)
+    return res.status(400).send(paymentError.details[0].message);
 
   const { error: deliveryError } = validateDelivery(deliveryData);
-  if (deliveryError) return res.status(400).send(deliveryError.details[0].message);
+  if (deliveryError)
+    return res.status(400).send(deliveryError.details[0].message);
 
   const customer = await Customer.findById(req.body.customerId);
   if (!customer) return res.status(400).send("Invalide customer");
@@ -75,7 +78,6 @@ router.post("/", async (req, res) => {
   }
 
   if (req.body.savePayment == "yes") {
-
     let paymentExist = await Payment.findOne({
       customerId: req.body.customerId,
       cardNumber: req.body.cardNumber,
@@ -84,7 +86,7 @@ router.post("/", async (req, res) => {
       expDate: req.body.expDate,
     });
 
-    if(!paymentExist){
+    if (!paymentExist) {
       let payment = new Payment({
         customerId: req.body.customerId,
         cardNumber: req.body.cardNumber,
@@ -121,11 +123,46 @@ router.post("/", async (req, res) => {
 
   purchase = await purchase.save();
 
+  //automate the re-order process
+
+  if (purchase) {
+    const productId = purchase.product._id.toString();
+
+    let updatedProduct = await Product.findById(productId);
+
+    if (updatedProduct.quantity < 50) {
+      let productbatch = await ProductBatch.findOne({
+        name: updatedProduct.name,
+        variant: updatedProduct.unitOfMeasurement,
+        released: true,
+      });
+
+      console.log(productbatch);
+
+      if (!productbatch) {
+        //send notification to the production
+      } else {
+        updatedProduct = await Product.findByIdAndUpdate(
+          updatedProduct._id,
+          {
+            $inc: { quantity: +Math.floor(productbatch.quantity / 20) },
+          },
+          { quantity: true }
+        );
+
+        productbatch = await ProductBatch.findByIdAndUpdate(productbatch._id, {
+          quantity: productbatch.quantity % 20,
+        });
+      }
+    }
+  }
+
+  //================================
+
   res.send(purchase);
 });
 
 router.put("/:id", async (req, res) => {
-
   let purchase = await Purchase.findByIdAndUpdate(req.params.id, {
     approve: req.body.approve,
   });
@@ -220,7 +257,6 @@ router.put("/:id", async (req, res) => {
 });
 
 router.put("/update/:id", async (req, res) => {
-
   let purchase = await Purchase.findById(req.params.id);
 
   const product = await Product.findByIdAndUpdate(
@@ -230,7 +266,6 @@ router.put("/update/:id", async (req, res) => {
     },
     { quantity: true }
   );
-
 
   purchase = await Purchase.findByIdAndUpdate(req.params.id, {
     quantity: req.body.quantity,
@@ -253,7 +288,6 @@ router.put("/update/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-
   let purchase = await Purchase.findById(req.params.id);
 
   const product = await Product.findByIdAndUpdate(
