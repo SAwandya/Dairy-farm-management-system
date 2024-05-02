@@ -53,7 +53,7 @@ const SmallTank = ({ tankID, levelPercentage }) => {
                     color: '#000',
                     zIndex: 1,
                 }}
-            >{`${levelPercentage}%`}</Typography>
+            >{`${levelPercentage.toFixed(2)}%`}</Typography>
         </Box>
 
     </Box>

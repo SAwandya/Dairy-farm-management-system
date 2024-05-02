@@ -91,6 +91,9 @@ const ScheduleFormContent = () => {
                             name="date"
                             label="Date"
                             type="date"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
                             fullWidth
@@ -103,6 +106,9 @@ const ScheduleFormContent = () => {
                             name="time"
                             label="Time"
                             type="time"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             value={time}
                             onChange={(e) => setTime(e.target.value)}
                             fullWidth
