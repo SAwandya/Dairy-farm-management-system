@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import  { useState, useEffect } from 'react';
 import Button from "@material-ui/core/Button";
 import ReduceStockForm from './ReduceStockForm';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,8 @@ const Inventory = () => {
   const classes = useStyles();
   const { data: pendingOrders, isLoading } = useGetPendingOrders();
   const updateOrderStatus = useUpdateOrderStatus();
+  const { data: lowStockItems } = useGetLowStockItems();
+
 
   
 
@@ -47,6 +50,7 @@ const Inventory = () => {
   return (
     <div>
       <div>
+        <h2>Pending Orders</h2>
         <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -82,6 +86,38 @@ const Inventory = () => {
       </div>
       <div>
         <ReduceStockForm />
+      </div>
+      <div>
+        {lowStockItems && lowStockItems.length > 0 && (
+          <div>
+            <br/>
+            <h2>Low Stocks Items</h2>
+            <TableContainer component={Paper}>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Item</TableCell>
+                    <TableCell>Current Quantity</TableCell>
+                    <TableCell>Reorder</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {lowStockItems.map(item => (
+                    <TableRow key={item._id}>
+                      <TableCell>{item.itemName}</TableCell>
+                      <TableCell>{item.quantity}</TableCell>
+                      <TableCell>
+                        <Button variant="contained" color="primary" component={Link} to="/order">
+                          Reorder Stocks
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        )}
       </div>
     </div>
 
@@ -153,5 +189,27 @@ function useUpdateOrderStatus() {
     onSuccess: () => {
       queryClient.invalidateQueries('pendingOrders');
     },
+  });
+}
+
+function useGetLowStockItems() {
+  return useQuery({
+    queryKey: ["lowStockItems"],
+    queryFn: async () => {
+      const response = await fetch("http://localhost:3000/api/inventory");
+      const data = await response.json();
+
+      const aggregatedData = data.reduce((acc, item) => {
+        if (acc[item.itemName]) {
+          acc[item.itemName].quantity += item.quantity;
+        } else {
+          acc[item.itemName] = { ...item };
+        }
+        return acc;
+      }, {});
+
+      return Object.values(aggregatedData).filter(item => item.quantity < 200 && item.quantity > 0);
+    },
+    refetchOnWindowFocus: false,
   });
 }

@@ -53,7 +53,7 @@ const InventoryChart = () => {
   }, []);
   return (
     <div>
-      <h2>Inventory</h2>
+      <h2>Inventory Levels</h2>
       <Bar data={chartData} options={{
         scales: {
           y: {
