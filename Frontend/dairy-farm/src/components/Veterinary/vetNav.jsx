@@ -7,7 +7,6 @@ import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
-import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import Diversity2Icon from '@mui/icons-material/Diversity2';
 import AppRegistrationTwoToneIcon from '@mui/icons-material/AppRegistrationTwoTone';
 import AssessmentIcon from "@mui/icons-material/Assessment";
