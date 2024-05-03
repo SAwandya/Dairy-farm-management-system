@@ -2,27 +2,38 @@ const express = require('express');
 const router = express.Router();
 const Animaldb2 = require('../models/vacAnim');
 const { veterinary } = require('../models/animalreg');
+const yup = require('yup');
 
+// Define Yup schema for validation
+const vacAnimSchema = yup.object().shape({
+    earTag: yup.string().required(),
+    status: yup.string().required(),
+    age: yup.string().required(),
+    vaccine: yup.string().required(),
+    vacdate: yup.string().required(),
+    nextdate: yup.string().required(),
+});
 // Create and save a new animal
 router.post("/create", async (req, res) => {
     try {
-        if (!req.body) {
-            return res.status(400).send({ success: false, message: "Request body cannot be empty" });
-        }
+        await vacAnimSchema.validate(req.body, { abortEarly: false });
 
+        
         const { earTag, status, age, vaccine, vacdate, nextdate } = req.body;
 
+        // Check if all fields are present
         if (!earTag || !status || !age || !vaccine || !vacdate || !nextdate) {
             return res.status(400).send({ success: false, message: "All fields are required" });
         }
 
-        
-        const animalExists = await veterinary.findOne({ earTag }); 
+        // Check if animal with the provided ear tag exists
+        const animalExists = await veterinary.findOne({ earTag });
         if (!animalExists) {
             return res.status(400).send({ success: false, message: "Ear tag does not exist" });
         }
 
-        const cow = new Animaldb2({
+        // Create a new vaccination record instance
+        const vaccinationRecord = new Animaldb2({
             earTag,
             status,
             age,
@@ -31,11 +42,18 @@ router.post("/create", async (req, res) => {
             nextdate,
         });
 
-        const data = await cow.save();
+        // Save the vaccination record to the database
+        const data = await vaccinationRecord.save();
         res.status(201).send({ success: true, message: "Data added successfully", data });
     } catch (error) {
-        console.error("Error creating animal:", error);
-        res.status(500).send({ success: false, message: "Error occurred while creating", error: error.message });
+        if (error.name === 'ValidationError') {
+            const errors = error.inner.map(err => ({ [err.path]: err.message }));
+            res.status(400).json({ success: false, message: "Validation error", errors });
+        } else {
+            // Handle other errors
+            console.error("Error creating animal:", error);
+            res.status(500).send({ success: false, message: "Error occurred while creating", error: error.message });
+        }
     }
 });
 
