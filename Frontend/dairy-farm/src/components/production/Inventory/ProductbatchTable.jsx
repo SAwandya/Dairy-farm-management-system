@@ -79,11 +79,20 @@ function ProductBatchTable() {
     ExpiryDate: productBatch.expiryDate ? new Date(productBatch.expiryDate).toLocaleDateString() : 'N/A',
     BatchId: productBatch.batchId,
     Status: (
-      <Switch
+       <Switch
         checked={productBatch.released}
         onChange={(event) => handleReleaseToggle(productBatch._id, event.target.checked)}
+        disabled={productBatch.collect} // Disable if collect is true
+        sx={{
+          '& .MuiSwitch-thumb': {
+            backgroundColor: productBatch.collect ? 'red' : '', // Change color to red if collect is true
+          },'& .MuiSwitch-track': {
+            backgroundColor: productBatch.collect ? 'red' : '', // Change color to red if collect is true
+          },
+        }}
         inputProps={{ 'aria-label': 'controlled' }}
       />
+    
     ),
     deleteAction: <PbDelete id={productBatch._id} onDeleted={handleDeleted} />,
     updateAction: <PbUpdate id={productBatch._id} onUpdated={handleUpdated} />,
