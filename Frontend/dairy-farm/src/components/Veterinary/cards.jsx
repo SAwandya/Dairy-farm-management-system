@@ -8,14 +8,14 @@ import { Link } from 'react-router-dom';
 
 export default function BasicCard(props) {
   return (
-    <Card sx={{ width: 300, borderRadius: 5, backgroundColor: '#00ff1a2b', maxHeight: '150px', position: 'relative' }}>
+    <Card sx={{ width: 300, borderRadius: 5, backgroundColor: '#00ff1a2b', height: '160px', position: 'relative' }}>
       <CardContent>
         <Typography sx={{ fontSize: 20, fontFamily: 'Poppins, sans-serif' }} color="#000000" gutterBottom>
           {props.title}
           <img src={props.imgs} style={{ height: '45px', float: 'right' }} />
         </Typography>
 
-        <Typography sx={{ mb: 1.5, fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize: 20 }} color="text.secondary">
+        <Typography sx={{ mb: 1.5, fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize: 30 }} color="text.secondary">
           {props.data}
         </Typography>
 
