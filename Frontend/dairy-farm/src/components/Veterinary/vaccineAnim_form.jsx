@@ -20,7 +20,7 @@ const vaccineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) =>
 
   // Set date limits
   const currentDate = new Date().toISOString().split('T')[0];
-  const minDate = new Date(new Date().setDate(new Date().getDate() - 14))
+  const minDate = new Date(new Date().setDate(new Date().getDate() - 30))
     .toISOString()
     .split('T')[0];
 
