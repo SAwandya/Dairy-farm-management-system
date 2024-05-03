@@ -22,7 +22,19 @@ export default function BasicCard(props) {
       </CardContent>
       <CardActions style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
       <Link to={props.links}>
-        <Button borderRadius='5px' sx={{ backgroundColor: '#FBFFEC', color: 'black', fontFamily: 'Poppins, sans-serif', borderRadius: 5, fontSize: '10px' }}>View More</Button>
+        <Button 
+          borderRadius='5px'
+          sx={{
+            backgroundColor: '#FBFFEC',
+            color: 'black',
+            fontFamily: 'Poppins, sans-serif',
+            borderRadius: 5,
+            fontSize: '10px',
+            '&:hover': {
+              backgroundColor: '#DFF0D8', 
+            }
+          }}
+        >View</Button>
       </Link>
       </CardActions>
     </Card>
