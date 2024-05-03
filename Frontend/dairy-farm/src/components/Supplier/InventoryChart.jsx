@@ -12,25 +12,28 @@ const InventoryChart = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:3000/api/order');
+      const response = await fetch('http://localhost:3000/api/inventory');
       if (!response.ok) {
-        console.error('Failed to fetch order data');
+        console.error('Failed to fetch inventory data');
         return;
       }
       const data = await response.json();
       if (!Array.isArray(data)) {
-        console.error('Order data is not an array');
+        console.error('Inventory data is not an array');
         return;
       }
-      
-      const filteredData = data.filter(order => order.quantity > 10);
-      const groupedData = filteredData.reduce((acc, order) => {
-        const itemName = order.orderType;
-        acc[itemName] = (acc[itemName] || 0) + order.quantity;
+
+      const aggregatedData = data.reduce((acc, item) => {
+        if (acc[item.itemName]) {
+          acc[item.itemName] += item.quantity;
+        } else {
+          acc[item.itemName] = item.quantity;
+        }
         return acc;
       }, {});
-      const itemNames = Object.keys(groupedData);
-      const quantities = Object.values(groupedData);
+
+      const itemNames = Object.keys(aggregatedData);
+      const quantities = Object.values(aggregatedData);
       setChartData({
         labels: itemNames,
         datasets: [
@@ -48,18 +51,11 @@ const InventoryChart = () => {
     };
     fetchData();
   }, []);
-
   return (
     <div>
       <h2>Inventory</h2>
       <Bar data={chartData} options={{
         scales: {
-          // x: {
-          //   title: {
-          //     display: true,
-          //     text: 'Item Name'
-          //   }
-          // },
           y: {
             title: {
               display: true,
