@@ -43,7 +43,7 @@ const StickyHeadTable = () => {
   };
 
   return (
-    <Paper sx={{ ml: 2,mt: '20px',mr:4, borderRadius: 5, maxWidth: '100%', overflow: 'hidden',height: '100%',maxHeight: '70vh' }}>
+    <Paper sx={{ ml: 0,mt: '20px',mr:0, borderRadius: 5, width: '100%', overflow: 'hidden',height: '100%',maxHeight: '70vh' }}>
       <TableContainer sx={{ maxHeight: '70vh' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>

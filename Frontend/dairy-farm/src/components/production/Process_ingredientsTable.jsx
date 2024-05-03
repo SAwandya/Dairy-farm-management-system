@@ -36,7 +36,7 @@ const CustomTableContainer = styled(TableContainer)({
 
 const StickyHeadTable = () => {
   return (
-    <Paper sx={{ ml:2, mt: '20px', borderRadius: 5, width: '100%', overflow: 'hidden', height: '100%', maxHeight: '70vh' }}>
+    <Paper sx={{ ml:0, mt: '20px', borderRadius: 5, width: '100%', overflow: 'hidden', height: '100%', maxHeight: '70vh' }}>
       <CustomTableContainer sx={{ height: '70vh' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
