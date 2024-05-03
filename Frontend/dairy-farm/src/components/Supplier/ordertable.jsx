@@ -129,9 +129,10 @@ const OrderTable = () => {
     }
 
     try {
+      const { _id, __v, ...updateData } = currentRow;
       const response = await axios.put(
         `http://localhost:3000/api/order/${currentRow._id}`,
-        { ...currentRow, _id: undefined }
+        updateData
       );
       console.log(response.data);
       setOpen(false);
