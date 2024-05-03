@@ -95,6 +95,20 @@ function NewProcessForm({ onSubmitSuccess }) {
     setSuccessMessage('');
     setErrorMessage('');
   };
+  //Validations
+  const isDateInPast = (dateString) => {
+    const selectedDate = new Date(dateString);
+    const currentDate = new Date();
+    // Check if the selected date is less than or equal to the current date
+    return selectedDate < currentDate.setHours(0, 0, 0, 0);
+  };
+  
+
+  const isTimeInPast = (dateString, timeString) => {
+    const selectedDateTime = new Date(`${dateString}T${timeString}`);
+    const currentDateTime = new Date();
+    return selectedDateTime < currentDateTime;
+  };
 
   return (
     <div>
@@ -196,6 +210,8 @@ function NewProcessForm({ onSubmitSuccess }) {
                   type="date"
                   value={scheduleDate}
                   onChange={(e) => setScheduleDate(e.target.value)}
+                  error={scheduleDate && isDateInPast(scheduleDate)}
+                    helperText={scheduleDate && isDateInPast(scheduleDate) ? 'Please select a future date' : ''}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -207,6 +223,8 @@ function NewProcessForm({ onSubmitSuccess }) {
                   type="time"
                   value={scheduleTime}
                   onChange={(e) => setScheduleTime(e.target.value)}
+                  error={isTimeInPast(scheduleDate, scheduleTime)}
+                  helperText={isTimeInPast(scheduleDate, scheduleTime) ? 'Please select a future time' : ''}
                   InputLabelProps={{
                     shrink: true,
                   }}
