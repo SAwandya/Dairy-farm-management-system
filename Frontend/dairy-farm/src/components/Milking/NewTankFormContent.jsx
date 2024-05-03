@@ -84,6 +84,9 @@ const NewTankFormContent = () => {
                             label="Installed Date"
                             type="date"
                             value={installedDate}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             onChange={(e) => setInstalledDate(e.target.value)}
                             fullWidth
                             required
