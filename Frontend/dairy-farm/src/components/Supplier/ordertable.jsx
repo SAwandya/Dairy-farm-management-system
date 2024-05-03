@@ -72,7 +72,7 @@ const OrderTable = () => {
   const fetchOrders = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/order");
-      setOrders(response.data);
+      setOrders(response.data.reverse());
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
