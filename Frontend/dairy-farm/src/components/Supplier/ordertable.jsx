@@ -22,6 +22,8 @@ import axios from "axios";
 import AddOrderDialog from "./AddOrderDialog";
 import UpdateOrderDialog from "./UpdateOrderDialog";
 import { InputLabel } from '@mui/material';
+import TablePagination from '@material-ui/core/TablePagination';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,6 +59,9 @@ const OrderTable = () => {
   const [openAdd, setOpenAdd] = useState(false);
   const [newRow, setNewRow] = useState({});
   const [search, setSearch] = useState("");
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     fetchOrders();
@@ -236,7 +241,7 @@ const OrderTable = () => {
   const validateForm = (row) => {
     let errors = {};
     let isValid = true;
-    // Check for null or empty fields
+
     const requiredFields = [
       "orderType",
       "supplierName",
@@ -255,6 +260,15 @@ const OrderTable = () => {
     });
 
     return { isValid, errors };
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   return (
@@ -309,7 +323,7 @@ const OrderTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredData?.map((row, index) => (
+            {filteredData?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
               <TableRow key={row._id || index} className={classes.row}>
                 <TableCell style={{ display: "none" }}>{row._id}</TableCell>
                 <TableCell>
@@ -345,6 +359,15 @@ const OrderTable = () => {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={filteredData?.length || 0}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
         <AddOrderDialog
           open={openAdd}
           handleClose={handleCloseAdd}

@@ -44,10 +44,10 @@ const ReduceStockForm = () => {
   return (
     <>
       <Button variant="contained" color="primary" onClick={() => setShowForm(true)}>
-        Reduce Stock
+        Get Stocks
       </Button>
       <Dialog open={showForm} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Reduce Stock</DialogTitle>
+        <DialogTitle id="form-dialog-title">Get Stocks</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
