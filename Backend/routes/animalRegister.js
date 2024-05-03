@@ -1,15 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const { veterinary, schema } = require('../models/animalreg'); 
+const { veterinary, Animalschema } = require('../models/animalreg');
+const yup = require('yup');
+
+const animalSchema = yup.object().shape({
+    earTag: yup.string().required(),
+    location: yup.string().required(),
+    gender: yup.string().required(),
+    batch: yup.string().required(),
+    age: yup.string().required(),
+    name: yup.string(),
+    breed: yup.string(),
+    color: yup.string(),
+    birthDate: yup.string(),
+    weight: yup.number(),
+});
 
 // Create and save a new animal
 router.post("/create",  async (req, res) => {
     try {
+        await animalSchema.validate(req.body, { abortEarly: false });
         const cow = new veterinary(req.body);
         const data = await cow.save();
         res.status(201).json({ success: true, message: "Data added successfully", data });
     } catch (error) {
-        res.status(500).json({ message: error.message || "Some error occurred while creating" });
+        if (error.name === 'ValidationError') {
+            const errors = error.inner.map(err => ({ [err.path]: err.message }));
+            res.status(400).json({ success: false, message: "Validation error", errors });
+        } else {
+            res.status(500).json({ message: error.message || "Some error occurred while creating" });
+        }
     }
 });
 
