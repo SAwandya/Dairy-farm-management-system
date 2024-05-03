@@ -58,7 +58,7 @@ const BudgetTable = () => {
 
   return (
     <Container sx={{ textAlign: 'center' }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom style = {{fontWeight: 'bold' }}>
         Budget Overview
       </Typography>
       <Grid container spacing={4} >
