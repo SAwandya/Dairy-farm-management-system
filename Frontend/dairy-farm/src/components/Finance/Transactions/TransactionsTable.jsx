@@ -300,7 +300,6 @@ function formatDate(dateString) {
     message={toastMessage}
     action={null}
     style={{
-    backgroundColor: '#38775B', // Change to your desired background color
     color: '#ffffff', // Change to your desired text color
     backgroundColor: toastMessage === "Please complete all fields." ? '#FF0000' : '#38775B',
   }}
