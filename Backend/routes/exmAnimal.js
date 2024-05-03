@@ -3,35 +3,43 @@ const router = express.Router();
 const Animaldb2 = require('../models/vacAnim');
 const {AnimalRegistry} = require('../models/animalreg');
 const ExamAnim = require('../models/exmAnim');
+const yup = require('yup');
+
+// Define Yup schema for validation
+const examAnimSchema = yup.object().shape({
+    earTag: yup.string().required(),
+    currentStatus: yup.string().required(),
+    exam: yup.string().required(),
+    checkdate: yup.string().required(),
+});
 
 
 // Create and save a new animal
 router.post("/create", async (req, res) => {
     try {
-        if (!req.body) {
-            return res.status(400).send({ success: false, message: "Request body cannot be empty" });
-        }
+        await examAnimSchema.validate(req.body, { abortEarly: false });
 
+        // Create a new examination record instance
         const { earTag, currentStatus, exam, checkdate } = req.body;
-
-        if (!earTag || !currentStatus || !exam || !checkdate ) {
-            return res.status(400).send({ success: false, message: "All fields are required" });
-        }
-
-       
-
-        const cow = new ExamAnim({
+        const examRecord = new ExamAnim({
             earTag,
             currentStatus,
             exam,
             checkdate,
         });
 
-        const data = await cow.save();
+        const data = await examRecord.save();
         res.status(201).send({ success: true, message: "Data added successfully", data });
     } catch (error) {
-        console.error("Error creating animal:", error);
-        res.status(500).send({ success: false, message: "Error occurred while creating", error: error.message });
+        if (error.name === 'ValidationError') {
+            // Handle validation errors
+            const errors = error.inner.map(err => ({ [err.path]: err.message }));
+            res.status(400).json({ success: false, message: "Validation error", errors });
+        } else {
+            // Handle other errors
+            console.error("Error creating animal examination record:", error);
+            res.status(500).json({ success: false, message: "Error occurred while creating", error: error.message });
+        }
     }
 });
 //count female cows
