@@ -129,15 +129,15 @@ function ProductBatchTable() {
      </Grid2>
 
      <Grid2 item sm={1} align="left" sx={{ml:40}}>
-          <Avatar sx={{ bgcolor: 'yellow' }}>.</Avatar>
+          <Avatar sx={{ bgcolor: 'yellow' ,width: 24, height: 24 }}>.</Avatar>
           <div>Sold Out</div>
      </Grid2>
      <Grid2 item sm={1} align="left">
-          <Avatar sx={{ bgcolor: 'blue' }}>.</Avatar>
+          <Avatar sx={{ bgcolor: 'blue',width: 24, height: 24 }}>.</Avatar>
           <div>Released</div>
      </Grid2>
      <Grid2 item sm={1} align="left">
-          <Avatar sx={{ bgcolor: 'grey' }}>.</Avatar>
+          <Avatar sx={{ bgcolor: 'grey' ,width: 24, height: 24}}>.</Avatar>
           <div>In Storage</div>
      </Grid2>
 </Grid2>  
