@@ -21,11 +21,13 @@ function Sidebar() {
   return (
     <Box className="sidebar" sx={{ position: 'fixed', left: 0, top: 0 }}>
       <Box className="sidebar-logo-container">
-        <img
-          className="sidebar-logo"
-          src="../../src/assets/sidebar-logo.png"
-          alt="Logo"
-        />
+        <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <img
+            className="sidebar-logo"
+            src="../../src/assets/sidebar-logo.png"
+            alt="Logo"
+          />
+        </Link>
       </Box>
 
       {/* Navigation links */}
@@ -85,7 +87,7 @@ function Sidebar() {
               onClick={() => handleNavigation("profile")}
             />
           </Link>
-          <Link to="/milkingdashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
             <NavigationLink
               icon={<LogoutIcon />}
               text="Logout"
