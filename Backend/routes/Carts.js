@@ -67,7 +67,6 @@ router.post("/", async (req, res) => {
         );
 
         productbatch = await ProductBatch.findByIdAndUpdate(productbatch._id, {
-          quantity: 0,
           collect: true,
         });
       }
