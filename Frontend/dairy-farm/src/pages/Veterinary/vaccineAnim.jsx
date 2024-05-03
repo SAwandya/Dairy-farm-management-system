@@ -243,7 +243,7 @@ const VaccineAnim = ({ handleClose }) => {
                         </Grid>
                         <Grid item xs={3}>
                             <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
-                                <button className='addbtn' onClick={() => setAddSection(true)} style={{ height: '55px', width: '200px' }}>Add New Animal</button>
+                                <button className='addbtn' onClick={() => setAddSection(true)} style={{ height: '55px', width: '200px',backgroundColor: '#74C6A8',color:'black' }}>Add New Animal</button>
                             </div>
                         </Grid>
 
