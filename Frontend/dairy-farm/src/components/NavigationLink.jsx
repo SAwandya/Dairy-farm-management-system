@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { ListItemButton, ListItemIcon, ListItemText, Box } from '@mui/material';
 import "../styles/milking.css";
 import { css } from "@emotion/react";
 
@@ -25,22 +25,32 @@ function NavigationLink({ icon, text, isActive, onClick }) {
                 marginTop: '8px'
             }}
         >
-            {icon && <ListItemIcon
-                        className='nav-btn-icon'
-                        sx={{
-                            width: '20px',
-                            height: '20px',
-                            color: isActive ? '#000' : '#fff',
-                        }}
-                    >{icon}</ListItemIcon>}
-            <ListItemText
-                className='nav-btn-text'
-                primary={text}
-                sx={{
-                    color: isActive ? '#000' : '#fff',
-                    textAlign: 'center'
-                }}
-            />
+            <Box sx={{ 
+                backgroundColor: isActive ? '#74C6A8' : 'transparent', 
+                borderRadius: '15px', 
+                p: 1, 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center',
+                flexDirection: 'column' 
+            }}>
+                {icon && <ListItemIcon
+                            className='nav-btn-icon'
+                            sx={{
+                                width: '20px',
+                                height: '20px',
+                                color: isActive ? '#000' : '#fff',
+                            }}
+                        >{icon}</ListItemIcon>}
+                <ListItemText
+                    className='nav-btn-text'
+                    primary={text}
+                    sx={{
+                        color: isActive ? '#000' : '#fff',
+                        textAlign: 'center'
+                    }}
+                />
+            </Box>
         </ListItemButton>
     );
 }
