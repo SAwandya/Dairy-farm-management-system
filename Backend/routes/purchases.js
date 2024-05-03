@@ -106,7 +106,44 @@ router.post("/", async (req, res) => {
     },
     { quantity: true }
   );
-  if (!product) return res.status(400).send("Invalide product");
+
+  //automate the re-order process
+
+  if (product) {
+    const productId = req.body.productId;
+
+    let updatedProduct = await Product.findById(productId);
+
+    if (updatedProduct.quantity < 50) {
+      let productbatch = await ProductBatch.findOne({
+        name: updatedProduct.name,
+        variant: updatedProduct.unitOfMeasurement,
+        released: true,
+        collect: false,
+      });
+
+      if (!productbatch) {
+        //send notification to the production
+      } else {
+        updatedProduct = await Product.findByIdAndUpdate(
+          updatedProduct._id,
+          {
+            $inc: { quantity: +productbatch.quantity / 20 },
+          },
+          { quantity: true }
+        );
+
+        productbatch = await ProductBatch.findByIdAndUpdate(productbatch._id, {
+          quantity: 0,
+          collect: true,
+        });
+      }
+    }
+  }else{
+    return res.status(400).send("Invalide product");
+  }
+
+  //================================
 
   let purchase = new Purchase({
     quantity: req.body.quantity,
@@ -122,42 +159,6 @@ router.post("/", async (req, res) => {
   });
 
   purchase = await purchase.save();
-
-  //automate the re-order process
-
-  if (purchase) {
-    const productId = purchase.product._id.toString();
-
-    let updatedProduct = await Product.findById(productId);
-
-    if (updatedProduct.quantity < 50) {
-      let productbatch = await ProductBatch.findOne({
-        name: updatedProduct.name,
-        variant: updatedProduct.unitOfMeasurement,
-        released: true,
-      });
-
-      console.log(productbatch);
-
-      if (!productbatch) {
-        //send notification to the production
-      } else {
-        updatedProduct = await Product.findByIdAndUpdate(
-          updatedProduct._id,
-          {
-            $inc: { quantity: +Math.floor(productbatch.quantity / 20) },
-          },
-          { quantity: true }
-        );
-
-        productbatch = await ProductBatch.findByIdAndUpdate(productbatch._id, {
-          quantity: productbatch.quantity % 20,
-        });
-      }
-    }
-  }
-
-  //================================
 
   res.send(purchase);
 });
