@@ -33,6 +33,7 @@ const cart = require("./routes/Carts");
 const salesDelivery = require("./routes/salesDelivery");
 const inventory = require("./routes/inventory");
 const transaction = require("./routes/transaction");
+const reorderMessage = require("./routes/reorderNotifications");
 
 
 if (!config.get("jwtPrivateKey")) {
@@ -106,6 +107,8 @@ app.use("/api/salesdelivery", salesDelivery);
 app.use("/api/inventory", inventory);
 
 app.use("/api/transaction", transaction);
+
+app.use("/api/reordernotify", reorderMessage);
 
 
 const server = http.createServer(app); // Create an HTTP server using Express app

@@ -31,7 +31,8 @@ const ProductCard = (props) => {
         maxWidth: "100%",
         boxShadow: "lg",
         borderRadius: "20px",
-        height: "376px",
+        height: "400px",
+        marginTop: "20px"
       }}
     >
       <CardOverflow>
@@ -60,6 +61,9 @@ const ProductCard = (props) => {
         <Typography sx={{ fontSize: "28px", fontWeight: "2px" }}>
           {product.name}
         </Typography>
+        <Typography sx={{ fontSize: "18px", fontWeight: "2px" }}>
+          {product.unitOfMeasurement}
+        </Typography>
 
         <Typography
           level="title-lg"
@@ -73,7 +77,7 @@ const ProductCard = (props) => {
           {product.price * 20} LKR
         </Typography>
         <Typography level="body-sm" sx={{ fontSize: "18px", marginTop: "5px" }}>
-          ( <b>{product.quantity} Packs</b> Available in stock)
+          ( <b>{Math.floor(product.quantity)} Packs</b> Available in stock)
         </Typography>
       </CardContent>
       <CardOverflow
