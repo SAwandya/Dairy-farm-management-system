@@ -3,15 +3,13 @@ const mongoose = require('mongoose');
 
 const router = express.Router();
 const { validate, Inventory } = require("../models/inventory");
-const { Item } = require("../models/item");
 
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     let inventory = new Inventory({
-        orderType: req.body.orderType,
-        supplierName: req.body.supplierName,
+        itemName: req.body.itemName,
         quantity: req.body.quantity,
     });
     inventory = await inventory.save();
@@ -20,41 +18,61 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    let inventory = await inventory.find();
-
-    inventory = inventory.map(async inventory => {
-        const item = await Item.findById(inventory.orderType);
-        return {...inventory._doc, item: item};
-    });
-    inventory = await Promise.all(inventory);
-
-    res.send(inventory);
+    try {
+      const inventory = await Inventory.find(); 
+      res.json(inventory);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 router.get('/:id', async (req, res) => {
-    const order = await Order.findById(req.params.id);
-    if (!order) return res.status(404).send('The order with the given ID was not found.');
-    res.send(order);
+    const inventory = await Inventory.findById(req.params.id);
+    if (!inventory) return res.status(404).send('The inventory with the given ID was not found.');
+    res.send(inventory);
 });
 
 router.put('/:id', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const order = await Order.findByIdAndUpdate(req.params.id, {
-        orderType: req.body.orderType,
-        supplierName: req.body.supplierName,
+    const inventory = await Inventory.findByIdAndUpdate(req.params.id, {
+        itemName: req.body.itemName,
+        quantity: req.body.quantity,
     }, { new: true });
 
-    if (!order) return res.status(404).send('The order with the given ID was not found.');
+    if (!inventory) return res.status(404).send('The inventory with the given ID was not found.');
 
-    res.send(order);
+    res.send(inventory);
 });
 
+router.put('/:itemName', async (req, res) => {
+    const { quantity } = req.body;
+    if (typeof quantity !== 'number') {
+      return res.status(400).send('Invalid quantity');
+    }
+  
+    const inventory = await Inventory.findOne({ itemName: req.params.itemName });
+    if (!inventory) {
+      return res.status(404).send('Item not found');
+    }
+  
+    if (inventory.quantity < quantity) {
+      return res.status(400).send('Not enough items in stock');
+    }
+  
+    inventory.quantity -= quantity;
+    inventory.lastUpdated = Date.now();
+    await inventory.save();
+  
+    res.send(inventory);
+  });
+
 router.delete('/:id', async (req, res) => {
-    const order = await Order.findByIdAndDelete(req.params.id);
-    if (!order) return res.status(404).send('The order with the given ID was not found.');
-    res.send(order);
+    const inventory = await Inventory.findByIdAndDelete(req.params.id);
+    if (!inventory) return res.status(404).send('The inventory with the given ID was not found.');
+    res.send(inventory);
 });
 
 module.exports = router;

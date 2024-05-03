@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
-import DonutSmallIcon from "@mui/icons-material/DonutSmall";
-import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
+import Diversity2Icon from '@mui/icons-material/Diversity2';
+import AppRegistrationTwoToneIcon from '@mui/icons-material/AppRegistrationTwoTone';
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -42,7 +42,7 @@ function Sidebar() {
           </Link>
           <Link to="/animalReg" style={{ textDecoration: 'none', color: 'inherit' }}>
             <NavigationLink
-              icon={<AccessTimeFilledIcon />}
+              icon={<AppRegistrationTwoToneIcon/>}
               text="Registry"
               isActive={activeSection === "registry"}
               onClick={() => handleNavigation("registry")}
@@ -50,7 +50,7 @@ function Sidebar() {
           </Link>
           <Link to="/health" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
-            icon={<DonutSmallIcon />}
+            icon={<MedicalInformationIcon />}
             text="Health"
             isActive={activeSection === "health"}
             onClick={() => handleNavigation("health")}
@@ -58,7 +58,7 @@ function Sidebar() {
           </Link>
           <Link to="/breedAnim" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
-            icon={<WaterDropIcon />}
+            icon={<Diversity2Icon/>}
             text="Breeding"
             isActive={activeSection === "breeding"}
             onClick={() => handleNavigation("breeding")}

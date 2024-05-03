@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, CircularProgress } from '@mui/material';
+import { Card, CardContent, Typography, Grid,Container } from '@mui/material';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Dot,ReferenceLine } from 'recharts'; // Import Dot from recharts
 import axios from 'axios';
 
 function SensorDisplay() {
-  const [temperature, setTemperature] = useState(null);
-  const [humidity, setHumidity] = useState(null);
-  const [moisture, setMoisture] = useState(null);
+  const [data, setData] = useState([]);
   const [status, setStatus] = useState('Sensors Inactive!');
-  const [exceedsTempLimit, setExceedsTempLimit] = useState(false);
   const tempLimit = 33;
 
   useEffect(() => {
@@ -15,10 +13,7 @@ function SensorDisplay() {
       try {
         const response = await axios.get('http://localhost:3000/api/temperatureSendRcv/data');
         const { temperature, humidity, moisture } = response.data;
-        setTemperature(temperature);
-        setHumidity(humidity);
-        setMoisture(moisture);
-        setExceedsTempLimit(temperature > tempLimit);
+        setData([...data, { temperature, humidity, moisture }]); // Add new data point
         setStatus('Sensors Active');
       } catch (error) {
         setStatus('Sensors Inactive!');
@@ -31,32 +26,53 @@ function SensorDisplay() {
     return () => clearInterval(intervalId); // Clean up the interval
   }, []);
 
+  // Custom dot component with increased size and stroke
+  const CustomDot = (props) => {
+    const { cx, cy, stroke, payload } = props;
+
+    return (
+      <svg x={cx - 5} y={cy - 5} width={10} height={10} fill={stroke} viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="12" stroke={stroke} strokeWidth="2" fill={stroke} />
+      </svg>
+    );
+  };  
+
+
+  const renderGraphCard = (title, dataKey, color, unit, horizontalLineValue) => (
+  <Card sx={{ width: 350,height:350, margin: '10px', borderRadius: 5, border: '2px solid black' }}>
+    <CardContent>
+      <LineChart width={300} height={250} data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <ReferenceLine y={horizontalLineValue} stroke="black" strokeDasharray="3 3" />
+        <Line type="monotone" dataKey={dataKey} stroke={color} dot={<CustomDot />} />
+      </LineChart>
+      <Typography align="center" variant="h6" component="h2" sx={{ marginTop: '10px', color }}>
+        {title}: {data.length > 0 && data[data.length - 1][dataKey]} {unit}
+      </Typography>
+    </CardContent>
+  </Card>
+);
+
+    
+  
   return (
-    <Card sx={{ maxWidth: 345, margin: '20px', borderRadius: 5, border: '5px solid black' }}>
-      <CardContent>
-        <Typography align="center" variant="h5" component="h2">
-          Sensor Data
-        </Typography>
-        <Typography align="center" variant="h6" component="h2">
-          Temperature: {temperature !== null ? `${temperature.toFixed(1)} °C` : 'N/A'}
-        </Typography>
-        <Typography align="center" variant="h6" component="h2">
-          Humidity: {humidity !== null ? `${humidity.toFixed(1)} %` : 'N/A'}
-        </Typography>
-        <Typography align="center" variant="h6" component="h2">
-          Moisture: {moisture !== null ? `${moisture.toFixed(1)} %` : 'N/A'}
-        </Typography>
-        <Typography align="center" variant="h6" component="h2" sx={{ margin: '10px 0', color: status === 'Sensors Inactive!' ? 'red' : 'gray' }}>
-          Status: {status}
-        </Typography>
-        {exceedsTempLimit && (
-          <Typography align="center" variant="h6" component="h3" sx={{ color: 'red', marginTop: '10px' }}>
-            Temperature exceeds limit!
-          </Typography>
-        )}
-      </CardContent>
-    </Card>
-  );
+    <Container >
+      <Grid container justifyContent="center" spacing={2}sx={{ml:3}}>
+      <Grid item>{renderGraphCard('Temperature', 'temperature', 'red', '°C', 25, 'red')}</Grid>
+<Grid item>{renderGraphCard('Humidity', 'humidity', 'blue', '%', 85, 'blue')}</Grid>
+<Grid item>{renderGraphCard('Moisture', 'moisture', 'green', '%', 15, 'green')}</Grid>
+
+      </Grid>
+      <Typography align="center" variant="h6" component="h2" sx={{ margin: '10px 0', color: status === 'Sensors Inactive!' ? 'red' : 'black' }}>
+        Status: {status}
+      </Typography>
+    </Container>
+  
+  
+);
 }
 
 export default SensorDisplay;

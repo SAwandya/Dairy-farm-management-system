@@ -31,6 +31,7 @@ function TankStatusCard() {
                 sx={{
                     fontSize: '18px',
                     fontWeight: '600',
+                    width: '420px'
                 }}
             >Tank Status</Typography>
             {storageTanks.map(tank => (

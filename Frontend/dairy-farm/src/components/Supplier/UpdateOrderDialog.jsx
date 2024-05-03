@@ -99,13 +99,19 @@ const UpdateOrderDialog = ({
           InputLabelProps={{
             shrink: true,
           }}
+          inputProps={{
+            min: new Date().toISOString().split("T")[0],
+          }}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleUpdate} color="primary">
+        <Button onClick={() => {
+          const { __v, ...updateData } = currentRow;
+          handleUpdate(updateData);
+        }} color="primary">
           Update
         </Button>
       </DialogActions>

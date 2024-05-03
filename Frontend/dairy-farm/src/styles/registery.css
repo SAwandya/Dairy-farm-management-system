@@ -34,10 +34,10 @@ body{
 
 button, .abbbtn {
   border: none;
-  background-color: #31B926;
+  background-color: #00ff1a2b;
   padding: 7px 15px;
   font-size: 15px;
-  color: whitesmoke;
+  color: black;
   border-radius: 10px;
   cursor: pointer;
 }

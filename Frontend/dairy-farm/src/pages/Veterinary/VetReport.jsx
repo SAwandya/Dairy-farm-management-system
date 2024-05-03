@@ -27,7 +27,8 @@ function VetReport() {
                     </div>
                     <DateV />
                 </div>
-                <div style={{ marginTop:"80px", textAlign: 'center' }}>
+                <h3 style={{ marginTop: 40 }}>Reports By Veterinary Management</h3>
+                <div style={{ marginTop:"60px", textAlign: 'center' }}>
                     <BgCard style={{ marginBottom: '20px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <div>

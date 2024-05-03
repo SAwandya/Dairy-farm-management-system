@@ -19,14 +19,15 @@ return (
         <Grid2 item xs={1}sm={1}><ProductionSidebar/></Grid2>
         <Grid2 item xs={10} sx={{ml:3,mr:3,mt:3,}} ><Typography variant="h4" align="center" fontWeight="bold">Product Batches</Typography></Grid2>
       </Grid2>
-      <Grid2 container sx={{ width: '100vw', position: 'relative' }}>
-        <Grid2 item xs={1}sm={1}></Grid2>
-        <Grid2 item xs={10} sx={{ml:3,mr:3,mt:3}}><ProductBatchTable/></Grid2>
+
+      <Grid2 container sx={{ width: '100vw', position: 'relative',ml:12,mt:1}}>
+        <Grid2 item xs={2}sm={1}></Grid2>
+        <Grid2 item xs={10} sx={{ml:0,mr:0}}><ProductBatchTable/></Grid2>
       </Grid2>
 
       
 
-      <Grid2 container sx={{mt:4,ml:50}} >
+      <Grid2 container sx={{mt:2,ml:50,mb:0}} >
       <Grid2 item sm={7} align="right"></Grid2>
         <Grid2 item sm={2} align="right"><ProductBatchForm/></Grid2>
         <Grid2 item sm={2} align="left" sx={{ml:4}}><InventoryReport/></Grid2>

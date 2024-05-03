@@ -25,7 +25,7 @@ function OrdReportDisplay() {
                     <BgCard style={{ marginBottom: '20px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <div>
-                                <p>{new Date().toLocaleDateString()} Order Report</p>
+                                <p>{new Date().toLocaleDateString()} Supplier Report</p>
                             </div>
                             <div style={{ marginLeft: '20px' }}>
                                 <OrderReport />

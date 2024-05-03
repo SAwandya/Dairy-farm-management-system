@@ -33,7 +33,7 @@ function Health() {
                 </div>
                 {!showVaccineAnim && !showExamineAnim &&(
                 <div>
-                    <h4 style={{ marginTop: 40, marginBottom: '20px' }}>Animal List</h4>
+                    <h3 style={{ marginTop: 40, marginBottom: '20px' }}>Animal List</h3>
                     <BgCard>
                     <Tabs handleToggleVaccineAnim={() => setShowVaccineAnim(true)} handleToggleExamAnim={() => setShowExamineAnim(true)} />
                     </BgCard>

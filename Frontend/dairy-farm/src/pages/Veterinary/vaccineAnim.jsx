@@ -9,9 +9,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { TablePagination, Grid } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Cal from '../../components/Veterinary/calander';
-import Swal from 'sweetalert2';
 import axios from 'axios';
-import VaccineAnimrForm from "../../components/Veterinary/vaccineAnim_form"
+import VaccineAnimrForm from "../../components/Veterinary/vaccineAnim_form";
+import { ToastContainer, toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import 'react-toastify/dist/ReactToastify.css';
 
 const VaccineAnim = ({ handleClose }) => {
     const [addSection, setAddSection] = useState(false);
@@ -38,7 +40,6 @@ const VaccineAnim = ({ handleClose }) => {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDateData, setSelectedDateData] = useState([]);
-    
 
     const handleOnChange = (e) => {
         if (e.target) {
@@ -50,20 +51,12 @@ const VaccineAnim = ({ handleClose }) => {
         }
     };
 
-    
-
     const handleSubmit = async (formData) => {
         try {
             const data = await axios.post("http://localhost:3000/api/vacAnim/create", formData);
             if (data.data.success) {
                 setAddSection(false);
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Successfully added",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                toast.success("Successfully added");
                 getFetchData();
                 setFormData({
                     earTag: "",
@@ -76,11 +69,7 @@ const VaccineAnim = ({ handleClose }) => {
             }
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message === "Ear tag does not exist") {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Ear tag doesn't exist"
-                });
+                toast.error("Ear tag doesn't exist");
             } else {
                 console.error("Error adding animal:", error);
                 alert("Error adding animal. Please try again later.");
@@ -146,12 +135,7 @@ const VaccineAnim = ({ handleClose }) => {
             const response = await axios.put(`http://localhost:3000/api/vacAnim/update/${formDataEdit._id}`, formDataEdit);
             if (response.data.success) {
                 getFetchData();
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Updated Successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                toast.success("Data Updated Successfully");
                 setEditSection(false);
             }
         } catch (error) {
@@ -180,10 +164,10 @@ const VaccineAnim = ({ handleClose }) => {
             alert("Error fetching animal data. Please try again later.");
         }
     };
+
     const handleNextDateData = (data) => {
-        // Handle the received data here
         console.log("Data received from Calendar component:", data);
-      };
+    };
 
     const headers = [
         "Ear Tag",
@@ -199,7 +183,6 @@ const VaccineAnim = ({ handleClose }) => {
         return Object.values(item).some(val => String(val).toLowerCase().includes(searchTerm.toLowerCase()));
     });
 
-
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
@@ -208,10 +191,9 @@ const VaccineAnim = ({ handleClose }) => {
         setPage(newPage);
     };
 
-
     return (
         <div style={{ display: 'flex', height: '100vh' }}>
-
+            <ToastContainer />
             <div style={{
                 flex: 1,
                 padding: '10px',
@@ -228,7 +210,6 @@ const VaccineAnim = ({ handleClose }) => {
                             <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
                                 <TextField
                                     onChange={(event) => {
-                                        console.log("Search Term:", event.target.value);
                                         setSearchTerm(event.target.value);
                                     }}
                                     placeholder="Search..."
@@ -243,13 +224,10 @@ const VaccineAnim = ({ handleClose }) => {
                         </Grid>
                         <Grid item xs={3}>
                             <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
-                                <button className='addbtn' onClick={() => setAddSection(true)} style={{ height: '55px', width: '200px' }}>Add New Animal</button>
+                                <button className='addbtn' onClick={() => setAddSection(true)} style={{ height: '55px', width: '200px', backgroundColor: '#00ff1a2b', color: 'black', fontWeight: 'bold' }}>Add New Animal</button>
                             </div>
                         </Grid>
-
-
                     </Grid>
-
                 )}
                 {!addSection && !editSection && (
                     <div>
@@ -321,8 +299,6 @@ const VaccineAnim = ({ handleClose }) => {
                         />
                     </div>
                 )}
-
-
             </div>
         </div>
     );

@@ -28,11 +28,12 @@ function BreedPage() {
                     <DateV />
                 </div>
                 
-                <h4 style={{ marginTop: 20, marginBottom: '20px' }}>Pregnant Cow List</h4>
-                <BgCard>
+                <h3 style={{ marginTop: 20, marginBottom: '20px' }}>Pregnant Cow List</h3>
+                <div style={{marginLeft:120}}>
                     <BreedingCards/>
-                </BgCard>
-                <h4 style={{ marginTop: 40, marginBottom: '20px' }}>Pregnancy Cycle Track</h4>
+                </div>
+               
+                <h3 style={{ marginTop: 40, marginBottom: '20px' }}>Pregnancy Cycle Track</h3>
                 <div style={{ marginTop: '100px',fontFamily: 'Poppins, sans-serif' }}>
                 <FemaleCowTable/>
                 </div>

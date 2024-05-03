@@ -20,7 +20,7 @@ const vaccineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) =>
 
   // Set date limits
   const currentDate = new Date().toISOString().split('T')[0];
-  const minDate = new Date(new Date().setDate(new Date().getDate() - 14))
+  const minDate = new Date(new Date().setDate(new Date().getDate() - 30))
     .toISOString()
     .split('T')[0];
 
@@ -39,7 +39,7 @@ const vaccineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) =>
     // Check for required fields
     const requiredFields = ['earTag', 'status', 'vaccine', 'age'];
     requiredFields.forEach((field) => {
-      if (fieldName && field !== fieldName) return; // Validate only the specified field
+      if (fieldName && field !== fieldName) return; 
       if (!rest[field]) {
         errors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required.`;
         isValid = false;
@@ -91,7 +91,7 @@ const vaccineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) =>
     }
   };
 
-  // Handle validation on blur
+  // Handle validation 
   const handleOnBlur = (e) => {
     const fieldName = e.target.name;
     if (fieldName) {

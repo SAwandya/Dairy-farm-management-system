@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/registery.css';
 import '../../styles/main.css';
-import Swal from 'sweetalert2';
 import axios from "axios";
-import IconButton from '@mui/material/IconButton';
+import { IconButton, Grid } from '@mui/material'; 
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
 import RegisterForm from '../../components/Veterinary/register_form';
 import Sidebar from '../../components/Veterinary/vetNav';
 import DateV from '../../components/Veterinary/DateV';
 import CustomizedTables from '../../components/Veterinary/table';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TablePagination, Grid } from '@mui/material'; 
-import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
+import { TablePagination } from '@mui/material'; 
 
 function AnimalRegistry() {
     const [addSection, setAddSection] = useState(false);
@@ -62,13 +64,7 @@ function AnimalRegistry() {
             const data = await axios.post("http://localhost:3000/api/animalReg/create", formData);
             if (data.data.success) {
                 setAddSection(false);
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Successfuly added",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                toast.success("Successfully added");
                 getFetchData();
                 setFormData({
                     earTag: "",
@@ -146,13 +142,8 @@ function AnimalRegistry() {
         try {
             const response = await axios.put(`http://localhost:3000/api/animalReg/update/${formDataEdit._id}`, formDataEdit);
             if (response.data.success) {
+                toast.success("Data Updated Successfully");
                 getFetchData();
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Updated Successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
                 setEditSection(false);
             }
         } catch (error) {
@@ -236,6 +227,7 @@ function AnimalRegistry() {
                     </div>
                     <DateV />
                 </div>
+                <ToastContainer />
                 {!addSection && !editSection && (
                 <Grid container spacing={2} style={{marginLeft:'740px'}}>
                 <Grid item xs={3}>
@@ -257,7 +249,7 @@ function AnimalRegistry() {
                     </Grid>
                     <Grid item xs={3}>
                     <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
-                    <button className='addbtn' onClick={() => setAddSection(true)} style={{ height: '55px',width: '200px' }}>Add New Animal</button>
+                    <button className='addbtn' onClick={() => setAddSection(true)} style={{ height: '55px',width: '200px', backgroundColor: '#00ff1a2b',color:'black',fontWeight: 'bold' }}>Add New Animal</button>
                     </div>
                     </Grid>
                 </Grid>

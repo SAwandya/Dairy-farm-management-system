@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Typography, Paper, Grid, LinearProgress, Button, Tooltip, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Slider, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { green } from "@mui/material/colors";
+import axios from "axios";
 
 const departments = [
   "Veterinary",
@@ -15,85 +16,122 @@ const departments = [
   "Miscellaneous"
 ];
 
-// Sample data for demonstration (values multiplied by 10x)
-const departmentBudgets = {
-  Veterinary: { budget: 100000, used: 80000 },
-  Milking: { budget: 20000, used: 12000 },
-  Grazing: { budget: 15000, used: 10000 },
-  Production: { budget: 30000, used: 29000 },
-  HR: { budget: 25000, used: 20000 },
-  CRM: { budget: 20000, used: 15000 },
-  Sales: { budget: 35000, used: 2000 },
-  Finance: { budget: 40000, used: 22000 },
-  Miscellaneous: { budget: 20000, used: 15000 }
+// Define initial budget values
+const initialDepartmentBudgets = {
+  Veterinary: 10000,
+  Milking: 20000,
+  Grazing: 15000,
+  Production: 30000,
+  HR: 25000,
+  CRM: 20000,
+  Sales: 35000,
+  Finance: 40000,
+  Miscellaneous: 20000
+};
+const UsedBudgets = {
+  Veterinary: 5000,
+  Milking: 2500,
+  Grazing: 3000,
+  Production: 4000,
+  HR: 2000,
+  CRM: 1500,
+  Sales: 3000,
+  Finance: 4500,
+  Miscellaneous: 2000
 };
 
 const BudgetTable = () => {
   const [open, setOpen] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [newBudget, setNewBudget] = useState("");
+  const [newBudget, setNewBudget] = useState(0);
   const [sliderValue, setSliderValue] = useState(0);
+  const [departmentBudgets, setDepartmentBudgets] = useState(() => {
+    const storedBudgets = localStorage.getItem("departmentBudgets");
+    return storedBudgets ? JSON.parse(storedBudgets) : initialDepartmentBudgets;
+  });
+  const [departmentExpenses, setDepartmentExpenses] = useState({});
+
+  useEffect(() => {
+    const fetchExpenses = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/transactions/total-expenses");
+        setDepartmentExpenses(response.data);
+      } catch (error) {
+        console.error("Error fetching department expenses:", error);
+      }
+    };
+
+    fetchExpenses();
+  }, []);
+
+  useEffect(() => {
+    // Update local storage whenever departmentBudgets change
+    localStorage.setItem("departmentBudgets", JSON.stringify(departmentBudgets));
+  }, [departmentBudgets]);
 
   const handleEditOpen = (department) => {
     setSelectedDepartment(department);
     setOpen(true);
-    setNewBudget(departmentBudgets[department].budget);
-    setSliderValue(departmentBudgets[department].budget);
+    setNewBudget(departmentBudgets[department]);
+    setSliderValue(departmentBudgets[department]);
   };
 
   const handleEditClose = () => {
     setOpen(false);
   };
 
-  const handleBudgetChange = (event, newValue) => {
-    setSliderValue(newValue);
-    setNewBudget(newValue);
+  const handleBudgetChange = (event) => {
+    const value = parseInt(event.target.value);
+    setNewBudget(value);
+    setSliderValue(value);
   };
 
   const handleSaveBudget = () => {
-    // Implement save functionality
-    console.log(`New budget for ${selectedDepartment}: ${newBudget}`);
+    setDepartmentBudgets(prevBudgets => ({
+      ...prevBudgets,
+      [selectedDepartment]: newBudget
+    }));
     setOpen(false);
   };
 
   return (
-    <Container sx={{ textAlign: 'center' }}>
-      <Typography variant="h4" gutterBottom>
+    <Container sx={{ textAlign: 'center', marginLeft: '15%'}}>
+      <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold' }}>
         Budget Overview
       </Typography>
-      <Grid container spacing={4} >
+      <Grid container spacing={4}>
         {departments.map((department) => (
           <Grid item xs={12} md={6} lg={4} key={department}>
-            <Paper sx={{ padding: 2, backgroundColor: '#E3F6EF'}}>
+            <Paper sx={{ padding: 2, backgroundColor: '#E3F6EF' }}>
               <Typography variant="h6" gutterBottom >
                 {department}
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Budget: LKR {(departmentBudgets[department].budget * 10).toLocaleString()}
+                Total Budget: LKR {(departmentBudgets[department] ).toLocaleString()}
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Used: LKR {(departmentBudgets[department].used * 10).toLocaleString()} 
+                Used Budget: LKR {(UsedBudgets[department] || 0).toLocaleString()}
               </Typography>
-              <Tooltip title={`Used: ${Math.round((departmentBudgets[department].used / departmentBudgets[department].budget) * 100)}%`} arrow>
+              <Tooltip title={`Used: ${Math.round(((UsedBudgets[department] || 0) / departmentBudgets[department]) * 100)}%`} arrow>
                 <LinearProgress
                   variant="determinate"
-                  value={(departmentBudgets[department].used / departmentBudgets[department].budget) * 100}
+                  value={Math.min(((UsedBudgets[department] || 0) / departmentBudgets[department]) * 100, 100)}
                   sx={{ height: 20, marginBottom: 2 }}
                 />
               </Tooltip>
               <Box display="flex" justifyContent="space-between" alignItems="center" >
-                <Button 
+                <Button
                   onClick={() => handleEditOpen(department)}
                   variant="outlined"
-                    sx={{
-                          marginLeft: 1,
-                          color: 'white', 
-                          borderColor: 'green', 
-                          backgroundColor: '#38775B', 
-                          '&:hover': {
-                            backgroundColor: '#45926F', 
-                          }
-                        }}
+                  sx={{
+                    marginLeft: 1,
+                    color: 'white',
+                    borderColor: 'green',
+                    backgroundColor: '#38775B',
+                    '&:hover': {
+                      backgroundColor: '#45926F',
+                    }
+                  }}
                 >
                   Edit
                 </Button>
@@ -101,17 +139,17 @@ const BudgetTable = () => {
                   component={Link}
                   to={`/department-transactions/${department}`}
                   variant="outlined"
-                    sx={{
-                        marginLeft: 1,
-                        color: 'white', 
-                        borderColor: 'green', 
-                        backgroundColor: '#38775B', 
-                        '&:hover': {
-                          backgroundColor: '#45926F', 
-                        }
-                      }}                >
-                  <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit',  }}>
-                  View Transactions
+                  sx={{
+                    marginLeft: 1,
+                    color: 'white',
+                    borderColor: 'green',
+                    backgroundColor: '#38775B',
+                    '&:hover': {
+                      backgroundColor: '#45926F',
+                    }
+                  }}                >
+                  <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit', }}>
+                    View Transactions
                   </Link>
                 </Button>
               </Box>
@@ -119,20 +157,17 @@ const BudgetTable = () => {
           </Grid>
         ))}
       </Grid>
-      <Dialog open={open} onClose={handleEditClose}>
+      <Dialog open={open} onClose={handleEditClose} >
         <DialogTitle> Edit Budget</DialogTitle>
         <DialogContent>
-          <Box mb={2}>
-            <Typography variant="body1" gutterBottom>
-              Current Budget: LKR {(newBudget * 10).toLocaleString()}
-            </Typography>
-            <Slider
-              value={sliderValue}
+          <Box mb={2} sx={{ marginTop: '5px'}}>
+            <TextField
+              type="number"
+              value={newBudget}
               onChange={handleBudgetChange}
-              min={0}
-              max={1000000}
-              step={1000}
-              aria-labelledby="continuous-slider"
+              fullWidth
+              label="New Budget (LKR)"
+              variant="outlined"
             />
           </Box>
         </DialogContent>

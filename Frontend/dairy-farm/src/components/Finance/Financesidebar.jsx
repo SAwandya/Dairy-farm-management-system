@@ -51,17 +51,19 @@ function Sidebar() {
                         onClick={() => handleNavigation('budgets')}
                     />
                     </Link>
-                    <NavigationLink
+                    <Link to="/financereport" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <NavigationLink 
                         icon={<AssessmentIcon />}
                         text="Reports"
                         isActive={activeSection === 'reports'}
                         onClick={() => handleNavigation('reports')}
                     />
+                    </Link>
                 </List>
                 </Box>
 
             {/* Profile and Logout */}
-            <Box className="user-actions">
+            <Box className="user-actions" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
                 <List>
                     <Link to="/financeprofile" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <NavigationLink

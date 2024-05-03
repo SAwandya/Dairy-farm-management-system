@@ -11,9 +11,9 @@ function InventoryContent() {
         <Box className="dashboard-content-supply">
             <Welcome/>
 
-            {/* <Box className="dashboard-content-supply">
+            <Box className="dashboard-content-supply">
                 <InventoryChart/>
-            </Box> */}
+            </Box>
             
             <Box className="dashboard-content-supply">
                 <Inventory/>

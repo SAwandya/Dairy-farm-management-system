@@ -8,17 +8,31 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function CustomCard(props) {
-    const { title, data,data1, imgs, onEdit, onDelete } = props;
+    const { title, data, data1, imgs, onEdit, onDelete } = props;
 
     return (
-        <Card sx={{ height:250, width: 350, borderRadius: 5, backgroundColor: '#00ff1a2b', position: 'relative' }}>
-            <CardContent sx={{marginTop:'20px'}}>
+        <Card sx={{
+            height: 250,
+            width: 350,
+            borderRadius: 5,
+            backgroundColor: '#00ff1a2b',
+            position: 'relative',
+            transition: 'box-shadow 0.3s',
+            '&:hover': {
+                boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)' 
+            }
+        }}>
+            <CardContent sx={{
+                marginTop: '20px',
+                '&:hover': {
+                    cursor: 'pointer', 
+                }
+            }}>
                 <Typography>
-                <img src={imgs} style={{ height: '75px', float: 'right' }} />
+                    <img src={imgs} style={{ height: '75px', float: 'right' }} alt="Thumbnail" />
                 </Typography>
-                <Typography sx={{ fontSize: 24, fontFamily: 'Poppins, sans-serif',marginTop:'20px' }} color="#000000" gutterBottom>
+                <Typography sx={{ fontSize: 24, fontFamily: 'Poppins, sans-serif', marginTop: '20px' }} color="#000000" gutterBottom>
                     {title}
-                   
                 </Typography>
 
                 <Typography sx={{ mb: 1.5, fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize: 20 }} color="text.secondary">

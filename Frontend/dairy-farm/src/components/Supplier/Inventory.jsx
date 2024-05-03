@@ -8,6 +8,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import  { useState, useEffect } from 'react';
 import Button from "@material-ui/core/Button";
+import ReduceStockForm from './ReduceStockForm';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +38,8 @@ const Inventory = () => {
   const classes = useStyles();
   const { data: pendingOrders, isLoading } = useGetPendingOrders();
   const updateOrderStatus = useUpdateOrderStatus();
+  const { data: lowStockItems } = useGetLowStockItems();
+
 
   
 
@@ -44,38 +48,80 @@ const Inventory = () => {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Item</TableCell>
-            <TableCell>Quantity</TableCell>
-            <TableCell>Supplier</TableCell>
-            <TableCell>Approve Order</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {pendingOrders && pendingOrders.map(order => {
-            return (
-              <TableRow key={order._id}>
-                <TableCell>{order.item.itemName}</TableCell>
-                <TableCell>{order.quantity}</TableCell>
-                <TableCell>{order.supplierName}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => updateOrderStatus.mutate(order._id)}
-                  >
-                    Approve Order
-                  </Button>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+    <div>
+      <div>
+        <h2>Pending Orders</h2>
+        <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Item</TableCell>
+              <TableCell>Quantity</TableCell>
+              <TableCell>Supplier</TableCell>
+              <TableCell>Approve Order</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {pendingOrders && pendingOrders.map(order => {
+              return (
+                <TableRow key={order._id}>
+                  <TableCell>{order.item.itemName}</TableCell>
+                  <TableCell>{order.quantity}</TableCell>
+                  <TableCell>{order.supplierName}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => updateOrderStatus.mutate(order._id)}
+                    >
+                      Approve Order
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
     </TableContainer>
+      </div>
+      <div>
+        <ReduceStockForm />
+      </div>
+      <div>
+        {lowStockItems && lowStockItems.length > 0 && (
+          <div>
+            <br/>
+            <h2>Low Stocks Items</h2>
+            <TableContainer component={Paper}>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Item</TableCell>
+                    <TableCell>Current Quantity</TableCell>
+                    <TableCell>Reorder</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {lowStockItems.map(item => (
+                    <TableRow key={item._id}>
+                      <TableCell>{item.itemName}</TableCell>
+                      <TableCell>{item.quantity}</TableCell>
+                      <TableCell>
+                        <Button variant="contained" color="primary" component={Link} to="/order">
+                          Reorder Stocks
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        )}
+      </div>
+    </div>
+
+
   );
 };
 
@@ -97,44 +143,73 @@ function useUpdateOrderStatus() {
   return useMutation({
     queryKey: ["pendingOrders"],
     mutationFn: async (orderId) => {
-      const orderResponse = await fetch(`http://localhost:3000/api/order/${orderId}`);
-      const order = await orderResponse.json();
+      try {
+        const orderResponse = await fetch(`http://localhost:3000/api/order/${orderId}`);
+        const order = await orderResponse.json();
 
-      const { _id, __v, ...orderFields } = order;
+        const { _id, __v, ...orderFields } = order;
 
-      const response = await fetch(
-        `http://localhost:3000/api/order/${orderId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ 
-            ...orderFields, 
-            orderStatus: "Received" 
-          }),
-        }
-      );
+        const itemResponse = await fetch(`http://localhost:3000/api/item/${order.orderType}`);
+        const item = await itemResponse.json();
 
-      const inventoryResponse = await fetch(
-        `http://localhost:3000/api/inventory`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            orderType: orderFields.orderType,
-            supplierName: orderFields.supplierName,
-            quantity: orderFields.quantity
-         }),
-        }
-      );
+        const response = await fetch(
+          `http://localhost:3000/api/order/${orderId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ 
+              ...orderFields, 
+              orderStatus: "Received" 
+            }),
+          }
+        );
 
-      return response.json();
+        const inventoryResponse = await fetch(
+          `http://localhost:3000/api/inventory`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              itemName: item.itemName,
+              quantity: orderFields.quantity
+            }),
+          }
+        );
+
+        return response.json();
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries('pendingOrders');
     },
+  });
+}
+
+function useGetLowStockItems() {
+  return useQuery({
+    queryKey: ["lowStockItems"],
+    queryFn: async () => {
+      const response = await fetch("http://localhost:3000/api/inventory");
+      const data = await response.json();
+
+      const aggregatedData = data.reduce((acc, item) => {
+        if (acc[item.itemName]) {
+          acc[item.itemName].quantity += item.quantity;
+        } else {
+          acc[item.itemName] = { ...item };
+        }
+        return acc;
+      }, {});
+
+      return Object.values(aggregatedData).filter(item => item.quantity < 200 && item.quantity > 0);
+    },
+    refetchOnWindowFocus: false,
   });
 }

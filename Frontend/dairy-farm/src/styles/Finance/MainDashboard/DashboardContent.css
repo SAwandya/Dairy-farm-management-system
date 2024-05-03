@@ -32,7 +32,7 @@
     z-index: 100;
 }
 
-.tableContainer {
+.tablContainer {
     width: 100%;
     margin-top: 20px;
     overflow-x: auto;
@@ -44,4 +44,10 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: center;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

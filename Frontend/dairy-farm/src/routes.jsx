@@ -20,6 +20,7 @@ import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
 import FinanceTransactions from "./pages/Finance/FinanceTransactions";
 import FinanceBudgets from "./pages/Finance/FinanceBudgets";
 import FinanceProfile from "./pages/Finance/FinanceProfile";
+import FinanceReport from "./pages/Finance/FinanceReport";
 
 //Production Management - Pages
 import ProductionDashboard from "./pages/Production/ProductionDashboard";
@@ -27,7 +28,7 @@ import ProcessPlanning from "./pages/Production/ProcessPlanning";
 import StorageRoom from "./pages/Production/StorageRoom"
 import ProductInventory from "./pages/Production/ProductInventory";
 import ProductionProfile from "./pages/Production/ProductionProfile";
-import QualityControll from "./pages/Production/QualityControll";
+import Hydroponic from "./pages/Production/Hydroponic";
 
 
 //Milking Management - Pages
@@ -65,7 +66,7 @@ import EmployeeR from "./pages/Employees/EmployeeR";
 import EProfile from "./pages/Employees/EProfile"
 import LeaveForm from "./pages/Employees/LeaveForm"
 import LeaveDetails from "./pages/Employees/LeaveDetails";
-
+import MyComponent from "./pages/Employees/MyComponent"
 //Supplier Management
 import SupProfile from "./pages/Supplier/supProfile";
 import SupplierOrder from "./pages/Supplier/SupplierOrder";
@@ -272,6 +273,10 @@ const router = createBrowserRouter([
     path: "/financebud",
     element: <FinanceBudgets />,
   },
+    {
+    path: "/financereport",
+    element: <FinanceReport />,
+  },
 
   { path: "/homeM", element: <HomePageM />},
 
@@ -281,7 +286,7 @@ const router = createBrowserRouter([
   { path: "/StorageRoom", element: <StorageRoom /> } ,  
   { path: "/ProductInventory", element: <ProductInventory/> },
   { path: "/ProductionProfile", element: <ProductionProfile/>},
-  { path: "/QualityControll", element: <QualityControll/>},
+  { path: "/Hydroponic", element: <Hydroponic/>},
 
 
   {
@@ -367,6 +372,10 @@ const router = createBrowserRouter([
   {
     path: "/leavedetails",
     element: <LeaveDetails />,
+  },
+  {
+    path: "/attendance",
+    element: <MyComponent />,
   },
   {
     path: "/supProfile",

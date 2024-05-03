@@ -82,7 +82,7 @@ const RegisterForm = ({ handleSubmit, handleOnChange, handleClose, rest }) => {
     }
   };
 
-  // Handle validation on blur
+  // Handle validation 
   const handleOnBlur = (e) => {
     const fieldName = e.target.name;
     validateForm(fieldName);

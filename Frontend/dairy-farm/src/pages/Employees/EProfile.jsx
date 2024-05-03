@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Box, Button, Popover, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import disara from '../../assets/disara.png';
 import Esidebar from "../../components/Employees/esidebar";
+//import LeaveForm from "../../pages/Employees/LeaveForm"; // Import LeaveForm component
+import LeaveForm from "../../components/Employees/leaveform"
 const EProfile = () => {
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null); // State for anchor element of popover
 
-  const handleLeave = () => {
-    // Navigate to the leave form with the employeeId as a parameter in the URL
-    navigate(`/leaveform`);
+  const handleLeave = (event) => {
+    setAnchorEl(event.currentTarget); // Set anchor element when the button is clicked
   };
+
+  const handleClose = () => {
+    setAnchorEl(null); // Close popover
+  };
+
+  const open = Boolean(anchorEl); // Check if popover is open
 
   const details = [
     { label: 'Name', value: 'Disara' },
@@ -23,9 +31,9 @@ const EProfile = () => {
   ];
 
   return (
-    <div style={{ display: 'flex', minWidth: '1036px',overflow: 'hidden'  }}>
-    <Esidebar/>
-    <Container>
+    <div style={{ display: 'flex', minWidth: '1036px', overflow: 'hidden' }}>
+      <Esidebar />
+      <Container>
         <Box
           style={{
             background: 'white',
@@ -49,9 +57,9 @@ const EProfile = () => {
                 fontSize: '32px',
               }}
             >
-            Hello, Miss Disara!
-          </Typography>
-          <Typography
+              Hello, Miss Disara!
+            </Typography>
+            <Typography
               variant="h5"
               style={{
                 marginBottom: '16px',
@@ -80,7 +88,7 @@ const EProfile = () => {
                       variant="h6"
                       style={{
                         color: '#252B48',
-                        marginLeft:'120px',
+                        marginLeft: '120px',
                         fontSize: '20px',
                         fontWeight: 'bold',
                         fontFamily: 'Poppins',
@@ -108,16 +116,34 @@ const EProfile = () => {
             variant="contained"
             style={{
               marginTop: '16px',
-              backgroundColor: '#38775B', 
-              color: '#ffffff', 
+              backgroundColor: '#38775B',
+              color: '#ffffff',
             }}
             onClick={handleLeave}
           >
             Take a Leave
           </Button>
+          <Popover
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Box>
+              <LeaveForm /> {/* Render LeaveForm component inside the Popover */}
+            </Box>
+          </Popover>
         </Box>
       </Container>
     </div>
   );
 };
+
 export default EProfile;

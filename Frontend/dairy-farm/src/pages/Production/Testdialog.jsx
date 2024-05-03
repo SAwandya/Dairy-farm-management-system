@@ -41,6 +41,7 @@ function NewProcessForm({ onSubmitSuccess }) {
   const handleCancelConfirmation = (confirmed) => {
     setShowCancelConfirmation(false);
     if (confirmed) {
+      resetFields();
       setOpen(false);
     }
   };
@@ -63,6 +64,14 @@ function NewProcessForm({ onSubmitSuccess }) {
       handleFormSubmitSuccess();
       setSuccessMessage('Form submitted successfully');
       // Reset form fields after successful submission
+      resetFields();
+    } catch (error) {
+      console.error('Failed to submit form data:', error);
+      setErrorMessage('Failed to submit form data');
+    }
+  };
+
+  function resetFields(){
       setProduct('');
       setMilkQuantity(0);
       setIngredients([]);
@@ -71,11 +80,7 @@ function NewProcessForm({ onSubmitSuccess }) {
       setScheduleTime('');
       setStatus('started'); // Reset status to 'started'
       setIsScheduled(false); // Reset scheduling checkbox
-    } catch (error) {
-      console.error('Failed to submit form data:', error);
-      setErrorMessage('Failed to submit form data');
-    }
-  };
+  }
 
   const submitFormToDatabase = async (formData) => {
     try {
@@ -90,6 +95,18 @@ function NewProcessForm({ onSubmitSuccess }) {
     setSuccessMessage('');
     setErrorMessage('');
   };
+  //Validations
+  const isDateInPast = (dateString) => {
+    const selectedDate = new Date(dateString);
+    const currentDate = new Date();
+    // Check if the selected date is less than or equal to the current date
+    return selectedDate < currentDate.setHours(0, 0, 0, 0);
+  };
+  const isTimeInPast = (dateString, timeString) => {
+    const selectedDateTime = new Date(`${dateString}T${timeString}`);
+    const currentDateTime = new Date();
+    return selectedDateTime < currentDateTime;
+  };
 
   return (
     <div>
@@ -101,17 +118,18 @@ function NewProcessForm({ onSubmitSuccess }) {
         <Dialog open={open} onClose={handleClose}
 
           sx={{
-            width: '27.6%',
+            width: '27.6%', height: '90%',
             
             '& .MuiBackdrop-root': {
               backgroundColor: 'transparent',
               position: 'absolute',
             }
 
-          }} style={{ left: '36.8%', right: '37%', top: '6.3%',   }}
+          }} style={{ left: '12.4%', right: '0%', top: '8.5%',   }}
 
         >
-              <Box  sx={{backgroundColor: '#F0F0F0', borderBottomLeftRadius:20,borderBottomRightRadius:20}} >
+              <Box  sx={{backgroundColor: '#FF', borderBottomLeftRadius:20,borderBottomRightRadius:20,
+             border: '3px solid #395e99' }} >
           <DialogTitle align="center" fontWeight="bold">Add New Process</DialogTitle>
           <DialogContent >
             <FormControl fullWidth margin="normal">
@@ -190,6 +208,8 @@ function NewProcessForm({ onSubmitSuccess }) {
                   type="date"
                   value={scheduleDate}
                   onChange={(e) => setScheduleDate(e.target.value)}
+                  error={scheduleDate && isDateInPast(scheduleDate)}
+                    helperText={scheduleDate && isDateInPast(scheduleDate) ? 'Please select a future date' : ''}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -201,6 +221,8 @@ function NewProcessForm({ onSubmitSuccess }) {
                   type="time"
                   value={scheduleTime}
                   onChange={(e) => setScheduleTime(e.target.value)}
+                  error={isTimeInPast(scheduleDate, scheduleTime)}
+                  helperText={isTimeInPast(scheduleDate, scheduleTime) ? 'Please select a future time' : ''}
                   InputLabelProps={{
                     shrink: true,
                   }}
