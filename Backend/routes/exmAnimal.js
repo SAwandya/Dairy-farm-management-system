@@ -19,7 +19,7 @@ router.post("/create", async (req, res) => {
     try {
         await examAnimSchema.validate(req.body, { abortEarly: false });
 
-        // Create a new examination record instance
+       
         const { earTag, currentStatus, exam, checkdate } = req.body;
         const examRecord = new ExamAnim({
             earTag,
