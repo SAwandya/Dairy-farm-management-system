@@ -9,9 +9,13 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Esidebar from "../../components/Employees/esidebar";
-
+import BgCards from "../../components/Employees/bgcards";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 function LeaveDetails() {
     const [leaves, setLeaves] = useState([]);
+    const [totalLeaves, setTotalLeaves] = useState(0);
     const [nextLeaveId, setNextLeaveId] = useState(1);
     const [leaveId, setLeaveId] = useState(null);
     const [newStatus, setNewStatus] = useState('');
@@ -39,6 +43,8 @@ function LeaveDetails() {
         mergedLeaves.push(...databaseLeaves);
         return mergedLeaves;
     };
+
+// Inside the component return statement
 
     const staticLeaves = [
         {
@@ -137,6 +143,41 @@ function LeaveDetails() {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
+                <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-15rem',marginTop:'10px'}}>
+                    <BgCards>
+                        <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                            Total Employees
+                            <IconButton size="small" color="inherit">
+                                <AccountCircleIcon />
+                            </IconButton>
+                        </Typography>
+                        <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
+                      10
+                        </Typography>
+                    </BgCards>
+                    <BgCards>
+                        <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                            Completed Tasks
+                            <IconButton size="small" color="inherit">
+                                <AssignmentIcon />
+                            </IconButton>
+                        </Typography>
+                        <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
+                            25
+                        </Typography>
+                    </BgCards>
+                    <BgCards>
+                        <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold',  fontFamily: 'Poppins'}}>
+                            Total Hours
+                            <IconButton size="small" color="inherit" >
+                                <AccessTimeIcon />
+                            </IconButton>
+                        </Typography>
+                        <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
+                            10 hours
+                        </Typography>
+                    </BgCards>
+                </Box>
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '25px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                 Leave Details
             </Typography>
@@ -155,7 +196,7 @@ function LeaveDetails() {
                      <Button
                     variant="text"
                     onClick={() => setShowTable1(!showTable1)}
-                    sx={{ position: 'absolute', top: 160, right: 280 }}
+                    sx={{ position: 'absolute', top: 30, right: 280 }}
                 >
                    Leave Summary
                 </Button>

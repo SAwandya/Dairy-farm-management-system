@@ -2,6 +2,11 @@ const express = require('express');
 const EmployeeModel = require('../models/Employees');
 const router = express.Router();
 const TaskModel = require('../models/Tasks');
+
+const csv = require('csv-parser');
+const fs = require('fs');
+const DataModel = require("../models/Data");
+
 const LeaveModel = require('../models/Leaves')
 router.post('/createEmployee', (req, res) => {
     EmployeeModel.create(req.body)
@@ -93,5 +98,21 @@ router.put('/leave/:id', (req, res) => {
         });
 });
 
-
+router.get('/data', (req, res) => {
+    const dataList = [];
+    fs.createReadStream('Data/data.csv')
+        .pipe(csv())
+        .on('data', (row) => {
+            // Assuming your CSV file has columns 'Timestamp', 'Employee ID', and 'Date'
+            const data = new DataModel({
+                timestamp: row.Timestamp,
+                employeeId: row['Employee ID'],
+                date: row.Date
+            });
+            dataList.push(data);
+        })
+        .on('end', () => {
+            res.json(dataList);
+        });
+});
 module.exports = router;

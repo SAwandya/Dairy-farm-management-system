@@ -55,7 +55,7 @@ import EmployeeR from "./pages/Employees/EmployeeR";
 import EProfile from "./pages/Employees/EProfile"
 import LeaveForm from "./pages/Employees/LeaveForm"
 import LeaveDetails from "./pages/Employees/LeaveDetails";
-
+import MyComponent from "./pages/Employees/MyComponent"
 //Supplier Management
 import SupProfile from "./pages/Supplier/supProfile";
 import SupplierOrder from "./pages/Supplier/SupplierOrder";
@@ -335,6 +335,10 @@ const router = createBrowserRouter([
   {
     path: "/leavedetails",
     element: <LeaveDetails />,
+  },
+  {
+    path: "/attendance",
+    element: <MyComponent />,
   },
   {
     path: "/supProfile",

@@ -21,12 +21,7 @@ function CreateEmployee() {
   const [basicSalary, setBasicSalary] = useState('');
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
-  const [existingEmployeeIds, setExistingEmployeeIds] = useState([]);
-  const [errors, setErrors] = useState({});
-
-
-  
-
+  const [previousError, setPreviousError] = useState(null); // Track previous field error
 
 
   const handleSubmit = async (e) => {
@@ -123,75 +118,124 @@ function CreateEmployee() {
     </IconButton>
 </Box>
             <form onSubmit={handleSubmit}>
-              <CustomTextField
-                id="employeeId"
-                label="Employee ID"
-                variant="outlined"
-                value={employeeId}
-                onChange={(e) => setEmployeeId(e.target.value)}
-                fullWidth
-                className="custom-textfield"
-                margin="normal"
-                error={!!formErrors.employeeId}
-                helperText={formErrors.employeeId}
-              />
-              <CustomTextField
-                id="employeeName"
-                label="Employee Name"
-                variant="outlined"
-                value={employeeName}
-                onChange={(e) => setEmployeeName(e.target.value)}
-                fullWidth
-                margin="normal"
-                className="custom-textfield"
-                error={!!formErrors.employeeName}
-                helperText={formErrors.employeeName}
-              />
-              <CustomTextField
-                id="position"
-                label="Position"
-                variant="outlined"
-                value={position}
-                onChange={(e) => setPosition(e.target.value)}
-                fullWidth
-                margin="normal"
-                error={!!formErrors.position}
-                helperText={formErrors.position}
-              />
-              <CustomTextField
-                id="contactNumber"
-                label="Contact Number"
-                variant="outlined"
-                value={contactNumber}
-                onChange={(e) => setContactNumber(e.target.value)}
-                fullWidth
-                margin="normal"
-                error={!!formErrors.contactNumber}
-                helperText={formErrors.contactNumber}
-              />
-              <CustomTextField
-                id="email"
-                label="Email"
-                variant="outlined"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                fullWidth
-                margin="normal"
-                error={!!formErrors.email}
-                helperText={formErrors.email}
-              />
-              <CustomTextField
-                id="basicSalary"
-                label="Basic Salary"
-                variant="outlined"
-                type="number"
-                value={basicSalary}
-                onChange={(e) => setBasicSalary(e.target.value)}
-                fullWidth
-                margin="normal"
-                error={!!formErrors.basicSalary}
-                helperText={formErrors.basicSalary}
-              />
+            <CustomTextField
+  id="employeeId"
+  label="Employee ID"
+  variant="outlined"
+  value={employeeId}
+  onChange={(e) => {
+    setEmployeeId(e.target.value);
+    if (formErrors.employeeId && previousError !== 'employeeId') {
+      setPreviousError('employeeId');
+      return;
+    }
+    // Validate the form
+    const isValid = validateForm();
+    if (!isValid) {
+      e.preventDefault(); // Prevent navigation if there are errors
+    }
+  }}
+  fullWidth
+  margin="normal"
+  error={!!formErrors.employeeId}
+  helperText={previousError === 'employeeId' ? formErrors.employeeId : ''}
+/>
+<CustomTextField
+  id="employeeName"
+  label="Employee Name"
+  variant="outlined"
+  value={employeeName}
+  onChange={(e) => {
+    setEmployeeName(e.target.value);
+    if (formErrors.employeeName && previousError !== 'employeeName') {
+      setPreviousError('employeeName');
+      return;
+    }
+    // Validate the form
+    const isValid = validateForm();
+    if (!isValid) {
+      e.preventDefault(); 
+    }
+  }}
+  fullWidth
+  margin="normal"
+  error={!!formErrors.employeeName}
+  helperText={previousError === 'employeeName' ? formErrors.employeeName : ''}
+/>
+<CustomTextField
+  id="position"
+  label="Position"
+  variant="outlined"
+  value={position}
+  onChange={(e) => {
+    setPosition(e.target.value);
+    if (formErrors.position && previousError !== 'position') {
+      setPreviousError('position');
+      return;
+    }
+    // Validate the form
+    const isValid = validateForm();
+    if (!isValid) {
+      e.preventDefault(); // Prevent navigation if there are errors
+    }
+  }}
+  fullWidth
+  margin="normal"
+  error={!!formErrors.position}
+  helperText={previousError === 'position' ? formErrors.position : ''}
+/>
+
+
+<CustomTextField
+  id="contactNumber"
+  label="Contact Number"
+  variant="outlined"
+  value={contactNumber}
+  onChange={(e) => {
+    setContactNumber(e.target.value);
+    if (formErrors.contactNumber) {
+      setFormErrors({ ...formErrors, contactNumber: '' }); // Clear previous error
+    }
+  }}
+  fullWidth
+  margin="normal"
+  error={!!formErrors.contactNumber}
+  helperText={formErrors.contactNumber}
+/>
+<CustomTextField
+  id="email"
+  label="Email"
+  variant="outlined"
+  value={email}
+  onChange={(e) => {
+    setEmail(e.target.value);
+    if (formErrors.email) {
+      setFormErrors({ ...formErrors, email: '' }); // Clear previous error
+    }
+  }}
+  fullWidth
+  margin="normal"
+  error={!!formErrors.email}
+  helperText={formErrors.email}
+/>
+<CustomTextField
+  id="basicSalary"
+  label="Basic Salary"
+  variant="outlined"
+  type="number"
+  value={basicSalary}
+  onChange={(e) => {
+    setBasicSalary(e.target.value);
+    if (formErrors.basicSalary) {
+      setFormErrors({ ...formErrors, basicSalary: '' }); // Clear previous error
+    }
+  }}
+  fullWidth
+  margin="normal"
+  error={!!formErrors.basicSalary}
+  helperText={formErrors.basicSalary}
+/>
+
               <Button
                 type="submit"
                 variant="contained"
