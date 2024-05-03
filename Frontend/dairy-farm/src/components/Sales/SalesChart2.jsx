@@ -104,10 +104,19 @@ const SalesChart2 = () => {
           .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }))}
         skipAnimation={skipAnimation}
         width={1100}
-        {...chartSetting}
+        sx={{
+          backgroundColor: "#252B48",
+          borderRadius: "20px",
+          paddingLeft: "16px",
+          marginTop: "26px",
+          "& .MuiChartsLegend-series": {
+            stroke: "#fff",
+          },
+        }}
+        
       />
 
-      <Typography color="white" id="input-item-number" gutterBottom>
+      <Typography id="input-item-number" gutterBottom>
         Number of months
       </Typography>
       <Slider
@@ -118,7 +127,7 @@ const SalesChart2 = () => {
         max={15}
         aria-labelledby="input-item-number"
       />
-      <Typography color="white" id="input-series-number" gutterBottom>
+      <Typography id="input-series-number" gutterBottom>
         Number of Products
       </Typography>
       <Slider
