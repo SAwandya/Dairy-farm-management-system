@@ -41,6 +41,7 @@ function NewProcessForm({ onSubmitSuccess }) {
   const handleCancelConfirmation = (confirmed) => {
     setShowCancelConfirmation(false);
     if (confirmed) {
+      resetFields();
       setOpen(false);
     }
   };
@@ -63,6 +64,14 @@ function NewProcessForm({ onSubmitSuccess }) {
       handleFormSubmitSuccess();
       setSuccessMessage('Form submitted successfully');
       // Reset form fields after successful submission
+      resetFields();
+    } catch (error) {
+      console.error('Failed to submit form data:', error);
+      setErrorMessage('Failed to submit form data');
+    }
+  };
+
+  function resetFields(){
       setProduct('');
       setMilkQuantity(0);
       setIngredients([]);
@@ -71,11 +80,7 @@ function NewProcessForm({ onSubmitSuccess }) {
       setScheduleTime('');
       setStatus('started'); // Reset status to 'started'
       setIsScheduled(false); // Reset scheduling checkbox
-    } catch (error) {
-      console.error('Failed to submit form data:', error);
-      setErrorMessage('Failed to submit form data');
-    }
-  };
+  }
 
   const submitFormToDatabase = async (formData) => {
     try {
