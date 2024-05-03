@@ -79,14 +79,14 @@ function VetDashboard() {
                     <DateV />
                 </div>
                 
-                <h4 style={{ marginTop: 20, marginBottom: '20px' }}>Overview</h4>
+                <h3 style={{ marginTop: 20, marginBottom: '20px' }}>Overview</h3>
                 <div className='card-horizontal' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between',width:'600',marginRight:'130px',marginLeft:'130px' }}>
                     <BasicCard title='Total Cows' imgs={cow} data={totalCount} links={"/animalReg"}/>
                     <BasicCard title='Sick Cows' imgs={cow} data={sickCount} links={"/health"}/>
                     <BasicCard title='Pregnant' imgs={cow} data={breedCount} links={"/breedAnim"} />
                 </div>
                 
-                <h4 style={{ marginTop: 40, marginBottom: '20px' }}>Navigate</h4>
+                <h3 style={{ marginTop: 40, marginBottom: '20px' }}>Navigate</h3>
                 <BgCard>
                     <Tabs />
                 </BgCard>
