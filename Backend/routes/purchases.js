@@ -8,6 +8,7 @@ const { Customer } = require("../models/customer");
 const nodemailer = require("nodemailer");
 const Mailgen = require("mailgen");
 const ProductBatch = require("../models/ProductBatch");
+const { ReorderMessage } = require("../models/reorderNotification");
 
 router.get("/", async (req, res) => {
   const purchase = await Purchase.find();
@@ -124,6 +125,13 @@ router.post("/", async (req, res) => {
 
       if (!productbatch) {
         //send notification to the production
+        console.log("has been reached minimum level");
+        let message = new ReorderMessage({
+          message: `${updatedProduct.name} has reached the minimum stock level`,
+          product: updatedProduct,
+        });
+
+        message = await message.save();
       } else {
         updatedProduct = await Product.findByIdAndUpdate(
           updatedProduct._id,
@@ -139,7 +147,7 @@ router.post("/", async (req, res) => {
         });
       }
     }
-  }else{
+  } else {
     return res.status(400).send("Invalide product");
   }
 

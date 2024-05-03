@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
+//Sales Management - Pages
 import Layout from "./pages/Sales/Layout";
 import HomePage from "./pages/Sales/HomePage";
 import CustomerSignUp from "./pages/Sales/CustomerSignUp";
@@ -12,6 +13,7 @@ import SalesDashboard from "./pages/Sales/SalesDashboard";
 import Employee from "./pages/Employees/Employee";
 import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
+import ReorderMessage from "./components/Sales/ReorderMessage";
 
 //Finance Management - Pages
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
@@ -148,6 +150,11 @@ const router = createBrowserRouter([
   {
     path: "/salesdashboard",
     element: <SalesDashboard />,
+  },
+
+  {
+    path: "/reordernotify",
+    element: <ReorderMessage/>
   },
 
   //veterinary

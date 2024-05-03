@@ -4,7 +4,7 @@ const { Cart, validateCart } = require("../models/salesCart");
 const { Customer } = require("../models/customer");
 const { Product } = require("../models/product");
 const ProductBatch = require("../models/ProductBatch");
-
+const { ReorderMessage } = require("../models/reorderNotification");
 
 router.get("/", async (req, res) => {
   const carts = await Cart.find();
@@ -50,6 +50,13 @@ router.post("/", async (req, res) => {
 
       if (!productbatch) {
         //send notification to the production
+        console.log("has been reached minimum level");
+        let message = new ReorderMessage({
+          message: `${updatedProduct.name} has reached the minimum stock level`,
+          product: updatedProduct,
+        });
+
+        message = await message.save();
       } else {
         updatedProduct = await Product.findByIdAndUpdate(
           updatedProduct._id,
