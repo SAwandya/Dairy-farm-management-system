@@ -11,7 +11,6 @@ function ScheduledProcesses() {
   useEffect(() => {
     fetchData();
   }, []);
-
   const fetchData = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/processCrud/processes');
@@ -36,6 +35,7 @@ function ScheduledProcesses() {
       console.error('Error fetching data:', error);
     }
   };
+  
 
   // Define the columns for the DataGrid 
   const columns = [

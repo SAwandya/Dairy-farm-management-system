@@ -134,18 +134,18 @@ function ProcessCardContainer() {
 
   return (
     <div style={{ marginTop: '20px', maxHeight: '70vh', overflowY: 'auto', padding: 0 }}>
-      <Paper sx={{ maxWidth: '100%', height: '100%', background: 'rgba(25, 255, 255, 0.0)', ml: 2, overflowY: 'hidden', padding: 0 }}>
+      <Paper sx={{ maxWidth: '100%', height: '100%', background: 'rgba(25, 255, 255, 0.0)', ml: 0, overflowY: 'hidden', padding: 0 }}>
         <Stack spacing={2}>
           {processes.map(process => (
             <Grid key={process.id} item xs={12}>
-              <Card sx={{ borderRadius: 5, width: '94%', background: process.isCompleted ? 'lightgreen' : 'rgba(255, 255, 255, 0.8)', ml: 2 }}>
-                <div style={{ padding: '10px' }}>
-                  <Typography variant="h4">{process.product}</Typography>
-                  <Typography>Amount: {process.milkQuantity} liters</Typography>
-                  <Typography>Current Stage: {process.stage}</Typography>
-                  <Typography>Status: {process.status}</Typography>
-                  <LinearProgress variant="determinate" value={process.progress} sx={{ height: 10, width: '75%' }} />
-                  <Typography>Time Remaining: {process.timeRemaining}</Typography>
+              <Card sx={{ borderRadius: 5, width: '100%', background: process.isCompleted ? 'lightgreen' : 'rgba(255, 255, 255, 0.8)', ml:0 }}>
+                <div style={{ padding: '10px', marginLeft: '12px' }}>
+                  <Typography variant="h5" sx={{fontWeight: 'bold'}}>{process.product}</Typography>
+                  <Typography><span style={{ fontWeight: 'bold' }}>Amount:</span> {process.milkQuantity} liters</Typography>                  
+                  <Typography><span style={{fontWeight: 'bold'}}>Current Stage:</span> {process.stage}</Typography>
+                 {/* <Typography><span style={{ fontWeight: 'bold' }}>Status:</span> {process.status}</Typography> */}
+                  <LinearProgress variant="determinate" value={process.progress} sx={{ height: 20, width: '95%',borderRadius:5,mt:1 }} />
+                  <Typography><span style={{fontWeight: 'bold'}}>Time Remaining:</span> {process.timeRemaining}</Typography>
                 </div>
               </Card>
             </Grid> 
