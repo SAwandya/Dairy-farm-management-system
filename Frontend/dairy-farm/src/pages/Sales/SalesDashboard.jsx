@@ -137,11 +137,11 @@ const SalesDashboard = () => {
         <Box
           component="main"
           sx={{
-            background: "url(../src/assets/background.png)",
-            backgroundColor: "#D2EBE6",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
+          //   background: "url(../src/assets/background.png)",
+          //   backgroundColor: "#D2EBE6",
+          //   backgroundSize: "cover",
+          //   backgroundRepeat: "no-repeat",
+          //   backgroundPosition: "center",
             flexGrow: 1,
             height: "100vh",
             width: "100vw",
@@ -164,7 +164,6 @@ const SalesDashboard = () => {
                       flexDirection: "column",
                       height: 800,
                       width: 1200,
-                      background: "#114232",
                       padding: "60px",
                       margin: "50px",
                     }}
