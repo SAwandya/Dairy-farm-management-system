@@ -113,7 +113,7 @@ function NewProcessForm({ onSubmitSuccess }) {
               position: 'absolute',
             }
 
-          }} style={{ left: '6.4%', right: '35%', top: '15.6%',   }}
+          }} style={{ left: '12.4%', right: '0%', top: '8.5%',   }}
 
         >
               <Box  sx={{backgroundColor: '#FF', borderBottomLeftRadius:20,borderBottomRightRadius:20,
