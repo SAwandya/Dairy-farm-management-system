@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
-import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import Diversity2Icon from '@mui/icons-material/Diversity2';
 import AppRegistrationTwoToneIcon from '@mui/icons-material/AppRegistrationTwoTone';
