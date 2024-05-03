@@ -129,20 +129,11 @@ function ProductBatchTable() {
           disableExtendRowFullWidth
         />
       </Paper>
+</Grid2>  
+</Grid2>
+</Container>
 
-        </Grid2>
-      
-    
-      
-      </Grid2>
-
-
-
-      </Container>
-      
-      
-      
-  );
+      );
 }
 
 export default ProductBatchTable;
