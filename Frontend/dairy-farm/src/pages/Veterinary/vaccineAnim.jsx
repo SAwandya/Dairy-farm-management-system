@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
-import dayjs from 'dayjs';
 import CustomizedTables from '../../components/Veterinary/table';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
