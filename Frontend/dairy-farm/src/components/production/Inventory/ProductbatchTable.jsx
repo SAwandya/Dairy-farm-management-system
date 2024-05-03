@@ -84,7 +84,7 @@ function ProductBatchTable() {
     { field: 'ManufactureTime', headerName: 'Manufacture Time', flex: 1 },
     { field: 'ExpiryDate', headerName: 'Expiry Date', flex: 1 },
     { field: 'BatchId', headerName: 'Batch ID', flex: 1 },
-    { field: 'Status', headerName: 'Status', flex: 1 },
+    { field: 'Status', headerName: 'Release', flex: 1 },
     { field: 'deleteAction', headerName: 'Delete', renderCell: (params) => params.row.deleteAction, width: 100 },
     { field: 'updateAction', headerName: 'Update', renderCell: (params) => params.row.updateAction, width: 100 },
   ];
