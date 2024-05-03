@@ -286,7 +286,7 @@ function formatDate(dateString) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   return (
-    <Container className="container" sx={{ width: "400%" }}>
+    <Container className="container">
             <Snackbar
         anchorOrigin={{
           vertical: "bottom",
@@ -388,7 +388,20 @@ function formatDate(dateString) {
               fullWidth
               required
             />
-            
+                <FormControl fullWidth sx={{ marginBottom: 2 }} required>
+      <InputLabel id="type-label">Type</InputLabel>
+      <Select
+        labelId="type-label"
+        id="type-select"
+        name="type"
+        value={newTransaction.type}
+        onChange={handleNewTransactionChange}
+        label="Type"
+      >
+        <MenuItem value="Income">Income</MenuItem>
+        <MenuItem value="Expense">Expense</MenuItem>
+      </Select>
+    </FormControl>
             <TextField
               name="description"
               label="Description"
@@ -541,6 +554,7 @@ function formatDate(dateString) {
                 .filter((transaction) =>
                   transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
                 )
+                .reverse()
                 .map((transaction) => (
                 <TableRow key={transaction._id}>
                   <TableCell>{formatDate(transaction.date)}</TableCell>
