@@ -144,7 +144,7 @@ function ProcessCardContainer() {
                   <Typography><span style={{ fontWeight: 'bold' }}>Amount:</span> {process.milkQuantity} liters</Typography>                  
                   <Typography><span style={{fontWeight: 'bold'}}>Current Stage:</span> {process.stage}</Typography>
                  {/* <Typography><span style={{ fontWeight: 'bold' }}>Status:</span> {process.status}</Typography> */}
-                  <LinearProgress variant="determinate" value={process.progress} sx={{ height: 20, width: '95%',borderRadius:5,mt:1 }} />
+                  <LinearProgress variant="determinate" value={process.progress} sx={{ height: 20, width: '95%',borderRadius:5,mt:1, }} />
                   <Typography><span style={{fontWeight: 'bold'}}>Time Remaining:</span> {process.timeRemaining}</Typography>
                 </div>
               </Card>
