@@ -38,10 +38,10 @@ function FemaleCowTable() {
             const data = await axios.post("http://localhost:3000/api/pregnantCow/pregnantCreate", formData);
             if (data.data.success) {
                 setShowAIForm(false);
-                // Handle success
+                
             }
         } catch (error) {
-            // Handle error
+            
         }
     };
 
@@ -70,7 +70,7 @@ function FemaleCowTable() {
                 setShowPregnancyForm(true);
             }
         } catch (error) {
-            // Handle error
+            
         }
     };
 
