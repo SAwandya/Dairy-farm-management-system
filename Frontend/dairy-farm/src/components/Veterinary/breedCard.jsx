@@ -8,17 +8,27 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function CustomCard(props) {
-    const { title, data,data1, imgs, onEdit, onDelete } = props;
+    const { title, data, data1, imgs, onEdit, onDelete } = props;
 
     return (
-        <Card sx={{ height:250, width: 350, borderRadius: 5, backgroundColor: '#00ff1a2b', position: 'relative' }}>
-            <CardContent sx={{marginTop:'20px'}}>
+        <Card
+            sx={{
+                height: 250,
+                width: 350,
+                borderRadius: 5,
+                backgroundColor: '#00ff1a2b',
+                position: 'relative',
+                '&:hover': {
+                    backgroundColor: '#00ff1a55', 
+                }
+            }}
+        >
+            <CardContent sx={{ marginTop: '20px' }}>
                 <Typography>
-                <img src={imgs} style={{ height: '75px', float: 'right' }} />
+                    <img src={imgs} style={{ height: '75px', float: 'right' }} alt="Card" />
                 </Typography>
-                <Typography sx={{ fontSize: 24, fontFamily: 'Poppins, sans-serif',marginTop:'20px' }} color="#000000" gutterBottom>
+                <Typography sx={{ fontSize: 24, fontFamily: 'Poppins, sans-serif', marginTop: '20px' }} color="#000000" gutterBottom>
                     {title}
-                   
                 </Typography>
 
                 <Typography sx={{ mb: 1.5, fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize: 20 }} color="text.secondary">
