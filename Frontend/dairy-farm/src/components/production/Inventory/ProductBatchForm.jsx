@@ -76,6 +76,14 @@ function ProductBatchForm() {
     return valid;
   };
 
+  
+
+  const isTimeInPast = (dateString, timeString) => {
+    const selectedDateTime = new Date(`${dateString}T${timeString}`);
+    const currentDateTime = new Date();
+    return selectedDateTime < currentDateTime;
+  };
+
   const handleSubmit = async () => {
     try {
       if (!validateForm()) {
@@ -131,6 +139,25 @@ function ProductBatchForm() {
     setErrorMessage('');
   };
 
+  const isDateInPast = (dateString) => {
+    const selectedDate = new Date(dateString);
+    const currentDate = new Date();
+    // Check if the selected date is greater than the current date
+    return selectedDate > currentDate;
+  };
+  const isDateInFuture = (dateString) => {
+    const selectedDate = new Date(dateString);
+    const currentDate = new Date();
+    // Check if the selected date is greater than the current date
+    return selectedDate > currentDate;
+  };
+  const isTimeInFuture = (dateString, timeString) => {
+    const selectedDateTime = new Date(`${dateString}T${timeString}`);
+    const currentDateTime = new Date();
+    return selectedDateTime > currentDateTime;
+  };
+  
+  
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
@@ -199,11 +226,11 @@ function ProductBatchForm() {
               type="date"
               value={manufactureDate}
               onChange={(e) => setManufactureDate(e.target.value)}
+              error={manufactureDate && (isDateInFuture(manufactureDate) || !!errors.manufactureDate) }
+              helperText={manufactureDate && isDateInFuture(manufactureDate) ? 'Please select a past date' : errors.manufactureDate}
               InputLabelProps={{
                 shrink: true,
               }}
-              error={!!errors.manufactureDate}
-              helperText={errors.manufactureDate}
             />
             <TextField
               fullWidth
@@ -213,11 +240,13 @@ function ProductBatchForm() {
               type="time"
               value={manufactureTime}
               onChange={(e) => setManufactureTime(e.target.value)}
+              error={isTimeInFuture(manufactureDate, manufactureTime )}
+              helperText={isTimeInFuture(manufactureDate, manufactureTime) ? 'Please select a past time' : ''}
               InputLabelProps={{
                 shrink: true,
               }}
-              error={!!errors.manufactureTime}
-              helperText={errors.manufactureTime}
+             //error={!!errors.manufactureTime}
+             //helperTextx={errors.manufactureTime}
             />
             <TextField
               fullWidth

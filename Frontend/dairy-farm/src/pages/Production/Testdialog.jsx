@@ -102,8 +102,6 @@ function NewProcessForm({ onSubmitSuccess }) {
     // Check if the selected date is less than or equal to the current date
     return selectedDate < currentDate.setHours(0, 0, 0, 0);
   };
-  
-
   const isTimeInPast = (dateString, timeString) => {
     const selectedDateTime = new Date(`${dateString}T${timeString}`);
     const currentDateTime = new Date();
