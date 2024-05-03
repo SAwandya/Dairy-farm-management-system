@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 export default function BasicCard(props) {
   return (
     <Card sx={{ width: 300, borderRadius: 5, backgroundColor: '#00ff1a2b', height: '160px', position: 'relative' }}>
-      <CardContent>
+      <CardContent sx={{marginTop: '20px',marginLeft:'20px'}}>
         <Typography sx={{ fontSize: 20, fontFamily: 'Poppins, sans-serif' }} color="#000000" gutterBottom>
           {props.title}
           <img src={props.imgs} style={{ height: '45px', float: 'right' }} />
