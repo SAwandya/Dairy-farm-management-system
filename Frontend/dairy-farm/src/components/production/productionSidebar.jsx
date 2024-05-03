@@ -79,12 +79,12 @@ function Sidebar() {
             onClick={() => handleNavigation("storage")}
           />
           </Link>  
-          <Link to="/QualityControll" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to="/Hydroponic" style={{ textDecoration: 'none', color: 'inherit' }}>
           <NavigationLink
             icon={<DonutSmallIcon />}
-            text="QC Test"
-            isActive={activeSection === "QcTest"}
-            onClick={() => handleNavigation("QcTest")} 
+            text="Hydroponic"
+            isActive={activeSection === "Hydroponic"}
+            onClick={() => handleNavigation("Hydroponic")} 
           /> 
           </Link>
         </List>
