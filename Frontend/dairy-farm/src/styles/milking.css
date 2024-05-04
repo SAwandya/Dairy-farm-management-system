@@ -277,6 +277,17 @@ body {
     font-size: 20px;
     font-weight: 600;
     margin-left: 40px;
+    cursor: pointer;
+  }
+
+  .home-nav-link:active, .home-nav-link:hover {
+    font-family: Poppins, 'sans-serif';
+    text-decoration: none;
+    color: #38775B;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 40px;
+    cursor: pointer;
   }
 
   .home-bg {
@@ -296,4 +307,21 @@ body {
 
   .service-icon {
     margin: 50px 90px 30px 90px;
+  }
+
+  .product-card-img {
+    margin: 40px 40px 30px 40px;
+  }
+
+  .sales-product-link:link, .sales-product-link:visited {
+    font-family: Poppins, 'sans-serif';
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 530px;
+  }
+
+  .sales-product-link:hover, .sales-product-link:active {
+    color: #38775B;
   }

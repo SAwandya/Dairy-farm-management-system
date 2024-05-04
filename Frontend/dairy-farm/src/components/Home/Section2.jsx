@@ -20,7 +20,7 @@ function Section2() {
                     marginTop: '108px'
                 }}
             >
-                Our service
+                Our Service
             </Typography>
             <Typography
                 variant='h6'
