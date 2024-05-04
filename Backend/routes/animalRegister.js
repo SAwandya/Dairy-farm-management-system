@@ -1,16 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const { veterinary, schema } = require('../models/animalreg'); 
-const validateAnim = require('../middleware/vetMiddleWare');
+const { veterinary, Animalschema } = require('../models/animalreg');
+const yup = require('yup');
+
+const animalSchema = yup.object().shape({
+    earTag: yup.string().required(),
+    location: yup.string().required(),
+    gender: yup.string().required(),
+    batch: yup.string().required(),
+    age: yup.string().required(),
+    name: yup.string(),
+    breed: yup.string(),
+    color: yup.string(),
+    birthDate: yup.string(),
+    weight: yup.number(),
+});
 
 // Create and save a new animal
-router.post("/create", validateAnim(schema), async (req, res) => {
+router.post("/create",  async (req, res) => {
     try {
+        await animalSchema.validate(req.body, { abortEarly: false });
         const cow = new veterinary(req.body);
         const data = await cow.save();
         res.status(201).json({ success: true, message: "Data added successfully", data });
     } catch (error) {
-        res.status(500).json({ message: error.message || "Some error occurred while creating" });
+        if (error.name === 'ValidationError') {
+            const errors = error.inner.map(err => ({ [err.path]: err.message }));
+            res.status(400).json({ success: false, message: "Validation error", errors });
+        } else {
+            res.status(500).json({ message: error.message || "Some error occurred while creating" });
+        }
     }
 });
 
@@ -35,10 +54,33 @@ router.get('/count-females', async (req, res) => {
     }
 });
 
+//Retrieve  female cows
+router.get('/retrieve-females', async (req, res) => {
+    try {
+        const count = await veterinary.find({ $or: [{ gender: "female" }, { gender: "Female" }] });
+        res.json({ success: true, count });
+    } catch (error) {
+        console.error("Error fetching females:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch females" });
+    }
+});
+
+//Retrieve  male cows
+router.get('/retrieve-males', async (req, res) => {
+    try {
+        const count = await veterinary.find({ $or: [{ gender: "male" }, { gender: "Male" }] });
+        res.json({ success: true, count });
+    } catch (error) {
+        console.error("Error fetching males:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch males" });
+    }
+});
+
+
 // Retrieve animals
 router.get('/retrieve', async (req, res) => {
     try {
-        const data = await veterinary.find({ age: { $exists: true } }); // Retrieve all animals
+        const data = await veterinary.find({ age: { $exists: true } });
         res.json({ success: true, data });
     } catch (error) {
         res.status(500).json({ message: error.message || "Error occurred while retrieving" });
@@ -56,6 +98,16 @@ router.get('/retrieve/:id', async (req, res) => {
         res.json({ success: true, data: animal });
     } catch (error) {
         res.status(500).json({ message: `Error retrieving animal: ${error.message}` });
+    }
+});
+
+router.get('/batches', async (req, res) => {
+    try {
+        const batches = await veterinary.distinct("batch");
+        res.status(200).json({ success: true, data: batches });
+    } catch (error) {
+        console.error("Error fetching batch values:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch batch values" });
     }
 });
 

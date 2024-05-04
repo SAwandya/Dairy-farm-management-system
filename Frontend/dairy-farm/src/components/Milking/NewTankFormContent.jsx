@@ -16,14 +16,12 @@ const NewTankFormContent = () => {
         e.preventDefault();
     
         axios.post("http://localhost:3000/api/milkingStorage", {
-            tankId,
             capacity,
             installedDate,
             manufacturer,
             specialNotes
         })
         .then(result => {
-            // console.log(result);
             navigate('/milkingStorage');
             Swal.fire({
                 position: "top-end",
@@ -62,22 +60,13 @@ const NewTankFormContent = () => {
                             fontFamily: 'Poppins',
                             fontWeight: '600',
                             textAlign: 'center',
-                            fontSize: '42px'
+                            fontSize: '42px',
+                            marginBottom: '36px'
                         }}
                     >
                         Add a New Tank
                     </Typography>
                     <form onSubmit={handleSubmit}>
-                        <TextField
-                            name="tankId"
-                            label="Tank ID:"
-                            type="string"
-                            value={tankId}
-                            onChange={(e) => setTankId(e.target.value)}
-                            fullWidth
-                            required
-                            margin="normal"
-                        />
                         <TextField
                             name="capacity"
                             label="Capacity"
@@ -86,17 +75,24 @@ const NewTankFormContent = () => {
                             onChange={(e) => setCapacity(e.target.value)}
                             fullWidth
                             required
-                            margin="normal"
+                            style={{
+                                marginBottom: '16px'
+                            }}
                         />
                         <TextField
                             name="installedDate"
                             label="Installed Date"
                             type="date"
                             value={installedDate}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             onChange={(e) => setInstalledDate(e.target.value)}
                             fullWidth
                             required
-                            margin="normal"
+                            style={{
+                                marginBottom: '16px'
+                            }}
                         />
                         <TextField
                             name="manufacturer"
@@ -105,7 +101,9 @@ const NewTankFormContent = () => {
                             onChange={(e) => setManufacturer(e.target.value)}
                             fullWidth
                             required
-                            margin="normal"
+                            style={{
+                                marginBottom: '16px'
+                            }}
                         />
                         <TextField
                             name="specialNotes"
@@ -114,11 +112,25 @@ const NewTankFormContent = () => {
                             onChange={(e) => setSpecialNotes(e.target.value)}
                             fullWidth
                             multiline
-                            rows={4}
-                            margin="normal"
+                            rows={6}
+                            style={{
+                                marginBottom: '48px'
+                            }}
                         />
-                        <Button type="submit" variant="contained" color="primary" fullWidth>
-                            Save
+                        <Button type="submit" variant="contained" color="primary" fullWidth
+                            style={{
+                                backgroundColor: '#38775B',
+                                color: '#fff',
+                                width: '100%',
+                                fontFamily: 'Poppins, sans-serif',
+                                textTransform: 'none',
+                                fontWeight: '600',
+                                fontSize: '18px',
+                                marginBottom: '22px',
+                                borderRadius: '15px'
+                            }} 
+                        >
+                            Add Tank
                         </Button>
                     </form>
                 </Box>

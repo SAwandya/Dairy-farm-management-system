@@ -4,9 +4,11 @@ import { useLocation } from 'react-router-dom';
 import jspdf from 'jspdf';
 import 'jspdf-autotable';
 import companyLogo from '../../assets/sidebar-logo.png';
-import { IconButton, Button, CircularProgress } from '@mui/material';
+import { IconButton, Button, CircularProgress,Box,Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
+import Name from '../../components/Grazing/Name';
+import GrazingDate from '../../components/Grazing/GrazingDate';
 
 const Report = () => {
   const location = useLocation();
@@ -221,7 +223,7 @@ const Report = () => {
       const rowData = [
         new Date(item.date).toLocaleDateString(),
         item.grazingArea,
-        item.amountCollected,
+        item.wasteCollected,
         item.wasteType,
       ];
       tableRows.push(rowData);
@@ -283,6 +285,14 @@ const Report = () => {
   return (
     <div>
       <GrazingSideBar sx={{ position: 'fixed', left: 0, top: 0, height: '100vh' }} />
+      <Box className="dashboard-content">
+                <div align='center'></div>
+                <GrazingDate/>
+                <Name/>
+              
+              <Typography> You can download the detailed reports for analysis from here.</Typography>
+              
+      </Box>
       <div style={{ marginTop:'70px',display: 'flex', justifyContent: 'center', gap:'70px',alignItems: 'center', flexDirection: 'column' }}>
         
          <div>

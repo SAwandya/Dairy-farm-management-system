@@ -1,23 +1,57 @@
-import React, { useState } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, TextField, Button, Box, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { TextField, Button, Box, Typography, Select, MenuItem } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 
 const ScheduleFormContent = () => {
-    const [sessionId, setSessionId] = useState('');
     const [date, setDate] = useState('');
+    const [dateError, setDateError] = useState('');
     const [time, setTime] = useState('');
+    const [timeError, setTimeError] = useState('');
     const [cowGroup, setCowGroup] = useState('');
-    const [status, setStatus] = useState('Incomplete');
+    const [cowGroupError, setCowGroupError] = useState('');
     const [specialNotes, setSpecialNotes] = useState('');
+    const [specialNotesError, setSpecialNotesError] = useState('');
+    const [batchOptions, setBatchOptions] = useState([]);
+    const [status, setStatus] = useState('Incomplete');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchBatchOptions();
+    }, []);
+
+    const fetchBatchOptions = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/api/animalReg/batches');
+            if (response.data.success) {
+                setBatchOptions(response.data.data);
+            } else {
+                console.error('Failed to fetch batch options:', response.data.error);
+            }
+        } catch (error) {
+            console.error('Error fetching batch options:', error);
+        }
+    };
+
+    const displaySuccessToast = (message) => {
+        toast.success(message, {
+            position: "top-right",
+            autoClose: 2800,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
     
         axios.post("http://localhost:3000/api/milkingSessions", {
-            sessionId,
             date,
             time,
             cowGroup,
@@ -25,18 +59,85 @@ const ScheduleFormContent = () => {
             specialNotes
         })
         .then(result => {
-            // console.log(result);
-            navigate('/milkingSessions');
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Successfuly added",
-                showConfirmButton: false,
-                timer: 1500
-            });
+            displaySuccessToast('Successfully added!');
+            setTimeout(() => {
+                navigate('/milkingSessions');
+            }, 3000);
         })
         .catch(err => console.log(err));
-        
+    };
+
+    const isFormValid = () => {
+        return !dateError && !timeError && !cowGroupError && !specialNotesError;
+    };
+
+    const validateDate = (value) => {
+        if (!value) {
+            setDateError('Date is required');
+        } else if (!isValidDate(value)) {
+            setDateError('Invalid date format');
+        } else {
+            setDateError('');
+        }
+    };
+
+    const isValidDate = (value) => {
+        const pattern = /^\d{4}-\d{2}-\d{2}$/;
+        return pattern.test(value);
+    };
+
+    const handleDateChange = (value) => {
+        setDate(value);
+        validateDate(value);
+    
+        const enteredDate = new Date(value);
+        const today = new Date();
+        today.setDate(today.getDate() - 1); 
+        if (enteredDate < today) {
+            setDateError('Date cannot be before today');
+        } else {
+            setDateError('');
+        }
+    };
+    
+
+    const validateTime = (value) => {
+        if (!value) {
+            setTimeError('Time is required');
+        } else {
+            setTimeError('');
+        }
+    };
+
+    const handleTimeChange = (value) => {
+        setTime(value);
+        validateTime(value);
+    };
+
+    const validateCowGroup = (value) => {
+        if (!value) {
+            setCowGroupError('Cow Group is required');
+        } else {
+            setCowGroupError('');
+        }
+    };
+
+    const handleCowGroupChange = (value) => {
+        setCowGroup(value);
+        validateCowGroup(value);
+    };
+
+    const validateSpecialNotes = (value) => {
+        if (!value) {
+            setSpecialNotesError('Special Notes are required');
+        } else {
+            setSpecialNotesError('');
+        }
+    };
+
+    const handleSpecialNotesChange = (value) => {
+        setSpecialNotes(value);
+        validateSpecialNotes(value);
     };
 
     return (
@@ -64,62 +165,100 @@ const ScheduleFormContent = () => {
                             fontFamily: 'Poppins',
                             fontWeight: '600',
                             textAlign: 'center',
-                            fontSize: '42px'
+                            fontSize: '42px',
+                            marginBottom: '36px'
                         }}
                     >
                         Scheduling Form
                     </Typography>
                     <form onSubmit={handleSubmit}>
                         <TextField
-                            name="sessionId"
-                            label="Session ID"
-                            type="number"
-                            value={sessionId}
-                            onChange={(e) => setSessionId(e.target.value)}
-                            fullWidth
-                            required
-                            margin="normal"
-                        />
-                        <TextField
                             name="date"
                             label="Date"
                             type="date"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            inputProps={{
+                                min: new Date().toISOString().split('T')[0]
+                            }}
                             value={date}
-                            onChange={(e) => setDate(e.target.value)}
+                            onChange={(e) => handleDateChange(e.target.value)}
                             fullWidth
                             required
-                            margin="normal"
+                            error={!!dateError}
+                            helperText={dateError}
+                            style={{
+                                marginBottom: '16px'
+                            }}
                         />
                         <TextField
                             name="time"
                             label="Time"
                             type="time"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             value={time}
-                            onChange={(e) => setTime(e.target.value)}
+                            onChange={(e) => handleTimeChange(e.target.value)}
                             fullWidth
                             required
-                            margin="normal"
+                            error={!!timeError}
+                            helperText={timeError}
+                            style={{
+                                marginBottom: '16px'
+                            }}
                         />
-                        <TextField
+                        <Select
                             name="cowGroup"
                             label="Cow Group"
                             value={cowGroup}
-                            onChange={(e) => setCowGroup(e.target.value)}
+                            onChange={(e) => handleCowGroupChange(e.target.value)}
                             fullWidth
                             required
-                            margin="normal"
-                        />
+                            error={!!cowGroupError}
+                            helperText={cowGroupError}
+                            displayEmpty
+                            style={{
+                                marginBottom: '16px'
+                            }}
+                        >
+                            <MenuItem value="" disabled>
+                                Select Cow Group
+                            </MenuItem>
+                            {batchOptions.map((batch) => (
+                                <MenuItem key={batch} value={batch}>
+                                    {batch}
+                                </MenuItem>
+                            ))}
+                        </Select>
                         <TextField
                             name="specialNotes"
                             label="Special Notes"
                             value={specialNotes}
-                            onChange={(e) => setSpecialNotes(e.target.value)}
+                            onChange={(e) => handleSpecialNotesChange(e.target.value)}
                             fullWidth
                             multiline
-                            rows={4}
-                            margin="normal"
+                            rows={6}
+                            error={!!specialNotesError}
+                            helperText={specialNotesError}
+                            style={{
+                                marginBottom: '48px'
+                            }}
                         />
-                        <Button type="submit" variant="contained" color="primary" fullWidth>
+                        <Button type="submit" variant="contained" color="primary" fullWidth
+                            style={{
+                                backgroundColor: '#38775B',
+                                color: '#fff',
+                                width: '100%',
+                                fontFamily: 'Poppins, sans-serif',
+                                textTransform: 'none',
+                                fontWeight: '600',
+                                fontSize: '18px',
+                                marginBottom: '22px',
+                                borderRadius: '15px'
+                            }}
+                        >
                             Add Milk Session
                         </Button>
                     </form>

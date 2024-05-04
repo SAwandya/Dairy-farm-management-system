@@ -1,359 +1,395 @@
-import { useMemo, useState } from "react";
-import {
-  MRT_EditActionButtons,
-  MaterialReactTable,
-  useMaterialReactTable,
-} from "material-react-table";
-import {
-  Box,
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import IconButton from "@material-ui/core/IconButton";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Typography from "@material-ui/core/Typography";
+import Toolbar from "@material-ui/core/Toolbar";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from "@material-ui/icons/Search";
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
+import Swal from "sweetalert2";
+import axios from "axios";
+import AddOrderDialog from "./AddOrderDialog";
+import UpdateOrderDialog from "./UpdateOrderDialog";
+import { InputLabel } from '@mui/material';
+import TablePagination from '@material-ui/core/TablePagination';
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 650,
+  },
+  addButton: {
+    marginLeft: "auto",
+  },
+  row: {
+    "&:nth-child(odd)": {
+      backgroundColor: "#f2f2f2",
+    },
+    "&:nth-child(even)": {
+      backgroundColor: "#e0f7fa",
+    },
+  },
+}));
 
 const OrderTable = () => {
-  const [validationErrors, setValidationErrors] = useState({});
+  const classes = useStyles();
+  const [orders, setOrders] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
+  const [itemTypes, setItemTypes] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [currentRow, setCurrentRow] = useState(null);
+  const [validationErrors, setValidationErrors] = useState(null);
+  const [openAdd, setOpenAdd] = useState(false);
+  const [newRow, setNewRow] = useState({});
+  const [search, setSearch] = useState("");
 
-  const columns = useMemo(
-    () => [
-      {
-        accessorKey: "_id",
-        header: "Id",
-        enableEditing: false,
-        size: 80,
-        className: "hidden",
-      },
-      {
-        accessorKey: "orderType",
-        header: "Order Type",
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors?.orderType,
-          helperText: validationErrors?.orderType,
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              orderType: undefined,
-            }),
-        },
-      },
-      {
-        accessorKey: "orderStatus",
-        header: "Order Status",
-        muiEditTextFieldProps: {
-          required: true,
-          error: !!validationErrors?.orderStatus,
-          helperText: validationErrors?.orderStatus,
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              orderStatus: undefined,
-            }),
-          disabled: true, // Add this line to disable the field
-          defaultValue: 'Pending' ,// Add this line to set the default value to 'pending'
-          style: { display: 'none' } 
-        },
-      },
-      {
-        accessorKey: "quantity",
-        header: "Quantity",
-        muiEditTextFieldProps: {
-          type: "number",
-          required: true,
-          error: !!validationErrors?.quantity,
-          helperText: validationErrors?.quantity,
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              quantity: undefined,
-            }),
-        },
-      },
-      {
-        accessorKey: "advanceFee",
-        header: "Advance Fee",
-        muiEditTextFieldProps: {
-          type: "number",
-          required: true,
-          error: !!validationErrors?.advanceFee,
-          helperText: validationErrors?.advanceFee,
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              advanceFee: undefined,
-            }),
-        },
-      },
-      {
-        accessorKey: "deliveryDate",
-        header: "Delivery Date",
-        muiEditTextFieldProps: {
-          type: "date",
-          required: true,
-          error: !!validationErrors?.deliveryDate,
-          helperText: validationErrors?.deliveryDate,
-          onFocus: () =>
-            setValidationErrors({
-              ...validationErrors,
-              deliveryDate: undefined,
-            }),
-        },
-      }
-    ],
-    [validationErrors]
-  );
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  //call CREATE hook
-  const { mutateAsync: createOrder, isPending: isCreatingOrder } =
-    useCreateOrder();
-  //call READ hook
-  const {
-    data: fetchedOrders = [],
-    isError: isLoadingOrdersError,
-    isFetching: isFetchingOrders,
-    isLoading: isLoadingOrders,
-  } = useGetOrders();
-  //call UPDATE hook
-  const { mutateAsync: updateOrder, isPending: isUpdatingOrder } =
-    useUpdateOrder();
-  //call DELETE hook
-  const { mutateAsync: deleteOrder, isPending: isDeletingOrder } =
-    useDeleteOrder();
+  useEffect(() => {
+    fetchOrders();
+    fetchSuppliers();
+    fetchItemTypes();
+  }, []);
 
-  //CREATE action
-  const handleCreateOrder = async ({ values, table }) => {
-    console.log(values); // log the values being sent
-    await createOrder({ ...values, orderStatus: 'Pending' }); // Set orderStatus to 'pending' by default
-    table.setCreatingRow(null); //exit creating mode
-  };
-
-  //UPDATE action
-  const handleSaveOrder = async ({ values, table }) => {
-    await updateOrder(values);
-    table.setEditingRow(null); //exit editing mode
-  };
-
-  //DELETE action
-  const openDeleteConfirmModal = (row) => {
-    if (window.confirm("Are you sure you want to delete this order?")) {
-      deleteOrder(row.original._id);
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/order");
+      setOrders(response.data.reverse());
+    } catch (error) {
+      console.error("Error fetching orders:", error);
     }
   };
 
-  const table = useMaterialReactTable({
-    columns,
-    data: fetchedOrders,
-    createDisplayMode: "modal",
-    editDisplayMode: "modal",
-    enableEditing: true,
-    getRowId: (row) => row.id,
-    muiToolbarAlertBannerProps: isLoadingOrdersError
-      ? {
-          color: "error",
-          children: "Error loading data",
-        }
-      : undefined,
-    muiTableContainerProps: {
-      sx: {
-        minHeight: "500px",
-      },
-    },
-    onCreatingRowCancel: () => setValidationErrors({}),
-    onCreatingRowSave: handleCreateOrder,
-    onEditingRowCancel: () => setValidationErrors({}),
-    onEditingRowSave: handleSaveOrder,
-    renderCreateRowDialogContent: ({ table, row, internalEditComponents }) => (
-      <div>
-        <DialogTitle variant="h3">Place Order</DialogTitle>
-        <DialogContent
-          sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-        >
-          {internalEditComponents}
-        </DialogContent>
-        <DialogActions>
-          <MRT_EditActionButtons variant="text" table={table} row={row} />
-        </DialogActions>
-      </div>
-    ),
-    renderEditRowDialogContent: ({ table, row, internalEditComponents }) => (
-      <div>
-        <DialogTitle variant="h3">Edit Order</DialogTitle>
-        <DialogContent
-          sx={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
-        >
-          {internalEditComponents}
-        </DialogContent>
-        <DialogActions>
-          <MRT_EditActionButtons variant="text" table={table} row={row} />
-        </DialogActions>
-      </div>
-    ),
-    renderRowActions: ({ row, table }) => (
-      <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="Edit">
-          <IconButton onClick={() => table.setEditingRow(row)}>
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Delete">
-          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    ),
-    renderTopToolbarCustomActions: ({ table }) => (
-      <Button
-        variant="contained"
-        onClick={() => {
-          table.setCreatingRow(true); //simplest way to open the create row modal with no default values
-          //or you can pass in a row object to set default values with the `createRow` helper function
-          // table.setCreatingRow(
-          //   createRow(table, {
-          //     //optionally pass in default values for the new row, useful for nested data or other complex scenarios
-          //   }),
-          // );
-        }}
-      >
-        Place Order
-      </Button>
-    ),
-    state: {
-      isLoading: isLoadingOrders,
-      isSaving: isCreatingOrder || isUpdatingOrder || isDeletingOrder,
-      showAlertBanner: isLoadingOrdersError,
-      showProgressBars: isFetchingOrders,
-    },
-  });
-
-  return <MaterialReactTable table={table} />;
-};
-
-//CREATE hook (post new order to api)
-function useCreateOrder() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (order) => {
-      const response = await fetch("http://localhost:3000/api/order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({...order, _id: undefined, orderStatus: 'Pending'}),
-      });
-      return response.json();
-    },
-    onMutate: (newOrderInfo) => {
-      queryClient.setQueryData(["orders"], (prevOrders) => [
-        ...prevOrders,
-        {
-          ...newOrderInfo,
-          orderStatus: 'Pending',
-        },
-      ]);
-    },
-  });
-}
-
-//READ hook (get orders from api)
-function useGetOrders() {
-  return useQuery({
-    queryKey: ["orders"],
-    queryFn: async () => {
-      const response = await fetch("http://localhost:3000/api/order");
-      return response.json();
-    },
-    refetchOnWindowFocus: false,
-  });
-}
-
-//UPDATE hook (put order in api)
-function useUpdateOrder() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (order) => {
-      const response = await fetch(
-        `http://localhost:3000/api/order/${order._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({...order, _id: undefined}),
-        }
-      );
-      return response.json();
-    },
-    onMutate: (updatedOrder) => {
-      queryClient.setQueryData(["orders"], (prevOrders) =>
-        prevOrders?.map((prevOrder) =>
-          prevOrder._id === updatedOrder._id ? updatedOrder : prevOrder
-        )
-      );
-    },
-  });
-}
-
-//DELETE hook (delete order in api)
-function useDeleteOrder() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (orderId) => {
-      const response = await fetch(
-        `http://localhost:3000/api/order/${orderId}`,
-        {
-          method: "DELETE",
-        }
-      );
-      return response.json();
-    },
-    onMutate: (orderId) => {
-      queryClient.setQueryData(["orders"], (prevOrders) =>
-        prevOrders?.filter((order) => order._id !== orderId)
-      );
-    },
-  });
-}
-
-const queryClient = new QueryClient();
-
-const ExampleWithProviders = () => (
-  //Put this with your other react-query providers near root of your app
-  <QueryClientProvider client={queryClient}>
-    <OrderTable />
-  </QueryClientProvider>
-);
-
-export default OrderTable;
-
-const validateRequired = (value) => !!value.length;
-
-function validateOrder(order) {
-  return {
-    orderType: !validateRequired(order.orderType)
-      ? "Order Type is Required"
-      : "",
-    orderStatus: !validateRequired(order.orderStatus)
-      ? "Order Status is Required"
-      : "",
-    quantity: !validateRequired(order.quantity) ? "Quantity is Required" : "",
-    advanceFee: !validateRequired(order.advanceFee)
-      ? "Advance Fee is Required"
-      : "",
-    deliveryDate: !validateRequired(order.deliveryDate)
-      ? "Delivery Date is Required"
-      : "",
+  const fetchSuppliers = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/supplier");
+      setSuppliers(response.data);
+    } catch (error) {
+      console.error("Error fetching suppliers:", error);
+    }
   };
-}
+
+  const fetchItemTypes = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/item");
+      setItemTypes(response.data);
+    } catch (error) {
+      console.error("Error fetching item types:", error);
+    }
+  };
+
+  const handleClickOpen = (row) => {
+    setCurrentRow(row);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleUpdate = async () => {
+    const { isValid, errors } = validateForm(currentRow);
+    if (!isValid) {
+      setValidationErrors(errors);
+      return;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const deliveryDate = new Date(currentRow.deliveryDate);
+    deliveryDate.setHours(0, 0, 0, 0);
+
+    if (deliveryDate < today) {
+      handleClose();
+      Swal.fire("Error", "Delivery date cannot be a date in the past", "error");
+      return;
+    }
+
+    if (currentRow.quantity < 0 || currentRow.advanceFee < 0) {
+      handleClose();
+      Swal.fire(
+        "Error",
+        "Quantity and Advance Fee cannot be negative",
+        "error"
+      );
+      return;
+    }
+
+    try {
+      const { _id, __v, ...updateData } = currentRow;
+      const response = await axios.put(
+        `http://localhost:3000/api/order/${currentRow._id}`,
+        updateData
+      );
+      console.log(response.data);
+      setOpen(false);
+      Swal.fire("Success", "Order updated successfully", "success");
+      fetchOrders();
+    } catch (error) {
+      console.error("An error occurred:", error);
+      Swal.fire("Error", "An error occurred while updating the order", "error");
+    }
+  };
+
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:3000/api/order/${id}`);
+          Swal.fire("Deleted!", "Your order has been deleted.", "success");
+          fetchOrders();
+        } catch (error) {
+          console.error("An error occurred:", error);
+          Swal.fire(
+            "Error",
+            "An error occurred while deleting the order",
+            "error"
+          );
+        }
+      }
+    });
+  };
+
+  const handleClickOpenAdd = () => {
+    setOpenAdd(true);
+  };
+
+  const handleCloseAdd = () => {
+    setOpenAdd(false);
+  };
+
+  const handleAdd = async () => {
+    const { isValid, errors } = validateForm(newRow);
+    if (!isValid) {
+      setValidationErrors(errors);
+      return;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const deliveryDate = new Date(newRow.deliveryDate);
+    deliveryDate.setHours(0, 0, 0, 0);
+
+    if (deliveryDate < today) {
+      handleCloseAdd();
+      Swal.fire("Error", "Delivery date cannot be a date in the past", "error");
+      return;
+    }
+
+    if (newRow.quantity < 0 || newRow.advanceFee < 0) {
+      handleCloseAdd();
+      Swal.fire(
+        "Error",
+        "Quantity and Advance Fee cannot be negative",
+        "error"
+      );
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:3000/api/order", {
+        ...newRow,
+        _id: undefined,
+        orderStatus: "Pending",
+      });
+      console.log(response.data);
+      setOpenAdd(false);
+      Swal.fire("Success", "Order added successfully", "success");
+      fetchOrders();
+    } catch (error) {
+      console.error("An error occurred:", error);
+      Swal.fire("Error", "An error occurred while adding the order", "error");
+    }
+  };
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredData = orders?.filter((row) =>
+    Object.values(row).some((value) =>
+      value.toString().toLowerCase().includes(search.toLowerCase())
+    )
+  );
+
+  const validateForm = (row) => {
+    let errors = {};
+    let isValid = true;
+
+    const requiredFields = [
+      "orderType",
+      "supplierName",
+      "quantity",
+      "advanceFee",
+      "deliveryDate",
+    ];
+
+    requiredFields.forEach((field) => {
+      if (!row[field]) {
+        errors[field] = `${
+          field.charAt(0).toUpperCase() + field.slice(1)
+        } is required.`;
+        isValid = false;
+      }
+    });
+
+    return { isValid, errors };
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  return (
+    <div>
+      <div className={classes.root}>
+        <Typography variant="h6">Orders</Typography>
+        <div div className={classes.root}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            onClick={handleClickOpenAdd}
+            className={classes.addButton}
+          >
+            Add Order
+          </Button>
+        </div>
+      </div>
+
+      <TableContainer component={Paper}>
+        <Toolbar>
+          <TextField
+            id="search"
+            type="search"
+            value={search}
+            onChange={handleSearchChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          >
+            <InputLabel shrink htmlFor="search">
+              Search
+            </InputLabel>
+          </TextField>
+        </Toolbar>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ display: "none" }}>ID</TableCell>
+              <TableCell>Order Type</TableCell>
+              <TableCell>Supplier</TableCell>
+              <TableCell>Order Status</TableCell>
+              <TableCell>Quantity</TableCell>
+              <TableCell>Advance Fee(LKR)</TableCell>
+              <TableCell>Delivery Date</TableCell>
+              <TableCell>Edit</TableCell>
+              <TableCell>Delete</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredData?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+              <TableRow key={row._id || index} className={classes.row}>
+                <TableCell style={{ display: "none" }}>{row._id}</TableCell>
+                <TableCell>
+                  {
+                    itemTypes.find((item) => item._id === row.orderType)
+                      ?.itemName
+                  }
+                </TableCell>
+                <TableCell>{row.supplierName}</TableCell>
+                <TableCell>{row.orderStatus}</TableCell>
+                <TableCell>{row.quantity}</TableCell>
+                <TableCell>{row.advanceFee}</TableCell>
+                <TableCell>{row.deliveryDate.substring(0, 10)}</TableCell>
+                <TableCell>
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => handleClickOpen(row)}
+                    color="primary"
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </TableCell>
+                <TableCell>
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => handleDelete(row._id)}
+                    color="secondary"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={filteredData?.length || 0}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+        <AddOrderDialog
+          open={openAdd}
+          handleClose={handleCloseAdd}
+          handleAdd={handleAdd}
+          newRow={newRow}
+          setNewRow={setNewRow}
+          suppliers={suppliers}
+          itemTypes={itemTypes}
+          validationErrors={validationErrors}
+        />
+        <UpdateOrderDialog
+          open={open}
+          handleClose={handleClose}
+          handleUpdate={handleUpdate}
+          currentRow={currentRow}
+          setCurrentRow={setCurrentRow}
+          suppliers={suppliers}
+          itemTypes={itemTypes}
+          validationErrors={validationErrors}
+        />
+      </TableContainer>
+    </div>
+  );
+};
+export default OrderTable;

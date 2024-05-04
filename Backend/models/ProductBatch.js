@@ -1,51 +1,52 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Define schema for product
 const productBatchSchema = new mongoose.Schema({
   productId: {
     type: String,
-    required: true,
+    //required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   variant: {
     type: String,
-    required: true
   },
   quantity: {
     type: Number,
-    required: true
+    required: true,
   },
   manufactureDate: {
     type: Date,
-    required: true
+    required: true,
   },
-  
+
   manufactureTime: {
-    type: String
+    type: String,
   },
   expiryDate: {
     type: Date,
-    required: true
+    required: true,
   },
   batchId: {
     type: String,
-    required: true
+    required: true,
   },
   released: {
     type: Boolean,
-    default: false
+    default: false,
   },
   storageLocation: {
     type: String,
-  }
-
-
+  },
+  collect: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // Create a model based on the schema
-const ProductBatch = mongoose.model('productBatch', productBatchSchema);
+const ProductBatch = mongoose.model("productBatch", productBatchSchema);
 
 module.exports = ProductBatch;

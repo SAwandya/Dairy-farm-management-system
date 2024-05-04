@@ -12,25 +12,29 @@ const purchase = require("./routes/purchases");
 const animalReg = require("./routes/animalRegister");
 const vaccAnim = require("./routes/vacAnimal");
 const exmAnim = require("./routes/exmAnimal");
+const pregnantCow = require("./routes/pregnantCow");
 const messages = require("./routes/messages");
 const employee = require("./routes/eRegister");
 const supplier = require("./routes/supplier");
-const milkingSessions = require("./routes/milkingSessionRoute");
 const order = require("./routes/order");
 const item = require("./routes/item");
+const milkingSessions = require("./routes/milkingSessionRoute");
 const milkingData = require("./routes/milkingDataRoute");
 const milkingStorage = require("./routes/storageTankRoute");
-const processCrud = require("./routes/processCrud");
 const pdf = require("./routes/pdf");
 const pasture=require("./routes/pastureDetails");
 const temperatureSendRcv = require("./routes/temperatureSendRcv");
+const processCrud = require("./routes/processCrud");
 const productBatchCrud = require("./routes/productBatchCrud");
 const payment = require("./routes/payments");
 const session=require("./routes/sessions");
-
+const waste=require("./routes/effluentRoutes");
 const cart = require("./routes/Carts");
 const salesDelivery = require("./routes/salesDelivery");
-const effluentRoutes=require("./routes/effluentRoutes");
+const inventory = require("./routes/inventory");
+const transaction = require("./routes/transaction");
+const reorderMessage = require("./routes/reorderNotifications");
+
 
 if (!config.get("jwtPrivateKey")) {
   console.log("FATA ERROR: jwtPrivateKey is not defined");
@@ -62,6 +66,8 @@ app.use("/api/vacAnim", vaccAnim);
 
 app.use("/api/exmAnim", exmAnim);
 
+app.use("/api/pregnantCow",pregnantCow);
+
 app.use("/api/messages", messages);
 
 app.use("/api/employee", employee);
@@ -89,10 +95,21 @@ app.use("/api/pastureDetails",pasture);
 
 app.use("/api/payments", payment);
 
-
 app.use("/api/sessions", session);
 
 app.use("/api/effluentRoutes",waste);
+
+
+app.use("/api/carts", cart);
+
+app.use("/api/salesdelivery", salesDelivery);
+
+app.use("/api/inventory", inventory);
+
+app.use("/api/transaction", transaction);
+
+app.use("/api/reordernotify", reorderMessage);
+
 
 const server = http.createServer(app); // Create an HTTP server using Express app
 

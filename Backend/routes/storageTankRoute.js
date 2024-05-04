@@ -8,7 +8,6 @@ router.post('/', async (req, res) => {
     }
     try {
         const newStorageTank = new StorageTank({
-            tankId: req.body.tankId,
             capacity: req.body.capacity,
             installedDate: req.body.installedDate,
             manufacturer: req.body.manufacturer,
@@ -24,7 +23,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// GET method to fetch all milking sessions
 router.get('/', async (req, res) => {
     try {
         const storageTank = await StorageTank.find();
@@ -42,7 +40,7 @@ router.put('/:tankId', async (req, res) => {
         const updatedTank = await StorageTank.findOneAndUpdate(
             { tankId },
             { storedMilkBatches },
-            { new: true } // To return the updated document
+            { new: true }
         );
         if (!updatedTank) {
             return res.status(404).json({ success: false, error: 'Tank not found' });
@@ -58,11 +56,10 @@ router.put('/updateAvailableMilk/:tankId', async (req, res) => {
     const { tankId } = req.params;
     const { amountOfMilk } = req.body;
     try {
-        // Find the storageTank by tankId and update the availableMilk field
         const updatedTank = await StorageTank.findOneAndUpdate(
             { tankId },
-            { $inc: { availableMilk: amountOfMilk } }, // Increment availableMilk by amountOfMilk
-            { new: true } // To return the updated document
+            { $inc: { availableMilk: amountOfMilk } },
+            { new: true } 
         );
         if (!updatedTank) {
             return res.status(404).json({ success: false, error: 'Tank not found' });

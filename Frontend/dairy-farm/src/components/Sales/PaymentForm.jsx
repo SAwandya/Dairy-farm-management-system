@@ -11,6 +11,7 @@ import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import usePayment from "../../hooks/usePayment";
 import { useAuth } from "../../contexts/AuthContext";
+import { Box } from "@mui/material";
 
 const PaymentForm = (props) => {
   const { register, errors } = props;
@@ -38,6 +39,12 @@ const PaymentForm = (props) => {
      console.log(currentPayment);
    }, [currentPayment]);
 
+    const isDateValid = (value) => {
+      const selectedDate = new Date(value);
+      const today = new Date();
+      return selectedDate >= today;
+    };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -49,10 +56,10 @@ const PaymentForm = (props) => {
             id="cardName"
             label="Card name"
             type="text"
-            disable={currentPayment !== '' ? true : false}
+            disable={currentPayment !== "" ? true : false}
             signup={{
               ...register("cardName", {
-                required: currentPayment == '' ? true : false,
+                required: currentPayment == "" ? true : false,
               }),
             }}
             errors={errors.cardName}
@@ -63,10 +70,10 @@ const PaymentForm = (props) => {
             id="cardNumber"
             label="cardNumber"
             type="number"
-            disable={currentPayment !== '' ? true : false}
+            disable={currentPayment !== "" ? true : false}
             signup={{
               ...register("cardNumber", {
-                required: currentPayment == '' ? true : false,
+                required: currentPayment == "" ? true : false,
               }),
             }}
             errors={errors.cardNumber}
@@ -77,10 +84,12 @@ const PaymentForm = (props) => {
             id="expDate"
             label="Expire date"
             type="date"
-            disable={currentPayment !== '' ? true : false}
+            inputProps={new Date().toISOString().slice(0, 10)}
+            disable={currentPayment !== "" ? true : false}
             signup={{
               ...register("expDate", {
-                required: currentPayment == '' ? true : false,
+                required: currentPayment == "" ? true : false,
+                validate: currentPayment == "" ? isDateValid : undefined,
               }),
             }}
             errors={errors.expDate}
@@ -91,10 +100,10 @@ const PaymentForm = (props) => {
             id="cvv"
             label="CVV"
             type="number"
-            disable={currentPayment !== '' ? true : false}
+            disable={currentPayment !== "" ? true : false}
             signup={{
               ...register("cvv", {
-                required: currentPayment == '' ? true : false,
+                required: currentPayment == "" ? true : false,
               }),
             }}
             errors={errors.cvv}
@@ -125,17 +134,22 @@ const PaymentForm = (props) => {
             name="radio-buttons-group"
           >
             {data?.map((payment) => (
-              <FormControlLabel
-                key={payment._id}
-                value={payment.cardNumber}
-                control={<Radio />}
-                label={payment.cardNumber}
-                onChange={() => handlePayment(payment)}
-              />
+              <Box sx={{ backgroundColor: "#90EE90", borderRadius: '10px', padding: "10px", margin: '5px' }}>
+                <FormControlLabel
+                  key={payment._id}
+                  value={payment.cardNumber}
+                  control={<Radio />}
+                  label={
+                    payment.cardNumber.toString().substring(0, 5) + "******"
+                  }
+                  onChange={() => handlePayment(payment)}
+                />
+              </Box>
             ))}
+
             <FormControlLabel
               value=""
-              onChange={() => handlePayment('')}
+              onChange={() => handlePayment("")}
               control={<Radio />}
               label="non"
             />

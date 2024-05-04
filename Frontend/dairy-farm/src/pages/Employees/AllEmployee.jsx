@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CustomizedTables from '../../components/Veterinary/table';
+import CustomizedTables from '../../components/Employees/etable';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
@@ -16,6 +16,9 @@ import Swal from 'sweetalert2';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TablePagination from '@mui/material/TablePagination';
 import SearchIcon from '@mui/icons-material/Search'; // Import SearchIcon
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function AllEmployee() {
     const [employees, setEmployees] = useState([]);
@@ -29,7 +32,8 @@ function AllEmployee() {
         axios.get("http://localhost:3000/api/employee/")
         .then(result => {
             console.log(result.data);
-            setDataList(result.data);
+            const sortedData = result.data.sort((a, b) => a.employeeId.localeCompare(b.employeeId));
+            setDataList(sortedData);
             setLoading(false);
         })
         .catch(err => {
@@ -65,6 +69,7 @@ function AllEmployee() {
     };
   
     const handleDelete = (id) => {
+        // Show confirmation box
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',
@@ -75,16 +80,36 @@ function AllEmployee() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete('http://localhost:3000/api/employee/deleteEmployee/'+id)
+                // If user confirms deletion, send delete request
+                axios.delete(`http://localhost:3000/api/employee/deleteEmployee/${id}`)
                     .then(res => {
                         console.log(res);
-                        window.location.reload();
+                        // Show success toast upon successful deletion
+                        toast.success('Employee deleted successfully', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            onClose: () => {
+                                // Fetch updated employee list after deletion
+                                axios.get("http://localhost:3000/api/employee/")
+                                    .then(result => {
+                                        console.log(result.data);
+                                        // Update state with new list of employees
+                                        setDataList(result.data);
+                                    })
+                                    .catch(err => console.log(err));
+                            }
+                        });
                     })
                     .catch(err => console.log(err));
             }
         });
     };
-
+    
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -112,12 +137,18 @@ function AllEmployee() {
     
     return (
         <div>
+             <div>
+    {/* Your app components */}
+    <ToastContainer />
             <div style={{ display: 'flex', minWidth: '1036px', overflow: 'hidden' }}>
                 <Esidebar/>
-                <Box sx={{ marginLeft: '17rem', marginTop:'50px' }}>
-                    <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold' , fontFamily: 'Poppins' }}>
-                        Welcome Disara,
-                    </Typography>
+                <Box sx={{ marginLeft: '11rem', marginTop:'50px' }}>
+                <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                    Welcome Back,
+                </Typography>
+                <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                   Hello Disara,
+                </Typography>
                     <Box sx={{ position: 'absolute', top: 0, right: 0, padding: '1rem', zIndex: 999 }}>
                         <IconButton onClick={() => navigate('/employeedashboard')} color="inherit">
                             <CloseIcon />
@@ -169,6 +200,7 @@ function AllEmployee() {
                     </TableCard>
                 </Box>
             </div>
+        </div>
         </div>
     );
 }

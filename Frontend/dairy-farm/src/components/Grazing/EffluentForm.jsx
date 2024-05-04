@@ -59,10 +59,14 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
     if (!formData.wasteCollected) {
       newErrors.wasteCollected = 'Amount of Waste Collected is required';
       isValid = false;
-    } else if (isNaN(formData.wasteCollected)) {
+  } else if (isNaN(formData.wasteCollected)) {
       newErrors.wasteCollected = 'Amount of Waste Collected must be a number';
       isValid = false;
-    }
+  } else if (parseFloat(formData.wasteCollected) < 0) {
+      newErrors.wasteCollected = 'Amount of Waste Collected cannot be negative';
+      isValid = false;
+  }
+  
 
     if (!formData.wasteType) {
       newErrors.wasteType = 'Type of Waste is required';
@@ -128,12 +132,12 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
             <MenuItem value="discardedProduction">Discarded Production</MenuItem>
             <MenuItem value="other">Other</MenuItem>
           </Select>
-          {errors.wasteType && <FormHelperText>{errors.wasteType}</FormHelperText>}
+          <FormHelperText>{errors.wasteType}</FormHelperText>
         </FormControl>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSubmitForm} color="primary">{initialData ? 'Update' : 'Add'}</Button>
+        <Button onClick={handleSubmitForm} color="primary">{initialData ? 'Update' : 'add'}</Button>
       </DialogActions>
     </Dialog>
   );

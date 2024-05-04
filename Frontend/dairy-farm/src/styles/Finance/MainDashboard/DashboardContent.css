@@ -13,3 +13,41 @@
     margin-right: 0;
     /* Remove margin for the last child */
 }
+
+.user-actions{
+    margin-top: auto;
+}
+/* Side Bar */
+.sidebar {
+    background-color: #38775B;
+    width: 130px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+}
+
+.tablContainer {
+    width: 100%;
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.paper {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

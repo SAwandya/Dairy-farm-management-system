@@ -14,8 +14,12 @@ const ProductCard = (props) => {
 
   const SetSelectedProduct = useGameQueryStore((s) => s.SetSelectedProduct);
 
-  const handleSubmit = (event) => {
+  const SetselectedBuyAddButton = useGameQueryStore((s) => s.SetselectedBuyAddButton);
+
+  const handleSubmit = (event, button) => {
     console.log("submited");
+
+    SetselectedBuyAddButton(button);
 
     SetSelectedProduct(product);
   };
@@ -27,15 +31,22 @@ const ProductCard = (props) => {
         maxWidth: "100%",
         boxShadow: "lg",
         borderRadius: "20px",
-        height: "376px",
+        height: "400px",
+        marginTop: "20px"
       }}
     >
       <CardOverflow>
         <AspectRatio sx={{ minWidth: 200 }}>
           <img
-            src="https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286"
+            // src={product.category == 'Cheese' ? "https://images.unsplash.com/photo-1593121925328-369cc8459c08?auto=format&fit=crop&w=286" }
             loading="lazy"
-            srcSet="../src/assets/cheese.png"
+            srcSet={
+              product.category == "Cheese"
+                ? "../src/assets/cheese.jpg"
+                : product.category == "Ice_cream"
+                ? "../src/assets/ice_cream.jpg"
+                : "../src/assets/yo_gurt.png"
+            }
             alt=""
             style={{
               width: "100%",
@@ -50,10 +61,13 @@ const ProductCard = (props) => {
         <Typography sx={{ fontSize: "28px", fontWeight: "2px" }}>
           {product.name}
         </Typography>
+        <Typography sx={{ fontSize: "18px", fontWeight: "2px" }}>
+          {product.unitOfMeasurement}
+        </Typography>
 
         <Typography
           level="title-lg"
-          sx={{ mt: 1, fontWeight: "xl", fontSize:'22px' }}
+          sx={{ mt: 1, fontWeight: "xl", fontSize: "22px" }}
           endDecorator={
             <Chip component="span" size="lg" variant="soft" color="success">
               1 PACK = 20 Units
@@ -63,7 +77,7 @@ const ProductCard = (props) => {
           {product.price * 20} LKR
         </Typography>
         <Typography level="body-sm" sx={{ fontSize: "18px", marginTop: "5px" }}>
-          ( <b>{product.quantity} Packs</b> Available in stock)
+          ( <b>{Math.floor(product.quantity)} Packs</b> Available in stock)
         </Typography>
       </CardContent>
       <CardOverflow
@@ -75,7 +89,7 @@ const ProductCard = (props) => {
       >
         <Link to="/productdetails">
           <Button
-            onClick={(event) => handleSubmit(event)}
+            onClick={(event, buy) => handleSubmit(event, "buy")}
             type="submit"
             variant="solid"
             color="danger"
@@ -89,7 +103,7 @@ const ProductCard = (props) => {
             Buy
           </Button>
           <Button
-            onClick={(event) => handleSubmit(event)}
+            onClick={(event, add) => handleSubmit(event, "add")}
             type="submit"
             variant="solid"
             color="success"

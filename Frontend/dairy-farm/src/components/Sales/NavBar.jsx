@@ -18,6 +18,8 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -62,6 +64,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const { logout } = useAuth()
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -202,7 +206,7 @@ const NavBar = () => {
           </Search>
 
           <Stack direction="row" spacing={2}>
-            <Link to='/'>
+            <Link to="/">
               <Button
                 sx={{
                   backgroundColor: "rgba(155, 207, 83, 0.8)",
@@ -230,18 +234,20 @@ const NavBar = () => {
                 MY ORDERS
               </Button>
             </Link>
-            <Button
-              sx={{
-                backgroundColor: "rgba(155, 207, 83, 0.8)",
-                fontSize: "17px",
-                fontWeight: "bold",
-                width: "150px",
-                color: "#191919",
-                borderRadius: "10px",
-              }}
-            >
-              CART
-            </Button>
+            <Link to="/salescarts">
+              <Button
+                sx={{
+                  backgroundColor: "rgba(155, 207, 83, 0.8)",
+                  fontSize: "17px",
+                  fontWeight: "bold",
+                  width: "150px",
+                  color: "#191919",
+                  borderRadius: "10px",
+                }}
+              >
+                CART
+              </Button>
+            </Link>
           </Stack>
 
           <Box sx={{ flexGrow: 1 }} />
@@ -251,8 +257,8 @@ const NavBar = () => {
               aria-label="show 4 new mails"
               color="inherit"
             >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
+              <Badge onClick={() => logout()} color="error">
+                <LogoutIcon />
               </Badge>
             </IconButton>
             <IconButton

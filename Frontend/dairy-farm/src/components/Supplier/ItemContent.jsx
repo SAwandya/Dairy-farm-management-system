@@ -6,7 +6,7 @@ import '../../styles/supply.css'
 import ItemStatistics from './ItemStatistics';
 
 
-function DashboardContent() {
+function ItemContent() {
     return (
         <Box className="dashboard-content-supply">
             <Welcome/>
@@ -24,4 +24,4 @@ function DashboardContent() {
     );
   }
   
-  export default DashboardContent;
+  export default ItemContent;

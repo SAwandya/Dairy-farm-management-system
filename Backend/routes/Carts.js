@@ -3,6 +3,8 @@ const router = express.Router();
 const { Cart, validateCart } = require("../models/salesCart");
 const { Customer } = require("../models/customer");
 const { Product } = require("../models/product");
+const ProductBatch = require("../models/ProductBatch");
+const { ReorderMessage } = require("../models/reorderNotification");
 
 router.get("/", async (req, res) => {
   const carts = await Cart.find();
@@ -30,6 +32,51 @@ router.post("/", async (req, res) => {
     },
     { quantity: true }
   );
+
+  //automate the re-order process
+
+  if (product) {
+    const productId = req.body.productId;
+
+    let updatedProduct = await Product.findById(productId);
+
+    if (updatedProduct.quantity < 50) {
+      let productbatch = await ProductBatch.findOne({
+        name: updatedProduct.name,
+        variant: updatedProduct.unitOfMeasurement,
+        released: true,
+        collect: false,
+      });
+
+      if (!productbatch) {
+        //send notification to the production
+        console.log("has been reached minimum level");
+        let message = new ReorderMessage({
+          message: `${updatedProduct.name} has reached the minimum stock level`,
+          product: updatedProduct,
+        });
+
+        message = await message.save();
+      } else {
+        updatedProduct = await Product.findByIdAndUpdate(
+          updatedProduct._id,
+          {
+            $inc: { quantity: +productbatch.quantity / 20 },
+          },
+          { quantity: true }
+        );
+
+        productbatch = await ProductBatch.findByIdAndUpdate(productbatch._id, {
+          collect: true,
+        });
+      }
+    }
+  } else {
+    return res.status(400).send("Invalide product");
+  }
+
+  //================================
+
   if (!product) return res.status(400).send("Invalide product");
 
   let cart = new Cart({

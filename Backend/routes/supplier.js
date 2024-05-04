@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const router = express.Router();
 const { validate, Supplier } = require("../models/supplier");
+
 const c = require("config");
 const { number } = require("joi");
 
@@ -15,7 +16,8 @@ router.post('/', async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         itemType: req.body.itemType,
-        deliveryDate: req.body.deliveryDate
+        supplierType: req.body.supplierType,
+        avgDeliveryTime: req.body.avgDeliveryTime
     });
     supplier = await supplier.save();
 
@@ -44,7 +46,8 @@ router.put('/:id', async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         itemType: req.body.itemType,
-        deliveryDate: req.body.deliveryDate
+        supplierType: req.body.supplierType, 
+        avgDeliveryTime: req.body.avgDeliveryTime
     }, { new: true });
 
     if (!supplier) return res.status(404).send('The supplier with the given ID was not found.');

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import NavigationLink from "../NavigationLink";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
@@ -20,64 +21,80 @@ function Sidebar() {
   return (
     <Box className="sidebar" sx={{ position: 'fixed', left: 0, top: 0 }}>
       <Box className="sidebar-logo-container">
-        <img
-          className="sidebar-logo"
-          src="../../src/assets/sidebar-logo.png"
-          alt="Logo"
-        />
+        <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <img
+            className="sidebar-logo"
+            src="../../src/assets/sidebar-logo.png"
+            alt="Logo"
+          />
+        </Link>
       </Box>
 
       {/* Navigation links */}
       <Box className="navigation-links">
         <List>
-          <NavigationLink
-            icon={<SpaceDashboardIcon />}
-            text="Dashboard"
-            isActive={activeSection === "dashboard"}
-            onClick={() => handleNavigation("dashboard")}
-          />
-          <NavigationLink
-            icon={<AccessTimeFilledIcon />}
-            text="Sessions"
-            isActive={activeSection === "sessions"}
-            onClick={() => handleNavigation("sessions")}
-          />
-          <NavigationLink
-            icon={<DonutSmallIcon />}
-            text="Data"
-            isActive={activeSection === "milking-data"}
-            onClick={() => handleNavigation("milking-data")}
-          />
-          <NavigationLink
-            icon={<WaterDropIcon />}
-            text="Storage"
-            isActive={activeSection === "storage"}
-            onClick={() => handleNavigation("storage")}
-          />
-          <NavigationLink
-            icon={<AssessmentIcon />}
-            text="Reports"
-            isActive={activeSection === "reports"}
-            onClick={() => handleNavigation("reports")}
-          />
+          <Link to="/milkingdashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<SpaceDashboardIcon />}
+              text="Dashboard"
+              isActive={activeSection === "dashboard"}
+              onClick={() => handleNavigation("dashboard")}
+            />
+          </Link>
+          <Link to="/milkingSessions" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<AccessTimeFilledIcon />}
+              text="Sessions"
+              isActive={activeSection === "sessions"}
+              onClick={() => handleNavigation("sessions")}
+            />
+          </Link>
+          <Link to="/milkingData" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<DonutSmallIcon />}
+              text="Data"
+              isActive={activeSection === "milking-data"}
+              onClick={() => handleNavigation("milking-data")}
+            />
+          </Link>
+          <Link to="/milkingStorage" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<WaterDropIcon />}
+              text="Storage"
+              isActive={activeSection === "storage"}
+              onClick={() => handleNavigation("storage")}
+            />
+          </Link>
+          <Link to="/milkingReport" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<AssessmentIcon />}
+              text="Reports"
+              isActive={activeSection === "reports"}
+              onClick={() => handleNavigation("reports")}
+            />
+          </Link>
         </List>
       </Box>
 
       {/* Profile and Logout */}
       <Box className="user-actions">
         <List>
-          <NavigationLink
-            icon={<AccountCircleIcon />}
-            text="Profile"
-            isActive={activeSection === "profile"}
-            onClick={() => handleNavigation("profile")}
-          />
-          <NavigationLink
-            icon={<LogoutIcon />}
-            text="Logout"
-            isActive={activeSection === "logout"}
-            onClick={() => handleNavigation("logout")}
-          />
+          <Link to="/milkingProfile" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<AccountCircleIcon />}
+              text="Profile"
+              isActive={activeSection === "profile"}
+              onClick={() => handleNavigation("profile")}
+            />
+          </Link>
+          <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<LogoutIcon />}
+              text="Logout"
+              isActive={activeSection === "logout"}
+              onClick={() => handleNavigation("logout")}
+            />
+          </Link>
         </List>
       </Box>
     </Box>

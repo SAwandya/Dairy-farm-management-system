@@ -7,6 +7,9 @@ class UserService {
 
         return apiClient.post(user);
     }
+    delete(user) {
+        return apiClient.delete(user);
+    }
 }
 
 export default new UserService();

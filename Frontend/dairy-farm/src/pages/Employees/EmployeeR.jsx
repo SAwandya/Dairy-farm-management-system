@@ -4,7 +4,7 @@ import BgCard from '../../components/Veterinary/bgCard';
 import DateV from '../../components/Veterinary/DateV';
 import Esidebar from "../../components/Employees/esidebar";
 import EmployeeReport from './Employee_report';
-
+import Report from './Attendance_R';
 function EmployeeR() {
     return (
         <div style={{ display: 'flex', height: '100vh', fontFamily: 'Poppins, sans-serif' }}>
@@ -30,6 +30,26 @@ function EmployeeR() {
                             </div>
                             <div style={{ marginLeft: '20px' }}>
                                 <EmployeeReport />
+                                
+                            </div>
+                            <div>
+                           
+                            </div>
+                        </div>
+                    </BgCard>
+                    <BgCard style={{ marginBottom: '20px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                           
+                         
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <div>
+                                <p>{new Date().toLocaleDateString()} Employee Attendance</p>
+                            </div>
+                        
+                            <div style={{ marginLeft: '20px' }}>
+                                <Report />
+                                
+                            </div>
                             </div>
                         </div>
                     </BgCard>

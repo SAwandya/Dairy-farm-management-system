@@ -17,10 +17,16 @@ const supplierSchema = new mongoose.Schema({
         required: true,
     },
 
-    deliveryDate: {
-        type: Date,
+    supplierType: {
+        type: String,
         required: true,
-    }
+        enum: ['Contracted', 'Permanent'],
+    },
+
+    avgDeliveryTime: {
+        type: Number,
+        required: true,
+      },
 });
 
 const Supplier = mongoose.model("Suppliers", supplierSchema);
@@ -30,7 +36,8 @@ function validateSupplier(supplier) {
         name: Joi.string().required(),
         email: Joi.string().required(),
         itemType: Joi.string().required(),
-        deliveryDate: Joi.date().required()
+        supplierType: Joi.string().valid('Contracted', 'Permanent').required(),
+        avgDeliveryTime: Joi.number().required()
     });
 
     var result = schema.validate(supplier);

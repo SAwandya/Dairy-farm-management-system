@@ -17,6 +17,7 @@ import productService from "../../services/Sales/productService";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Search from "./Search";
 import { Container } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -33,8 +34,8 @@ const ProductList = () => {
     (s) => s.SetSelectedProductPublish
   );
 
-  const handleUpdate = (id) => {
-    SetSelectedProductUpdate(id);
+  const handleUpdate = (product) => {
+    SetSelectedProductUpdate(product);
   };
 
   const handlePublish = (id, publish) => {
@@ -45,6 +46,8 @@ const ProductList = () => {
       .then((res) => {
         console.log(res.data);
         console.log("success");
+        toast.success("successfull");
+
         refetch();
       })
       .catch((err) => {
@@ -57,6 +60,8 @@ const ProductList = () => {
       .Delete(id)
       .then((res) => {
         console.log(res.data);
+        toast.error("Successfully deleted");
+
         refetch();
       })
       .catch((err) => {
@@ -76,7 +81,16 @@ const ProductList = () => {
 
   return (
     <React.Fragment>
-      <Container sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', marginBottom: '20px' }}>
+      <ToastContainer />
+
+      <Container
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
+          marginBottom: "20px",
+        }}
+      >
         <SalesTitle>Recent Products</SalesTitle>
 
         <Search setQuery={setQuery} query={query} />
@@ -86,7 +100,7 @@ const ProductList = () => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Quantity</TableCell>
+            <TableCell>Quantity(Packs)</TableCell>
             <TableCell>Category</TableCell>
             <TableCell align="right">Unit Price</TableCell>
             <TableCell>Update</TableCell>
@@ -100,11 +114,11 @@ const ProductList = () => {
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.quantity}</TableCell>
               <TableCell>{product.category}</TableCell>
-              <TableCell align="right">{`$${product.price}`}</TableCell>
+              <TableCell align="right">{`${product.price} LKR`}</TableCell>
               <TableCell>
                 <Link to="/productupdate">
                   <Button
-                    onClick={() => handleUpdate(product._id)}
+                    onClick={() => handleUpdate(product)}
                     variant="contained"
                     size="medium"
                     color="success"
@@ -114,9 +128,9 @@ const ProductList = () => {
                 </Link>
               </TableCell>
               <TableCell>
-                {product.publish == false ? (
+                {product.publish == true ? (
                   <Button
-                    onClick={() => handlePublish(product._id, true)}
+                    onClick={() => handlePublish(product._id, false)}
                     variant="outlined"
                     size="medium"
                     color="error"
@@ -125,7 +139,7 @@ const ProductList = () => {
                   </Button>
                 ) : (
                   <Button
-                    onClick={() => handlePublish(product._id, false)}
+                    onClick={() => handlePublish(product._id, true)}
                     variant="outlined"
                     size="medium"
                     color="error"

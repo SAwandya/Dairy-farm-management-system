@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
+import { Button,Box, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
+import eventBus from "../../ProductionUtils/EventBus"
+
+
+const handleFormSubmitSuccess = () => {
+  eventBus.emit('formSubmitted');
+};
 
 function NewProcessForm({ onSubmitSuccess }) {
   const [open, setOpen] = useState(false);
@@ -18,7 +24,7 @@ function NewProcessForm({ onSubmitSuccess }) {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const maxMilkQuantity = 1000; // Maximum milk quantity limit
+  const maxMilkQuantity = 1200; // Maximum milk quantity limit
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -35,6 +41,7 @@ function NewProcessForm({ onSubmitSuccess }) {
   const handleCancelConfirmation = (confirmed) => {
     setShowCancelConfirmation(false);
     if (confirmed) {
+      resetFields();
       setOpen(false);
     }
   };
@@ -54,7 +61,17 @@ function NewProcessForm({ onSubmitSuccess }) {
       };
       await submitFormToDatabase(formData);
       //fetching results to ProcessTable
+      handleFormSubmitSuccess();
+      setSuccessMessage('Form submitted successfully');
       // Reset form fields after successful submission
+      resetFields();
+    } catch (error) {
+      console.error('Failed to submit form data:', error);
+      setErrorMessage('Failed to submit form data');
+    }
+  };
+
+  function resetFields(){
       setProduct('');
       setMilkQuantity(0);
       setIngredients([]);
@@ -63,12 +80,7 @@ function NewProcessForm({ onSubmitSuccess }) {
       setScheduleTime('');
       setStatus('started'); // Reset status to 'started'
       setIsScheduled(false); // Reset scheduling checkbox
-      setSuccessMessage('Form submitted successfully');
-    } catch (error) {
-      console.error('Failed to submit form data:', error);
-      setErrorMessage('Failed to submit form data');
-    }
-  };
+  }
 
   const submitFormToDatabase = async (formData) => {
     try {
@@ -83,6 +95,18 @@ function NewProcessForm({ onSubmitSuccess }) {
     setSuccessMessage('');
     setErrorMessage('');
   };
+  //Validations
+  const isDateInPast = (dateString) => {
+    const selectedDate = new Date(dateString);
+    const currentDate = new Date();
+    // Check if the selected date is less than or equal to the current date
+    return selectedDate < currentDate.setHours(0, 0, 0, 0);
+  };
+  const isTimeInPast = (dateString, timeString) => {
+    const selectedDateTime = new Date(`${dateString}T${timeString}`);
+    const currentDateTime = new Date();
+    return selectedDateTime < currentDateTime;
+  };
 
   return (
     <div>
@@ -94,22 +118,20 @@ function NewProcessForm({ onSubmitSuccess }) {
         <Dialog open={open} onClose={handleClose}
 
           sx={{
-            width: '26.6%',
-
+            width: '27.6%', height: '90%',
+            
             '& .MuiBackdrop-root': {
               backgroundColor: 'transparent',
               position: 'absolute',
             }
 
-          }} style={{ left: '33.4%', right: '37%', top: '8%',
-
-
-          }}
+          }} style={{ left: '12.4%', right: '0%', top: '8.5%',   }}
 
         >
-
-          <DialogTitle align="center">Add New Process</DialogTitle>
-          <DialogContent>
+              <Box  sx={{backgroundColor: '#FF', borderBottomLeftRadius:20,borderBottomRightRadius:20,
+             border: '3px solid #395e99' }} >
+          <DialogTitle align="center" fontWeight="bold">Add New Process</DialogTitle>
+          <DialogContent >
             <FormControl fullWidth margin="normal">
               <InputLabel id="product-label">Product</InputLabel>
               <Select
@@ -118,8 +140,8 @@ function NewProcessForm({ onSubmitSuccess }) {
                 onChange={(e) => setProduct(e.target.value)}
                 label="Product"
               >
-                <MenuItem value="Chocolate icecream">Chocolate icecream</MenuItem>
-                <MenuItem value="Vanilla icecream">Vanilla icecream</MenuItem>
+                <MenuItem value="Chocolate Icecream">Chocolate icecream</MenuItem>
+                <MenuItem value="Vanilla Icecream">Vanilla icecream</MenuItem>
                 <MenuItem value="Milk">Milk</MenuItem>
                 <MenuItem value="Yoghurt">Yoghurt</MenuItem>
               </Select>
@@ -186,6 +208,8 @@ function NewProcessForm({ onSubmitSuccess }) {
                   type="date"
                   value={scheduleDate}
                   onChange={(e) => setScheduleDate(e.target.value)}
+                  error={scheduleDate && isDateInPast(scheduleDate)}
+                    helperText={scheduleDate && isDateInPast(scheduleDate) ? 'Please select a future date' : ''}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -197,6 +221,8 @@ function NewProcessForm({ onSubmitSuccess }) {
                   type="time"
                   value={scheduleTime}
                   onChange={(e) => setScheduleTime(e.target.value)}
+                  error={isTimeInPast(scheduleDate, scheduleTime)}
+                  helperText={isTimeInPast(scheduleDate, scheduleTime) ? 'Please select a future time' : ''}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -204,6 +230,7 @@ function NewProcessForm({ onSubmitSuccess }) {
               </div>
             )}
           </DialogContent>
+          </Box>
           <DialogActions>
             <Button onClick={handleCancel}>Cancel</Button>
             <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>

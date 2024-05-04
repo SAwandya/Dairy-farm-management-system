@@ -2,6 +2,12 @@ const express = require('express');
 const EmployeeModel = require('../models/Employees');
 const router = express.Router();
 const TaskModel = require('../models/Tasks');
+
+const csv = require('csv-parser');
+const fs = require('fs');
+const DataModel = require("../models/Data");
+
+const LeaveModel = require('../models/Leaves')
 router.post('/createEmployee', (req, res) => {
     EmployeeModel.create(req.body)
         .then(employees => res.json(employees))
@@ -62,5 +68,51 @@ router.delete('/deleteTask/:id', (req, res) => {
     TaskModel.findByIdAndDelete({ _id: id })
         .then(Task => res.json(Task))
         .catch(err => res.json(err));
+});
+router.post('/submitLeave', (req, res) => {
+    LeaveModel.create(req.body)
+        .then(leaves => res.json(leaves))
+        .catch(err => res.json(err));
+});
+router.get('/leave', (req, res) => {
+    LeaveModel.find({})
+        .then(leaves => res.json(leaves))
+        .catch(err => res.json(err));
+});
+
+
+router.put('/leave/:id', (req, res) => {
+    const id = req.params.id;
+    const { status } = req.body;
+
+    // Assuming you have a MongoDB model for leaves
+
+    // Find the leave by ID and update its status
+    LeaveModel.findByIdAndUpdate({ _id: id }, { status }, { new: true })
+        .then(updatedLeave => {
+            res.json(updatedLeave);
+        })
+        .catch(err => {
+            console.error('Error updating leave status:', err);
+            res.status(500).json({ error: 'Error updating leave status' });
+        });
+});
+
+router.get('/data', (req, res) => {
+    const dataList = [];
+    fs.createReadStream('Data/data.csv')
+        .pipe(csv())
+        .on('data', (row) => {
+            // Assuming your CSV file has columns 'Timestamp', 'Employee ID', and 'Date'
+            const data = new DataModel({
+                timestamp: row.Timestamp,
+                employeeId: row['Employee ID'],
+                date: row.Date
+            });
+            dataList.push(data);
+        })
+        .on('end', () => {
+            res.json(dataList);
+        });
 });
 module.exports = router;

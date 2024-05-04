@@ -9,8 +9,22 @@ router.post('/process', async (req, res) => {
     // Destructure the request body to extract the required fields
     const { product, milkQuantity, ingredients, specialNotes, scheduleDateTime, status } = req.body;
 
-    // Parse scheduleDateTime into separate date and time
-    const [scheduleDate, scheduleTime] = scheduleDateTime.split(' ');
+    
+    // Initialize variables for scheduleDate and scheduleTime
+    let scheduleDate;
+    let scheduleTime;
+
+    // If status is "started", set scheduleDate and scheduleTime to current date and time
+    if (status === "started") {
+      scheduleDate = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
+      scheduleTime = new Date().toLocaleTimeString([], { hour12: false }); // Current time in HH:MM:SS format
+    } else {
+      // If status is not "started", parse scheduleDateTime into separate date and time
+      [scheduleDate, scheduleTime] = scheduleDateTime.split(' ');
+    }
+
+    //get current Date and time
+    const startTime =  new Date(); 
 
     // Create a new Process document using the extracted fields
     const process = await Process.create({
@@ -18,6 +32,7 @@ router.post('/process', async (req, res) => {
       milkQuantity,
       ingredients,
       specialNotes,
+      startTime,
       scheduleDate,
       scheduleTime,
       status

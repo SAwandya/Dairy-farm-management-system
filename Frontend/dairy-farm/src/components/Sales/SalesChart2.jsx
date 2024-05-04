@@ -1,11 +1,9 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import { BarChart } from "@mui/x-charts/BarChart";
 import usePurcahse from "../../hooks/usePurcahses";
+import AnalysisRep from "../../pages/Sales/AnalysisRep";
 import { color } from "@mui/system";
 
 const SalesChart2 = () => {
@@ -40,7 +38,7 @@ const SalesChart2 = () => {
 
   const groupedData = {};
   orders?.forEach((order) => {
-    const month = order.orderDate.getMonth() + 1; // Months are zero-indexed, so add 1
+    const month = order.orderDate.getMonth() + 1; 
     const year = order.orderDate.getFullYear();
     const productType = order.product.name;
 
@@ -55,7 +53,7 @@ const SalesChart2 = () => {
     }
 
     groupedData[productType][year][month] +=
-      order.quantity * order.product.price * 20;
+      order.quantity;
   });
 
   // Step 3: Create the series array
@@ -64,7 +62,6 @@ const SalesChart2 = () => {
     const data = [];
     for (const year in groupedData[productType]) {
       for (const month in groupedData[productType][year]) {
-        console.log(month);
         const value = groupedData[productType][year][month];
         data[month-1] = value;
       }
@@ -80,17 +77,23 @@ const SalesChart2 = () => {
     series.push({ label: productType, data });
   }
 
-  console.log(series);
+  const newseries = series
+    .slice(0, seriesNb)
+    .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }));
 
-  // groupedData can be set to generate report
-
-  // const newseries = series
-  //   .slice(0, seriesNb)
-  //   .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }));
-
-  // console.log(series);
+  console.log(newseries);
 
   const [seriesData, setSeriesData] = React.useState([]);
+
+  const chartSetting = {
+    yAxis: [
+      {
+        label: "Quantity of the products(Packs)",
+        color: "white",
+      },
+    ],
+  };
+  
 
   return (
     <>
@@ -101,9 +104,19 @@ const SalesChart2 = () => {
           .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }))}
         skipAnimation={skipAnimation}
         width={1100}
+        sx={{
+          backgroundColor: "#252B48",
+          borderRadius: "20px",
+          paddingLeft: "16px",
+          marginTop: "26px",
+          "& .MuiChartsLegend-series": {
+            stroke: "#fff",
+          },
+        }}
+        
       />
 
-      <Typography color="white" id="input-item-number" gutterBottom>
+      <Typography id="input-item-number" gutterBottom>
         Number of months
       </Typography>
       <Slider
@@ -114,7 +127,7 @@ const SalesChart2 = () => {
         max={15}
         aria-labelledby="input-item-number"
       />
-      <Typography color="white" id="input-series-number" gutterBottom>
+      <Typography id="input-series-number" gutterBottom>
         Number of Products
       </Typography>
       <Slider
@@ -125,6 +138,7 @@ const SalesChart2 = () => {
         max={10}
         aria-labelledby="input-series-number"
       />
+      <AnalysisRep newseries={newseries} />
     </>
   );
 };

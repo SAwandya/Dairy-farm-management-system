@@ -34,7 +34,7 @@ function SessionPieChart() {
   ];
 
   return (
-    <div className="pie-chart-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: 300, marginLeft: 'auto', marginRight: 20 }}>
+    <div className="pie-chart-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: 300, marginLeft: 'auto', marginRight: 20,  marginTop:16}}>
       <CardContent>
         
         
@@ -70,7 +70,7 @@ function SessionPieChart() {
         </div>
         <div>
             <Typography align="center" fontStyle={"bold"} fontWeight={3}>
-         sessions conducted today in a pie chart
+         Today's sessions in a pie chart
         </Typography>
         </div>
       </div>

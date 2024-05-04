@@ -91,18 +91,23 @@ import GrassIcon from '@mui/icons-material/Grass';
             </List>
 
             <List>
+            <Link to="/em08profile" style={{ textDecoration: 'none', color: 'inherit' }}>
               <NavigationLink
                 icon={<AccountCircleIcon />}
                 text="Profile"
                 isActive={activeSection === "profile"}
-                onClick={() => handleNavigation("profile")}
+                onClick={() => handleNavigation("/profile")}
               />
+              </Link>
+
+              <Link to="/HomeM" style={{ textDecoration: 'none', color: 'inherit' }}>
               <NavigationLink
                 icon={<LogoutIcon />}
                 text="Logout"
-                isActive={activeSection === "logout"}
+                isActive={activeSection === "logout"}         //check this
                 onClick={() => handleNavigation("logout")}
               />
+              </Link>
             </List>
 
           </Box>

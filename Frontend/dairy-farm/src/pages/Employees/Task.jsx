@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CustomizedTables from '../../components/Veterinary/table';
+import CustomizedTables from '../../components/Employees/etable';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
@@ -70,8 +70,8 @@ function Task() {
     const handleEdit = (id) => {
         navigate(`/updateTask/${id}`);
     };
-
     const handleDelete = (id) => {
+        // Show confirmation box
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',
@@ -82,17 +82,29 @@ function Task() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                // If the user confirms the deletion, proceed with the API call
-                axios.delete('http://localhost:3000/api/employee/deleteTask/' + id)
+                // If user confirms deletion, send delete request
+                axios.delete(`http://localhost:3000/api/employee/deleteTask/${id}`)
                     .then(res => {
                         console.log(res);
-                        window.location.reload();
+                        // Update the dataList state to remove the deleted task
+                        setDataList(prevDataList => prevDataList.filter(task => task._id !== id));
+                        // Show success toast upon successful deletion
+                        toast.success('Task deleted successfully', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined
+                        });
                     })
                     .catch(err => console.log(err));
             }
         });
     };
-
+    
+   
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -140,35 +152,38 @@ function Task() {
         <div>
         <div style={{ display: 'flex', minWidth: '1036px' }}>
    <Esidebar/>
-        <Box sx={{ marginLeft: '15rem', marginTop:'50px', marginRight: '-14rem',width: '80%' }}>
-            <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '32px', fontWeight: 'bold',fontFamily: 'Poppins' }}>
-                Welcome Disara,
-            </Typography>
+        <Box sx={{ marginLeft: '12rem', marginTop:'50px', marginRight: '0rem',width: '86%' }}>
+        <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                    Welcome Back,
+                </Typography>
+                <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
+                   Hello Disara,
+                </Typography>
             <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-15rem',marginTop:'10px'}}>
                 <BgCards>
-                    <Typography variant="body1" sx={{ fontSize: '22px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                    <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                         All Tasks
                         <IconButton size="small" color="inherit">
                             <AssignmentIcon />
                         </IconButton>
                     </Typography>
-                    <Typography variant="body1" sx={{ fontSize: '20px', fontFamily: 'Poppins' , marginLeft:'2rem'}}>
+                    <Typography variant="body1" sx={{ fontSize: '18px', fontFamily: 'Poppins' , marginLeft:'2rem'}}>
                         {dataList.length}
                     </Typography>
                 </BgCards>
                 <BgCards>
-                    <Typography variant="body1" sx={{ fontSize: '22px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                    <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                         In Progress Tasks
                         <IconButton size="small" color="inherit">
                             <AssignmentIcon />
                         </IconButton>
                     </Typography>
-                    <Typography variant="body1" sx={{ fontSize: '20px', fontFamily: 'Poppins' , marginLeft:'2rem'}}>
+                    <Typography variant="body1" sx={{ fontSize: '18px', fontFamily: 'Poppins' , marginLeft:'2rem'}}>
                         {filterTasksByStatus('In progress').length}
                     </Typography>
                 </BgCards>
                 <BgCards>
-                    <Typography variant="body1" sx={{ fontSize: '22px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                    <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                         Completed Tasks
                         <IconButton size="small" color="inherit" >
                             <AssignmentIcon />

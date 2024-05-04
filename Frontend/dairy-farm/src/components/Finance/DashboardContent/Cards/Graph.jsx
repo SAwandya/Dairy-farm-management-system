@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, Typography } from "@mui/material";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import axios from 'axios';
 import '../../../../styles/Finance/MainDashboard/graph.css'
 
-const data = [
-  { date: '2022-01-01', income: 1500, expenses: 1000 },
-  { date: '2022-01-02', income: 1800, expenses: 1200 },
-  { date: '2022-01-03', income: 2000, expenses: 1300 },
-  { date: '2022-01-04', income: 2200, expenses: 1400 },
-  { date: '2022-01-05', income: 2300, expenses: 1500 },
-  { date: '2022-01-06', income: 2500, expenses: 1600 },
-  { date: '2022-01-07', income: 2600, expenses: 1700 },
-];
-
 function Graph() {
+  const [graphData, setGraphData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/transaction');
+        const transactions = response.data;
+
+        // Process transactions data to calculate total income and expenses per day
+        const groupedData = transactions.reduce((acc, transaction) => {
+          const date = transaction.date.split('T')[0]; // Extracting date from ISO format
+          if (!acc[date]) {
+            acc[date] = { date, income: 0, expenses: 0 };
+          }
+          if (transaction.type === 'Income') {
+            acc[date].income += transaction.value;
+          } else {
+            acc[date].expenses += transaction.value;
+          }
+          return acc;
+        }, {});
+
+        // Convert groupedData object into array for recharts
+        const formattedData = Object.values(groupedData);
+
+        setGraphData(formattedData);
+      } catch (error) {
+        console.error('Error fetching transaction data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Card className="graph-contain">
       <CardContent>
@@ -23,7 +48,7 @@ function Graph() {
         <div style={{ width: '100%', height: 300 }}>
           <ResponsiveContainer>
             <LineChart
-              data={data}
+              data={graphData}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             >
               <XAxis dataKey="date" />

@@ -13,7 +13,9 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 function UpdateTask() {
     const { id } = useParams();
     const [taskID, setTaskID] = useState('');
@@ -46,11 +48,27 @@ function UpdateTask() {
     axios.put(`http://localhost:3000/api/employee/updateTask/${id}`, { taskID, taskinfo, employeeId, employeeName, description, status})
       .then(result => {
         console.log(result);
+        toast.success('Task updated successfully', {
+          position: "top-right", // Change the position to top-right
+          autoClose: 3000, // Close the toast after 3 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          onClose: () => {
         navigate('/task');
-      })
-      .catch(err => console.log(err));
-  };
+          }
+      
+    });
+  })
+}
   return (
+    <div>
+    {/* Your app components */}
+    <ToastContainer />
+    <div style={{ display: 'flex', minWidth: '1036px',overflow: 'hidden'  }}>
+            <Esidebar/>
     <Box
       height={550}
       width={1000}
@@ -176,7 +194,10 @@ function UpdateTask() {
           </Button>
         </form>
       </Box>
+      
     </Box>
+    </div>
+    </div>
   );
 
 }

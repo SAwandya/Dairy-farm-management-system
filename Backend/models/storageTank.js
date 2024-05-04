@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const storageTankSchema = new mongoose.Schema({
     tankId: {
         type: Number,
-        required: true,
         unique: true
     },
     capacity: {
@@ -28,6 +27,19 @@ const storageTankSchema = new mongoose.Schema({
         }
     ]
 }, { timestamps: false });
+
+storageTankSchema.pre('save', async function(next) {
+    try {
+      if (!this.tankId) {
+        const lastTank = await StorageTank.findOne({}, {}, { sort: { 'tankId': -1 } });
+        const nextId = lastTank ? lastTank.tankId + 1 : 1;
+        this.tankId = nextId;
+      }
+      next();
+    } catch (error) {
+      next(error);
+    }
+  });
 
 const StorageTank = mongoose.model('StorageTank', storageTankSchema);
 

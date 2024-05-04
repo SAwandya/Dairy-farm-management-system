@@ -9,18 +9,18 @@ const columns = [
 ];
 
 const rows = [
-  { id: 1, name: 'Milk', quantity: 10 },
-  { id: 2, name: 'Banana Slices', quantity: 20 },
-  { id: 3, name: 'Chocolate Sprinkles', quantity: 15 },
+  { id: 1, name: 'Chocolate Powder', quantity: 10 },
+  { id: 2, name: ' Vanilla', quantity: 20 },
+  { id: 3, name: 'Sprinkles', quantity: 15 },
   { id: 1, name: 'Eggs', quantity: 10 },
-  { id: 2, name: 'Banana', quantity: 20 },
-  { id: 3, name: 'Orange', quantity: 15 },
+  { id: 2, name: 'Sugar', quantity: 20 },
+  { id: 3, name: 'Whipped Cream', quantity: 15 },
+  { id: 1, name: 'Essence', quantity: 10 },
+  { id: 2, name: 'Vegetable Oil', quantity: 20 },
+  { id: 3, name: 'Orange Sprinkles', quantity: 15 },
   { id: 1, name: 'Apple', quantity: 10 },
   { id: 2, name: 'Banana', quantity: 20 },
-  { id: 3, name: 'Orange', quantity: 15 },
-  { id: 1, name: 'Apple', quantity: 10 },
-  { id: 2, name: 'Banana', quantity: 20 },
-  { id: 3, name: 'Orange', quantity: 15 },
+  { id: 3, name: 'Eggs', quantity: 15 },
   { id: 1, name: 'Apple', quantity: 10 },
   { id: 2, name: 'Banana', quantity: 20 }, 
   { id: 3, name: 'Orange', quantity: 15 },
@@ -36,7 +36,7 @@ const CustomTableContainer = styled(TableContainer)({
 
 const StickyHeadTable = () => {
   return (
-    <Paper sx={{ ml:2, mt: '20px', borderRadius: 5, width: '100%', overflow: 'hidden', height: '100%', maxHeight: '70vh' }}>
+    <Paper sx={{ ml:0, mt: '20px', borderRadius: 5, width: '100%', overflow: 'hidden', height: '100%', maxHeight: '70vh' }}>
       <CustomTableContainer sx={{ height: '70vh' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>

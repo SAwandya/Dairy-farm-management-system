@@ -3,11 +3,20 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
-function Date() {
+function DateV() {
+    
+    const currentDate = new Date().toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+
     return (
-        <Box className="date-container">
+        <Box className="date-container" style={{ 
+            marginTop: '-10px'
+        }}>
             <Typography variant="h4" className='date-text'>Today:</Typography>
-            <Box className="calendar-container">
+            <Box className="calendar-container"> 
                 <CalendarMonthIcon 
                     sx={{
                         width: '40px',
@@ -15,10 +24,10 @@ function Date() {
                         marginRight: '12px'
                     }}
                 />
-                <Typography variant="h1" className='date-value'>20/03/2024</Typography>
+                <Typography variant="h1" className='date-value'>{currentDate}</Typography>
             </Box>
         </Box>
     );
-  }
-  
-export default Date;
+}
+
+export default DateV;
