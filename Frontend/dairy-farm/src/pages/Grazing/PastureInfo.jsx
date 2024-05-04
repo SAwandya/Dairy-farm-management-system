@@ -63,14 +63,16 @@ function PastureInfo() {
               
       </Box>
 
+        
+
+        <Container sx={{ margin: 25,marginTop: '20px'  }}>
+
         <Box sx={{ textAlign: 'right', marginRight:'25px' }}>
         <Button variant="contained" style={{ backgroundColor: '#1a6952' }} href="/pasture">
          Pasture Table
         </Button>
         </Box>
-        
-        <Container sx={{ margin: 25,marginTop: '20px'  }}>
-          <Grid2 container spacing={8}>
+          <Grid2 container spacing={8} marginTop={4}>
             {pastures.map(pasture => (
               <Grid2 item xs={7} sm={6} md={7} lg={6} key={pasture._id} gap={50}>
                 <PastureCard pasture={pasture}/>
