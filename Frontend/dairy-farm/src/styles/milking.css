@@ -289,3 +289,7 @@ body {
     position: relative;
     width: 100%;
   }
+
+  .section1-img {
+    margin-top: 96px;
+  }
