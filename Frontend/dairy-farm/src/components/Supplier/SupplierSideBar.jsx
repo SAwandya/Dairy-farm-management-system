@@ -6,7 +6,7 @@ import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import BallotIcon from '@mui/icons-material/Ballot';
@@ -17,6 +17,12 @@ function Sidebar() {
   const handleNavigation = (section) => {
     setActiveSection(section);
   };
+  const location = useLocation();
+
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
 
   return (
     <Box className="sidebar" sx={{position:'fixed',left:0,top:0}}>
@@ -32,89 +38,61 @@ function Sidebar() {
       <Box className="navigation-links">
         <List>
 
-        <Link
-            to="/inventory"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-          <NavigationLink
-            icon={<SpaceDashboardIcon />}
-            text="Dashboard"
-            isActive={activeSection === "dashboard"}
-            onClick={() => handleNavigation("dashboard")}
-          />
-        </Link>
+        <Link to="/inventory" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<SpaceDashboardIcon />}
+              text="Dashboard"
+              isActive={isActive("/inventory")}
+            />
+          </Link>
 
-        <Link
-            to="/supplierdashboard"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-          <NavigationLink
-            icon={<LocalShippingIcon />}
-            text="Supplier"
-            isActive={activeSection === "supplier"}
-            onClick={() => handleNavigation("supplier")}
-          />
-        </Link>
-        <Link
-            to="/order"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-          <NavigationLink
-            icon={<InventoryIcon />}
-            text="Orders"
-            isActive={activeSection === "orders"}
-            onClick={() => handleNavigation("orders")}
-          />
-        </Link>
-        <Link
-            to="/item"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-          <NavigationLink
-            icon={<BallotIcon />}
-            text="Items"
-            isActive={activeSection === "items"}
-            onClick={() => handleNavigation("items")}
-          />
-        </Link>
-        <Link
-            to="/reportOrder"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-          <NavigationLink
-            icon={<AssessmentIcon />}
-            text="Reports"
-            isActive={activeSection === "reports"}
-            onClick={() => handleNavigation("reports")}
-          />
-        </Link>
+          <Link to="/supplierdashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<LocalShippingIcon />}
+              text="Supplier"
+              isActive={isActive("/supplierdashboard")}
+            />
+          </Link>
+          <Link to="/order" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<InventoryIcon />}
+              text="Orders"
+              isActive={isActive("/order")}
+            />
+          </Link>
+          <Link to="/item" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<BallotIcon />}
+              text="Items"
+              isActive={isActive("/item")}
+            />
+          </Link>
+          <Link to="/reportOrder" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<AssessmentIcon />}
+              text="Reports"
+              isActive={isActive("/reportOrder")}
+            />
+          </Link>
         </List>
       </Box>
-      
+
       <Box className="user-actions">
         <List>
-        <Link
-            to="/supProfile"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-          <NavigationLink
-            icon={<AccountCircleIcon />}
-            text="Profile"
-            isActive={activeSection === "profile"}
-            onClick={() => handleNavigation("profile")}
-          />
-        </Link>
-        <Link
-            to="/homeM"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-          <NavigationLink
-            icon={<LogoutIcon />}
-            text="Logout"
-            isActive={activeSection === "logout"}
-            onClick={() => handleNavigation("logout")}
-          />
-        </Link>
+          <Link to="/supProfile" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<AccountCircleIcon />}
+              text="Profile"
+              isActive={isActive("/supProfile")}
+            />
+          </Link>
+          <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NavigationLink
+              icon={<LogoutIcon />}
+              text="Logout"
+              isActive={isActive("/homeM")}
+            />
+          </Link>
         </List>
       </Box>
     </Box>
