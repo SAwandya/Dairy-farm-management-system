@@ -52,13 +52,21 @@ function HeroSection() {
                             backgroundColor: '#38775B',
                             color: '#fff',
                             border: '1px solid #38775B',
-                            marginRight: '48px'
+                            marginRight: '48px',
+                            fontFamily: 'Poppins',
+                            paddingRight: '30px',
+                            paddingLeft: '30px'
                         }}
-                    >Get Started</Button>
+                    >
+                        Get Started
+                    </Button>
                     <Button
                         sx={{
                             color: '#fff',
-                            border: '1px solid #fff'
+                            border: '1px solid #fff',
+                            fontFamily: 'Poppins',
+                            paddingRight: '30px',
+                            paddingLeft: '30px'
                         }}
                     >
                         Learn More
