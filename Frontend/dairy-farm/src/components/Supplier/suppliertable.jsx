@@ -41,6 +41,7 @@ import Swal from 'sweetalert2';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    fontFamily: "'Poppins', sans-serif",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",

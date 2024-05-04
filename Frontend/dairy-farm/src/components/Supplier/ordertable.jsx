@@ -27,6 +27,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    fontFamily: "'Poppins', sans-serif",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
