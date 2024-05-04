@@ -139,7 +139,11 @@ function PasturePage() {
         }}
       >
         <Grid container spacing={2} justifyContent="center" style={{ width: '100%', marginRight: '3rem',marginLeft: '8rem' }}>
-          <Grid item xs={12}>
+          
+          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '0', marginLeft: '11rem',display: 'flex', justifyContent: 'right',width:'100%' }}>
+            <Card>
+              <CardContent>
+              <Grid item xs={12}>
             <Grid container justifyContent="flex-end">
               <Tooltip title="Add New Pasture Block">
                 <IconButton
@@ -151,9 +155,6 @@ function PasturePage() {
               </Tooltip>
             </Grid>
           </Grid>
-          <Grid item xs={12} style={{ marginTop: '1rem', marginRight: '0', marginLeft: '11rem',display: 'flex', justifyContent: 'right',width:'100%' }}>
-            <Card>
-              <CardContent>
                 <GrazingTable
                   headers={headers}
                   rows={dataList.map((item) => ({

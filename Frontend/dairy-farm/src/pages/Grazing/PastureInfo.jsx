@@ -5,6 +5,7 @@ import { Container, Grid, Box, Button, Typography } from '@mui/material';
 import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
 import GrazingDate from '../../components/Grazing/GrazingDate';
 import Name from '../../components/Grazing/Name';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 
 function PastureInfo() {
@@ -53,28 +54,33 @@ function PastureInfo() {
           
           
         </Box>
+        <container >
         <Box className="dashboard-content">
                 <div align='center'></div>
                 <GrazingDate/>
                 <Name/>
-              
               <Typography> Information regarding the  pasture maintainence is recorded here</Typography>
               
-      </Box>
+        </Box>
+        </container>
+       
+
+        
+
+        <Container sx={{ margin: 25,marginTop: '20px'  }}>
+
         <Box sx={{ textAlign: 'right', marginRight:'25px' }}>
         <Button variant="contained" style={{ backgroundColor: '#1a6952' }} href="/pasture">
          Pasture Table
         </Button>
-
         </Box>
-        <Container sx={{ margin: 25,marginTop: '20px'  }}>
-          <Grid container spacing={7}>
+          <Grid2 container spacing={8} marginTop={4}>
             {pastures.map(pasture => (
-              <Grid item xs={12} sm={6} md={6} lg={6} key={pasture._id} gap={20}>
+              <Grid2 item xs={7} sm={6} md={7} lg={6} key={pasture._id} gap={50}>
                 <PastureCard pasture={pasture}/>
-              </Grid>
+              </Grid2>
             ))}
-          </Grid>
+          </Grid2>
         </Container>
         
       </Box>

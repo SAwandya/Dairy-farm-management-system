@@ -45,8 +45,6 @@ function RotationInfo() {
                 
                 <Name/>
               
-              <Typography> As we make sure our cows are having great health ,</Typography>
-              <Typography>this displays the amount of time they are allowed to walk </Typography>
               
       </Box>
         <Container sx={{ margin: 16, marginLeft:'250px' ,marginTop: '20px' }}>
