@@ -54,14 +54,16 @@ function PastureInfo() {
           
           
         </Box>
+        <container >
         <Box className="dashboard-content">
                 <div align='center'></div>
                 <GrazingDate/>
                 <Name/>
-              
               <Typography> Information regarding the  pasture maintainence is recorded here</Typography>
               
-      </Box>
+        </Box>
+        </container>
+       
 
         
 
