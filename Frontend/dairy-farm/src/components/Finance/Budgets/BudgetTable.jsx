@@ -19,14 +19,14 @@ const departments = [
 // Define initial budget values
 const initialDepartmentBudgets = {
   Veterinary: 10000,
-  Milking: 2000,
-  Grazing: 1500,
-  Production: 3000,
-  HR: 2500,
-  CRM: 2000,
-  Sales: 3500,
-  Finance: 4000,
-  Miscellaneous: 2000
+  Milking: 20000,
+  Grazing: 15000,
+  Production: 30000,
+  HR: 25000,
+  CRM: 20000,
+  Sales: 35000,
+  Finance: 40000,
+  Miscellaneous: 20000
 };
 const UsedBudgets = {
   Veterinary: 5000,
@@ -95,7 +95,7 @@ const BudgetTable = () => {
   };
 
   return (
-    <Container sx={{ textAlign: 'center' }}>
+    <Container sx={{ textAlign: 'center', marginLeft: '15%'}}>
       <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold' }}>
         Budget Overview
       </Typography>

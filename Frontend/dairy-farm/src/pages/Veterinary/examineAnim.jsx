@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/animvac.css';
-import Swal from 'sweetalert2';
 import axios from "axios";
 import ExamineAnimrForm from '../../components/Veterinary/examineAnim_form';
 import CustomizedTables from '../../components/Veterinary/table';
@@ -11,22 +10,25 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { TablePagination, Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
+import { ToastContainer, toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import 'react-toastify/dist/ReactToastify.css';
 
-const ExamineAnim=({handleClose})=> {
+const ExamineAnim = ({ handleClose }) => {
     const [addSection, setAddSection] = useState(false);
-    const [editSection,setEditSection]=useState(false);
+    const [editSection, setEditSection] = useState(false);
     const [formData, setFormData] = useState({
         earTag: "",
         currentStatus: "",
-        exam:"",
+        exam: "",
         checkdate: null,
     });
     const [formDataEdit, setFormDataEdit] = useState({
         earTag: "",
         currentStatus: "",
-        exam:"",
+        exam: "",
         checkdate: null,
-        _id:""
+        _id: ""
     });
     const [dataList, setDataList] = useState([]);
     const [page, setPage] = useState(0);
@@ -34,14 +36,11 @@ const ExamineAnim=({handleClose})=> {
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleOnChange = (e) => {
-        if (e.target) {
-            
-            const { value, name } = e.target;
-            setFormData(prevState => ({
-                ...prevState,
-                [name]: value
-            }));
-        } 
+        const { value, name } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
     const handleSubmit = async (formData) => {
@@ -49,34 +48,25 @@ const ExamineAnim=({handleClose})=> {
             const data = await axios.post("http://localhost:3000/api/exmAnim/create", formData);
             if (data.data.success) {
                 setAddSection(false);
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Successfully added",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                toast.success("Successfully added");
                 getFetchData();
                 setFormData({
                     earTag: "",
                     currentStatus: "",
-                    exam:"",
+                    exam: "",
                     checkdate: null,
                 });
             }
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message === "Ear tag does not exist") {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Ear tag doesn't exist"
-                });
+                toast.error("Ear tag doesn't exist");
             } else {
                 console.error("Error adding animal:", error);
                 alert("Error adding animal. Please try again later.");
             }
         }
     };
+
     const getFetchData = async () => {
         try {
             const response = await axios.get("http://localhost:3000/api/exmAnim/retrieve");
@@ -128,19 +118,14 @@ const ExamineAnim=({handleClose})=> {
             alert("Error deleting animal. Please try again later.");
         }
     };
-    
-    
+
+
     const handleUpdate = async () => {
         try {
-            const response = await axios.put(`http://localhost:3000/api/exmAnim/update/${formDataEdit._id}`, formDataEdit); 
+            const response = await axios.put(`http://localhost:3000/api/exmAnim/update/${formDataEdit._id}`, formDataEdit);
             if (response.data.success) {
+                toast.success("Data Updated Successfully");
                 getFetchData();
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Updated Successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
                 setEditSection(false);
             }
         } catch (error) {
@@ -148,8 +133,8 @@ const ExamineAnim=({handleClose})=> {
             alert("Error updating animal. Please try again later.");
         }
     };
-    
-    const handleEditOnChange=async(e)=>{
+
+    const handleEditOnChange = async (e) => {
         const { value, name } = e.target;
         setFormDataEdit(prevState => ({
             ...prevState,
@@ -168,20 +153,20 @@ const ExamineAnim=({handleClose})=> {
             alert("Error fetching animal data. Please try again later.");
         }
     };
-    
+
     const headers = [
         "Ear Tag",
         "Current Status",
         "Examination",
         "Date",
-        "Acction",
+        "Action",
     ];
-    
+
     const filteredData = dataList.filter(item => {
         if (!searchTerm) return true;
         return Object.values(item).some(val => String(val).toLowerCase().includes(searchTerm.toLowerCase()));
     });
-    
+
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
@@ -193,103 +178,100 @@ const ExamineAnim=({handleClose})=> {
 
 
     return (
-        <div style={{ display: 'flex', height: '100vh' }}> 
-       
-        <div style={{ 
-             flex: 1, 
-             padding: '10px', 
-             margin: '50px ', 
-             marginBottom: '20px', 
-            fontFamily: 'Poppins, sans-serif',
-            marginTop:'-80px'
-        }}>
-            
-               
-            {!addSection && !editSection && (
-                <Grid container spacing={2} style={{marginLeft:'700px',marginTop:'100px'}}>
-                <Grid item xs={3}>
-                    <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
-                    <TextField
-                        onChange={(event) => {
-                            console.log("Search Term:", event.target.value); 
-                            setSearchTerm(event.target.value);
-                        }}
-                        placeholder="Search..."
-                        InputProps={{
-                            startAdornment: (
-                                <SearchIcon />
-                            ),
-                            style: { marginBottom: '10px', width: '250px' }
-                        }}
-                    />
-                    </div>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
-                    <button className='addbtn' onClick={() => setAddSection(true)} style={{ height: '55px',width: '200px' ,backgroundColor: '#00ff1a2b',color:'black',fontWeight: 'bold'}}>Add New Animal</button>
-                    </div>
-                    </Grid>
-                    
+        <div style={{ display: 'flex', height: '100vh' }}>
+            <ToastContainer />
+            <div style={{
+                flex: 1,
+                padding: '10px',
+                margin: '50px ',
+                marginBottom: '20px',
+                fontFamily: 'Poppins, sans-serif',
+                marginTop: '-80px'
+            }}>
 
-                </Grid>
-                
-            )}
-            {!addSection && !editSection && (
-                <div>
-                    <ArrowBackIcon sx={{ marginTop: '-10px', cursor: 'pointer' }} onClick={handleClose} />
-                </div>
-            )}
-            
-            <div className='form'>
-                {addSection && (
-                    <ExamineAnimrForm
-                    handleSubmit={handleSubmit}
-                    handleOnChange={handleOnChange}
-                    handleClose={() => setAddSection(false)}
-                    rest={formData}
-                />
-                )}
-                {editSection && (
-                    <ExamineAnimrForm
-                        handleSubmit={() => handleUpdate(formDataEdit._id)}
-                        handleOnChange={handleEditOnChange}
-                        handleClose={() => setEditSection(false)}
-                        rest={formDataEdit}
-                    />
-                )}
-              </div>  
-              {!addSection && !editSection &&(
-                <div className='table' style={{ 
-                    flex: 1, 
-                    padding: '10px', 
-                    margin: '50px ', 
-                    marginBottom: '20px',
-                    marginTop:'-80px'
-                    
-               }}>
-                
-                <CustomizedTables 
-                    headers={headers}
-                    rows={filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(item => ({
-                        "Ear Tag": item.earTag,
-                        "Current Status": item.currentStatus,
-                        "Examination": item.exam,
-                        "Date": item.checkdate,
-                        "Action": (
-                            <div>
-                                <IconButton onClick={() => handleEdit(item._id)} style={{ color: 'blue' }}>
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton onClick={() => handleDelete(item._id)} style={{ color: 'red' }}>
-                                    <DeleteIcon />
-                                </IconButton>
+
+                {!addSection && !editSection && (
+                    <Grid container spacing={2} style={{ marginLeft: '700px', marginTop: '100px' }}>
+                        <Grid item xs={3}>
+                            <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
+                                <TextField
+                                    onChange={(event) => {
+                                        setSearchTerm(event.target.value);
+                                    }}
+                                    placeholder="Search..."
+                                    InputProps={{
+                                        startAdornment: (
+                                            <SearchIcon />
+                                        ),
+                                        style: { marginBottom: '10px', width: '250px' }
+                                    }}
+                                />
                             </div>
-                        )
-                    }))}
-                />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
+                                <button className='addbtn' onClick={() => setAddSection(true)} style={{ height: '55px', width: '200px', backgroundColor: '#00ff1a2b', color: 'black', fontWeight: 'bold' }}>Add New Animal</button>
+                            </div>
+                        </Grid>
+                    </Grid>
 
-                    <TablePagination
-                            rowsPerPageOptions={[1,2,5, 10, 25]}
+                )}
+                {!addSection && !editSection && (
+                    <div>
+                        <ArrowBackIcon sx={{ marginTop: '-10px', cursor: 'pointer' }} onClick={handleClose} />
+                    </div>
+                )}
+
+                <div className='form'>
+                    {addSection && (
+                        <ExamineAnimrForm
+                            handleSubmit={handleSubmit}
+                            handleOnChange={handleOnChange}
+                            handleClose={() => setAddSection(false)}
+                            rest={formData}
+                        />
+                    )}
+                    {editSection && (
+                        <ExamineAnimrForm
+                            handleSubmit={() => handleUpdate(formDataEdit._id)}
+                            handleOnChange={handleEditOnChange}
+                            handleClose={() => setEditSection(false)}
+                            rest={formDataEdit}
+                        />
+                    )}
+                </div>
+                {!addSection && !editSection && (
+                    <div className='table' style={{
+                        flex: 1,
+                        padding: '10px',
+                        margin: '50px ',
+                        marginBottom: '20px',
+                        marginTop: '-80px'
+
+                    }}>
+
+                        <CustomizedTables
+                            headers={headers}
+                            rows={filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(item => ({
+                                "Ear Tag": item.earTag,
+                                "Current Status": item.currentStatus,
+                                "Examination": item.exam,
+                                "Date": item.checkdate,
+                                "Action": (
+                                    <div>
+                                        <IconButton onClick={() => handleEdit(item._id)} style={{ color: 'blue' }}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton onClick={() => handleDelete(item._id)} style={{ color: 'red' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </div>
+                                )
+                            }))}
+                        />
+
+                        <TablePagination
+                            rowsPerPageOptions={[1, 2, 5, 10, 25]}
                             component="div"
                             count={filteredData.length}
                             rowsPerPage={rowsPerPage}
@@ -297,12 +279,12 @@ const ExamineAnim=({handleClose})=> {
                             onPageChange={handleChangePage}
                             onRowsPerPageChange={handleChangeRowsPerPage}
                         />
-                </div>
-                
-            )}
-            
-           
-        </div>
+                    </div>
+
+                )}
+
+
+            </div>
         </div>
     );
 }

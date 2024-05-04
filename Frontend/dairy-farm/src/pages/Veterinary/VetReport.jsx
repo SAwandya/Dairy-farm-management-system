@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../../styles/main.css';
 import BgCard from '../../components/Veterinary/bgCard';
-import Tabs from '../../components/Veterinary/breed-tab';
 import DateV from '../../components/Veterinary/DateV';
 import Sidebar from '../../components/Veterinary/vetNav';
 import ReportAnim from './ReportAnimReg';

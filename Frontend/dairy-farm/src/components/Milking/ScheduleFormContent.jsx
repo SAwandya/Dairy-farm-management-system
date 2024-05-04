@@ -203,7 +203,6 @@ const ScheduleFormContent = () => {
                             onChange={(e) => handleTimeChange(e.target.value)}
                             fullWidth
                             required
-                            disabled={!date}
                             error={!!timeError}
                             helperText={timeError}
                             style={{
@@ -217,7 +216,6 @@ const ScheduleFormContent = () => {
                             onChange={(e) => handleCowGroupChange(e.target.value)}
                             fullWidth
                             required
-                            disabled={!time}
                             error={!!cowGroupError}
                             helperText={cowGroupError}
                             displayEmpty
@@ -242,7 +240,6 @@ const ScheduleFormContent = () => {
                             fullWidth
                             multiline
                             rows={6}
-                            disabled={!cowGroup}
                             error={!!specialNotesError}
                             helperText={specialNotesError}
                             style={{
@@ -261,7 +258,6 @@ const ScheduleFormContent = () => {
                                 marginBottom: '22px',
                                 borderRadius: '15px'
                             }}
-                            disabled={!isFormValid()}
                         >
                             Add Milk Session
                         </Button>

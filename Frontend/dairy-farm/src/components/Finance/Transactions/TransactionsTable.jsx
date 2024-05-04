@@ -26,6 +26,7 @@ import axios from "axios";
 import '../../../styles/Finance/MainDashboard/DashboardContent.css';
 import "react-toastify/dist/ReactToastify.css";
 import { Snackbar, SnackbarContent } from "@mui/material";
+import Swal from "sweetalert2";
 
 
 const departments = [
@@ -128,8 +129,41 @@ const handleAddTransaction = async () => {
 }, [transactions]);
 
   const handleDeleteConfirmation = (transaction) => {
-    setTransactionToDelete(transaction);
-    setDeleteDialogOpen(true);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:3000/api/transaction/${transaction._id}`);
+          console.log("Transaction deleted successfully");
+
+          handleToastOpen("Transaction deleted successfully");
+
+          // Update the data state to remove the deleted transaction
+          setData(prevData => prevData.filter(item => item._id !== transaction._id));
+          setTransactionToDelete(null);
+
+          Swal.fire(
+            "Deleted!",
+            "Your transaction has been deleted.",
+            "success"
+          );
+        } catch (error) {
+          console.error("Error deleting transaction:", error);
+          Swal.fire(
+            "Error!",
+            "An error occurred while deleting the transaction.",
+            "error"
+          );
+        }
+      }
+    });
   };
 
 const handleDeleteTransaction = async () => {
@@ -289,7 +323,7 @@ function formatDate(dateString) {
     <Container className="container">
             <Snackbar
         anchorOrigin={{
-          vertical: "bottom",
+          vertical: "top",
           horizontal: "right",
         }}
         open={toastOpen}
@@ -311,6 +345,8 @@ function formatDate(dateString) {
     padding: "20px",
     borderRadius: "10px",
     flexDirection: "column",
+    width: '100%',
+    marginLeft: '7%' ,
     alignItems: "center",
   }}
 >
