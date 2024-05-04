@@ -196,10 +196,11 @@ function Task() {
             </Box>
 
             <TableCard>
-                <Button variant="contained" color="success" onClick={handleClick} sx={{ marginBottom:'1rem',marginTop: '1rem', marginLeft: '70rem' }}>
+                <Button variant="contained" color="success" onClick={handleClick} sx={{ marginBottom:'1rem',marginTop: '0rem', marginLeft: '70rem' }}>
                     Add New
                 </Button>
-                <div style={{ width: '100%',marginTop:'-60px',marginLeft:'-10rem' }}>
+                
+                <div style={{ width: '100%',marginTop:'-55px',marginLeft:'-10rem' }}>
                         <TextField
                             onChange={(event) => {
                                 console.log("Search Term:", event.target.value); 
@@ -218,7 +219,7 @@ function Task() {
                     Tasks
                 </Typography>
                 {/* Table header and buttons */}
-                <div style={{ width: '100%',marginTop:'20px' }}>
+                <div style={{ width: '100%',marginTop:'10px' }}>
                 <CustomizedTables
                    headers={headers}
                    rows={filteredTasks.length > 0 ? filteredTasks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(task => ({

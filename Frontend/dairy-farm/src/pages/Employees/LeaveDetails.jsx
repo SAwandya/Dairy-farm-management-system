@@ -243,7 +243,7 @@ function LeaveDetails() {
                      <Button
                     variant="text"
                     onClick={() => setShowTable1(!showTable1)}
-                    sx={{ position: 'absolute', top: 260, right: 120 }}
+                    sx={{ position: 'absolute', top: 370, right: 120 }}
                 >
                    Leaves
                 </Button>
