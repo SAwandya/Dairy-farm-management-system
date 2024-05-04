@@ -83,7 +83,37 @@ function ProcessCardContainer() {
 
 
       const updatedProcesses = filteredProcesses.map(process => {
-        const startTime = new Date(process.startTime); // Convert start time string to Date object
+        
+                  // Convert the startTime object to a Date object
+       // Convert the startTime object to a Date object
+          let startTime = new Date(process.startTime);
+
+          if (process.status === 'scheduled' && process.scheduleDate && process.scheduleTime) {
+            // Extract the date and time components from the database fields
+            const scheduleDate = new Date(process.scheduleDate);
+            const scheduledTimeParts = process.scheduleTime.split(':');
+            const scheduledHour = parseInt(scheduledTimeParts[0]);
+            const scheduledMinute = parseInt(scheduledTimeParts[1]);
+            const scheduledSecond = parseInt(scheduledTimeParts[2] || 0); // Handle missing seconds
+
+            // Combine date from scheduleDate and time from scheduleTime
+            const scheduledDateTime = new Date(
+              scheduleDate.getFullYear(),
+              scheduleDate.getMonth(),
+              scheduleDate.getDate(),
+              scheduledHour,
+              scheduledMinute,
+              scheduledSecond
+            );
+
+            // Set the scheduled date and time to the startTime object
+            startTime = scheduledDateTime;
+          } 
+
+          console.log('Scheduled time:', process.scheduleTime); // Log scheduled time
+          console.log('startTime:', startTime); // Log startTime
+
+
         const currentTime = new Date(); // Current time
         const elapsedTime = currentTime - startTime; // Elapsed time since start
         const stage = getCurrentStage(elapsedTime);
@@ -92,6 +122,7 @@ function ProcessCardContainer() {
         let timeRemaining;
         let progress;
         let isCompleted;
+
   
         if (elapsedTime >= totalTime) {
           remainingTime = 0;
