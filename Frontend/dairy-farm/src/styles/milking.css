@@ -268,3 +268,24 @@ body {
     transform: rotateY(180deg);
   }
   
+
+  /* Home */
+  .home-nav-link:link, .home-nav-link:visited {
+    font-family: Poppins, 'sans-serif';
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 40px;
+  }
+
+  .home-bg {
+    width: 100%;
+  }
+
+  .bg-container {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }

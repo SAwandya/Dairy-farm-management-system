@@ -43,6 +43,7 @@ import MilkingReport from "./pages/Milking/MilkingReport";
 import MilkingProfile from "./pages/Milking/MilkingProfile";
 
 import HomePageM from "./pages/HomeMain";
+import Home from "./pages/Home"
 
 //Veterinary
 import VetDashboard from "./pages/Veterinary/AnimmalDash";
@@ -280,6 +281,7 @@ const router = createBrowserRouter([
   },
 
   { path: "/homeM", element: <HomePageM />},
+  { path: "/home", element: <Home />},
 
   //Production Management Paths
   { path: "/productiondashboard", element: <ProductionDashboard /> },
