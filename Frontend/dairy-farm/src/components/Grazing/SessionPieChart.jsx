@@ -36,16 +36,16 @@ function SessionPieChart() {
   return (
     <div className="pie-chart-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: 300, marginLeft: 'auto', marginRight: 20,  marginTop:16}}>
       <CardContent>
-        
-        
         <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
-        
           <PieChart width={400} height={400}>
             <Pie
               data={data}
-              cx="50%"
-              cy="50%"
-              outerRadius={120} 
+              cx="200"
+              cy="240"
+              outerRadius={150}
+              innerRadius={50}
+              paddingAngle={2}
+              cornerRadius={5}
               fill="#8884d8"
               dataKey="value"
               label
@@ -54,11 +54,10 @@ function SessionPieChart() {
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
-           
           </PieChart>
         </div>
       </CardContent>
-      <div  style={{ marginTop: 20 }}>
+      <div >
         <Typography variant="subtitle1">Colour Index:</Typography>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {data.map((entry, index) => (
@@ -67,11 +66,6 @@ function SessionPieChart() {
               <Typography variant="body2">{entry.type}</Typography>
             </div>
           ))}
-        </div>
-        <div>
-            <Typography align="center" fontStyle={"bold"} fontWeight={3}>
-         Today's sessions in a pie chart
-        </Typography>
         </div>
       </div>
     </div>

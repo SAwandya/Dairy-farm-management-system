@@ -19,50 +19,52 @@ function GrazingDashboard() {
             className="main-container"
             margin="16"
         >
-             <GrazingSideBar/>
-             
-
-
-             
-             <Box  width={1}className="dashboard-content" >
-             
-             <Container>   
-             <Name/>
-             <GrazingDate/>
-             </Container>
-             
-             
-               
-                <Container>
-                <Box className="dashboard-below-container">
-            
-                <div >
-                <div>
-                    <Typography align='center'fontSize={16} >Waste collected is mainly categorized in to four types</Typography>
-                    </div>
-                    <WasteTypeBarChart />
-                    </div>
-                 
-                <div></div>
-                <Card>
-                <div>
-                    <SessionPieChart/>
-                </div>
-
-                </Card>
-                
-                
-                
-                
+            <GrazingSideBar/>       
+            <Box width={1} className="dashboard-content" >
+                <Box className="welcome-header">
+                    <Name/>
+                    <GrazingDate/>
                 </Box>
-                </Container>
+             
+                <Box className="dashboard-below-container">
+                    <Box className="chart-card-container" sx={{marginRight: '36px'}}>
+                        <Typography
+                            variant="h3"
+                            className='graph-card-title'
+                            sx={{
+                                fontSize: '18px',
+                                fontWeight: '600',
+                            }}
+                        >
+                            Waste collected in the farm
+                        </Typography>
+                        <Typography
+                            variant="h3"
+                            className='graph-card-subtitle'
+                            sx={{
+                                fontSize: '16px',
+                                fontWeight: '400',
+                                marginTop: '8px'
+                            }}
+                        >
+                            Past Month
+                        </Typography>
+                        <WasteTypeBarChart />
+                    </Box>
+                    <Box className="chart-card-container">
+                        <Typography
+                            variant="h3"
+                            className='graph-card-title'
+                            sx={{
+                                fontSize: '18px',
+                                fontWeight: '600',
+                            }}
+                        >Today's sessions</Typography>
+                        <SessionPieChart/>
+                    </Box>
+                </Box>
             </Box>
-            
-           
-            
-          
-            
-            </Container>
+        </Container>
     );
 }
 
