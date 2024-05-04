@@ -95,7 +95,7 @@ const BudgetTable = () => {
   };
 
   return (
-    <Container sx={{ textAlign: 'center', marginLeft: '15%'}}>
+    <Container sx={{ textAlign: 'center', marginLeft: '15%', marginBottom: '2%'}}>
       <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold' }}>
         Budget Overview
       </Typography>

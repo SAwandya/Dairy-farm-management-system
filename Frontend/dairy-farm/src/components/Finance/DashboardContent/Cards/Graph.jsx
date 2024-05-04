@@ -40,8 +40,8 @@ function Graph() {
   }, []);
 
   return (
-    <Card className="graph-contain">
-      <CardContent>
+    <Card className="graph-contain" style={{height: '100%'}}>
+      <CardContent style={{marginTop: '1%'}}>
         <Typography variant="h5" component="h2">
           Monthly Expenses and Incomes
         </Typography>
@@ -49,7 +49,7 @@ function Graph() {
           <ResponsiveContainer>
             <LineChart
               data={graphData}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 35, right: 40, left: 20}}
             >
               <XAxis dataKey="date" />
               <YAxis />
