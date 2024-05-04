@@ -71,14 +71,18 @@ const OrderPage = () => {
               {...(true ? { timeout: 700 } : {})}
             >
               <Accordion
-                sx={{ marginTop: "20px", borderRadius: "16px" }}
+                sx={{
+                  marginTop: "20px",
+                  borderRadius: "16px",
+                  backgroundColor: "#E2F4C5",
+                }}
                 defaultExpanded
               >
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <AccordionSummary
                     aria-controls="panel3-content"
                     id="panel3-header"
-                    sx={{ fontSize: "20px" }}
+                    sx={{ fontSize: "23px", fontWeight: "100px" }}
                   >
                     {" "}
                     {cart.product.name}{" "}

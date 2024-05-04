@@ -61,7 +61,11 @@ const OrderPage = () => {
               {...(true ? { timeout: 700 } : {})}
             >
               <Accordion
-                sx={{ marginTop: "20px", borderRadius: "16px" }}
+                sx={{
+                  marginTop: "20px",
+                  borderRadius: "16px",
+                  backgroundColor: "#D5F0C1",
+                }}
                 defaultExpanded
               >
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>

@@ -32,6 +32,24 @@ const ProductDetails = () => {
 
   const { getCurrentUser } = useAuth();
 
+  let src = ""; 
+
+   if (selectedProduct.category == "Cheese") {
+     src = "../src/assets/cheese.jpg";
+   } else if (selectedProduct.category == "chocolate_Ice_cream_500") {
+     src = "../src/assets/chocolate_500.png";
+   } else if (selectedProduct.category == "chocolate_Ice_cream_1000") {
+     src = "../src/assets/chocolate_1000.png";
+   } else if (selectedProduct.category == "vanilla_Ice_cream_500") {
+     src = "../src/assets/vanila_500.png";
+   } else if (selectedProduct.category == "vanilla_Ice_cream_1000") {
+     src = "../src/assets/vanila_1000.png";
+   } else if (selectedProduct.category == "milk_500") {
+     src = "../src/assets/milk.png";
+   } else if (selectedProduct.category == "yoghurt") {
+     src = "../src/assets/yoghurt.png";
+   }
+
   let navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -96,7 +114,7 @@ const ProductDetails = () => {
                 <CardMedia
                   component="img"
                   sx={{ height: "400px", width: "auto" }}
-                  image="../src/assets/cheese.png"
+                  image={src}
                   alt="Paella dish"
                 />
               </Card>
@@ -104,7 +122,14 @@ const ProductDetails = () => {
             <Grid item lg={6}>
               {" "}
               <Box
-                sx={{ height: "380px", width: "600px" }}
+                sx={{
+                  height: "105vh",
+                  width: "600px",
+                  borderRadius: "20px",
+                  boxShadow: 3,
+                  bgcolor: "#CDFAD5",
+                  padding: "30px"
+                }}
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate
@@ -166,7 +191,7 @@ const ProductDetails = () => {
 
                 <Typography sx={{ fontSize: "25px", marginTop: "20px" }}>
                   {" "}
-                  Unit Price : {selectedProduct?.price} LKR
+                  {`Unit Price : ${selectedProduct?.price} LKR`}
                 </Typography>
                 <Typography sx={{ fontSize: "25px", marginTop: "20px" }}>
                   {" "}

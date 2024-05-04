@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import {
@@ -12,6 +12,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useAuth } from "../../contexts/AuthContext";
+import useMessages from "../../hooks/useMessages";
 import useMessage from "../../hooks/useMessages";
 
 const NotificationListPop = (props) => {
@@ -23,7 +25,11 @@ const NotificationListPop = (props) => {
     setOpennotify(false);
   };
 
-  const { data, isLoading } = useMessage();
+  const { getCurrentUser } = useAuth();
+
+  const customerId = getCurrentUser()._id
+
+  const { data, isLoading } = useMessage(customerId);
 
   console.log(data);
 
