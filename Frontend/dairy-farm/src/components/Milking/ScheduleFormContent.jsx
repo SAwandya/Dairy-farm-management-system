@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Swal from 'sweetalert2';
 
 const ScheduleFormContent = () => {
     const [date, setDate] = useState('');
@@ -48,6 +47,18 @@ const ScheduleFormContent = () => {
         });
     };
 
+    const displayErrorToast = (message) => {
+        toast.error(message, {
+          position: "top-right",
+          autoClose: 2800,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
     
@@ -64,7 +75,10 @@ const ScheduleFormContent = () => {
                 navigate('/milkingSessions');
             }, 3000);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            displayErrorToast('Something went wrong!');
+        });
     };
 
     const isFormValid = () => {

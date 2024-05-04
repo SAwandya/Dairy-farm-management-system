@@ -1,20 +1,75 @@
 import React, { useState } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, TextField, Button, Box, Typography } from '@mui/material';
+import { TextField, Button, Box, Typography } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
 
 const NewTankFormContent = () => {
-    const [tankId, setTankId] = useState('');
     const [capacity, setCapacity] = useState('');
     const [installedDate, setInstalledDate] = useState('');
     const [manufacturer, setManufacturer] = useState('');
     const [specialNotes, setSpecialNotes] = useState('');
+    const [errors, setErrors] = useState({});
     const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        if (name === 'capacity' && value < 0) {
+            setErrors({ ...errors, [name]: 'Capacity cannot be negative' });
+        } else {
+            setErrors({ ...errors, [name]: value ? '' : `${name} is required` });
+        }
+
+        switch (name) {
+            case 'capacity':
+                setCapacity(value);
+                break;
+            case 'installedDate':
+                setInstalledDate(value);
+                break;
+            case 'manufacturer':
+                setManufacturer(value);
+                break;
+            case 'specialNotes':
+                setSpecialNotes(value);
+                break;
+            default:
+                break;
+        }
+    };
+
+    const displaySuccessToast = (message) => {
+        toast.success(message, {
+            position: "top-right",
+            autoClose: 2800,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    };
+
+    const displayErrorToast = (message) => {
+        toast.error(message, {
+          position: "top-right",
+          autoClose: 2800,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
+        if (Object.values(errors).some((error) => error)) {
+            return;
+        }
+
         axios.post("http://localhost:3000/api/milkingStorage", {
             capacity,
             installedDate,
@@ -22,16 +77,15 @@ const NewTankFormContent = () => {
             specialNotes
         })
         .then(result => {
-            navigate('/milkingStorage');
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Successfuly added",
-                showConfirmButton: false,
-                timer: 1500
-            });
+            displaySuccessToast("Tank successfully added!")
+            setTimeout(() => {
+                navigate('/milkingStorage');
+            }, 3000);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            displayErrorToast('Something went wrong!');
+        });
         
     };
 
@@ -44,7 +98,7 @@ const NewTankFormContent = () => {
                     height: '86vh'
                 }}
             >
-                <img src='../../../src/assets/tank-form-bg.png' width={'45%'}/>
+                <img src='../../../src/assets/tank-form-bg.png' width={'45%'} alt="Tank Background" />
                 <Box
                     width={'55%'}
                     sx={{
@@ -72,9 +126,11 @@ const NewTankFormContent = () => {
                             label="Capacity"
                             type="number"
                             value={capacity}
-                            onChange={(e) => setCapacity(e.target.value)}
+                            onChange={handleChange}
                             fullWidth
                             required
+                            error={!!errors.capacity}
+                            helperText={errors.capacity}
                             style={{
                                 marginBottom: '16px'
                             }}
@@ -87,9 +143,11 @@ const NewTankFormContent = () => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            onChange={(e) => setInstalledDate(e.target.value)}
+                            onChange={handleChange}
                             fullWidth
                             required
+                            error={!!errors.installedDate}
+                            helperText={errors.installedDate}
                             style={{
                                 marginBottom: '16px'
                             }}
@@ -98,9 +156,11 @@ const NewTankFormContent = () => {
                             name="manufacturer"
                             label="Manufacturer"
                             value={manufacturer}
-                            onChange={(e) => setManufacturer(e.target.value)}
+                            onChange={handleChange}
                             fullWidth
                             required
+                            error={!!errors.manufacturer}
+                            helperText={errors.manufacturer}
                             style={{
                                 marginBottom: '16px'
                             }}
@@ -109,7 +169,7 @@ const NewTankFormContent = () => {
                             name="specialNotes"
                             label="Special Notes"
                             value={specialNotes}
-                            onChange={(e) => setSpecialNotes(e.target.value)}
+                            onChange={handleChange}
                             fullWidth
                             multiline
                             rows={6}
