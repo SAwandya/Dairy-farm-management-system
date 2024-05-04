@@ -86,7 +86,7 @@ function ProductBatchTable() {
         disabled={productBatch.collect} // Disable if collect is true
         sx={{
           '& .MuiSwitch-thumb': {
-            backgroundColor: productBatch.collect ? 'Yellow' : '', // Change color to red if collect is true
+            backgroundColor: productBatch.collect ? '#a86432' : '', // Change color to red if collect is true
           },
         }}
         inputProps={{ 'aria-label': 'controlled' }}
@@ -119,16 +119,15 @@ function ProductBatchTable() {
 
   <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:2,}}>
 
-     <Grid2 item xs={10} sm={3} sx={{ml:2 }}>
+     <Grid2 item xs={10} sm={3} sx={{ml:0 }}>
         <TextField
         label="Search"
         variant="outlined"
         value={searchQuery}
         onChange={handleSearchChange}
-        style={{ marginBottom: 10 }}
       />   
      </Grid2>
-     <Grid2 item sm={1} align="left" sx={{ml:40}}> <Legendx/>
+     <Grid2 item sm={1} align="left" sx={{ml:62,mb:1}}> <Legendx/>
      </Grid2>
 
 
