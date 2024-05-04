@@ -34,7 +34,7 @@ const Report = () => {
           entry.employeeId,
          "present",
         ];
-        tableRows.push(attendanceEntry);
+       
         const margin = 14; // Left margin
       const logoWidth = 30; // Logo width
       const logoHeight = 20; // Logo height
@@ -74,7 +74,7 @@ const Report = () => {
       
       // Title
       doc.setFontSize(20).setTextColor(56, 119, 91).setFont('helvetica', 'bold').text('Attendance Report', 14, 10);
-
+      tableRows.push(attendanceEntry);
       doc.autoTable(["Timestamp","Employee ID", "Status"], tableRows, {
         styles: { fontSize: 10 },
         startY: 20,
