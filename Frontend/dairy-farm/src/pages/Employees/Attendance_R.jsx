@@ -57,7 +57,7 @@ const Report = () => {
   
       // Introduction paragraph
       const textLines = doc.splitTextToSize(
-        `This contains essential data such as employee identification details, employment status, job history, and other relevant information crucial for efficient HR management. Through comprehensive documentation and organization, this system ensures effective oversight and management of employees, enabling informed decision-making processes and enhancing overall workforce productivity and well-being.`,
+        `This contains atttendance of Employees in 2024/05/07`,
         maxWidth
       );
       const textParagraph = textLines.join('\n');
