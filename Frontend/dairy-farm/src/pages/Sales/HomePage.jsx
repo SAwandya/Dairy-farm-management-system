@@ -1,8 +1,22 @@
 import React from "react";
 import ProductGrid from "../../components/Sales/ProductGrid";
 import { Box, Typography } from "@mui/material";
+import MessagePop from "../../components/Sales/MessagePop";
+import useGameQueryStore from "../../store";
+import NotificationListPop from "../../components/Sales/NotificationListPop";
 
 const HomePage = () => {
+
+  const openNotify = useGameQueryStore((s) => s.openNotify);
+
+  console.log(openNotify);
+
+  const SetOpenNotify = useGameQueryStore((s) => s.SetOpenNotify);
+
+  const handleOpenNotify = () => {
+    
+  }
+
   return (
     <>
       <Box
@@ -34,7 +48,6 @@ const HomePage = () => {
           marginTop: "40px",
           justifyContent: "space-evenly",
           alignItems: "center",
-          
         }}
       >
         <Box
@@ -42,7 +55,7 @@ const HomePage = () => {
             display: "flex",
             justifyContent: "space-evenly",
             padding: "40px",
-            marginRight: "20px"
+            marginRight: "20px",
           }}
         >
           <Box>
@@ -211,6 +224,12 @@ const HomePage = () => {
           </Box>
         </Box>
       </Box>
+      <NotificationListPop
+        opennotify={openNotify}
+        setOpennotify={SetOpenNotify}
+        //refetch={refetch}
+        handlefunction={handleOpenNotify}
+      />
     </>
   );
 };
