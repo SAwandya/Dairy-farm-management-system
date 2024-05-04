@@ -87,6 +87,7 @@ import GrazingDashboard from "./pages/Grazing/GrazingDashboard";
 import CartPage from "./pages/Sales/CartPage";
 import RotationInfo from "./pages/Grazing/RotationInfo";
 import GrazingProfile from "./pages/Grazing/GrazingProfile";
+import App from "./pages/Grazing/Alarm";
 
 
 const router = createBrowserRouter([
@@ -329,6 +330,13 @@ const router = createBrowserRouter([
     element: <GrazingProfile />,
   },
 
+  {
+    path: "/alarm",
+    element: <App />,
+  },
+
+  
+  //grazing done
   {
     path: "/task",
     element: <Task />,

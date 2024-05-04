@@ -1,54 +1,23 @@
-import React, { useEffect } from 'react';
-import { Button } from '@mui/material';
-import alarmSound from '../../assets/alarm.mp3'; // Assuming the alarm sound file is in the 'assets' folder
+import React from 'react';
+import { Button, TextField } from '@mui/material';
 
-function AlarmSetter({ alarmType, alarmTime, setAlarm }) {
-  const requestNotificationPermission = () => {
-    if ('Notification' in window) {
-      Notification.requestPermission().then((permission) => {
-        if (permission === 'granted') {
-          console.log('Notification permission granted.');
-        } else {
-          console.warn('Notification permission denied.');
-        }
-      });
-    }
+function AlarmSetter({ addAlarm }) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const hours = event.target.hours.value;
+    const minutes = event.target.minutes.value;
+    const seconds = event.target.seconds.value;
+    const time = `${hours}:${minutes}:${seconds}`;
+    addAlarm(time);
   };
-
-  const scheduleAlarm = () => {
-    const now = new Date();
-    const alarmDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, alarmTime.hours, alarmTime.minutes, 0);
-    const delay = alarmDate - now;
-
-    setTimeout(() => {
-      showNotification(`${alarmType} Alarm`, `It's time for your ${alarmType} rotation!`);
-      playAlarmSound();
-    }, delay);
-  };
-
-  const showNotification = (title, body) => {
-    if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification(title, { body });
-    }
-  };
-
-  const playAlarmSound = () => {
-    const audio = new Audio(alarmSound); // Corrected the path to the alarm sound file
-    audio.play();
-  };
-
-  const handleSetAlarm = () => {
-    scheduleAlarm();
-  };
-
-  useEffect(() => {
-    requestNotificationPermission();
-  }, []);
 
   return (
-    <Button variant="contained" color="primary" onClick={handleSetAlarm}>
-      Set {alarmType} Rotation Alarm
-    </Button>
+    <form onSubmit={handleSubmit}>
+      <TextField type="number" name="hours" label="Hours" InputProps={{ inputProps: { min: 0, max: 23 } }} />
+      <TextField type="number" name="minutes" label="Minutes" InputProps={{ inputProps: { min: 0, max: 59 } }} />
+      <TextField type="number" name="seconds" label="Seconds" InputProps={{ inputProps: { min: 0, max: 59 } }} />
+      <Button type="submit" variant="contained" color="primary">Set Alarm</Button>
+    </form>
   );
 }
 
