@@ -1,13 +1,12 @@
-import APIClient from "../services/Sales/api-client";
 import { useQuery } from "@tanstack/react-query";
+import APIClient from "../services/Sales/api-client";
 
 const apiClient = new APIClient("/messages");
 
-const useMessage = () =>
+const useMessage = (id) =>
   useQuery({
-    queryKey: ["messages"],
-    queryFn: apiClient.getAll,
-    staleTime: 24 * 60 * 60 * 1000, //24h
+    queryKey: ["messages", id],
+    queryFn: () => apiClient.get(id),
   });
 
 export default useMessage;
