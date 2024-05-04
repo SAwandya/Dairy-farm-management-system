@@ -27,6 +27,10 @@ import '../../../styles/Finance/MainDashboard/DashboardContent.css';
 import "react-toastify/dist/ReactToastify.css";
 import { Snackbar, SnackbarContent } from "@mui/material";
 import Swal from "sweetalert2";
+import { color } from "@mui/system";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 
 const departments = [
@@ -130,12 +134,12 @@ const handleAddTransaction = async () => {
 
   const handleDeleteConfirmation = (transaction) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "Are you sure you want to delete this transaction?",
+      text: "This action cannot be undone.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#38775B",
       confirmButtonText: "Yes, delete it!"
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -148,12 +152,6 @@ const handleAddTransaction = async () => {
           // Update the data state to remove the deleted transaction
           setData(prevData => prevData.filter(item => item._id !== transaction._id));
           setTransactionToDelete(null);
-
-          Swal.fire(
-            "Deleted!",
-            "Your transaction has been deleted.",
-            "success"
-          );
         } catch (error) {
           console.error("Error deleting transaction:", error);
           Swal.fire(
@@ -193,45 +191,50 @@ const handleDeleteTransaction = async () => {
     setSelectedTransaction(null);
   };
 
-  const handleSaveEdit = async () => {
-    setTransactions(
-      transactions.map((transaction) =>
-        transaction.id === selectedTransaction.id ? selectedTransaction : transaction
+const handleSaveEdit = async () => {
+  try {
+    
+    // Exclude _id and __v from the selectedTransaction
+    const { _id, __v, ...updatedTransaction } = selectedTransaction;
+
+    // Make the PUT request to update the transaction
+    const response = await axios.put(
+      `http://localhost:3000/api/transaction/${_id}`,
+      updatedTransaction
+    );
+
+    console.log("Transaction edited successfully:", response.data);
+
+    // Update the transactions state by replacing the edited transaction
+    setTransactions((prevTransactions) =>
+      prevTransactions.map((transaction) =>
+        transaction._id === _id ? response.data : transaction
       )
     );
-            if (
-    transactions.type &&
-    transactions.description &&
-    transactions.department &&
-    transactions.value
-  ) {
-    try {
-      const response = await axios.put("http://localhost:3000/api/transaction/" + transaction._id, transactions);
-      console.log("Transaction added successfully:", response.data);
-      
-      // Update the transactions state with the new transaction
-      setTransactions([...transactions, response.data]);
-      setOpenAddDialog(false);
-      
-      // Reset newTransaction state
-      setNewTransaction({
-        type: "Income",
-        description: "",
-        department: "",
-        value: "0",
-      });
-    } catch (error) {
-      console.error("Error adding transaction:", error);
-    }
-  }
-  {
-    }
 
+    // Close the edit dialog and reset selectedTransaction
     setEditDialogOpen(false);
     setSelectedTransaction(null);
+
+    // Display success toast
     handleToastOpen("Transaction edited successfully");
 
-  };
+    setData((prevData) =>
+  prevData.map((transaction) =>
+    transaction._id === _id ? response.data : transaction
+  )
+);
+
+  } catch (error) {
+    console.error("Error editing transaction:", error);
+  }
+
+  
+};
+
+
+
+
 
   const handleNewTransactionChange = (event) => {
     const { name, value } = event.target;
@@ -493,11 +496,12 @@ function formatDate(dateString) {
               name="date"
               label="Date"
               type="date"
-              value={selectedTransaction ? selectedTransaction.date : ""}
+              value={selectedTransaction ? selectedTransaction.date.split("T")[0] : ""}
               onChange={handleEditTransactionChange}
               sx={{ marginBottom: 2 , marginTop: '7px'}}
               fullWidth
               required
+              inputProps={{ max: new Date().toISOString().split("T")[0] }}
             />
             <FormControl fullWidth sx={{ marginBottom: 2 }} required>
               <InputLabel id="type-label">Type</InputLabel>
@@ -600,10 +604,10 @@ function formatDate(dateString) {
                   <TableCell>{`${transaction.value}.00`}</TableCell>
                   <TableCell>
                     <Button onClick={() => handleEditTransaction(transaction)}>
-                      Edit
+                      Edit<EditIcon />
                     </Button>
                     <Button onClick={() => handleDeleteConfirmation(transaction)} color="error">
-                      Delete
+                      Delete<DeleteIcon />
                     </Button>
                   </TableCell>
                 </TableRow>
