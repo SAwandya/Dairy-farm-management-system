@@ -55,7 +55,7 @@ const defaultTheme = createTheme();
 const SalesDashboard = () => {
   const { data, error, isLoading, refetch } = useProducts();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const publishPro = data?.filter((value) => value.publish === false);
   const unpublishPro = data?.filter((value) => value.publish === true);
@@ -80,9 +80,9 @@ const SalesDashboard = () => {
     } else if (select == "customer") {
       setSeleceted("customer");
     } else if (select == "logout") {
-      navigate("/homeM")
+      navigate("/homeM");
     } else if (select == "profile") {
-      setSeleceted("profile")
+      setSeleceted("profile");
     }
   };
 
@@ -113,7 +113,15 @@ const SalesDashboard = () => {
               backgroundColor: "#38775B",
               width: "130px",
             }}
-          ></Toolbar>
+          >
+            <Box sx={{ marginRight: "-28px", marginTop: "7px" }}>
+              <img
+                className="sidebar-logo"
+                src="../../src/assets/sidebar-logo.png"
+                alt="Logo"
+              />
+            </Box>
+          </Toolbar>
 
           <List
             component="nav"
@@ -145,19 +153,21 @@ const SalesDashboard = () => {
           <Box sx={{ marginLeft: "150px", marginTop: "-130px" }}>
             <Name />
           </Box>
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, }}>
             <Grid container spacing={3}>
               <Grid item xs={12} md={8} lg={9}>
                 {selected == "report" ? (
                   <Paper
                     sx={{
-                      p: 2,
+                      
                       display: "flex",
                       flexDirection: "column",
-                      height: 800,
-                      width: 1200,
-                      padding: "60px",
-                      margin: "50px",
+                      height: 790,
+                      width: 1160,
+                      padding: "30px",
+                      marginLeft: "64px",
+                      marginTop: "20px",
+                      borderRadius: "20PX"
                     }}
                   >
                     <SalesChart2 />
@@ -235,12 +245,8 @@ const SalesDashboard = () => {
             </Grid>
 
             <Grid sx={{ marginLeft: "50px" }} item xs={12}>
-              {selected == "profile" ? (
-                
-                  <SalesProfile/>
-              ) : null}
+              {selected == "profile" ? <SalesProfile /> : null}
             </Grid>
-
           </Container>
         </Box>
       </Box>

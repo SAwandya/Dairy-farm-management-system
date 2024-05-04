@@ -3,6 +3,13 @@ const router = express.Router();
 const { Message, validate } = require('../models/message');
 const { Purchase } = require("../models/purchase");
 
+router.get("/", async (req, res) => {
+
+  const messages = await Message.find();
+
+  res.send(messages);
+})
+
 router.post("/", async (req, res) => {
 
     const {error} = validate(req.body);

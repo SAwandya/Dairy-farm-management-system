@@ -18,6 +18,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Search from "./Search";
 import { Container } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -56,17 +57,39 @@ const ProductList = () => {
   };
 
   const handleDelete = (id) => {
-    productService
-      .Delete(id)
-      .then((res) => {
-        console.log(res.data);
-        toast.error("Successfully deleted");
 
-        refetch();
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+
+        productService
+          .Delete(id)
+          .then((res) => {
+            console.log(res.data);
+            toast.error("Successfully deleted");
+
+            refetch();
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+
+      }
+    });
+
+    
   };
 
   const [query, setQuery] = React.useState("");
@@ -96,7 +119,7 @@ const ProductList = () => {
         <Search setQuery={setQuery} query={query} />
       </Container>
 
-      <Table size="small">
+      <Table size="small" width="200px">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>

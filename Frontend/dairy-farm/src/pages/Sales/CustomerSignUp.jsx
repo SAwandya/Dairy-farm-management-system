@@ -66,11 +66,19 @@ const CustomerSignUp = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            padding: "30px",
+            borderRadius: "20px",
+            boxShadow: 3,
+            bgcolor: "#CDFAD5",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
+         
+            <img
+              className="sidebar-logo"
+              src="../../src/assets/sidebar-logo.png"
+              alt="Logo"
+            />
+          
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>

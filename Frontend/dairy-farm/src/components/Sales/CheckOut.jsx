@@ -17,18 +17,7 @@ import { useForm } from "react-hook-form";
 import useGameQueryStore from "../../store";
 import { useAuth } from "../../contexts/AuthContext";
 import purchaseService from "../../services/Sales/purchaseService";
-import { Link } from "react-router-dom";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/"></Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { Link, useNavigate } from "react-router-dom";
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
@@ -49,6 +38,8 @@ function getStepContent(step, register, errors, processData, selectedProduct) {
 
 const CheckOut = () => {
   const [activeStep, setActiveStep] = React.useState(0);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -191,27 +182,41 @@ const CheckOut = () => {
                   selectedProduct,
                   processData
                 )}
-                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                      Back
-                    </Button>
-                  )}
-
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Button
                     variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
+                    onClick={() => navigate("/")}
+                    sx={{
+                      mt: 3,
+                      ml: 1,
+                      marginLeft: "-2px",
+                    }}
                     type="submit"
+                    color="error"
                   >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    Cancell
                   </Button>
+                  <Box>
+                    {activeStep !== 0 && (
+                      <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                        Back
+                      </Button>
+                    )}
+
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      sx={{ mt: 3, ml: 1 }}
+                      type="submit"
+                    >
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    </Button>
+                  </Box>
                 </Box>
               </Box>
             </React.Fragment>
           )}
         </Paper>
-        <Copyright />
       </Container>
     </React.Fragment>
   );

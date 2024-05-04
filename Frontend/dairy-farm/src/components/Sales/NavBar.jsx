@@ -20,6 +20,7 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useAuth } from "../../contexts/AuthContext";
+import useGameQueryStore from "../../store";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -64,6 +65,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const SetOpenNotify = useGameQueryStore((s) => s.SetOpenNotify);
 
   const { logout } = useAuth()
 
@@ -141,7 +144,7 @@ const NavBar = () => {
           color="inherit"
         >
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+            <NotificationsIcon onClick={() => SetOpenNotify(true)} />
           </Badge>
         </IconButton>
         <p>Notifications</p>
@@ -267,7 +270,7 @@ const NavBar = () => {
               color="inherit"
             >
               <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
+                <NotificationsIcon onClick={() => SetOpenNotify(true)} />
               </Badge>
             </IconButton>
             <IconButton

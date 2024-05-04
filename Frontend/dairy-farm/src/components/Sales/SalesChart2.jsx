@@ -81,20 +81,6 @@ const SalesChart2 = () => {
     .slice(0, seriesNb)
     .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }));
 
-  console.log(newseries);
-
-  const [seriesData, setSeriesData] = React.useState([]);
-
-  const chartSetting = {
-    yAxis: [
-      {
-        label: "Quantity of the products(Packs)",
-        color: "white",
-      },
-    ],
-  };
-  
-
   return (
     <>
       <BarChart
@@ -113,10 +99,14 @@ const SalesChart2 = () => {
             stroke: "#fff",
           },
         }}
-        
       />
 
-      <Typography id="input-item-number" gutterBottom>
+      <Typography
+        sx={{ paddingTop: "20px" }}
+        id="input-item-number"
+        gutterBottom
+        fontSize="20px"
+      >
         Number of months
       </Typography>
       <Slider
@@ -127,7 +117,12 @@ const SalesChart2 = () => {
         max={15}
         aria-labelledby="input-item-number"
       />
-      <Typography id="input-series-number" gutterBottom>
+      <Typography
+        sx={{ paddingTop: "10px" }}
+        id="input-series-number"
+        gutterBottom
+        fontSize="20px"
+      >
         Number of Products
       </Typography>
       <Slider
@@ -141,11 +136,6 @@ const SalesChart2 = () => {
       <AnalysisRep newseries={newseries} />
     </>
   );
-};
-
-const highlightScope = {
-  highlighted: "series",
-  faded: "global",
 };
 
 export default SalesChart2;

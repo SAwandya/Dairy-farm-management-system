@@ -37,7 +37,9 @@ const CustomerSignIn = () => {
       .then((res) => {
         console.log(res.customer.approvel);
         if (res.customer.approvel == false) {
-          toast.error("Still you do not have approvel. Sign in after recieve approvel");
+          toast.error(
+            "Still you do not have approvel. Sign in after recieve approvel"
+          );
         } else {
           login(res.token);
           setError("");
@@ -54,69 +56,91 @@ const CustomerSignIn = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <ToastContainer />
-
-      <Container component="main" maxWidth="xs">
-        {authToken && <Navigate to="/" replace={true} />}
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
+      <Box
+        sx={{
+          // backgroundImage: "url(../src/assets/farm_sign.png)",
+          // backgroundSize: "cover",
+          // backgroundRepeat: "no-repeat",
+          // backgroundPosition: "center",
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Container component="main" maxWidth="xs">
+          <ToastContainer />
+          {authToken && <Navigate to="/" replace={true} />}
+          <CssBaseline />
           <Box
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-            sx={{ mt: 1 }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              height: "500px",
+              width: "500px",
+              padding: "30px",
+              borderRadius: "20px",
+              boxShadow: 3,
+              bgcolor: "#CDFAD5",
+            }}
           >
-            <InputField
-              id="email"
-              label="Email"
-              type="email"
-              signup={{
-                ...register("email", { required: true }),
-              }}
-              errors={errors.email}
-            />
-            <InputField
-              id="password"
-              label="Password"
-              type="password"
-              signup={{
-                ...register("password", { required: true }),
-              }}
-              errors={errors.password}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            
+              <img
+                className="sidebar-logo"
+                src="../../src/assets/sidebar-logo.png"
+                alt="Logo"
+              />
+            
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+              sx={{ mt: 1 }}
             >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link to="/signup">Don't have an account? Sign Up</Link>
+              <InputField
+                id="email"
+                label="Email"
+                type="email"
+                signup={{
+                  ...register("email", { required: true }),
+                }}
+                errors={errors.email}
+              />
+              <InputField
+                id="password"
+                label="Password"
+                type="password"
+                signup={{
+                  ...register("password", { required: true }),
+                }}
+                errors={errors.password}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link to="/signup">Don't have an account? Sign Up</Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Container>
+        </Container>
+      </Box>
     </ThemeProvider>
   );
 };

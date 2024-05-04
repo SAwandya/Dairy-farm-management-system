@@ -28,6 +28,9 @@ const useGameQueryStore = create((set) => ({
   selectedBuyAddButton: null,
   SetselectedBuyAddButton: (selectedBuyAddButton) =>
     set({ selectedBuyAddButton: selectedBuyAddButton }),
+
+  openNotify: null,
+  SetOpenNotify: (openNotify) => set({ openNotify: openNotify }),
 }));
 
 export default useGameQueryStore;
