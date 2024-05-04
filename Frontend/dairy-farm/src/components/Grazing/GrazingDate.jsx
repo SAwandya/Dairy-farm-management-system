@@ -12,9 +12,7 @@ function GrazingDate() {
     });
 
     return (
-        <Box className="date-container" style={{ 
-            marginTop: '-30px'
-        }}>
+        <Box className="date-container">
             <Typography variant="h4" className='date-text'>Today:</Typography>
             <Box className="calendar-container"> 
                 <CalendarMonthIcon 
