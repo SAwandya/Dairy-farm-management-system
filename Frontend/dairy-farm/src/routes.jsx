@@ -66,7 +66,8 @@ import EmployeeR from "./pages/Employees/EmployeeR";
 import EProfile from "./pages/Employees/EProfile"
 import LeaveForm from "./pages/Employees/LeaveForm"
 import LeaveDetails from "./pages/Employees/LeaveDetails";
-import MyComponent from "./pages/Employees/MyComponent"
+import MyComponent from "./pages/Employees/MyComponent";
+import QRCodeScanner from "./pages/Employees/QRCodeScanner"
 //Supplier Management
 import SupProfile from "./pages/Supplier/supProfile";
 import SupplierOrder from "./pages/Supplier/SupplierOrder";
@@ -376,6 +377,11 @@ const router = createBrowserRouter([
   {
     path: "/attendance",
     element: <MyComponent />,
+  },
+ 
+  {
+    path: "/qr",
+    element: < QRCodeScanner />,
   },
   {
     path: "/supProfile",

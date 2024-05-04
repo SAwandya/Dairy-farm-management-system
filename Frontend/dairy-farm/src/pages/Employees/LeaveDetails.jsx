@@ -13,6 +13,7 @@ import BgCards from "../../components/Employees/bgcards";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Link } from 'react-router-dom';
 function LeaveDetails() {
     const [leaves, setLeaves] = useState([]);
     const [totalLeaves, setTotalLeaves] = useState(0);
@@ -146,18 +147,18 @@ function LeaveDetails() {
                 <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-15rem',marginTop:'10px'}}>
                     <BgCards>
                         <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
-                            Total Employees
-                            <IconButton size="small" color="inherit">
+                            Attendance
+                            <IconButton size="small" color="inherit"component={Link} to="/attendance">
                                 <AccountCircleIcon />
                             </IconButton>
                         </Typography>
                         <Typography variant="body1" sx={{ fontSize: '16px', fontFamily: 'Poppins' }}>
-                      10
+                    50
                         </Typography>
                     </BgCards>
                     <BgCards>
                         <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
-                            Completed Tasks
+                         Total Leave Days
                             <IconButton size="small" color="inherit">
                                 <AssignmentIcon />
                             </IconButton>
@@ -168,7 +169,7 @@ function LeaveDetails() {
                     </BgCards>
                     <BgCards>
                         <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold',  fontFamily: 'Poppins'}}>
-                            Total Hours
+                            Leave Summary
                             <IconButton size="small" color="inherit" >
                                 <AccessTimeIcon />
                             </IconButton>
@@ -196,7 +197,7 @@ function LeaveDetails() {
                      <Button
                     variant="text"
                     onClick={() => setShowTable1(!showTable1)}
-                    sx={{ position: 'absolute', top: 30, right: 280 }}
+                    sx={{ position: 'absolute', top: 320, right: 280 }}
                 >
                    Leave Summary
                 </Button>
@@ -227,7 +228,7 @@ function LeaveDetails() {
                      <Button
                     variant="text"
                     onClick={() => setShowTable1(!showTable1)}
-                    sx={{ position: 'absolute', top: 160, right: 120 }}
+                    sx={{ position: 'absolute', top: 260, right: 120 }}
                 >
                    Leaves
                 </Button>
