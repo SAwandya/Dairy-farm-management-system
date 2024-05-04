@@ -179,6 +179,21 @@ function LeaveDetails() {
                         </Typography>
                     </BgCards>
                 </Box>
+                <Button
+    variant="contained"
+    color="primary"
+    sx={{
+        backgroundColor: 'green',
+        '&:hover': { backgroundColor: 'darkgreen' },
+        marginTop: '20px' // Add margin top here
+    }}
+    component={Link}
+    to="/attendance"
+>
+    Attendance
+</Button>
+
+
             <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '25px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                 Leave Details
             </Typography>
@@ -197,7 +212,7 @@ function LeaveDetails() {
                      <Button
                     variant="text"
                     onClick={() => setShowTable1(!showTable1)}
-                    sx={{ position: 'absolute', top: 320, right: 280 }}
+                    sx={{ position: 'absolute', top: 380, right: 280 }}
                 >
                    Leave Summary
                 </Button>
