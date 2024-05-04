@@ -4,6 +4,7 @@ import axios from 'axios';
 import jspdf from 'jspdf';
 import 'jspdf-autotable';
 
+import companyLogo from '../../assets/sidebar-logo.png';
 // Component to generate PDF report
 const Report = () => {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -34,6 +35,41 @@ const Report = () => {
          "present",
         ];
         tableRows.push(attendanceEntry);
+        const margin = 14; // Left margin
+      const logoWidth = 30; // Logo width
+      const logoHeight = 20; // Logo height
+      const maxWidth = 290; // Calculate maximum width available for text
+      const textLines = doc.splitTextToSize(
+        `The employee management system contains essential data such as employee identification details, employment status, job history, and other relevant information crucial for efficient HR management. Through comprehensive documentation and organization, this system ensures effective oversight and management of employees, enabling informed decision-making processes and enhancing overall workforce productivity and well-being.`,
+        maxWidth
+      );
+      const textParagraph = textLines.join('\n');
+      //Add company logo
+     doc.addImage(companyLogo, 'PNG', doc.internal.pageSize.width - margin - logoWidth, margin, logoWidth, logoHeight);
+  
+      // Add company address
+      doc.setFontSize(10).setFont('helvetica').text('Nevil Nutri Feeds Pvt.Ltd', margin, margin + 10);
+      doc.text('No:241, Rdawana', margin, margin + 15);
+      doc.text('Henagama Rd', margin, margin + 20);
+      doc.text('Gampaha', margin, margin + 25);
+      doc.text('Sri Lanka', margin, margin + 30);
+  
+      // Add current date
+      doc.setFontSize(10).text(`Date: ${date}`, margin, margin + 35);
+  
+      // Title
+      doc.setFontSize(20).setTextColor(56, 119, 91).setFont('helvetica', 'bold').text('Employee Registration Report', margin, 70);
+  
+      // Introduction paragraph
+  
+      
+      doc.setFontSize(10).setFont('helvetica', 'normal').setTextColor(0, 0, 0).text(
+        textParagraph,
+        margin,
+        80,
+        { maxWidth: maxWidth } // Specify maxWidth option for text
+      );
+     
       });
       
       // Title
