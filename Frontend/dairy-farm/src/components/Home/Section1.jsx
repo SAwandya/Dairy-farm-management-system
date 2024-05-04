@@ -21,7 +21,7 @@ function Section1() {
                         textAlign: 'left',
                         fontSize: '70px',
                         width: '70%',
-                        marginTop: '54px'
+                        marginTop: '108px'
                     }}
                 >
                     Our Passion for Agriculture Nurturing Growth and Sustaining the Future

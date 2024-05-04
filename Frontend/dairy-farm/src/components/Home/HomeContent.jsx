@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Box } from '@mui/material';
 import Section1 from "./Section1"
+import Section2 from './Section2';
 
 function HomeContent() {
     return (
@@ -10,7 +11,8 @@ function HomeContent() {
                 paddingRight: '140px'
             }}
         >
-           <Section1 /> 
+           <Section1 />
+           <Section2 />
         </Box>
     );
 }

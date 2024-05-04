@@ -291,5 +291,9 @@ body {
   }
 
   .section1-img {
-    margin-top: 96px;
+    margin-top: 178px;
+  }
+
+  .service-icon {
+    margin: 50px 90px 30px 90px;
   }
