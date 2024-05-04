@@ -40,8 +40,8 @@ export default function StatGraph() {
   return (
     <BarChart
       className='barchart'
-      width={520}
-      height={355}
+      width={700}
+      height={500}
       series={[{ data: data.map(item => item.value), label: 'Types of Waste Collected in this month(kg)', type: 'bar'}]}
       xAxis={[{ scaleType: 'band', data: xLabels }]}
       sx={{
@@ -51,6 +51,9 @@ export default function StatGraph() {
         marginTop: '26px',
         marginLeft: 'auto',
         marginRight: 'auto',
+        "& .MuiChartsLegend-series": {
+          stroke: "#fff",
+        },
       }}
       colors={data.map(item => item.color)}
     >
