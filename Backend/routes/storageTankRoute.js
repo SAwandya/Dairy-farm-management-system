@@ -1,12 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const StorageTank = require('../models/storageTank');
+const yup = require('yup');
+
+const storageTankSchema = yup.object().shape({
+    capacity: yup.number().positive().required(),
+    installedDate: yup.date().required(),
+    manufacturer: yup.string().required(),
+    specialNotes: yup.string()
+});
 
 router.post('/', async (req, res) => {
     if (!req.body) {
         return res.status(400).send({ message: "Content can not be empty" });
     }
+    
     try {
+        await storageTankSchema.validate(req.body);
+
         const newStorageTank = new StorageTank({
             capacity: req.body.capacity,
             installedDate: req.body.installedDate,
@@ -19,6 +30,13 @@ router.post('/', async (req, res) => {
         res.status(201).json({ success: true, data: newStorageTank });
     } catch (error) {
         console.error('Error adding storage tank:', error);
+        if (error.name === 'ValidationError') {
+            const errors = error.inner.reduce((acc, err) => {
+                acc[err.path] = err.message;
+                return acc;
+            }, {});
+            return res.status(400).json({ success: false, errors });
+        }
         res.status(500).json({ success: false, error: 'Failed to add storage tank' });
     }
 });
