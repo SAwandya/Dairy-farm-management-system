@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Button } from '@mui/material';
+import alarmSound from '../../assets/alarm.mp3'; // Assuming the alarm sound file is in the 'assets' folder
 
 function AlarmSetter({ alarmType, alarmTime, setAlarm }) {
   const requestNotificationPermission = () => {
@@ -21,6 +22,7 @@ function AlarmSetter({ alarmType, alarmTime, setAlarm }) {
 
     setTimeout(() => {
       showNotification(`${alarmType} Alarm`, `It's time for your ${alarmType} rotation!`);
+      playAlarmSound();
     }, delay);
   };
 
@@ -28,6 +30,11 @@ function AlarmSetter({ alarmType, alarmTime, setAlarm }) {
     if ('Notification' in window && Notification.permission === 'granted') {
       new Notification(title, { body });
     }
+  };
+
+  const playAlarmSound = () => {
+    const audio = new Audio(alarmSound); // Corrected the path to the alarm sound file
+    audio.play();
   };
 
   const handleSetAlarm = () => {
