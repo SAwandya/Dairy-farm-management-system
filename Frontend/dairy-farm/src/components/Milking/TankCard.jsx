@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, MenuItem, Typography, TextField, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import TankStructure from './TankStructure';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TankCard = ({ tank }) => {
   const { tankId, capacity, availableMilk, storedMilkBatches } = tank;
@@ -91,11 +93,27 @@ const TankCard = ({ tank }) => {
     setOpenDialog(true);
   };
 
+  const displaySuccessToast = (message) => {
+    toast.success(message, {
+        position: "top-right",
+        autoClose: 2800,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+};
+
   const handleConfirmDelete = async () => {
     try {
       const response = await axios.delete(`http://localhost:3000/api/milkingStorage/${tankId}`);
       console.log(response.data);
-      onDelete(tankId);
+      displaySuccessToast(`Tank ${tankId} deleted successfully!`);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       console.error('Error deleting tank:', error);
     }
