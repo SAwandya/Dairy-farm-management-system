@@ -10,6 +10,8 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { Box, Container } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const MainListItems = (props) => {
   const { onSelect, selectedTab } = props;
@@ -126,6 +128,62 @@ const MainListItems = (props) => {
           <ListItemText
             primary="Reports"
             sx={{ color: selectedTab === "report" ? "black" : "white" }}
+          />
+        </ListItemButton>
+
+        <ListItemButton
+          sx={{
+            height: "60px",
+            width: "106px",
+            borderRadius: "20px",
+            display: "flex",
+            marginTop: "150px",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            backgroundColor: selectedTab === "profile" ? "#4FFFB0" : null,
+          }}
+          onClick={() => onSelect("profile")}
+        >
+          <ListItemIcon
+            sx={{
+              marginTop: "8px",
+              color: selectedTab === "profile" ? "black" : "white",
+            }}
+          >
+            <AccountCircleIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary="Profile"
+            sx={{ color: selectedTab === "profile" ? "black" : "white" }}
+          />
+        </ListItemButton>
+
+        <ListItemButton
+          sx={{
+            height: "60px",
+            width: "106px",
+            borderRadius: "20px",
+            display: "flex",
+            marginTop: "20px",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            backgroundColor: selectedTab === "logout" ? "#4FFFB0" : null,
+          }}
+          onClick={() => onSelect("logout")}
+        >
+          <ListItemIcon
+            sx={{
+              marginTop: "8px",
+              color: selectedTab === "logout" ? "black" : "white",
+            }}
+          >
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary="Logout"
+            sx={{ color: selectedTab === "logout" ? "black" : "white" }}
           />
         </ListItemButton>
       </Box>
