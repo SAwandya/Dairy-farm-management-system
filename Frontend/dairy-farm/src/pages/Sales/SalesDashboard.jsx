@@ -19,17 +19,8 @@ import BgCard from "../../components/Sales/bgCard";
 import useProducts from "../../hooks/useProducts";
 import DateV from "../../components/Sales/DateV";
 import Name from "../../components/Sales/Name";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    ></Typography>
-  );
-}
+import { useNavigate } from "react-router-dom";
+import SalesProfile from "./SalesProfile";
 
 const drawerWidth = 130;
 
@@ -64,6 +55,8 @@ const defaultTheme = createTheme();
 const SalesDashboard = () => {
   const { data, error, isLoading, refetch } = useProducts();
 
+  const navigate = useNavigate()
+
   const publishPro = data?.filter((value) => value.publish === false);
   const unpublishPro = data?.filter((value) => value.publish === true);
 
@@ -86,6 +79,10 @@ const SalesDashboard = () => {
       setSeleceted("product");
     } else if (select == "customer") {
       setSeleceted("customer");
+    } else if (select == "logout") {
+      navigate("/homeM")
+    } else if (select == "profile") {
+      setSeleceted("profile")
     }
   };
 
@@ -112,7 +109,7 @@ const SalesDashboard = () => {
               alignItems: "center",
               justifyContent: "flex-end",
               px: [5],
-              borderRadius: "0 40px 0 0",
+              borderRadius: "0 30px 0 0",
               backgroundColor: "#38775B",
               width: "130px",
             }}
@@ -123,7 +120,7 @@ const SalesDashboard = () => {
             sx={{
               backgroundColor: "#38775B",
               height: "92vh",
-              borderRadius: "0 0 50px 0",
+              borderRadius: "0 0 30px 0",
               width: "130px",
               position: "fixed",
               top: "60px",
@@ -137,11 +134,6 @@ const SalesDashboard = () => {
         <Box
           component="main"
           sx={{
-          //   background: "url(../src/assets/background.png)",
-          //   backgroundColor: "#D2EBE6",
-          //   backgroundSize: "cover",
-          //   backgroundRepeat: "no-repeat",
-          //   backgroundPosition: "center",
             flexGrow: 1,
             height: "100vh",
             width: "100vw",
@@ -242,7 +234,13 @@ const SalesDashboard = () => {
               ) : null}
             </Grid>
 
-            <Copyright sx={{ pt: 4 }} />
+            <Grid sx={{ marginLeft: "50px" }} item xs={12}>
+              {selected == "profile" ? (
+                
+                  <SalesProfile/>
+              ) : null}
+            </Grid>
+
           </Container>
         </Box>
       </Box>
