@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Paper, TextField, Box,Container,Switch,Avatar,Card,CardContent,Typography } from '@mui/material'; // Import TextField for input fields
+import { Paper, TextField, Box,Container,Switch,Avatar,Card,CardContent,Typography,OutlinedInput } from '@mui/material'; // Import TextField for input fields
 import PbDelete from '../Inventory/PbDelete';
 import PbUpdate from '../Inventory/PbUpdate';
 import Grid2 from "@mui/material/Unstable_Grid2";
@@ -117,17 +117,17 @@ function ProductBatchTable() {
     
 <Container  style={{ margin: 0, padding: 0,overflow:'hidden' }}>
 
-  <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:2,}}>
+  <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:0,}}>
 
-     <Grid2 item xs={10} sm={3} sx={{ml:0 }}>
+     <Grid2 item xs={10} sm={3} sx={{ml:0 ,mt:3}}>
         <TextField
-        label="Search"
+        label="Search By Name.."
         variant="outlined"
-        value={searchQuery}
+        value={searchQuery}   
         onChange={handleSearchChange}
       />   
      </Grid2>
-     <Grid2 item sm={1} align="left" sx={{ml:62,mb:1}}> <Legendx/>
+     <Grid2 item sm={1} align="left" sx={{ml:64,mb:1}}> <Legendx/>
      </Grid2>
 
 
