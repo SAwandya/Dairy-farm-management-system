@@ -166,7 +166,7 @@ function SessionPage() {
           justifyContent: 'right',
         }}
       >
-        <Grid container spacing={1} justifyContent="center" style={{ width: '100%', marginRight: '2rem', marginLeft: '7rem' }}>
+        <Grid container spacing={1} justifyContent="center" style={{ width: '100%', marginRight: '2rem', marginLeft: '7rem',marginTop:'2' }}>
           <Grid item xs={12}>
             <Grid container justifyContent="flex-end">
               <Tooltip title="Add New Session">
