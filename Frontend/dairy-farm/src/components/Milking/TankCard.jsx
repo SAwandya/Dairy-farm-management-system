@@ -14,6 +14,7 @@ const TankCard = ({ tank }) => {
   const [milkBatchOptions, setMilkBatchOptions] = useState([]);
   const [newMilkBatch, setNewMilkBatch] = useState('');
   const [amountToRemove, setAmountToRemove] = useState('');
+  const [amountToRemoveError, setAmountToRemoveError] = useState('');
   const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
@@ -25,10 +26,13 @@ const TankCard = ({ tank }) => {
       const response = await axios.get('http://localhost:3000/api/milkingData');
       if (response.data.success) {
         const allBatches = response.data.data;
-        const today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-mm-dd format
+        const today = new Date().toISOString().split('T')[0];
         const todayBatches = allBatches.filter(batch => batch.createdAt.includes(today));
         const batchIds = todayBatches.map(batch => batch.milkBatchId);
-        setMilkBatchOptions(batchIds);
+
+        const filteredOptions = batchIds.filter(batchId => !storedMilkBatches.includes(batchId));
+
+        setMilkBatchOptions(filteredOptions);
       } else {
         console.error('Failed to fetch milking data:', response.data.error);
       }
@@ -37,7 +41,6 @@ const TankCard = ({ tank }) => {
     }
   };
   
-
   const handleCancelClick = () => {
     setIsFlipped(previousFlippedState);
     setIsEditing(false);
@@ -50,8 +53,20 @@ const TankCard = ({ tank }) => {
 
   const handleSaveClick = async () => {
     try {
+        let errorMessage = '';
+
         if (!newMilkBatch && typeof amountToRemove === 'undefined') {
             console.log('New milk batch and amount to remove are empty. Skipping addition and subtraction.');
+            return;
+        }
+
+        if (typeof amountToRemove !== 'undefined' && parseInt(amountToRemove) > availableMilk) {
+            errorMessage = 'Cannot be greater than available milk';
+        }
+
+        setAmountToRemoveError(errorMessage);
+
+        if (errorMessage) {
             return;
         }
 
@@ -75,6 +90,7 @@ const TankCard = ({ tank }) => {
                 console.log(updateAvailableMilkResponse.data);
             } else {
                 console.error('Milk batch not found');
+                displayErrorToast("Milk batch not found");
             }
         }
 
@@ -83,6 +99,18 @@ const TankCard = ({ tank }) => {
                 amountToSubtract: -amountToRemove
             });
             console.log(subtractAvailableMilkResponse.data);
+            displaySuccessToast(`Milk amount updated successfully!`);
+
+            if (availableMilk - parseInt(amountToRemove) === 0) {
+              await axios.put(`http://localhost:3000/api/milkingStorage/${tankId}`, {
+                  storedMilkBatches: []
+              });
+              console.log("Stored milk batches cleared.");
+            }
+
+            setTimeout(() => {
+              window.location.reload();
+          }, 3000);
         }
     } catch (error) {
         console.error('Error updating stored milk batches:', error);
@@ -105,6 +133,18 @@ const TankCard = ({ tank }) => {
     });
 };
 
+  const displayErrorToast = (message) => {
+    toast.error(message, {
+        position: "top-right",
+        autoClose: 2800,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+  };
+
   const handleConfirmDelete = async () => {
     try {
       const response = await axios.delete(`http://localhost:3000/api/milkingStorage/${tankId}`);
@@ -116,6 +156,7 @@ const TankCard = ({ tank }) => {
       }, 3000);
     } catch (error) {
       console.error('Error deleting tank:', error);
+      displayErrorToast("Something went wrong!");
     }
     setOpenDialog(false);
   };
@@ -133,13 +174,28 @@ const TankCard = ({ tank }) => {
             <CardContent sx={{paddingTop: '0'}}>
               <div>
                   <TextField
-                    label="Amount of Milk to Remove (In Litres)"
-                    type='number'
-                    fullWidth
-                    style={{ backgroundColor: '#fff', marginTop: '56px', borderRadius: '5px' }}
-                    value={amountToRemove}
-                    onChange={(e) => setAmountToRemove(e.target.value)}
+                      label="Amount of Milk to Remove (In Litres)"
+                      type='number'
+                      fullWidth
+                      style={{ backgroundColor: '#fff', marginTop: '56px', borderRadius: '5px' }}
+                      value={amountToRemove}
+                      onChange={(e) => {
+                          const value = parseInt(e.target.value);
+                          if (value >= 0) {
+                              setAmountToRemove(value);
+                              setAmountToRemoveError('');
+                          } else {
+                              setAmountToRemoveError('Amount must be a non-negative number');
+                          }
+                      }}
+                      inputProps={{ min: "0" }}
+                      error={!!amountToRemoveError}
                   />
+                  {amountToRemoveError && (
+                      <Typography variant="body2" color="error" style={{marginTop: 4, marginLeft: 14}}>
+                          {amountToRemoveError}
+                      </Typography>
+                  )}
                   <TextField
                     select
                     label="Select Milk Batch ID"
@@ -169,7 +225,7 @@ const TankCard = ({ tank }) => {
                           }}
                       >
                       Cancel
-                      </Button>
+                    </Button>
                     <Button
                           variant="text"
                           aria-label="edit"
@@ -182,9 +238,9 @@ const TankCard = ({ tank }) => {
                               width: '160px',
                               borderRadius: '15px'
                           }}
-                      >
+                    >
                       Save
-                      </Button>
+                    </Button>
                   </div>
               </div>
             </CardContent>
@@ -257,7 +313,7 @@ const TankCard = ({ tank }) => {
                             borderRadius: '15px'
                         }}
                     >
-                    Update
+                      Update
                     </Button>
                   </div>
                 </div>
@@ -270,4 +326,3 @@ const TankCard = ({ tank }) => {
 };
 
 export default TankCard;
-
