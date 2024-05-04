@@ -7,7 +7,6 @@ import backgroundImage from "../../assets/hydro2.webp";
 
 function ProductInventory() {
   return (
-    <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', minHeight: '100vh' }}>
       <Container maxWidth="100vw" style={{ margin: 0, padding: 0, overflow: 'hidden' }}>
         {/*, height: '100vh', overflow: 'hidden' */}
         <Grid2 container sx={{ width: '100vw', position: 'relative' }}>
@@ -23,7 +22,7 @@ function ProductInventory() {
         </Grid2>
 
       </Container>
-    </div>
+  
   );
 }
 
