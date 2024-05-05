@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Product, validate } = require("../models/product");
+const ProductBatch = require("../models/ProductBatch");
 
 router.get("/", async (req, res) => {
   const products = await Product.find();
@@ -52,6 +53,29 @@ router.put("/:id", async (req, res) => {
 
   if (!product)
     return res.status(400).send("The product wit the given id not found");
+
+  res.send(product);
+});
+
+router.post("/releasedadd", async (req, res) => {
+
+  let product = await Product.findOne({
+    name: req.body.name,
+    unitOfMeasurement: req.body.variant
+  });
+
+  product = await Product.findByIdAndUpdate(
+    product._id,
+    {
+      $inc: { quantity: +req.body.quantity / 20 },
+      
+    },
+    { quantity: true }
+  );
+
+  await ProductBatch.findByIdAndUpdate(req.body._id,{
+    collect: true,
+  })
 
   res.send(product);
 });

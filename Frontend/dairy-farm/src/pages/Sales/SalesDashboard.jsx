@@ -21,6 +21,7 @@ import DateV from "../../components/Sales/DateV";
 import Name from "../../components/Sales/Name";
 import { useNavigate } from "react-router-dom";
 import SalesProfile from "./SalesProfile";
+import ReleasedBatches from "../../components/Sales/ReleasedBatches";
 
 const drawerWidth = 130;
 
@@ -83,6 +84,8 @@ const SalesDashboard = () => {
       navigate("/homeM");
     } else if (select == "profile") {
       setSeleceted("profile");
+    } else if (select == "batch") {
+      setSeleceted("batch");
     }
   };
 
@@ -153,13 +156,12 @@ const SalesDashboard = () => {
           <Box sx={{ marginLeft: "150px", marginTop: "-130px" }}>
             <Name />
           </Box>
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, }}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               <Grid item xs={12} md={8} lg={9}>
                 {selected == "report" ? (
                   <Paper
                     sx={{
-                      
                       display: "flex",
                       flexDirection: "column",
                       height: 790,
@@ -167,7 +169,7 @@ const SalesDashboard = () => {
                       padding: "30px",
                       marginLeft: "64px",
                       marginTop: "20px",
-                      borderRadius: "20PX"
+                      borderRadius: "20PX",
                     }}
                   >
                     <SalesChart2 />
@@ -240,6 +242,20 @@ const SalesDashboard = () => {
                   }}
                 >
                   <CustomerList />
+                </Paper>
+              ) : null}
+            </Grid>
+            <Grid sx={{ marginLeft: "50px" }} item xs={12}>
+              {selected == "batch" ? (
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "160vh",
+                  }}
+                >
+                  <ReleasedBatches />
                 </Paper>
               ) : null}
             </Grid>

@@ -113,6 +113,34 @@ const MainListItems = (props) => {
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
+            backgroundColor: selectedTab === "batch" ? "#4FFFB0" : null,
+          }}
+          onClick={() => onSelect("batch")}
+        >
+          <ListItemIcon
+            sx={{
+              marginTop: "8px",
+              color: selectedTab === "batch" ? "black" : "white",
+            }}
+          >
+            <BarChartIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary="Batch"
+            sx={{ color: selectedTab === "batch" ? "black" : "white" }}
+          />
+        </ListItemButton>
+
+        <ListItemButton
+          sx={{
+            height: "60px",
+            width: "106px",
+            borderRadius: "20px",
+            display: "flex",
+            marginTop: "24px",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
             backgroundColor: selectedTab === "report" ? "#4FFFB0" : null,
           }}
           onClick={() => onSelect("report")}
@@ -137,7 +165,7 @@ const MainListItems = (props) => {
             width: "106px",
             borderRadius: "20px",
             display: "flex",
-            marginTop: "150px",
+            marginTop: "110px",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
