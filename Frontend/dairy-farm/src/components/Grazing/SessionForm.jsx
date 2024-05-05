@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, TextField, FormHelperText, Select, MenuItem, InputLabel } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SessionForm({ open, handleClose, handleSubmit, initialData }) {
   const [formData, setFormData] = useState(initialData || {});
@@ -10,64 +12,77 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
     setFormData(initialData || {});
   }, [initialData]);
 
-  const validateForm = () => {
-    let valid = true;
-    const newErrors = {};
+  const validateDate = (date) => {
+    if (!date || new Date(date) < new Date()) {
+      return 'Date must be today or later';
+    }
+    return '';
+  };
 
-    // Validation rules
-    if (!formData.date || new Date(formData.date) < new Date()) {
-      newErrors.date = 'Date must be today or later';
-      valid = false;
+  const validateTime = (time) => {
+    if (!time) {
+      return 'Time is required';
     }
-    if (!formData.time) {
-      newErrors.time = 'Time is required';
-      valid = false;
-    }
-    if (!formData.grazingDuration || isNaN(formData.grazingDuration)) {
-      newErrors.grazingDuration = 'Grazing Duration must be a number';
-      valid = false;
-    }
-    if (parseFloat(formData.grazingDuration) < 0) {
-      newErrors.grazingDuration = 'Grazing Duration cannot be negative';
-      valid = false;
-    }
-    if (!formData.onsiteFeedingDuration || isNaN(formData.onsiteFeedingDuration)) {
-      newErrors.onsiteFeedingDuration = 'Walking Duration must be a number';
-      valid = false;
-    }
-    if (parseFloat(formData.onsiteFeedingDuration) < 0) {
-      newErrors.onsiteFeedingDuration = 'Walking Duration cannot be negative';
-      valid = false;
-    }
-    if (!formData.typeOfSession || formData.typeOfSession.trim() === '') {
-      newErrors.typeOfSession = 'Type of Session is required';
-      valid = false;
-    }
-    if (!formData.grazingArea || formData.grazingArea.trim() === '') {
-      newErrors.grazingArea = 'Grazing Area is required';
-      valid = false;
-    }
-    if (!formData.cowBatch || formData.cowBatch.trim() === '') {
-      newErrors.cowBatch = 'Cow Batch is required';
-      valid = false;
-    }
-    if (!formData.assignedEmployee || formData.assignedEmployee.trim() === '') {
-      newErrors.assignedEmployee = 'Assigned Employee is required';
-      valid = false;
-    }
+    return '';
+  };
 
-    setErrors(newErrors);
-    return valid;
+  const validateDuration = (duration) => {
+    if (!duration || isNaN(duration) || parseFloat(duration) < 0) {
+      return 'Duration must be a non-negative number';
+    }
+    return '';
+  };
+
+  const validateSessionType = (type) => {
+    if (!type || !['Morning', 'Evening'].includes(type)) {
+      return 'Invalid session type';
+    }
+    return '';
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    // Validate each field as it changes and update errors state
+    setErrors({ ...errors, [name]: validateField(name, value) });
+  };
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'date':
+        return validateDate(value);
+      case 'time':
+        return validateTime(value);
+      case 'grazingDuration':
+      case 'onsiteFeedingDuration':
+        return validateDuration(value);
+      case 'typeOfSession':
+        return validateSessionType(value);
+      default:
+        return '';
+    }
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
+
+    // Validate all fields before submitting
+    const fieldErrors = Object.keys(formData).reduce((acc, key) => {
+      acc[key] = validateField(key, formData[key]);
+      return acc;
+    }, {});
+
+    // Set errors for all fields
+    setErrors(fieldErrors);
+
+    // Check if there are any errors
+    const hasErrors = Object.values(fieldErrors).some(error => error !== '');
+
+    if (hasErrors) {
+      toast.error('Please fix all errors before submitting.');
+    } else {
       handleSubmit(formData);
+      handleClose(); // Close the dialog after form submission
     }
   };
 
@@ -91,6 +106,9 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                   onChange={handleChange}
                   InputLabelProps={{
                     shrink: true,
+                  }}
+                  inputProps={{
+                    min: new Date().toISOString().split('T')[0], // Set min attribute to today's date
                   }}
                 />
                 {errors.date && <FormHelperText>{errors.date}</FormHelperText>}
@@ -124,35 +142,58 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 {errors.typeOfSession && <FormHelperText>{errors.typeOfSession}</FormHelperText>}
               </FormControl>
               <FormControl fullWidth error={!!errors.grazingArea} margin="normal">
-                <TextField
+                <InputLabel id="grazingArea-label">Grazing Area</InputLabel>
+                <Select
+                  labelId="grazingArea-label"
                   id="grazingArea"
                   name="grazingArea"
-                  label="Grazing Area"
                   value={formData.grazingArea || ''}
                   onChange={handleChange}
-                />
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                </Select>
                 {errors.grazingArea && <FormHelperText>{errors.grazingArea}</FormHelperText>}
               </FormControl>
-              <FormControl fullWidth error={!!errors.cowBatch} margin="normal">
-                <TextField
-                  id="cowBatch"
-                  name="cowBatch"
-                  label="Cow Batch"
-                  value={formData.cowBatch || ''}
-                  onChange={handleChange}
-                />
-                {errors.cowBatch && <FormHelperText>{errors.cowBatch}</FormHelperText>}
-              </FormControl>
-              <FormControl fullWidth error={!!errors.assignedEmployee} margin="normal">
-                <TextField
-                  id="assignedEmployee"
-                  name="assignedEmployee"
-                  label="Assigned Employee"
-                  value={formData.assignedEmployee || ''}
-                  onChange={handleChange}
-                />
-                {errors.assignedEmployee && <FormHelperText>{errors.assignedEmployee}</FormHelperText>}
-              </FormControl>
+
+                      <FormControl fullWidth error={!!errors.cowBatch} margin="normal">
+          <InputLabel id="cowBatch-label">Cow Batch</InputLabel>
+          <Select
+            labelId="cowBatch-label"
+            id="cowBatch"
+            name="cowBatch"
+            value={formData.cowBatch || ''}
+            onChange={handleChange}
+          >
+            <MenuItem value="F001">F001</MenuItem>
+            <MenuItem value="F002">F002</MenuItem>
+            <MenuItem value="M001">M001</MenuItem>
+            <MenuItem value="M002">M002</MenuItem>
+          </Select>
+          {errors.cowBatch && <FormHelperText>{errors.cowBatch}</FormHelperText>}
+        </FormControl>
+
+                  <FormControl fullWidth error={!!errors.assignedEmployee} margin="normal">
+            <InputLabel id="assignedEmployee-label">Assigned Employee</InputLabel>
+            <Select
+              labelId="assignedEmployee-label"
+              id="assignedEmployee"
+              name="assignedEmployee"
+              value={formData.assignedEmployee || ''}
+              onChange={handleChange}
+            >
+              <MenuItem value="EM10">EM10</MenuItem>
+              <MenuItem value="EM11">EM11</MenuItem>
+              <MenuItem value="EM12">EM12</MenuItem>
+              <MenuItem value="EM13">EM13</MenuItem>
+              <MenuItem value="EM14">EM14</MenuItem>
+              <MenuItem value="EM15">EM15</MenuItem>
+            </Select>
+            {errors.assignedEmployee && <FormHelperText>{errors.assignedEmployee}</FormHelperText>}
+          </FormControl>
+
               <FormControl fullWidth error={!!errors.grazingDuration} margin="normal">
                 <TextField
                   id="grazingDuration"
@@ -185,6 +226,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
           {isEditMode ? 'Update' : 'Add'}
         </Button>
       </DialogActions>
+      <ToastContainer />
     </Dialog>
   );
 }
