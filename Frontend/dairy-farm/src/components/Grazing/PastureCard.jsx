@@ -85,7 +85,7 @@ function PastureCard({ pasture }) {
             </Typography>
           </div>
         </CardContent>
-        <Button variant="contained" href={pasture.maintenanceLink} style={buttonStyle}>
+        <Button variant="contained" href="/grazingstock" style={buttonStyle}>
           Maintenance
         </Button>
       </div>
