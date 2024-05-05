@@ -21,9 +21,5 @@ const validateOrder = (row) => {
     errors.advanceFee = "Advance fee cannot be a negative number";
   }
 
-  // if (!row.deliveryDate) {
-  //   errors.deliveryDate = "Delivery date is required";
-  // }
-
   return errors;
 };
