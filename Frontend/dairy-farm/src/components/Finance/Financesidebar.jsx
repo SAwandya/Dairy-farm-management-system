@@ -51,6 +51,8 @@ function Sidebar() {
                         isActive={isActive("/financebud")}
                     />
                     </Link>
+
+                    {/* Report Link */}
                     <Link to="/financereport" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <NavigationLink 
                         icon={<AssessmentIcon />}
