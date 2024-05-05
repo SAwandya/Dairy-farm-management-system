@@ -65,6 +65,8 @@ function Sidebar() {
 
             <Box className="user-actions" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
                 <List>
+
+                    {/* User Link */}
                     <Link to="/financeprofile" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <NavigationLink
                             icon={<AccountCircleIcon />}
