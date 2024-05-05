@@ -16,9 +16,9 @@ const QRCodeScanner = () => {
 
   return (
     <div>
-      <h1>Scan QR Code for Attendance</h1>
+      
       <Button variant="contained" onClick={handleOpen}>
-        Open QR Code
+         Take Your Attendance
       </Button>
       <Modal
         open={open}
@@ -38,7 +38,7 @@ const QRCodeScanner = () => {
         }}>
           <h2 id="simple-modal-title">Scan the QR code</h2>
           <QRCode value="https://forms.gle/48GRhm7DF4e1ioZk8" />
-          <p id="simple-modal-description">Scan the QR code to access the attendance form.</p>
+      
           <Button onClick={handleClose}>Close QR Code</Button>
         </div>
       </Modal>
