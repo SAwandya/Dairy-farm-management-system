@@ -75,8 +75,7 @@ function Sidebar() {
                     <NavigationLink
                         icon={<LogoutIcon />}
                         text="Logout"
-                        isActive={activeSection === 'logout'}
-                        onClick={() => handleNavigation('logout')}
+                        isActive={isActive("/homeM")}
                     />
                     </Link>
                 </List>
