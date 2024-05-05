@@ -73,7 +73,9 @@ function Employee() {
         // Clear the form fields
         e.target.reset();
       };
-  
+      const handleEdit = (id) => {
+        navigate(`/updateEmployee/${id}`);
+    };
       const handleDelete = (id) => {
         // Show confirmation box
         Swal.fire({
