@@ -35,6 +35,11 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
       ...formData,
       [name]: value
     });
+    // Clear the error message when the user starts typing
+    setErrors({
+      ...errors,
+      [name]: '',
+    });
   };
 
   const validateForm = () => {
@@ -114,20 +119,20 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
             shrink: true,
           }}
         />
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Amount of Waste Collected (kg)"
-          name="wasteCollected"
-          type="number"
-          value={formData.wasteCollected}
-          onChange={handleChange}
-          error={!!errors.wasteCollected}
-          helperText={errors.wasteCollected}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+        <FormControl fullWidth error={!!errors.wasteCollected} margin="normal">
+          <TextField
+            fullWidth
+            label="Amount of Waste Collected (kg)"
+            name="wasteCollected"
+            type="number"
+            value={formData.wasteCollected}
+            onChange={handleChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <FormHelperText>{errors.wasteCollected}</FormHelperText>
+        </FormControl>
         <FormControl fullWidth error={!!errors.wasteType} margin="normal">
           <InputLabel shrink>Type of Waste</InputLabel>
           <Select

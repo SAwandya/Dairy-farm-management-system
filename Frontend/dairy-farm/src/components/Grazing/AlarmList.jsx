@@ -7,7 +7,7 @@ function AlarmList({ alarms, deleteAlarm }) {
       <ul>
         {alarms.map((alarm, index) => (
           <li key={index}>
-            {alarm}
+            {alarm.toLocaleTimeString()}
             <button onClick={() => deleteAlarm(index)}>Delete</button>
           </li>
         ))}
