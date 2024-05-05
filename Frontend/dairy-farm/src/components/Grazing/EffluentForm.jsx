@@ -59,14 +59,13 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
     if (!formData.wasteCollected) {
       newErrors.wasteCollected = 'Amount of Waste Collected is required';
       isValid = false;
-  } else if (isNaN(formData.wasteCollected)) {
+    } else if (isNaN(formData.wasteCollected)) {
       newErrors.wasteCollected = 'Amount of Waste Collected must be a number';
       isValid = false;
-  } else if (parseFloat(formData.wasteCollected) < 0) {
+    } else if (parseFloat(formData.wasteCollected) < 0) {
       newErrors.wasteCollected = 'Amount of Waste Collected cannot be negative';
       isValid = false;
-  }
-  
+    }
 
     if (!formData.wasteType) {
       newErrors.wasteType = 'Type of Waste is required';
@@ -85,7 +84,7 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
       <DialogTitle>{initialData ? 'Edit Effluent Detail' : 'Add New Effluent Detail'}</DialogTitle>
       <DialogContent>
         <TextField
@@ -98,16 +97,22 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
           onChange={handleChange}
           error={!!errors.date}
           helperText={errors.date}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
         <TextField
           fullWidth
           margin="normal"
-          label=" Area"
+          label="Grazing Area"
           name="grazingArea"
           value={formData.grazingArea}
           onChange={handleChange}
           error={!!errors.grazingArea}
           helperText={errors.grazingArea}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
         <TextField
           fullWidth
@@ -119,9 +124,12 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
           onChange={handleChange}
           error={!!errors.wasteCollected}
           helperText={errors.wasteCollected}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
         <FormControl fullWidth error={!!errors.wasteType} margin="normal">
-          <InputLabel>Type of Waste</InputLabel>
+          <InputLabel shrink>Type of Waste</InputLabel>
           <Select
             name="wasteType"
             value={formData.wasteType}
@@ -137,7 +145,7 @@ const EffluentForm = ({ open, handleClose, handleSubmit, initialData }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSubmitForm} color="primary">{initialData ? 'Update' : 'add'}</Button>
+        <Button onClick={handleSubmitForm} color="primary">{initialData ? 'Update' : 'Add'}</Button>
       </DialogActions>
     </Dialog>
   );

@@ -43,9 +43,10 @@ const ReduceStockForm = () => {
 
   return (
     <>
-      <Button variant="contained" color="primary" onClick={() => setShowForm(true)}>
-        Get Stocks
-      </Button>
+          <Button variant="contained" color="primary" onClick={() => setShowForm(true)} style={{ backgroundColor: '#1a6952' }}>
+      Get Stocks
+    </Button>
+
       <Dialog open={showForm} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Get Stocks</DialogTitle>
         <DialogContent>

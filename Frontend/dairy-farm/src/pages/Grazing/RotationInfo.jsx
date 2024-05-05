@@ -32,10 +32,7 @@ function RotationInfo() {
         </Container>
         <Container sx={{ margin: 16, marginLeft: '250px', marginTop: '100px' }}>
           <NewTable/>
-          <Box sx={{ marginTop: '20px' }}>
-            <AlarmSetter  />
-           
-          </Box>
+          
         </Container>
       </Box>
     </Box>
