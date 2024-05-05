@@ -34,7 +34,7 @@ function Sidebar() {
                     />
                     </Link>
 
-                    {/* Trans Link */}
+                    {/* Transactions page Link */}
                     <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <NavigationLink
                         icon={<HandshakeIcon />}
@@ -42,6 +42,8 @@ function Sidebar() {
                         isActive={isActive("/financetrans")}
                     />
                     </Link>
+
+                    {/* Budgets page Link */}
                     <Link to="/financebud" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <NavigationLink
                         icon={<WalletIcon />}
