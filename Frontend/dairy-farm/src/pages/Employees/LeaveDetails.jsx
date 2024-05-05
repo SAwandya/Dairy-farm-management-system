@@ -144,7 +144,7 @@ function LeaveDetails() {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
-                <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-15rem',marginTop:'10px'}}>
+                <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-10rem',marginTop:'10px'}}>
                     <BgCards>
                         <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                             Attendance
@@ -179,13 +179,23 @@ function LeaveDetails() {
                         </Typography>
                     </BgCards>
                 </Box>
-                <Button
+           
+<Button
     variant="contained"
     color="primary"
     sx={{
-        backgroundColor: 'green',
-        '&:hover': { backgroundColor: 'darkgreen' },
-        marginTop: '20px' // Add margin top here
+        backgroundColor: 'lightgreen',
+        color: 'inherit', // Inherit text color
+        textTransform: 'none', // Disable text transformation
+        borderRadius: '20px', // Make the button round
+        '&:hover': { 
+            backgroundColor: 'darkgreen',
+            color: 'inherit' // Inherit text color on hover
+        },
+        marginTop: '20px' ,marginLeft:'1000px',height: '50px', // Increase height
+        width: '150px', // Increase width
+        fontSize: '16px', // Optional: Adjust font size
+        lineHeight: '50px',// Add margin top here
     }}
     component={Link}
     to="/attendance"
@@ -212,7 +222,7 @@ function LeaveDetails() {
                      <Button
                     variant="text"
                     onClick={() => setShowTable1(!showTable1)}
-                    sx={{ position: 'absolute', top: 380, right: 280 }}
+                    sx={{ position: 'absolute', top: 380, right: 180 }}
                 >
                    Leave Summary
                 </Button>
@@ -243,7 +253,7 @@ function LeaveDetails() {
                      <Button
                     variant="text"
                     onClick={() => setShowTable1(!showTable1)}
-                    sx={{ position: 'absolute', top: 370, right: 120 }}
+                    sx={{ position: 'absolute', top: 380, right: 150 }}
                 >
                    Leaves
                 </Button>
