@@ -34,8 +34,7 @@ function Sidebar() {
                     <NavigationLink
                         icon={<SpaceDashboardIcon />}
                         text="Dashboard"
-                        isActive={activeSection === 'dashboard'}
-                        onClick={() => handleNavigation('dashboard')}
+                        isActive={isActive("/FinanceDashboard")}
                     />
                     </Link>
                     <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit' }}>
