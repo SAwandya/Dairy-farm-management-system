@@ -184,15 +184,16 @@ function LeaveDetails() {
     variant="contained"
     color="primary"
     sx={{
-        backgroundColor: 'lightgreen',
-        color: 'inherit',
+        backgroundColor: 'darkgreen',
+        color: 'success',
         font:'bold',
-        text:'bold', // Inherit text color
+        text:'bold',
+        fontWeight: 'bold', // Inherit text color
         textTransform: 'none', // Disable text transformation
         borderRadius: '20px', // Make the button round
         '&:hover': { 
             backgroundColor: 'darkgreen',
-            color: 'inherit' // Inherit text color on hover
+            color: 'success' // Inherit text color on hover
         },
         marginTop: '20px' ,marginLeft:'1000px',height: '50px', // Increase height
         width: '150px', // Increase width
