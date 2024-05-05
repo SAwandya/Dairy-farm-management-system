@@ -13,7 +13,7 @@ function Clock() {
 
   return (
     <div id="clock">
-      <h1>Digital Clock</h1>
+      <h1>rotation times</h1>
       <p>{time}</p>
     </div>
   );
