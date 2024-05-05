@@ -48,8 +48,7 @@ function Sidebar() {
                     <NavigationLink
                         icon={<WalletIcon />}
                         text="Budgets"
-                        isActive={activeSection === 'budgets'}
-                        onClick={() => handleNavigation('budgets')}
+                        isActive={isActive("/financebud")}
                     />
                     </Link>
                     <Link to="/financereport" style={{ textDecoration: 'none', color: 'inherit' }}>
