@@ -149,7 +149,8 @@ function AllEmployee() {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
-                    <Box sx={{ position: 'absolute', top: 0, right: 0, padding: '1rem', zIndex: 999 }}>
+                <DateV/>
+                    <Box sx={{ position: 'absolute', top: 0, right: 0, padding: '0rem', zIndex: 999 }}>
                         <IconButton onClick={() => navigate('/employeedashboard')} color="inherit">
                             <CloseIcon />
                         </IconButton>
@@ -160,7 +161,7 @@ function AllEmployee() {
                         placeholder="Search..."
                         InputProps={{
                             startAdornment: (<SearchIcon />),
-                            style: { marginBottom: '10px', width: '250px', borderRadius: '20px', marginLeft: '1000px' }
+                            style: { marginBottom: '8px', width: '250px', borderRadius: '20px', marginLeft: '800px' }
                         }}
                         variant="outlined"
                     />

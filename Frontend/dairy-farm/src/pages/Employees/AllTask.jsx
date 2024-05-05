@@ -137,7 +137,7 @@ function Task() {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
-
+                <DateV/>
             <Box
     sx={{
         position: 'absolute',
@@ -168,7 +168,7 @@ function Task() {
                                 startAdornment: (
                                     <SearchIcon />
                                 ),
-                                style: { marginBottom: '10px', width: '250px' ,borderRadius: '20px ', marginLeft: '1000px'}
+                                style: { marginBottom: '10px', width: '250px' ,borderRadius: '20px ', marginLeft: '800px'}
                             }}
                         />
                     </div>

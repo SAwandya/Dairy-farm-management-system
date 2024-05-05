@@ -62,12 +62,13 @@ const MyComponent = () => {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
+                <DateV/>
                 <TextField
                         onChange={(event) => setSearchTerm(event.target.value)}
                         placeholder="Search..."
                         InputProps={{
                             startAdornment: (<SearchIcon />),
-                            style: { marginBottom: '10px', width: '250px', borderRadius: '20px', marginLeft: '1000px' }
+                            style: { marginBottom: '10px', width: '250px', borderRadius: '20px', marginLeft: '800px' }
                         }}
                         variant="outlined"
                     />
