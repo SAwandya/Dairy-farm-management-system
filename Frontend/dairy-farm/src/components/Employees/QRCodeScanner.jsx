@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import QRCode from 'qrcode.react';
 import Modal from '@mui/material/Modal';
 import { Button } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
+
+import {IconButton } from '@mui/material';
 const QRCodeScanner = () => {
   const [open, setOpen] = useState(false);
 
@@ -10,7 +13,7 @@ const QRCodeScanner = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleCloseButtonClick = () => {
     setOpen(false);
   };
 
@@ -22,7 +25,7 @@ const QRCodeScanner = () => {
       </Button>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={handleCloseButtonClick}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -39,7 +42,9 @@ const QRCodeScanner = () => {
           <h2 id="simple-modal-title">Scan the QR code</h2>
           <QRCode value="https://forms.gle/48GRhm7DF4e1ioZk8" />
       
-          <Button onClick={handleClose}>Close QR Code</Button>
+          <IconButton onClick={handleCloseButtonClick}>
+            <CloseIcon />
+          </IconButton>
         </div>
       </Modal>
     </div>

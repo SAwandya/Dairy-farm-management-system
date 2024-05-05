@@ -11,7 +11,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Attendance System</h1>
+    
       {<QRCodeScanner />}
     </div>
   );
