@@ -7,7 +7,6 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
   const isEditMode = !!initialData; // Check if it's in edit mode
 
   useEffect(() => {
-    
     setFormData(initialData || {});
   }, [initialData]);
 
@@ -27,19 +26,19 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
     if (!formData.grazingDuration || isNaN(formData.grazingDuration)) {
       newErrors.grazingDuration = 'Grazing Duration must be a number';
       valid = false;
-  }  if (parseFloat(formData.grazingDuration) < 0) {
+    }
+    if (parseFloat(formData.grazingDuration) < 0) {
       newErrors.grazingDuration = 'Grazing Duration cannot be negative';
       valid = false;
-  }
-  
-  if (!formData.onsiteFeedingDuration || isNaN(formData.onsiteFeedingDuration)) {
+    }
+    if (!formData.onsiteFeedingDuration || isNaN(formData.onsiteFeedingDuration)) {
       newErrors.onsiteFeedingDuration = 'Walking Duration must be a number';
       valid = false;
-  }  if (parseFloat(formData.onsiteFeedingDuration) < 0) {
+    }
+    if (parseFloat(formData.onsiteFeedingDuration) < 0) {
       newErrors.onsiteFeedingDuration = 'Walking Duration cannot be negative';
       valid = false;
-  }
-  
+    }
     if (!formData.typeOfSession || formData.typeOfSession.trim() === '') {
       newErrors.typeOfSession = 'Type of Session is required';
       valid = false;
@@ -77,12 +76,12 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
       <DialogTitle>{isEditMode ? 'Edit Session' : 'Add New Session'}</DialogTitle>
       <DialogContent>
         <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <img src='../../../src/assets/farm.jpeg' width={'100%'} height={'100%'}/>
+          <Grid item xs={12} md={6}>
+            <img src='../../../src/assets/farm.jpeg' width={'100%'} height={'100%'} alt="Farm" />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <form onSubmit={handleFormSubmit}>
-              <FormControl fullWidth error={!!errors.date}>
+              <FormControl fullWidth error={!!errors.date} margin="normal">
                 <TextField
                   id="date"
                   name="date"
@@ -96,7 +95,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.date && <FormHelperText>{errors.date}</FormHelperText>}
               </FormControl>
-              <FormControl fullWidth error={!!errors.time}>
+              <FormControl fullWidth error={!!errors.time} margin="normal">
                 <TextField
                   id="time"
                   name="time"
@@ -110,7 +109,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.time && <FormHelperText>{errors.time}</FormHelperText>}
               </FormControl>
-              <FormControl fullWidth error={!!errors.typeOfSession}>
+              <FormControl fullWidth error={!!errors.typeOfSession} margin="normal">
                 <InputLabel id="typeOfSession-label">Session Category</InputLabel>
                 <Select
                   labelId="typeOfSession-label"
@@ -124,7 +123,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 </Select>
                 {errors.typeOfSession && <FormHelperText>{errors.typeOfSession}</FormHelperText>}
               </FormControl>
-              <FormControl fullWidth error={!!errors.grazingArea}>
+              <FormControl fullWidth error={!!errors.grazingArea} margin="normal">
                 <TextField
                   id="grazingArea"
                   name="grazingArea"
@@ -134,7 +133,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.grazingArea && <FormHelperText>{errors.grazingArea}</FormHelperText>}
               </FormControl>
-              <FormControl fullWidth error={!!errors.cowBatch}>
+              <FormControl fullWidth error={!!errors.cowBatch} margin="normal">
                 <TextField
                   id="cowBatch"
                   name="cowBatch"
@@ -144,7 +143,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.cowBatch && <FormHelperText>{errors.cowBatch}</FormHelperText>}
               </FormControl>
-              <FormControl fullWidth error={!!errors.assignedEmployee}>
+              <FormControl fullWidth error={!!errors.assignedEmployee} margin="normal">
                 <TextField
                   id="assignedEmployee"
                   name="assignedEmployee"
@@ -154,7 +153,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.assignedEmployee && <FormHelperText>{errors.assignedEmployee}</FormHelperText>}
               </FormControl>
-              <FormControl fullWidth error={!!errors.grazingDuration}>
+              <FormControl fullWidth error={!!errors.grazingDuration} margin="normal">
                 <TextField
                   id="grazingDuration"
                   name="grazingDuration"
@@ -164,7 +163,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 />
                 {errors.grazingDuration && <FormHelperText>{errors.grazingDuration}</FormHelperText>}
               </FormControl>
-              <FormControl fullWidth error={!!errors.onsiteFeedingDuration}>
+              <FormControl fullWidth error={!!errors.onsiteFeedingDuration} margin="normal">
                 <TextField
                   id="onsiteFeedingDuration"
                   name="onsiteFeedingDuration"
