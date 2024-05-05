@@ -26,7 +26,7 @@ function GrazingDashboard() {
                     <GrazingDate/>
                 </Box>
              
-                <Box className="dashboard-below-container">
+            <Box className="dashboard-below-container">
                     <Box className="chart-card-container" sx={{marginRight: '36px'}}>
                         <Typography
                             variant="h3"
