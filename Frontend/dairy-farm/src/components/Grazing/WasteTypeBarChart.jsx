@@ -52,7 +52,7 @@ export default function StatGraph() {
         marginLeft: 'auto',
         marginRight: 'auto',
         "& .MuiChartsLegend-series": {
-          stroke: "#fff",
+           stroke: "#fff",
         },
       }}
       colors={data.map(item => item.color)}
