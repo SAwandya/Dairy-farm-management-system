@@ -6,12 +6,21 @@ import Esidebar from "../../components/Employees/esidebar";
 import SearchIcon from '@mui/icons-material/Search'; // Import SearchIcon
 import { Box, Typography ,TextField} from '@mui/material'; 
 import DateV from '../../components/Veterinary/DateV';
+import BgCards from "../../components/Employees/bgcards";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import IconButton from '@mui/material/IconButton';
 const MyComponent = () => {
     const [dataList, setDataList] = useState([]);
+    const [totalAttendance, setTotalAttendance] = useState(0);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         fetchData();
     }, []);
+
+    useEffect(() => {
+        calculateTotalAttendance();
+    }, [dataList]);
 
     const fetchData = async () => {
         try {
@@ -26,6 +35,12 @@ const MyComponent = () => {
         } catch (error) {
             console.error('Error fetching data:', error);
         }
+    };
+
+    // Function to calculate total attendance
+    const calculateTotalAttendance = () => {
+        const total = dataList.filter(data => data.Attendance === "Present").length;
+        setTotalAttendance(total);
     };
 
     // Get today's date and format it
@@ -63,7 +78,19 @@ const MyComponent = () => {
                    Hello Disara,
                 </Typography>
                 <DateV/>
+               
+                    
+                        <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                                 Total Attendance  :  {totalAttendance}
+                            <IconButton size="small" color="inherit">
+                                <AccountCircleIcon />
+                            </IconButton>
+                        </Typography>
+                        
+                   
+                    
                 <div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}></div>
+              
                 <TextField
                         onChange={(event) => setSearchTerm(event.target.value)}
                         placeholder="Search..."
@@ -73,11 +100,15 @@ const MyComponent = () => {
                         }}
                         variant="outlined"
                     />
+                    
                 
                 <Box sx={{ marginLeft: '2rem', marginTop:'50px' ,marginRight:'1rem',display: 'fixed' ,width:'100%'}}>
                 <TableCard>
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px', fontWeight: 'bold' }}>
                             Attendance
+                        </Typography>
+                        <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px', fontWeight: 'bold' }}>
+                           
                         </Typography>
             <CustomizedTables
     headers={headers}
@@ -92,8 +123,10 @@ const MyComponent = () => {
            </TableCard>
            </Box>
            </Box>
+         
         </div>
         </div>
+       
     );
 };
 
