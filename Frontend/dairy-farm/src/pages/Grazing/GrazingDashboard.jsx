@@ -26,42 +26,42 @@ function GrazingDashboard() {
                     <GrazingDate/>
                 </Box>
              
-            <Box className="dashboard-below-container">
-                    <Box className="chart-card-container" sx={{marginRight: '36px'}}>
-                        <Typography
-                            variant="h3"
-                            className='graph-card-title'
-                            sx={{
-                                fontSize: '18px',
-                                fontWeight: '600',
-                            }}
-                        >
-                            Waste collected in the Farm
-                        </Typography>
-                        <Typography
-                            variant="h3"
-                            className='graph-card-subtitle'
-                            sx={{
-                                fontSize: '16px',
-                                fontWeight: '400',
-                                marginTop: '8px'
-                            }}
-                        >
-                            Past Month
-                        </Typography>
-                        <WasteTypeBarChart />
-                    </Box>
-                    <Box className="chart-card-container">
-                        <Typography
-                            variant="h3"
-                            className='graph-card-title'
-                            sx={{
-                                fontSize: '18px',
-                                fontWeight: '600',
-                            }}
-                        >Today's sessions</Typography>
-                        <SessionPieChart/>
-                    </Box>
+                    <Box className="dashboard-below-container">
+                            <Box className="chart-card-container" sx={{marginRight: '36px'}}>
+                                <Typography
+                                    variant="h3"
+                                    className='graph-card-title'
+                                    sx={{
+                                        fontSize: '18px',
+                                        fontWeight: '600',
+                                    }}
+                                >
+                                    Waste collected in the Farm
+                                </Typography>
+                                <Typography
+                                    variant="h3"
+                                    className='graph-card-subtitle'
+                                    sx={{
+                                        fontSize: '16px',
+                                        fontWeight: '400',
+                                        marginTop: '8px'
+                                    }}
+                                >
+                                    Past Month
+                                </Typography>
+                                <WasteTypeBarChart />
+                            </Box>
+                            <Box className="chart-card-container">
+                                <Typography
+                                    variant="h3"
+                                    className='graph-card-title'
+                                    sx={{
+                                        fontSize: '18px',
+                                        fontWeight: '600',
+                                    }}
+                                >Today's sessions</Typography>
+                                <SessionPieChart/>
+                            </Box>
                 </Box>
             </Box>
         </Container>
