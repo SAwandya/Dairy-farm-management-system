@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
-import { Button,Box, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
+import { Button,Box, Dialog, DialogTitle,IconButton , DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
+import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import eventBus from "../../ProductionUtils/EventBus"
 
@@ -113,10 +114,19 @@ function NewProcessForm({ onSubmitSuccess }) {
       <Button variant="contained" onClick={handleClickOpen}>
         Add New Process
       </Button>
-      <Draggable>
+     {/* <Draggable> */}
 
         <Dialog open={open} onClose={handleClose}
 
+/*BackdropProps={{
+  sx: {
+    width: '100vw', // Set the width of the backdrop to full viewport width
+    height: '100vh', // Set the height of the backdrop to full viewport height
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust the background color and opacity as needed
+    position: 'fixed', // Position the backdrop fixed to cover the entire screen
+    zIndex: 1300, // Set the z-index to ensure it's above other content
+  }
+}} */
           sx={{
             width: '27.6%', height: '90%',
             
@@ -130,7 +140,14 @@ function NewProcessForm({ onSubmitSuccess }) {
         >
               <Box  sx={{backgroundColor: '#FF', borderBottomLeftRadius:20,borderBottomRightRadius:20,
              border: '3px solid #395e99' }} >
-          <DialogTitle align="center" fontWeight="bold">Add New Process</DialogTitle>
+          <DialogTitle align="center" fontWeight="bold">Add New Process
+          <IconButton
+    aria-label="close"
+    onClick={handleClose}
+    style={{ position: 'absolute', right: '10px', top: '10px' }}
+  >
+    <CloseIcon />
+  </IconButton></DialogTitle>
           <DialogContent >
             <FormControl fullWidth margin="normal">
               <InputLabel id="product-label">Product</InputLabel>
@@ -236,7 +253,7 @@ function NewProcessForm({ onSubmitSuccess }) {
             <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
           </DialogActions>
         </Dialog>
-      </Draggable>
+     {/* </Draggable> */}
       <Dialog
         open={showCancelConfirmation}
         onClose={() => handleCancelConfirmation(false)}
