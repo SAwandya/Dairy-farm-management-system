@@ -23,6 +23,7 @@ function Sidebar() {
                 <img className="sidebar-logo" src="../../src/assets/sidebar-logo.png" alt="Logo" />
             </Box>
             
+            {/* Dashboard link */}
             <Box className="navigation-links">
                 <List>
                     <Link to="/FinanceDashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
