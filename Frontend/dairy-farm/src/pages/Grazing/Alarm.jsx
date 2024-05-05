@@ -32,14 +32,14 @@ function App() {
           image={alarmImage}
           alt="Alarm Image"
         />
-        <CardContent>
-          <Typography variant="h5" component="div" gutterBottom>
-            Grazing Time Manager
-          </Typography>
-          <Clock />
-          <AlarmSetter addAlarm={addAlarm} />
-          <AlarmList alarms={alarms} deleteAlarm={deleteAlarm} />
-        </CardContent>
+            <CardContent>
+            <Typography variant="h5" component="div" gutterBottom>
+                Grazing Time Manager
+            </Typography>
+            <Clock />
+            <AlarmSetter addAlarm={addAlarm} />
+            <AlarmList alarms={alarms} deleteAlarm={deleteAlarm} />
+            </CardContent>
       </Card>
     </Box>
   );
