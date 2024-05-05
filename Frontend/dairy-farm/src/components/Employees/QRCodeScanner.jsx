@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import QRCode from 'qrcode.react';
 import Modal from '@mui/material/Modal';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const QRCodeScanner = () => {
   const [open, setOpen] = useState(false);
@@ -16,9 +17,8 @@ const QRCodeScanner = () => {
 
   return (
     <div>
-      
       <Button variant="contained" onClick={handleOpen}>
-         Take Your Attendance
+        Take Your Attendance
       </Button>
       <Modal
         open={open}
@@ -35,11 +35,17 @@ const QRCodeScanner = () => {
           padding: '20px',
           borderRadius: '5px',
           boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+          maxWidth: '400px',
+          width: '100%',
         }}>
-          <h2 id="simple-modal-title">Scan the QR code</h2>
+          <div style={{ textAlign: 'right', marginBottom: '10px' }}>
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </div>
+          <h2 id="simple-modal-title">Scan the QR code to access the attendance form. </h2>
           <QRCode value="https://forms.gle/48GRhm7DF4e1ioZk8" />
-      
-          <Button onClick={handleClose}>Close QR Code</Button>
+          
         </div>
       </Modal>
     </div>
