@@ -44,7 +44,7 @@ function SensorDisplay() {
       <LineChart width={300} height={250} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
-        <YAxis />
+        <YAxis domain={[0,100]}/>
         <Tooltip />
         <ReferenceLine y={horizontalLineValue} stroke="black" strokeDasharray="3 3" />
         <Line type="monotone" dataKey={dataKey} stroke={color} dot={<CustomDot />} />
@@ -66,7 +66,7 @@ function SensorDisplay() {
 <Grid item>{renderGraphCard('Moisture', 'moisture', 'green', '%', 15, 'green')}</Grid>
 
       </Grid>
-      <Typography align="center" variant="h6" component="h2" sx={{ margin: '10px 0', color: status === 'Sensors Inactive!' ? 'red' : 'black' }}>
+      <Typography align="center" variant="h6" component="h2" sx={{ margin: '10px 0',mt:8, color: status === 'Sensors Inactive!' ? 'red' : 'black' }}>
         Status: {status}
       </Typography>
     </Container>
