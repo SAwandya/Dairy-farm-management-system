@@ -8,10 +8,7 @@ function Section1() {
                 display: 'flex'
             }}
         >
-            <Box
-                sx={{
-                }}
-            >
+            <Box>
                 <Typography
                     variant='h2'
                     sx={{
