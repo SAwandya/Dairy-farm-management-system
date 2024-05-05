@@ -23,6 +23,8 @@ import AddOrderDialog from "./AddOrderDialog";
 import UpdateOrderDialog from "./UpdateOrderDialog";
 import { InputLabel } from '@mui/material';
 import TablePagination from '@material-ui/core/TablePagination';
+import OrderStatusDistributionChart from './OrderStatusDistributionChart';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -273,7 +275,7 @@ const OrderTable = () => {
   };
 
   return (
-    <div>
+    <div> 
       <div className={classes.root}>
         <Typography variant="h6">Orders</Typography>
         <div div className={classes.root}>
