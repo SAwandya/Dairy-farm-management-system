@@ -38,14 +38,16 @@ const QRCodeScanner = () => {
           maxWidth: '400px',
           width: '100%',
         }}>
-          <div style={{ textAlign: 'right', marginBottom: '10px' }}>
+          <div style={{ textAlign: 'right' }}>
             <IconButton onClick={handleClose}>
               <CloseIcon />
             </IconButton>
           </div>
-          <h2 id="simple-modal-title">Scan the QR code to access the attendance form. </h2>
+         
+          <div style={{ textAlign: 'center' }}>
+          <h2 id="simple-modal-title">Scan the QR code</h2>
           <QRCode value="https://forms.gle/48GRhm7DF4e1ioZk8" />
-          
+          </div>
         </div>
       </Modal>
     </div>
