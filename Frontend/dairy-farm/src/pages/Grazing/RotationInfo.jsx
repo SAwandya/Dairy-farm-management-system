@@ -26,8 +26,17 @@ function RotationInfo() {
       <Box className="dashboard-content2">
         <Box className="dashboard-content">
           <Name/>
-          <Box sx={{ position: 'absolute', top: 20, right: 20 }}>
-            <Button component={Link} to="/alarm" variant="contained" color="primary">Set Alarms</Button>
+          <Box sx={{ position: 'absolute', top: 100, right: 160 }}>
+          <Button 
+          component={Link} 
+          to="/alarm" 
+          variant="contained" 
+          color="primary" 
+          style={{ backgroundColor: '#1a6952' }}
+        >
+  Set Alarms
+</Button>
+
           </Box>
         </Box>
         <Container sx={{ margin: 16, marginLeft: '250px', marginTop: '20px' }}>
