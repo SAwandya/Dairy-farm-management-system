@@ -26,15 +26,15 @@ function SessionTable() {
             <TableCell>Walking Duration</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {sessions.map(session => (
-            <TableRow key={session._id}>
-              <TableCell>{session.grazingArea || 'N/A'}</TableCell>
-              <TableCell>{session.cowBatch || 'N/A'}</TableCell>
-              <TableCell>{session.onsiteFeedingDuration || 'N/A'}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+      <TableBody>
+        {sessions.map(session => (
+          <TableRow key={session._id}>
+            <TableCell>{session.grazingArea || 'N/A'}</TableCell>
+            <TableCell>{session.cowBatch || 'N/A'}</TableCell>
+            <TableCell>{session.onsiteFeedingDuration || 'N/A'}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
       </Table>
     </TableContainer>
   );
