@@ -36,7 +36,7 @@ function GrazingDashboard() {
                                 fontWeight: '600',
                             }}
                         >
-                            Waste collected in the farm
+                            Waste collected in the Farm
                         </Typography>
                         <Typography
                             variant="h3"
