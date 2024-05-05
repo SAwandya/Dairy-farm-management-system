@@ -9,6 +9,10 @@ class ProductService {
   Delete(params) {
     return apiClient.delete(params);
   }
+  Add(batch) {
+    const newparams = "releasedadd";
+    return apiClient.postOne(batch, newparams)
+  }
 }
 
 export default new ProductService();

@@ -15,6 +15,10 @@ class APIClient {
     return axiosInstance.post(this.endpoint, config).then((res) => res.data);
   };
 
+  postOne = (config, params) => {
+    return axiosInstance.post(this.endpoint + "/" + params, config).then((res) => res.data);
+  };
+
   put = (param, config) => {
     return axiosInstance
       .put(this.endpoint + "/" + param, config)
@@ -26,7 +30,9 @@ class APIClient {
   };
 
   get = (param) => {
-    return axiosInstance.get(this.endpoint + "/" + param).then((res) => res.data);
+    return axiosInstance
+      .get(this.endpoint + "/" + param)
+      .then((res) => res.data);
   };
 
   delete = (param) => {

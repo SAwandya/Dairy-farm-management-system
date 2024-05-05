@@ -165,7 +165,7 @@ const MainListItems = (props) => {
             width: "106px",
             borderRadius: "20px",
             display: "flex",
-            marginTop: "150px",
+            marginTop: "110px",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",

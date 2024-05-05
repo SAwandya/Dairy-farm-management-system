@@ -15,6 +15,7 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import userService from "../../services/Sales/userService";
 import MessagePop from "./MessagePop";
+import Swal from "sweetalert2";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -42,16 +43,40 @@ const CustomerList = () => {
   const handleApprove = (id, approvel) => {
     const Approvedata = { approvel: approvel };
 
-    approveService
-      .Approve(id, Approvedata)
-      .then((res) => {
-        console.log(res.data);
-        console.log("success");
-        refetch();
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    let approvetext = "";
+    if (approvel == false) {
+      approvetext = "reject";
+    } else {
+      approvetext = "approve";
+    }
+    Swal.fire({
+      title: `Are you want ${approvetext} this customer?`,
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Added!",
+          text: "Customer has been approved",
+          icon: "success",
+        });
+
+        approveService
+          .Approve(id, Approvedata)
+          .then((res) => {
+            console.log(res.data);
+            console.log("success");
+            refetch();
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
+    });
   };
 
   const handleDelete = (customerId) => {

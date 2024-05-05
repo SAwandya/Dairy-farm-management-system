@@ -34,6 +34,39 @@ const ReleasedBatches = () => {
     );
   };
 
+  const handleSubmit = (batch) => {
+
+    Swal.fire({
+      title: "Are you want to add this product batch to inventory?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Added!",
+          text: "Product batch has been added",
+          icon: "success",
+        });
+
+         productService
+           .Add(batch)
+           .then((res) => {
+             console.log(res);
+             refetch()
+           })
+           .catch((err) => {
+             console.log(err);
+           });
+      }
+    });
+
+   
+  }
+
   return (
     <React.Fragment>
       <ToastContainer />
@@ -46,7 +79,7 @@ const ReleasedBatches = () => {
           marginBottom: "20px",
         }}
       >
-        <SalesTitle>Recent Products</SalesTitle>
+        <SalesTitle>Released Product Batches</SalesTitle>
 
         <Search setQuery={setQuery} query={query} />
       </Container>
@@ -76,16 +109,14 @@ const ReleasedBatches = () => {
               </TableCell>
 
               <TableCell>
-                <Link to="/productupdate">
                   <Button
-                    // onClick={() => handleUpdate(product)}
+                    onClick={() => handleSubmit(batch)}
                     variant="contained"
                     size="medium"
                     color="success"
                   >
                     Add
                   </Button>
-                </Link>
               </TableCell>
             </TableRow>
           ))}
