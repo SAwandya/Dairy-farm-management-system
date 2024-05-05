@@ -22,7 +22,7 @@ function NewTable() {
   return (
     <div>
       <TableContainer component={Paper}>
-        <Table>
+      <Table>
           <TableHead>
             <TableRow>
               <TableCell>Grazing Area</TableCell>
