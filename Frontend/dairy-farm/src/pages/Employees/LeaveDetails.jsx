@@ -185,7 +185,9 @@ function LeaveDetails() {
     color="primary"
     sx={{
         backgroundColor: 'lightgreen',
-        color: 'inherit', // Inherit text color
+        color: 'inherit',
+        font:'bold',
+        text:'bold', // Inherit text color
         textTransform: 'none', // Disable text transformation
         borderRadius: '20px', // Make the button round
         '&:hover': { 
