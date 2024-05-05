@@ -6,7 +6,7 @@ function AlarmPage() {
   
 const handleToggleAlarm = () => {
     
-    if (alarmJob) {
+     if (alarmJob) {
         
         alarmJob.cancel();
         console.log('Alarm disabled');
