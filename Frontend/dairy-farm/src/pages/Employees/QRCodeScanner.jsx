@@ -12,10 +12,7 @@ const App = () => {
   return (
     <div>
       <h1>Attendance System</h1>
-      <Button variant="contained" onClick={handleAttendanceButtonClick}>
-        Attendance
-      </Button>
-      {showQRCode && <QRCodeScanner />}
+      {<QRCodeScanner />}
     </div>
   );
 };
