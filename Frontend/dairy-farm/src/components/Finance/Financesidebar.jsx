@@ -68,8 +68,7 @@ function Sidebar() {
                     <NavigationLink
                             icon={<AccountCircleIcon />}
                             text="Profile"
-                            isActive={activeSection === 'profile'}
-                            onClick={() => handleNavigation('profile')}
+                            isActive={isActive("/financeprofile")}
                     />
                     </Link>
                     <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
