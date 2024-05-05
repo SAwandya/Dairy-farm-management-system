@@ -50,7 +50,7 @@ const Inventory = () => {
   return (
     <div>
       <div>
-        <h2>Pending Orders</h2>
+        <h2>Pending Orders</h2> <br/>
         <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -83,15 +83,15 @@ const Inventory = () => {
           </TableBody>
         </Table>
     </TableContainer>
-      </div>
-      <div>
+      </div><br/>
+      {/* <div>
         <ReduceStockForm />
-      </div>
+      </div> */}
       <div>
         {lowStockItems && lowStockItems.length > 0 && (
           <div>
             <br/>
-            <h2>Low Stocks Items</h2>
+            <h2>Low Stocks Items</h2><br/>
             <TableContainer component={Paper}>
               <Table className={classes.table}>
                 <TableHead>
