@@ -11,11 +11,6 @@ const validateForm = (row) => {
     errors.email = 'Invalid email';
   }
 
-//   if (!row || !row.date || new Date(row.date) < new Date()) {
-//     errors.date = 'Date cannot be before today';
-//   }
-
-
   return errors;
 };
 
