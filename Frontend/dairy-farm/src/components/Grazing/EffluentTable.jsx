@@ -106,7 +106,7 @@ function EffluentTable({ rows, headers, handleEdit, handleDelete }) {
              
             </TableRow>
           </TableHead>
-          <TableBody>
+           <TableBody>
             {filteredRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rowIndex) => (
               <StyledTableRow key={rowIndex}>
                 {Object.keys(row).map((key, colIndex) => (
