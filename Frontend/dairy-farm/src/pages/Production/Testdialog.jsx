@@ -46,7 +46,6 @@ function NewProcessForm({ onSubmitSuccess }) {
       setOpen(false);
     }
   };
-  
 
   const handleSubmit = async () => {
     try {
@@ -96,6 +95,11 @@ function NewProcessForm({ onSubmitSuccess }) {
     setSuccessMessage('');
     setErrorMessage('');
   };
+
+   // submitall validations
+const isFormValid = () => {
+  return product !== '' && milkQuantity > 0 && ingredients.length > 0;
+};
   //Validations
   const isDateInPast = (dateString) => {
     const selectedDate = new Date(dateString);
@@ -250,7 +254,7 @@ function NewProcessForm({ onSubmitSuccess }) {
           </Box>
           <DialogActions>
             <Button onClick={handleCancel}>Cancel</Button>
-            <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
+            <Button onClick={handleSubmit} variant="contained" color="primary" disabled={!isFormValid()}>Submit</Button>
           </DialogActions>
         </Dialog>
      {/* </Draggable> */}
