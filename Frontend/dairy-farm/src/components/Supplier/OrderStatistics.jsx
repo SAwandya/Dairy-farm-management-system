@@ -30,7 +30,7 @@ function MainStatistics() {
                 sx={{
                     fontSize: '18px',
                     fontWeight: '600',
-                    marginTop: '20px'
+                    marginTop: '20px',
                 }}
             >Order Overview</Typography>
 
