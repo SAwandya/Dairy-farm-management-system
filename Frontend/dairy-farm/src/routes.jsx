@@ -88,6 +88,7 @@ import CartPage from "./pages/Sales/CartPage";
 import RotationInfo from "./pages/Grazing/RotationInfo";
 import GrazingProfile from "./pages/Grazing/GrazingProfile";
 import App from "./pages/Grazing/Alarm";
+import OrderStock from "./pages/Grazing/OrderStock";
 
 
 const router = createBrowserRouter([
@@ -333,6 +334,10 @@ const router = createBrowserRouter([
   {
     path: "/alarm",
     element: <App />,
+  },
+  {
+    path: "/grazingstock",
+    element: <OrderStock />,
   },
 
   
