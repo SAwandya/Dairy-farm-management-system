@@ -11,8 +11,7 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 import WalletIcon from '@mui/icons-material/Wallet';
 
 function Sidebar() {
-    const [activeSection, setActiveSection] = useState('dashboard'); 
-
+    
      const isActive = (path) => {
     return location.pathname === path;
   };
