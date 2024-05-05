@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, TextField, FormHelperText, Select, MenuItem, InputLabel } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SessionForm({ open, handleClose, handleSubmit, initialData }) {
   const [formData, setFormData] = useState(initialData || {});
@@ -10,64 +12,77 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
     setFormData(initialData || {});
   }, [initialData]);
 
-  const validateForm = () => {
-    let valid = true;
-    const newErrors = {};
+  const validateDate = (date) => {
+    if (!date || new Date(date) < new Date()) {
+      return 'Date must be today or later';
+    }
+    return '';
+  };
 
-    // Validation rules
-    if (!formData.date || new Date(formData.date) < new Date()) {
-      newErrors.date = 'Date must be today or later';
-      valid = false;
+  const validateTime = (time) => {
+    if (!time) {
+      return 'Time is required';
     }
-    if (!formData.time) {
-      newErrors.time = 'Time is required';
-      valid = false;
-    }
-    if (!formData.grazingDuration || isNaN(formData.grazingDuration)) {
-      newErrors.grazingDuration = 'Grazing Duration must be a number';
-      valid = false;
-    }
-    if (parseFloat(formData.grazingDuration) < 0) {
-      newErrors.grazingDuration = 'Grazing Duration cannot be negative';
-      valid = false;
-    }
-    if (!formData.onsiteFeedingDuration || isNaN(formData.onsiteFeedingDuration)) {
-      newErrors.onsiteFeedingDuration = 'Walking Duration must be a number';
-      valid = false;
-    }
-    if (parseFloat(formData.onsiteFeedingDuration) < 0) {
-      newErrors.onsiteFeedingDuration = 'Walking Duration cannot be negative';
-      valid = false;
-    }
-    if (!formData.typeOfSession || formData.typeOfSession.trim() === '') {
-      newErrors.typeOfSession = 'Type of Session is required';
-      valid = false;
-    }
-    if (!formData.grazingArea || formData.grazingArea.trim() === '') {
-      newErrors.grazingArea = 'Grazing Area is required';
-      valid = false;
-    }
-    if (!formData.cowBatch || formData.cowBatch.trim() === '') {
-      newErrors.cowBatch = 'Cow Batch is required';
-      valid = false;
-    }
-    if (!formData.assignedEmployee || formData.assignedEmployee.trim() === '') {
-      newErrors.assignedEmployee = 'Assigned Employee is required';
-      valid = false;
-    }
+    return '';
+  };
 
-    setErrors(newErrors);
-    return valid;
+  const validateDuration = (duration) => {
+    if (!duration || isNaN(duration) || parseFloat(duration) < 0) {
+      return 'Duration must be a non-negative number';
+    }
+    return '';
+  };
+
+  const validateSessionType = (type) => {
+    if (!type || !['Morning', 'Evening'].includes(type)) {
+      return 'Invalid session type';
+    }
+    return '';
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    // Validate each field as it changes and update errors state
+    setErrors({ ...errors, [name]: validateField(name, value) });
+  };
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'date':
+        return validateDate(value);
+      case 'time':
+        return validateTime(value);
+      case 'grazingDuration':
+      case 'onsiteFeedingDuration':
+        return validateDuration(value);
+      case 'typeOfSession':
+        return validateSessionType(value);
+      default:
+        return '';
+    }
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
+
+    // Validate all fields before submitting
+    const fieldErrors = Object.keys(formData).reduce((acc, key) => {
+      acc[key] = validateField(key, formData[key]);
+      return acc;
+    }, {});
+
+    // Set errors for all fields
+    setErrors(fieldErrors);
+
+    // Check if there are any errors
+    const hasErrors = Object.values(fieldErrors).some(error => error !== '');
+
+    if (hasErrors) {
+      toast.error('Please fix all errors before submitting.');
+    } else {
       handleSubmit(formData);
+      handleClose(); // Close the dialog after form submission
     }
   };
 
@@ -91,6 +106,9 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                   onChange={handleChange}
                   InputLabelProps={{
                     shrink: true,
+                  }}
+                  inputProps={{
+                    min: new Date().toISOString().split('T')[0], // Set min attribute to today's date
                   }}
                 />
                 {errors.date && <FormHelperText>{errors.date}</FormHelperText>}
@@ -185,6 +203,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
           {isEditMode ? 'Update' : 'Add'}
         </Button>
       </DialogActions>
+      <ToastContainer />
     </Dialog>
   );
 }
