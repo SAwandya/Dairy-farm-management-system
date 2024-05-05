@@ -63,8 +63,8 @@ function GrazingDashboard() {
                                 <SessionPieChart/>
                             </Box>
                 </Box>
-            </Box>
-        </Container>
+        </Box>
+    </Container>
     );
 }
 
