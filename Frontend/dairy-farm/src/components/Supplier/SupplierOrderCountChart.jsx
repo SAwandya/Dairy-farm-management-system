@@ -19,19 +19,20 @@ const SupplierOrderCountChart = () => {
         }, {});
 
         setChartData({
-          labels: Object.keys(supplierOrderCounts),
-          datasets: [
+        labels: Object.keys(supplierOrderCounts),
+        datasets: [
             {
-              data: Object.values(supplierOrderCounts),
-              backgroundColor: [
-                'rgba(75, 192, 192, 0.6)',
-                'rgba(153, 102, 255, 0.6)',
-                'rgba(255, 159, 64, 0.6)',
-                'rgba(255, 99, 132, 0.6)'
-                // Add more colors if you have more suppliers
-              ]
+            data: Object.values(supplierOrderCounts),
+            backgroundColor: [
+                '#FFCA28', // Slightly darker Amber
+                '#66BB6A', // Slightly darker Green
+                '#BDBDBD', // Slightly darker Grey
+                '#E57373', // Slightly darker Red
+                '#42A5F5', // Light Blue
+                // Add more contrasting colors if you have more suppliers
+            ]
             }
-          ]
+        ]
         });
       } catch (error) {
         console.error("Error fetching orders:", error);

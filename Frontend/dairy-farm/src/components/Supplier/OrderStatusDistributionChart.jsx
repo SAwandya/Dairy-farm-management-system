@@ -21,21 +21,21 @@ const OrderStatusDistributionChart = () => {
             return acc;
           }, {});
 
-          setChartData({
-            labels: Object.keys(statusCounts),
-            datasets: [
-              {
-                data: Object.values(statusCounts),
-                backgroundColor: [
-                  'rgba(75, 192, 192, 0.6)',
-                  'rgba(153, 102, 255, 0.6)',
-                  'rgba(255, 159, 64, 0.6)',
-                  'rgba(255, 99, 132, 0.6)'
-                  // Add more colors if you have more order statuses
-                ]
-              }
-            ]
-          });
+         setChartData({
+  labels: Object.keys(statusCounts),
+  datasets: [
+    {
+      data: Object.values(statusCounts),
+      backgroundColor: [
+        '#FFCA28', // Slightly darker Amber for pending
+        '#66BB6A', // Slightly darker Green for received
+        '#BDBDBD', // Slightly darker Grey for other statuses
+        '#E57373'  // Slightly darker Red for cancelled
+        // Add more contrasting colors if you have more order statuses
+      ]
+    }
+  ]
+});
         }
       } catch (error) {
         console.error("Error fetching orders:", error);
