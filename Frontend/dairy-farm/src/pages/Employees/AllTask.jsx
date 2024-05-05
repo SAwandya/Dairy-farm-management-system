@@ -16,6 +16,7 @@ import Esidebar from "../../components/Employees/esidebar";
 import Swal from 'sweetalert2';
 import TextField from '@mui/material/TextField'; // Import TextField component
 import SearchIcon from '@mui/icons-material/Search'; // Import SearchIcon
+import DateV from '../../components/Veterinary/DateV';
 function Task() {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -136,7 +137,22 @@ function Task() {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
-
+                <DateV/>
+                <div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}>
+                        <TextField
+                            onChange={(event) => {
+                                console.log("Search Term:", event.target.value); 
+                                setSearchTerm(event.target.value);
+                            }}
+                            placeholder="Search..."
+                            InputProps={{
+                                startAdornment: (
+                                    <SearchIcon />
+                                ),
+                                style: { marginBottom: '10px', width: '250px' ,borderRadius: '20px ', marginLeft: '1000px'}
+                            }}
+                        />
+                    </div>
             <Box
     sx={{
         position: 'absolute',
@@ -156,21 +172,7 @@ function Task() {
                 <Button variant="contained" color="success" onClick={handleClick} sx={{ marginBottom:'1rem',marginTop: '1rem', marginLeft: '62rem' }}>
                     Add New
                 </Button>
-                <div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}>
-                        <TextField
-                            onChange={(event) => {
-                                console.log("Search Term:", event.target.value); 
-                                setSearchTerm(event.target.value);
-                            }}
-                            placeholder="Search..."
-                            InputProps={{
-                                startAdornment: (
-                                    <SearchIcon />
-                                ),
-                                style: { marginBottom: '10px', width: '250px' ,borderRadius: '20px ', marginLeft: '1000px'}
-                            }}
-                        />
-                    </div>
+              
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px' , fontWeight: 'bold'}}>
                     Tasks
                 </Typography>

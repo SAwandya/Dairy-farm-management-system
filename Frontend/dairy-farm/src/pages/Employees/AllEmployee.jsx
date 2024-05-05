@@ -19,7 +19,7 @@ import SearchIcon from '@mui/icons-material/Search'; // Import SearchIcon
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
+import DateV from '../../components/Veterinary/DateV';
 function AllEmployee() {
     const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -149,21 +149,24 @@ function AllEmployee() {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
-                    <Box sx={{ position: 'absolute', top: 0, right: 0, padding: '1rem', zIndex: 999 }}>
+                <DateV/>
+                    <Box sx={{ position: 'absolute', top: 0, right: 0, padding: '0rem', zIndex: 999 }}>
                         <IconButton onClick={() => navigate('/employeedashboard')} color="inherit">
                             <CloseIcon />
                         </IconButton>
                     </Box>
                     {/* Search Bar */}
+                    <div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}></div>
                     <TextField
                         onChange={(event) => setSearchTerm(event.target.value)}
                         placeholder="Search..."
                         InputProps={{
                             startAdornment: (<SearchIcon />),
-                            style: { marginBottom: '10px', width: '250px', borderRadius: '20px', marginLeft: '1000px' }
+                            style: { marginBottom: '8px', width: '250px', borderRadius: '20px', marginLeft: '1000px' }
                         }}
                         variant="outlined"
                     />
+                    
                     <TableCard>
                         <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px', fontWeight: 'bold' }}>
                             Employee

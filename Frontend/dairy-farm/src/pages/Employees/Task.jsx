@@ -19,7 +19,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Swal from 'sweetalert2';
 import TextField from '@mui/material/TextField'; // Import TextField component
 import SearchIcon from '@mui/icons-material/Search'; // Import SearchIcon
-
+import DateV from '../../components/Veterinary/DateV';
 function Task() {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -159,6 +159,7 @@ function Task() {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
+                <DateV/>
             <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-10rem',marginTop:'10px'}}>
                 <BgCards>
                     <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>

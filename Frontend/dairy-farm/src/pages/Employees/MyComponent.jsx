@@ -5,6 +5,7 @@ import TableCard from '../../components/Employees/tablecards';
 import Esidebar from "../../components/Employees/esidebar";
 import SearchIcon from '@mui/icons-material/Search'; // Import SearchIcon
 import { Box, Typography ,TextField} from '@mui/material'; 
+import DateV from '../../components/Veterinary/DateV';
 const MyComponent = () => {
     const [dataList, setDataList] = useState([]);
 
@@ -61,18 +62,23 @@ const MyComponent = () => {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
+                <DateV/>
+                <div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}></div>
                 <TextField
                         onChange={(event) => setSearchTerm(event.target.value)}
                         placeholder="Search..."
                         InputProps={{
                             startAdornment: (<SearchIcon />),
-                            style: { marginBottom: '10px', width: '250px', borderRadius: '20px', marginLeft: '1000px' }
+                            style: { marginBottom: '-20px', width: '250px', borderRadius: '20px', marginLeft: '1000px' }
                         }}
                         variant="outlined"
                     />
                 
                 <Box sx={{ marginLeft: '2rem', marginTop:'50px' ,marginRight:'1rem',display: 'fixed' ,width:'100%'}}>
                 <TableCard>
+                <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px', fontWeight: 'bold' }}>
+                            Attendance
+                        </Typography>
             <CustomizedTables
     headers={headers}
     rows={dataList.length > 0 ? dataList.map(data => ({
