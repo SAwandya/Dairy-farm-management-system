@@ -10,10 +10,13 @@ import ProductDetails from "./components/Sales/ProductDetails";
 import CheckOut from "./components/Sales/CheckOut";
 import ProductUpdate from "./pages/Sales/ProductUpdate";
 import SalesDashboard from "./pages/Sales/SalesDashboard";
+
+//Employee Management
 import Employee from "./pages/Employees/Employee";
 import CreateEmployee from "./pages/Employees/CreateEmployee";
 import UpdateEmployee from "./pages/Employees/UpdateEmployee"
 import ReorderMessage from "./components/Sales/ReorderMessage";
+import SignIn from "./pages/Employees/SignIn"
 
 //Finance Management - Pages
 import FinanceMainDashboard from "./pages/Finance/FinanceMainDashboard"
@@ -397,6 +400,10 @@ const router = createBrowserRouter([
   {
     path: "/qr",
     element: < QRCodeScanner />,
+  },
+  {
+    path: "/logi",
+    element: < SignIn />,
   },
   {
     path: "/supProfile",

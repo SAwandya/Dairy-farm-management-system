@@ -18,7 +18,7 @@ import axios from 'axios';
 import TablePagination from '@mui/material/TablePagination';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Swal from 'sweetalert2';
-
+import DateV from '../../components/Veterinary/DateV';
 function Employee() {
     const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -156,7 +156,8 @@ const totalEmployees = dataList.length;
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
-                <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-15rem',marginTop:'10px'}}>
+                <DateV/>
+                <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-10rem',marginTop:'10px'}}>
                     <BgCards>
                         <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                             Total Employees

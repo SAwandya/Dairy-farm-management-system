@@ -3,7 +3,8 @@ import axios from 'axios';
 import CustomizedTables from '../../components/Employees/etable'; // Import your customized table component
 import TableCard from '../../components/Employees/tablecards';
 import Esidebar from "../../components/Employees/esidebar";
-import { Box, Typography } from '@mui/material'; 
+import SearchIcon from '@mui/icons-material/Search'; // Import SearchIcon
+import { Box, Typography ,TextField} from '@mui/material'; 
 const MyComponent = () => {
     const [dataList, setDataList] = useState([]);
 
@@ -53,14 +54,25 @@ const MyComponent = () => {
              <div style={{ display: 'flex' }}>
         <Esidebar/>
         
-          <Box sx={{ marginLeft: '12rem', marginTop:'50px' ,marginRight:'1rem'}}>
+          <Box sx={{ marginLeft: '11rem',marginTop:'50px' ,overflow: 'hidden',width:'85%' }}>
                 <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                     Welcome Back,
                 </Typography>
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
-            <TableCard>
+                <TextField
+                        onChange={(event) => setSearchTerm(event.target.value)}
+                        placeholder="Search..."
+                        InputProps={{
+                            startAdornment: (<SearchIcon />),
+                            style: { marginBottom: '10px', width: '250px', borderRadius: '20px', marginLeft: '1000px' }
+                        }}
+                        variant="outlined"
+                    />
+                
+                <Box sx={{ marginLeft: '2rem', marginTop:'50px' ,marginRight:'1rem',display: 'fixed' ,width:'100%'}}>
+                <TableCard>
             <CustomizedTables
     headers={headers}
     rows={dataList.length > 0 ? dataList.map(data => ({
@@ -72,6 +84,7 @@ const MyComponent = () => {
 />
 
            </TableCard>
+           </Box>
            </Box>
         </div>
         </div>
