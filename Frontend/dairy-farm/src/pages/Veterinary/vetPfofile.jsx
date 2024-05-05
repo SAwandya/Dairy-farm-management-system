@@ -3,6 +3,7 @@ import { Container, Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import duvini from '../../assets/Duvini (2).jpeg';
 import Sidebar from '../../components/Veterinary/vetNav';
+import ReduceStockForm from '../../components/Supplier/ReduceStockForm'
 
 
 const vetProfile = () => {
@@ -111,7 +112,7 @@ const vetProfile = () => {
           <Button
             variant="contained"
             style={{
-              marginTop: '16px',
+              marginRight: '86px',
               backgroundColor: '#38775B', 
               color: '#ffffff', 
             }}
@@ -119,7 +120,9 @@ const vetProfile = () => {
           >
             Take a Leave
           </Button>
+          <ReduceStockForm />
         </Box>
+
       </Container>
      
     </div>
