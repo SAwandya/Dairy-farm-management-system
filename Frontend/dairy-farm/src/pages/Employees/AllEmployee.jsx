@@ -156,15 +156,17 @@ function AllEmployee() {
                         </IconButton>
                     </Box>
                     {/* Search Bar */}
+                    <div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}></div>
                     <TextField
                         onChange={(event) => setSearchTerm(event.target.value)}
                         placeholder="Search..."
                         InputProps={{
                             startAdornment: (<SearchIcon />),
-                            style: { marginBottom: '8px', width: '250px', borderRadius: '20px', marginLeft: '800px' }
+                            style: { marginBottom: '8px', width: '250px', borderRadius: '20px', marginLeft: '1000px' }
                         }}
                         variant="outlined"
                     />
+                    
                     <TableCard>
                         <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '18px', fontWeight: 'bold' }}>
                             Employee

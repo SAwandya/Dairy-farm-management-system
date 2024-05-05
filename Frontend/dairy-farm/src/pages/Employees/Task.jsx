@@ -159,6 +159,7 @@ function Task() {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
+                <DateV/>
             <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-10rem',marginTop:'10px'}}>
                 <BgCards>
                     <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
