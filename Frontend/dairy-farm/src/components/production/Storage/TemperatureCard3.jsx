@@ -10,11 +10,11 @@ function TemperatureDisplay() {
   const [exceedsLimit, setExceedsLimit] = useState(false);
   const [status, setStatus] = useState('Sensors Inactive!');
   const [alarmTriggered, setAlarmTriggered] = useState(false);
-  const tempLimit =33+3;
+  const tempLimit =33+12;
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/temperatureSendRcv/data');
+        const response = await axios.get('http://localhost:300/api/temperatureSendRcv/data');
         const { temperature } = response.data;
         setTemperature(temperature);
         setExceedsLimit(temperature > tempLimit); 
@@ -73,7 +73,7 @@ function TemperatureDisplay() {
             border : '1px solid black',
             backgroundColor: '#ccc',
             margin: 'auto',
-            marginBottom: '20px',
+            marginBottom: '5px',
           }}
         >
           {temperature !== null ? (
@@ -84,17 +84,22 @@ function TemperatureDisplay() {
           )}
         </div>
 
-        <Typography align="center" variant="h5" component="h2">Temperature Range: 20-33</Typography>
+        <Typography align="center" variant="h6" component="h2">Temperature Range: 20-33</Typography>
         <Typography align="center" variant="h6" component="h2" 
-                    sx={{ margin: '10px 0', 
+                    sx={{ margin: '5px 0', 
                           color: status === 'Sensors Inactive!' ? 'red' : 'gray'}}> 
                           Status: {status} 
         </Typography>        
         {exceedsLimit && (
-          <Typography align="center" variant="h6" component="h3" sx={{ color: 'red', marginTop: '10px' }}>
+          <Typography align="center" variant="h6" component="h3" sx={{ color: 'red', marginTop: '0px' }}>
             Temperature exceeds limit!
           </Typography>
         )}
+         {!exceedsLimit && ( 
+  <Typography align="center" variant="h6" component="h3" sx={{ color: 'green', marginTop: '0px' }}>
+  --
+</Typography>
+)}
       </CardContent>
     </Card>
   );

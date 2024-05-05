@@ -75,7 +75,7 @@ function TemperatureDisplay() {
             border : '1px solid black',
             backgroundColor: '#ccc',
             margin: 'auto',
-            marginBottom: '20px',
+            marginBottom: '5px',
           }}
         >
           {temperature !== null ? (
@@ -86,17 +86,22 @@ function TemperatureDisplay() {
           )}
         </div>
 
-        <Typography align="center" variant="h5" component="h2">Temperature Range: 20-33</Typography>
+        <Typography align="center" variant="h6" component="h2">Temperature Range: 20-33</Typography>
         <Typography align="center" variant="h6" component="h2" 
-                    sx={{ margin: '10px 0', 
+                    sx={{ margin: '5px 0', 
                           color: status === 'Sensors Inactive!' ? 'red' : 'gray'}}> 
                           Status: {status} 
         </Typography>        
         {exceedsLimit && (
-          <Typography align="center" variant="h6" component="h3" sx={{ color: 'red', marginTop: '10px' }}>
+          <Typography align="center" variant="h6" component="h3" sx={{ color: 'red', marginTop: '0px' }}>
             Temperature exceeds limit!
           </Typography>
         )}
+         {!exceedsLimit && ( // Add this condition
+  <Typography align="center" variant="h6" component="h3" sx={{ color: 'green', marginTop: '0px' }}>
+  Temperature within Limit!
+</Typography>
+)}
       </CardContent>
     </Card>
   );
