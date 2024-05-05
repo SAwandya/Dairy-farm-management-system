@@ -56,7 +56,6 @@ function Sidebar() {
                 </List>
                 </Box>
 
-            {/* Profile and Logout */}
             <Box className="user-actions" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
                 <List>
                     <Link to="/financeprofile" style={{ textDecoration: 'none', color: 'inherit' }}>
