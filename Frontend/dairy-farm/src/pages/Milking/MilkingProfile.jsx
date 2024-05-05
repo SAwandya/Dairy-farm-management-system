@@ -3,6 +3,7 @@ import { Container, Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import shehan from '../../assets/avatar.png';
 import Sidebar from '../../components/Milking/MilkingSideBar';
+import ReduceStockForm from '../../components/Supplier/ReduceStockForm'
 
 const MilkingProfile = () => {
   const navigate = useNavigate();
@@ -108,7 +109,7 @@ const MilkingProfile = () => {
           <Button
             variant="contained"
             style={{
-              marginTop: '16px',
+              marginRight: '86px',
               backgroundColor: '#38775B', 
               color: '#ffffff', 
             }}
@@ -116,6 +117,7 @@ const MilkingProfile = () => {
           >
             Take a Leave
           </Button>
+          <ReduceStockForm />
         </Box>
       </Container>
     </div>
