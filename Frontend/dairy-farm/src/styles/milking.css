@@ -325,3 +325,24 @@ body {
   .sales-product-link:hover, .sales-product-link:active {
     color: #38775B;
   }
+
+  .social-media-icons {
+    margin-top: 30px;
+  }
+
+  .footer-links:first-child {
+    margin-top: 20px;
+  }
+
+  .footer-links:link, .footer-links:visited {
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+    font-family: 'Poppins';
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .footer-links:hover, .footer-links:active {
+    color: #444;
+  }
