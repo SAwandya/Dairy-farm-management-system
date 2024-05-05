@@ -70,7 +70,7 @@ const HomePage = () => {
     {
       title: 'Grazing Management',
       image: cow,
-      link: '/pastureinfo',
+      link: '/dashboard',
     },
     {
       title: 'Milking Management',
