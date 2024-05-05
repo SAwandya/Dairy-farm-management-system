@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import duvini from '../../assets/Duvini (2).jpeg';
 import Sidebar from '../../components/Veterinary/vetNav';
 
+
 const vetProfile = () => {
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ const vetProfile = () => {
     <div style={{ display: 'flex', minWidth: '1006px', overflow: 'hidden' }}>
       <Sidebar />
       <Container>
+        
         <Box
           style={{
             background: 'white',
@@ -39,6 +41,7 @@ const vetProfile = () => {
             marginTop: '80px',
           }}
         >
+          
           <Box style={{ padding: '16px', borderRadius: '8px', marginBottom: '6px' }}>
             <Typography
               variant="h4"
@@ -118,6 +121,7 @@ const vetProfile = () => {
           </Button>
         </Box>
       </Container>
+     
     </div>
   );
 };
