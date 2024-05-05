@@ -17,11 +17,12 @@ function ProductInventory() {
         backgroundSize: 'cover', // Cover the entire area
         backgroundPosition: 'center', // Center the background image
         position: 'absolute', // Position the paper absolutely
-        top: '50%', // Center vertically
+        top: '51%', // Center vertically
         left: '54.2%', // Center horizontally
         transform: 'translate(-50%, -50%)', // Center the paper
         opacity: 0.9, // Set opacity to 75%
         zIndex: -1, // Set a lower z-index to ensure it's behind other content
+        borderRadius:5
       }}
     >
 </Paper>
