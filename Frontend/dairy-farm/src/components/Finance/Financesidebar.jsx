@@ -74,6 +74,8 @@ function Sidebar() {
                             isActive={isActive("/financeprofile")}
                     />
                     </Link>
+
+                    {/* Logout Link */}
                     <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <NavigationLink
                         icon={<LogoutIcon />}
