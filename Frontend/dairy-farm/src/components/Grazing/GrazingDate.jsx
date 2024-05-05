@@ -12,19 +12,19 @@ function GrazingDate() {
     });
 
     return (
-        <Box className="date-container">
-            <Typography variant="h4" className='date-text'>Today:</Typography>
-            <Box className="calendar-container"> 
-                <CalendarMonthIcon 
-                    sx={{
-                        width: '40px',
-                        height: '40px',
-                        marginRight: '12px'
-                    }}
-                />
-                <Typography variant="h1" className='date-value'>{currentDate}</Typography>
+            <Box className="date-container">
+                <Typography variant="h4" className='date-text'>Today:</Typography>
+                <Box className="calendar-container"> 
+                    <CalendarMonthIcon 
+                        sx={{
+                            width: '40px',
+                            height: '40px',
+                            marginRight: '12px'
+                        }}
+                    />
+                    <Typography variant="h1" className='date-value'>{currentDate}</Typography>
+                </Box>
             </Box>
-        </Box>
     );
 }
 
