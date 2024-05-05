@@ -24,8 +24,40 @@ function NewProcessForm({ onSubmitSuccess }) {
   const [isScheduled, setIsScheduled] = useState(false); // State to manage scheduling checkbox
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
+  const [showErrors, setShowErrors] = useState(false); // State to track whether to show errors
+  const [productError, setProductError] = useState('');
+  const [milkQuantityError, setMilkQuantityError] = useState('');
+  const [ingredientsError, setIngredientsError] = useState('');
   const maxMilkQuantity = 1200; // Maximum milk quantity limit
+
+
+// Function to validate form fields
+const validateForm = () => {
+  let hasError = false;
+
+  if (product === '') {
+    setProductError('Product is required');
+    hasError = true;
+  } else {
+    setProductError('');
+  }
+
+  if (milkQuantity <= 0) {
+    setMilkQuantityError('Milk quantity must be greater than 0');
+    hasError = true;
+  } else {
+    setMilkQuantityError('');
+  }
+
+  if (ingredients.length === 0) {
+    setIngredientsError('At least one ingredient is required');
+    hasError = true;
+  } else {
+    setIngredientsError('');
+  }
+
+  return !hasError;
+};
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,12 +75,23 @@ function NewProcessForm({ onSubmitSuccess }) {
     setShowCancelConfirmation(false);
     if (confirmed) {
       resetFields();
+      setProductError('');
+    setMilkQuantityError('');
+    setIngredientsError('');
       setOpen(false);
     }
   };
 
   const handleSubmit = async () => {
     try {
+
+    setShowErrors(true);//display error messages
+    const isValid = validateForm();// Validate form fields
+
+    if (!isValid) { // prevent form submission if errorsoccure
+      return;
+    }
+
       console.log('Form submitted');
       setOpen(false);
       const formData = {
@@ -153,6 +196,11 @@ const isFormValid = () => {
     <CloseIcon />
   </IconButton></DialogTitle>
           <DialogContent >
+
+         
+  
+ 
+
             <FormControl fullWidth margin="normal">
               <InputLabel id="product-label">Product</InputLabel>
               <Select
@@ -166,6 +214,11 @@ const isFormValid = () => {
                 <MenuItem value="Milk">Milk</MenuItem>
                 <MenuItem value="Yoghurt">Yoghurt</MenuItem>
               </Select>
+              {showErrors && productError && (
+                 <Typography variant="body2" color="error">
+                   {productError}
+                  </Typography>
+                )}
             </FormControl>
             <FormControl fullWidth margin="normal">
               <Typography id="milk-quantity-slider" gutterBottom>
@@ -178,6 +231,7 @@ const isFormValid = () => {
                 min={0}
                 max={maxMilkQuantity}
               />
+
             </FormControl>
             <TextField
               fullWidth
@@ -192,7 +246,11 @@ const isFormValid = () => {
                   setMilkQuantity(value);
                 }
               }}
-            />
+            />{showErrors && milkQuantityError && (
+              <Typography variant="body2" color="error">
+                {milkQuantityError}
+              </Typography>
+            )}
             <TextField
               fullWidth
               margin="normal"
@@ -209,6 +267,11 @@ const isFormValid = () => {
               <MenuItem value="Sugar">Sugar</MenuItem>
               <MenuItem value="Vanilla">Vanilla</MenuItem>
             </TextField>
+            {showErrors && ingredientsError && (
+            <Typography variant="body2" color="error">
+           {ingredientsError}
+            </Typography>
+             )}
             <TextField
               fullWidth
               margin="normal"
@@ -254,7 +317,7 @@ const isFormValid = () => {
           </Box>
           <DialogActions>
             <Button onClick={handleCancel}>Cancel</Button>
-            <Button onClick={handleSubmit} variant="contained" color="primary" disabled={!isFormValid()}>Submit</Button>
+            <Button onClick={handleSubmit} variant="contained" color="primary" >Submit</Button>
           </DialogActions>
         </Dialog>
      {/* </Draggable> */}
