@@ -33,6 +33,8 @@ function Sidebar() {
                         isActive={isActive("/FinanceDashboard")}
                     />
                     </Link>
+
+                    {/* Trans Link */}
                     <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <NavigationLink
                         icon={<HandshakeIcon />}
