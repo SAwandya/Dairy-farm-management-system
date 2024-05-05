@@ -105,7 +105,7 @@ const HomePage = () => {
     {
       title: 'Supplier Management',
       image: sup,
-      link: '/supplierdashboard',
+      link: '/inventory',
     },
   ];
 
