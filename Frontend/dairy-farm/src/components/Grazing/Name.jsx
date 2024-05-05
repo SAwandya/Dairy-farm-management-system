@@ -9,7 +9,7 @@ function Name() {
           Welcome Back!
         </Typography>
         <Typography variant="h1" className="welcome-name-value">
-          Ms. Janithya Imalki
+          Ms.Janithya Imalki
         </Typography>
       </Box>
     );
