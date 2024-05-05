@@ -55,8 +55,7 @@ function Sidebar() {
                     <NavigationLink 
                         icon={<AssessmentIcon />}
                         text="Reports"
-                        isActive={activeSection === 'reports'}
-                        onClick={() => handleNavigation('reports')}
+                        isActive={isActive("/financereport")}
                     />
                     </Link>
                 </List>
