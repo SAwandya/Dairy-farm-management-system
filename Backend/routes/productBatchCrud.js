@@ -118,4 +118,14 @@ router.delete('/productBatch/:id', async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+
+  let productbarches = await ProductBatch.find({
+    released: true,
+    collect: false
+  })
+
+  res.send(productbarches);
+})
+
 module.exports = router;
