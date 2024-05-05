@@ -3,7 +3,7 @@ import React from 'react';
 function AlarmList({ alarms, deleteAlarm }) {
   return (
     <div>
-      <h2>Alarms</h2>
+      <h2>scheduled</h2>
       <ul>
         {alarms.map((alarm, index) => (
           <li key={index}>

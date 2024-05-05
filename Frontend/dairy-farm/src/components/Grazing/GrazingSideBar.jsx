@@ -22,95 +22,95 @@ import GrassIcon from '@mui/icons-material/Grass';
     return (
       <Box style={{ position: 'fixed', top: 0, left: 0, height: '100%', width: '240px',  }}>
         <Box className="sidebar">
-          <Box className="sidebar-logo-container">
-            <img
-              className="sidebar-logo"
-              src="../../src/assets/sidebar-logo.png"
-              alt="Logo"
-            />
-          </Box>
+            <Box className="sidebar-logo-container">
+              <img
+                className="sidebar-logo"
+                src="../../src/assets/sidebar-logo.png"
+                alt="Logo"
+              />
+            </Box>
 
-          {/* Navigation links */}
-          <Box bottom="0" className="navigation-links">
-            <List>
-            <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <NavigationLink
-                icon={<SpaceDashboardIcon />}
-                text="Dashboard"
-                isActive={activeSection === "dashboard"}
-                onClick={() => handleNavigation("dashboard")}
-              />
-              </Link>
-              
-              <Link to="/session" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <NavigationLink
-                icon={<AccessTimeFilledIcon />}
-                text="Sessions"
-                isActive={activeSection === "session"}
-                onClick={() => handleNavigation("session")}
-              />
-              
-              </Link>
-              
-              <Link to="/pastureinfo" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <NavigationLink
-                icon={<GrassIcon />}
-                text="Pastures"
-                isActive={activeSection === "pastureinfo"}
-                onClick={() => handleNavigation("pastureinfo")}
-              />
-              </Link>
-              
-            <Link to="/waste" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <NavigationLink
-                icon={<RecyclingIcon />}
-                text="Effluent"
-                isActive={activeSection === "waste"}
-                onClick={() => handleNavigation("waste")}
-              />
-              </Link>
-              
-              <Link to="/rotation" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <NavigationLink
-                icon={<ScreenRotationAltIcon />}
-                text="Rotations"
-                isActive={activeSection === "rotations"}
-                onClick={() => handleNavigation("rotations")}
-              />
-              </Link>
+            {/* Navigation links */}
+            <Box bottom="0" className="navigation-links">
+              <List>
+              <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <NavigationLink
+                  icon={<SpaceDashboardIcon />}
+                  text="Dashboard"
+                  isActive={activeSection === "dashboard"}
+                  onClick={() => handleNavigation("dashboard")}
+                />
+                </Link>
+                
+                <Link to="/session" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <NavigationLink
+                  icon={<AccessTimeFilledIcon />}
+                  text="Sessions"
+                  isActive={activeSection === "session"}
+                  onClick={() => handleNavigation("session")}
+                />
+                
+                </Link>
+                
+                <Link to="/pastureinfo" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <NavigationLink
+                  icon={<GrassIcon />}
+                  text="Pastures"
+                  isActive={activeSection === "pastureinfo"}
+                  onClick={() => handleNavigation("pastureinfo")}
+                />
+                </Link>
+                
+              <Link to="/waste" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <NavigationLink
+                  icon={<RecyclingIcon />}
+                  text="Effluent"
+                  isActive={activeSection === "waste"}
+                  onClick={() => handleNavigation("waste")}
+                />
+                </Link>
+                
+                <Link to="/rotation" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <NavigationLink
+                  icon={<ScreenRotationAltIcon />}
+                  text="Rotations"
+                  isActive={activeSection === "rotations"}
+                  onClick={() => handleNavigation("rotations")}
+                />
+                </Link>
 
 
-            <Link to="/report" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <NavigationLink
-              icon={<AssessmentIcon />}
-              text="Reports"
-              isActive={activeSection === "report"}
-              onClick={() => handleNavigation("report")}
-            />
-            </Link>
-            </List>
-
-            <List>
-            <Link to="/em08profile" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link to="/report" style={{ textDecoration: 'none', color: 'inherit' }}>
               <NavigationLink
-                icon={<AccountCircleIcon />}
-                text="Profile"
-                isActive={activeSection === "profile"}
-                onClick={() => handleNavigation("/profile")}
+                icon={<AssessmentIcon />}
+                text="Reports"
+                isActive={activeSection === "report"}
+                onClick={() => handleNavigation("report")}
               />
               </Link>
+              </List>
 
-              <Link to="/HomeM" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <NavigationLink
-                icon={<LogoutIcon />}
-                text="Logout"
-                isActive={activeSection === "logout"}         //check this
-                onClick={() => handleNavigation("logout")}
-              />
-              </Link>
-            </List>
+              <List>
+              <Link to="/em08profile" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <NavigationLink
+                  icon={<AccountCircleIcon />}
+                  text="Profile"
+                  isActive={activeSection === "profile"}
+                  onClick={() => handleNavigation("/profile")}
+                />
+                </Link>
 
-          </Box>
+                <Link to="/HomeM" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <NavigationLink
+                  icon={<LogoutIcon />}
+                  text="Logout"
+                  isActive={activeSection === "logout"}         //check this
+                  onClick={() => handleNavigation("logout")}
+                />
+                </Link>
+              </List>
+
+            </Box>
 
 
           

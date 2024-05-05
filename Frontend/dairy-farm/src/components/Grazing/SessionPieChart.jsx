@@ -56,7 +56,7 @@ function SessionPieChart() {
             </Pie>
           </PieChart>
         </div>
-      </CardContent>
+       </CardContent>
       <div >
         <Typography variant="subtitle1">Colour Index:</Typography>
         <div style={{ display: 'flex', alignItems: 'center' }}>

@@ -107,10 +107,10 @@ function PastureForm({ open, handleClose, handleSubmit, initialData }) {
           helperText={errors.typeOfPlantsPlanted}
         />
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleFormSubmit}>Submit</Button>
-      </DialogActions>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleFormSubmit}>Submit</Button>
+        </DialogActions>
     </Dialog>
   );
 }

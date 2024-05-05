@@ -216,7 +216,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
               </FormControl>
             </form>
           </Grid>
-        </Grid>
+      </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="secondary">

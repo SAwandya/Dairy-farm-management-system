@@ -106,35 +106,35 @@ function EffluentTable({ rows, headers, handleEdit, handleDelete }) {
              
             </TableRow>
           </TableHead>
-          <TableBody>
-            {filteredRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rowIndex) => (
-              <StyledTableRow key={rowIndex}>
-                {Object.keys(row).map((key, colIndex) => (
-                  <StyledTableCell key={colIndex} align="left">
-                    {row[key]}
-                  </StyledTableCell>
-                ))}
-                
-              </StyledTableRow>
-            ))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={headers.length + 1} />
-              </TableRow>
-            )}
-          </TableBody>
+            <TableBody>
+              {filteredRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rowIndex) => (
+                <StyledTableRow key={rowIndex}>
+                  {Object.keys(row).map((key, colIndex) => (
+                    <StyledTableCell key={colIndex} align="left">
+                      {row[key]}
+                    </StyledTableCell>
+                  ))}
+                  
+                </StyledTableRow>
+              ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={headers.length + 1} />
+                </TableRow>
+              )}
+            </TableBody>
         </Table>
       </StyledTableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        style={{ marginTop: '1rem' }}
-      />
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          style={{ marginTop: '1rem' }}
+        />
     </Box>
   );
 }

@@ -106,23 +106,23 @@ function GrazingTable({ rows, headers }) {
               
             </TableRow>
           </TableHead>
-          <TableBody>
-            {filteredRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rowIndex) => (
-              <StyledTableRow key={rowIndex}>
-                {Object.values(row).map((value, colIndex) => (
-                  <StyledTableCell key={colIndex} align="left">
-                    {value}
-                  </StyledTableCell>
+              <TableBody>
+                {filteredRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rowIndex) => (
+                  <StyledTableRow key={rowIndex}>
+                    {Object.values(row).map((value, colIndex) => (
+                      <StyledTableCell key={colIndex} align="left">
+                        {value}
+                      </StyledTableCell>
+                    ))}
+                    
+                  </StyledTableRow>
                 ))}
-                
-              </StyledTableRow>
-            ))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={headers.length + 1} />
-              </TableRow>
-            )}
-          </TableBody>
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell colSpan={headers.length + 1} />
+                  </TableRow>
+                )}
+              </TableBody>
         </Table>
       </StyledTableContainer>
       <TablePagination
