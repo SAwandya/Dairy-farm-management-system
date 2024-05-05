@@ -1,5 +1,10 @@
 import React from 'react';
 import ReduceStockForm from '../../components/Supplier/ReduceStockForm';
+import { Container, Box, Button, Typography ,Card} from '@mui/material';
+import GrazingDate from '../../components/Grazing/GrazingDate';
+import Name from '../../components/Grazing/Name';
+import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
+
 
 function OrderStock() {
   return (
@@ -10,12 +15,9 @@ function OrderStock() {
                 <GrazingDate/>
                 <Name/>
               
-              <Typography> Information regarding the  waste management is recorded here</Typography>
-              
-      </Box>
-            
-        <GrazingSideBar sx={{ position: 'fixed', left: 0, top: 0, height: '100vh' }} />
-        <Container
+              <Typography> order stocks for the maintainence of relevant pastures</Typography>
+
+              <Container
             className="main-container"
             sx={{
             display: 'flex',
@@ -23,9 +25,19 @@ function OrderStock() {
             justifyContent: 'center',
             minHeight: '100vh',
             }}
-        ></Container>
-      <h1>Order Stock</h1>
-      <ReduceStockForm />
+        >
+            <Card>
+            
+           <ReduceStockForm />
+            </Card>
+          
+        </Container>
+              
+      </Box>
+            
+        <GrazingSideBar sx={{ position: 'fixed', left: 0, top: 0, height: '100vh' }} />
+        
+      
     </div>
   );
 }
