@@ -7,6 +7,7 @@ import GrassIcon from '@mui/icons-material/Grass';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 
+//stat cards
 function GrazingStat() {
     const [totalSessions, setTotalSessions] = useState(0);
    
