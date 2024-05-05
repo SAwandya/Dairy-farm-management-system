@@ -16,6 +16,9 @@ function Sidebar() {
     const handleNavigation = (section) => {
         setActiveSection(section);
     };
+     const isActive = (path) => {
+    return location.pathname === path;
+  };
 
     return (
          <Box className="sidebar" sx={{ position: 'fixed', left: 0, top: 0}}>
