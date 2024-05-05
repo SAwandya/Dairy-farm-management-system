@@ -125,16 +125,16 @@ function EffluentTable({ rows, headers, handleEdit, handleDelete }) {
           </TableBody>
         </Table>
       </StyledTableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        style={{ marginTop: '1rem' }}
-      />
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          style={{ marginTop: '1rem' }}
+        />
     </Box>
   );
 }
