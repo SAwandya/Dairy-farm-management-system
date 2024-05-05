@@ -41,8 +41,7 @@ function Sidebar() {
                     <NavigationLink
                         icon={<HandshakeIcon />}
                         text="Transactions"
-                        isActive={activeSection === 'transactions'}
-                        onClick={() => handleNavigation('transactions')}
+                        isActive={isActive("/financetrans")}
                     />
                     </Link>
                     <Link to="/financebud" style={{ textDecoration: 'none', color: 'inherit' }}>
