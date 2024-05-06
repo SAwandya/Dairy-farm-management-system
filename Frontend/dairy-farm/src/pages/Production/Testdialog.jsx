@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
-import { Button,Box, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
+import { Button,Box, Dialog, DialogTitle,IconButton , DialogContent, DialogActions, DialogContentText, TextField, Select, MenuItem, Slider, Typography, FormControl, InputLabel, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
+import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import eventBus from "../../ProductionUtils/EventBus"
 
@@ -23,8 +24,40 @@ function NewProcessForm({ onSubmitSuccess }) {
   const [isScheduled, setIsScheduled] = useState(false); // State to manage scheduling checkbox
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
+  const [showErrors, setShowErrors] = useState(false); // State to track whether to show errors
+  const [productError, setProductError] = useState('');
+  const [milkQuantityError, setMilkQuantityError] = useState('');
+  const [ingredientsError, setIngredientsError] = useState('');
   const maxMilkQuantity = 1200; // Maximum milk quantity limit
+
+
+// Function to validate form fields
+const validateForm = () => {
+  let hasError = false;
+
+  if (product === '') {
+    setProductError('Product is required');
+    hasError = true;
+  } else {
+    setProductError('');
+  }
+
+  if (milkQuantity <= 0) {
+    setMilkQuantityError('Milk quantity must be greater than 0');
+    hasError = true;
+  } else {
+    setMilkQuantityError('');
+  }
+
+  if (ingredients.length === 0) {
+    setIngredientsError('At least one ingredient is required');
+    hasError = true;
+  } else {
+    setIngredientsError('');
+  }
+
+  return !hasError;
+};
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,13 +75,23 @@ function NewProcessForm({ onSubmitSuccess }) {
     setShowCancelConfirmation(false);
     if (confirmed) {
       resetFields();
+      setProductError('');
+    setMilkQuantityError('');
+    setIngredientsError('');
       setOpen(false);
     }
   };
-  
 
   const handleSubmit = async () => {
     try {
+
+    setShowErrors(true);//display error messages
+    const isValid = validateForm();// Validate form fields
+
+    if (!isValid) { // prevent form submission if errorsoccure
+      return;
+    }
+
       console.log('Form submitted');
       setOpen(false);
       const formData = {
@@ -95,6 +138,11 @@ function NewProcessForm({ onSubmitSuccess }) {
     setSuccessMessage('');
     setErrorMessage('');
   };
+
+   // submitall validations
+const isFormValid = () => {
+  return product !== '' && milkQuantity > 0 && ingredients.length > 0;
+};
   //Validations
   const isDateInPast = (dateString) => {
     const selectedDate = new Date(dateString);
@@ -113,10 +161,19 @@ function NewProcessForm({ onSubmitSuccess }) {
       <Button variant="contained" onClick={handleClickOpen}>
         Add New Process
       </Button>
-      <Draggable>
+     {/* <Draggable> */}
 
         <Dialog open={open} onClose={handleClose}
 
+/*BackdropProps={{
+  sx: {
+    width: '100vw', // Set the width of the backdrop to full viewport width
+    height: '100vh', // Set the height of the backdrop to full viewport height
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust the background color and opacity as needed
+    position: 'fixed', // Position the backdrop fixed to cover the entire screen
+    zIndex: 1300, // Set the z-index to ensure it's above other content
+  }
+}} */
           sx={{
             width: '27.6%', height: '90%',
             
@@ -130,8 +187,20 @@ function NewProcessForm({ onSubmitSuccess }) {
         >
               <Box  sx={{backgroundColor: '#FF', borderBottomLeftRadius:20,borderBottomRightRadius:20,
              border: '3px solid #395e99' }} >
-          <DialogTitle align="center" fontWeight="bold">Add New Process</DialogTitle>
+          <DialogTitle align="center" fontWeight="bold">Add New Process
+          <IconButton
+    aria-label="close"
+    onClick={handleClose}
+    style={{ position: 'absolute', right: '10px', top: '10px' }}
+  >
+    <CloseIcon />
+  </IconButton></DialogTitle>
           <DialogContent >
+
+         
+  
+ 
+
             <FormControl fullWidth margin="normal">
               <InputLabel id="product-label">Product</InputLabel>
               <Select
@@ -145,6 +214,11 @@ function NewProcessForm({ onSubmitSuccess }) {
                 <MenuItem value="Milk">Milk</MenuItem>
                 <MenuItem value="Yoghurt">Yoghurt</MenuItem>
               </Select>
+              {showErrors && productError && (
+                 <Typography variant="body2" color="error">
+                   {productError}
+                  </Typography>
+                )}
             </FormControl>
             <FormControl fullWidth margin="normal">
               <Typography id="milk-quantity-slider" gutterBottom>
@@ -157,6 +231,7 @@ function NewProcessForm({ onSubmitSuccess }) {
                 min={0}
                 max={maxMilkQuantity}
               />
+
             </FormControl>
             <TextField
               fullWidth
@@ -171,7 +246,11 @@ function NewProcessForm({ onSubmitSuccess }) {
                   setMilkQuantity(value);
                 }
               }}
-            />
+            />{showErrors && milkQuantityError && (
+              <Typography variant="body2" color="error">
+                {milkQuantityError}
+              </Typography>
+            )}
             <TextField
               fullWidth
               margin="normal"
@@ -188,6 +267,11 @@ function NewProcessForm({ onSubmitSuccess }) {
               <MenuItem value="Sugar">Sugar</MenuItem>
               <MenuItem value="Vanilla">Vanilla</MenuItem>
             </TextField>
+            {showErrors && ingredientsError && (
+            <Typography variant="body2" color="error">
+           {ingredientsError}
+            </Typography>
+             )}
             <TextField
               fullWidth
               margin="normal"
@@ -233,10 +317,10 @@ function NewProcessForm({ onSubmitSuccess }) {
           </Box>
           <DialogActions>
             <Button onClick={handleCancel}>Cancel</Button>
-            <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
+            <Button onClick={handleSubmit} variant="contained" color="primary" >Submit</Button>
           </DialogActions>
         </Dialog>
-      </Draggable>
+     {/* </Draggable> */}
       <Dialog
         open={showCancelConfirmation}
         onClose={() => handleCancelConfirmation(false)}

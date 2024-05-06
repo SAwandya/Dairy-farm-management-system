@@ -165,10 +165,21 @@ function ProductBatchForm() {
       </Button>
       <Draggable>
         <Dialog
+
+        /*BackdropProps={{
+  sx: {
+    width: '100vw', // Set the width of the backdrop to full viewport width
+    height: '100vh', // Set the height of the backdrop to full viewport height
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust the background color and opacity as needed
+    position: 'fixed', // Position the backdrop fixed to cover the entire screen
+    zIndex: 1300, // Set the z-index to ensure it's above other content
+  }
+}} */
           open={open}
           onClose={handleClose}
           sx={{
             width: '26.6%',
+            
             '& .MuiBackdrop-root': {
               backgroundColor: 'transparent',
               position: 'absolute',
