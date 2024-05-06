@@ -67,7 +67,6 @@ const Userlist = () => {
    
     doc.addImage(companyLogo, 'PNG', doc.internal.pageSize.width - margin - logoWidth, margin, logoWidth, logoHeight);
 
-   
     doc.setFontSize(10).setFont('helvetica').text('Nevil Nutri Feeds Pvt.Ltd', margin, margin + 10);
     doc.text('No:241, Radawana', margin, margin + 15);
     doc.text('Henagama Rd', margin, margin + 20);
@@ -75,13 +74,7 @@ const Userlist = () => {
     doc.text('Sri Lanka', margin, margin + 30);
 
     doc.setFontSize(10).text(`Date: ${date}`, margin, margin + 35);
-
-   
     doc.setFontSize(20).setTextColor(56, 119, 91).setFont('helvetica', 'bold').text('Pregnant Cow List', margin, 70);
-
-   
-
-    
     doc.setFontSize(10).setFont('helvetica', 'normal').setTextColor(0, 0, 0).text(
       textParagraph,
       margin,
