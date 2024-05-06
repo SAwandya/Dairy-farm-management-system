@@ -45,22 +45,22 @@ From creamy milk to velvety yogurt and artisanal cheeses, Nevil Nutri offers a d
                 <ProductCard 
                     imgSrc="../../../../src/assets/curd-pic.png"
                     title="Curd" 
-                    text="Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. " 
+                    text="Indulge in the creamy perfection of Nevil Nutri's curd, made from the finest milk for a delightful tangy taste." 
                 />
                 <ProductCard 
                     imgSrc="../../../../src/assets/cheese-pic.png" 
                     title="Cheese" 
-                    text="Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. " 
+                    text="Savor the rich flavor and velvety texture of Nevil Nutri's artisanal cheeses, meticulously crafted for the ultimate culinary experience. " 
                 />
                 <ProductCard 
                     imgSrc="../../../../src/assets/icecream-pic.png" 
                     title="Ice Cream" 
-                    text="Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. " 
+                    text="Cool down with Nevil Nutri's irresistible ice cream, made with premium ingredients for a creamy, decadent treat." 
                 />
                 <ProductCard 
                     imgSrc="../../../../src/assets/yogurt-pic.png" 
                     title="Yogurt" 
-                    text="Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. " 
+                    text="Nourish your body with Nevil Nutri's probiotic-rich yogurt, available in a variety of flavors to suit every taste preference." 
                 />
             </Box>
             <a href='/' className='sales-product-link'>See all products</a>
