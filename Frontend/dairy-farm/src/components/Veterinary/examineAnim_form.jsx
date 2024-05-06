@@ -36,7 +36,7 @@ const ExamineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) =>
     } else {
       delete errors.exam;
     }
-
+    //date validation
     if (name === 'checkdate') {
       const currentDate = new Date();
       const inputDate = new Date(value);
