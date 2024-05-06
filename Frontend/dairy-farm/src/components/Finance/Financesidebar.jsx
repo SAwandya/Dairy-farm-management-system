@@ -20,7 +20,9 @@ function Sidebar() {
          <Box className="sidebar" sx={{ position: 'fixed', left: 0, top: 0}}>
 
             <Box className="sidebar-logo-container">
+                <Link to="/homeM" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <img className="sidebar-logo" src="../../src/assets/sidebar-logo.png" alt="Logo" />
+                </Link>
             </Box>
             
             {/* Dashboard link */}
