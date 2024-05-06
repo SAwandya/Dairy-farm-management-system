@@ -18,6 +18,7 @@ const ExamineAnimForm = ({ handleSubmit, handleOnChange, handleClose, rest }) =>
   const validateField = (name, value) => {
     let errors = { ...validationErrors };
     
+    // Check for required fields
     if (name === 'earTag' && !value) {
       errors.earTag = 'Ear Tag ID is required.';
     } else {
