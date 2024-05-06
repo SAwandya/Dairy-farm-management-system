@@ -41,11 +41,11 @@ function Graph() {
 
   return (
     <Card className="graph-contain" style={{height: '100%'}}>
-      <CardContent style={{marginTop: '1%'}}>
+      <CardContent style={{marginTop: '2%', marginBottom: '2%'}}>
         <Typography variant="h5" component="h2" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>
           Monthly Expenses and Incomes
         </Typography>
-        <div style={{ width: '100%', height: 300 }}>
+        <div style={{ width: '100%', height: 370 }}>
           <ResponsiveContainer>
             <LineChart
               data={graphData}

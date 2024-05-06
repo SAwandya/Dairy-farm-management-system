@@ -120,7 +120,7 @@ const handleAddTransaction = async () => {
     }
   } else {
     // Display error message for incomplete fields
-    handleToastOpen("Please complete all fields." );
+
 
     setFormSubmitted(true);
   }
@@ -340,14 +340,6 @@ function formatDate(dateString) {
         autoHideDuration={2000}
         onClose={handleToastClose}
       >
-  <SnackbarContent
-    message={toastMessage}
-    action={null}
-    style={{
-    color: '#ffffff', // Change to your desired text color
-    backgroundColor: toastMessage === "Please complete all fields." ? '#FF0000' : '#38775B',
-  }}
-  />
 </Snackbar>
 <Box className="paper"
   sx={{
