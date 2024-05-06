@@ -96,20 +96,20 @@ const BudgetTable = () => {
 
   return (
     <Container sx={{ textAlign: 'center', marginLeft: '15%', marginBottom: '2%'}}>
-      <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold' }}>
+      <Typography variant="h4" gutterBottom  sx={{ fontFamily: 'Poppins', fontWeight: 600}}>
         Budget Overview
       </Typography>
       <Grid container spacing={4}>
         {departments.map((department) => (
           <Grid item xs={12} md={6} lg={4} key={department}>
             <Paper sx={{ padding: 2, backgroundColor: '#E3F6EF' }}>
-              <Typography variant="h6" gutterBottom >
+              <Typography variant="h6" gutterBottom  sx={{ fontFamily: 'Poppins', fontWeight: 500}} >
                 {department}
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography variant="body1" gutterBottom  sx={{ fontFamily: 'Poppins', fontWeight: 400}}>
                 Total Budget: LKR {(departmentBudgets[department] ).toLocaleString()}
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography variant="body1" gutterBottom  sx={{ fontFamily: 'Poppins', fontWeight: 400}}>
                 Used Budget: LKR {(UsedBudgets[department] || 0).toLocaleString()}
               </Typography>
               <Tooltip title={`Used: ${Math.round(((UsedBudgets[department] || 0) / departmentBudgets[department]) * 100)}%`} arrow>
@@ -128,6 +128,8 @@ const BudgetTable = () => {
                     color: 'white',
                     borderColor: 'green',
                     backgroundColor: '#38775B',
+                    fontFamily: 'Poppins', 
+                    fontWeight: 400,
                     '&:hover': {
                       backgroundColor: '#45926F',
                     }
@@ -144,11 +146,13 @@ const BudgetTable = () => {
                     color: 'white',
                     borderColor: 'green',
                     backgroundColor: '#38775B',
+                    fontFamily: 'Poppins', 
+                    fontWeight: 400,
                     '&:hover': {
                       backgroundColor: '#45926F',
                     }
                   }}                >
-                  <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit', }}>
+                  <Link to="/financetrans" style={{ textDecoration: 'none', color: 'inherit', fontFamily: 'Poppins', fontWeight: 500 }}>
                     View Transactions
                   </Link>
                 </Button>
@@ -158,7 +162,7 @@ const BudgetTable = () => {
         ))}
       </Grid>
       <Dialog open={open} onClose={handleEditClose} >
-        <DialogTitle> Edit Budget</DialogTitle>
+        <DialogTitle sx={{ fontFamily: 'Poppins', fontWeight: 400}}> Edit Budget</DialogTitle>
         <DialogContent>
           <Box mb={2} sx={{ marginTop: '5px'}}>
             <TextField
@@ -168,12 +172,17 @@ const BudgetTable = () => {
               fullWidth
               label="New Budget (LKR)"
               variant="outlined"
+              sx={{
+                    fontFamily: 'Poppins', 
+                    fontWeight: 400,
+                  }}
+              
             />
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleEditClose}>Cancel</Button>
-          <Button onClick={handleSaveBudget} color="primary">Save</Button>
+          <Button onClick={handleEditClose} sx={{ fontFamily: 'Poppins', fontWeight: 400}}>Cancel</Button>
+          <Button onClick={handleSaveBudget}  sx={{ fontFamily: 'Poppins', fontWeight: 400}} color="primary">Save</Button>
         </DialogActions>
       </Dialog>
     </Container>

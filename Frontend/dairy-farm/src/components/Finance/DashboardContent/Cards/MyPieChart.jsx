@@ -41,7 +41,7 @@ function MyPieChart() {
   return (
     <Card style={{width: '100%'}}>
       <CardContent >
-        <Typography variant="h5" component="h2">
+        <Typography variant="h5" component="h2" sx={{ fontFamily: 'Poppins', fontWeight: 500}} >
           Budget Usage
         </Typography>
         <div style={{ width: '100%', height: 400 }}>
