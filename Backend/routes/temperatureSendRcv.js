@@ -13,11 +13,17 @@ async function cleanupOldData() {
       const docsToDelete = dataCount - threshold;
 
       const oldestData = await Temperature.find()
-        .sort({ recordedAt: 1 }) // Sort in ascending order to get oldest data first
+      
+      .sort({ recordedAt: -1 }) // Sort in descending order
+      .skip(docsToDelete) // Skip the oldest entries
+      .exec();
+
+      /*
+      .sort({ recordedAt: 1 }) // Sort in ascending order to get oldest data first
         .skip(threshold) // Skip the last 10 entries
         .limit(docsToDelete) // Limit to the calculated number of documents to delete
         .exec();
-
+      */
       // Remove old data entries
       await Temperature.deleteMany({ _id: { $in: oldestData.map(doc => doc._id) } });
       console.log('Old data cleanup complete.');
