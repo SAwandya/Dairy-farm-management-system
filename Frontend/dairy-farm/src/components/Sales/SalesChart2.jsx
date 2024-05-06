@@ -38,7 +38,7 @@ const SalesChart2 = () => {
 
   const groupedData = {};
   orders?.forEach((order) => {
-    const month = order.orderDate.getMonth() + 1; 
+    const month = order.orderDate.getMonth(); 
     const year = order.orderDate.getFullYear();
     const productType = order.product.name;
 
@@ -63,7 +63,7 @@ const SalesChart2 = () => {
     for (const year in groupedData[productType]) {
       for (const month in groupedData[productType][year]) {
         const value = groupedData[productType][year][month];
-        data[month-1] = value;
+        data[month] = value;
       }
     }
 
@@ -99,7 +99,8 @@ const SalesChart2 = () => {
             stroke: "#fff",
           },
         }}
-      />
+      >
+      </BarChart>
 
       <Typography
         sx={{ paddingTop: "20px" }}

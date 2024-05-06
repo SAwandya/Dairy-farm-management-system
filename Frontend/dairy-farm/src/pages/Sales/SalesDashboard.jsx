@@ -223,7 +223,12 @@ const SalesDashboard = () => {
                     <BgCard data={unpublishlen} text="Unpublished products" />
                   </Box>
                   <Paper
-                    sx={{ p: 2, display: "flex", flexDirection: "column" }}
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      marginBottom: "20px",
+                    }}
                   >
                     <ProductList />
                   </Paper>
