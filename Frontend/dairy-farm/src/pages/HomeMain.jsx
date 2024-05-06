@@ -12,9 +12,10 @@ import sale from '../assets/sale.jpg';
 import hr from '../assets/HR.jpg';
 import fin from '../assets/fin.jpg';
 import sup from '../assets/sup.jpg';
+import HomeNavigation from '../components/Home/HomeNavigation';
+import Footer from '../components/Home/Footer';
 
 const RootContainer = styled('div')({
-  marginTop: 100,
   display: 'flex',
   flexWrap: 'wrap',
   justifyContent: 'center', 
@@ -111,8 +112,8 @@ const HomePage = () => {
 
   return (
     <>
+      <HomeNavigation/>
       <RootContainer>
-        <ClippedDrawer />
         {cards.map((card, index) => (
           <StyledCard key={index}>
             
@@ -131,36 +132,7 @@ const HomePage = () => {
           </StyledCard>
         ))}
       </RootContainer>
-      {/* Footer */}
-      <FooterContainer>
-        
-        <div>
-          <Typography variant="body1" fontWeight="bold">
-            Contact Us
-          </Typography>
-          <Typography variant="body2">
-            Address: No. 14, Main Street, Colombo
-          </Typography>
-          <Typography variant="body2">
-            Phone: +94 123 456 789
-          </Typography>
-        </div>
-       
-        <div>
-          <Typography variant="body1" fontWeight="bold">
-            About Us
-          </Typography>
-          <Typography variant="body2">
-            We provide the best veterinary and farming services.
-          </Typography>
-        </div>
-        
-        <SocialMediaContainer>
-          <Facebook style={{ color: '#FFFFFF', marginRight: '10px' }} />
-          <Twitter style={{ color: '#FFFFFF', marginRight: '10px' }} />
-          <Instagram style={{ color: '#FFFFFF' }} />
-        </SocialMediaContainer>
-      </FooterContainer>
+      <Footer/>
     </>
   );
 };
