@@ -137,7 +137,9 @@ function Task() {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
+                <Box sx={{ marginLeft: '11rem',marginTop:'-60px' ,width:'86%' }}>
                 <DateV/>
+                </Box>
                 <div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}>
                         <TextField
                             onChange={(event) => {

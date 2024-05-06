@@ -62,7 +62,9 @@ const MyComponent = () => {
                     <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                         Hello Disara,
                     </Typography>
-                    <DateV />
+                    <Box sx={{ marginLeft: '11rem',marginTop:'-60px' ,width:'86%' }}>
+                <DateV/>
+                </Box>
                    
                     <Box className="pie-chart-container" position="relative">
   <div className="white-box" style={{

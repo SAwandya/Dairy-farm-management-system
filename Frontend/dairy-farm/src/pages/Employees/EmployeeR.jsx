@@ -22,6 +22,7 @@ function EmployeeR() {
                 <DateV />
                 <h4>Welcome Back,</h4>
                 <h1>Disara Methmali</h1>
+                
                 <div style={{ marginTop:"70px", textAlign: 'center' }}>
                     <BgCard style={{ marginBottom: '20px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
