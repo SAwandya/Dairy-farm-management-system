@@ -9,8 +9,10 @@ import ItemDistributionChart from './ItemDistributionChart';
 import OrderStatusDistributionChart from './OrderStatusDistributionChart';
 import SupplierOrderCountChart from './SupplierOrderCountChart';
 
+
 function InventoryContent() {
     return (
+        
         <Box className="dashboard-content-supply">
             <Welcome/>
 

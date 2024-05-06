@@ -4,23 +4,33 @@ import Welcome from './Welcome'
 import ItemTable from './ItemTable';
 import '../../styles/supply.css'
 import ItemStatistics from './ItemStatistics';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
+  },
+});
 
 
 function ItemContent() {
     return (
-        <Box className="dashboard-content-supply">
-            <Welcome/>
 
+        <ThemeProvider theme={theme}>
             <Box className="dashboard-content-supply">
-                <ItemStatistics/>
+                <Welcome/>
 
-            </Box>
-            
-            <Box className="dashboard-content-supply">
-                <ItemTable/>
+                <Box className="dashboard-content-supply">
+                    <ItemStatistics/>
 
+                </Box>
+                
+                <Box className="dashboard-content-supply">
+                    <ItemTable/>
+
+                </Box>
             </Box>
-        </Box>
+        </ThemeProvider>
     );
   }
   
