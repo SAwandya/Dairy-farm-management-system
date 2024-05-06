@@ -151,11 +151,15 @@ function SessionPage() {
 
   return (
     <div>
-      <Box className="dashboard-content">
-        <div align='center'></div>
-        <GrazingDate />
-        <Name />
-        <Typography> Information regarding scheduling sessions is recorded here</Typography>
+      
+      
+      <Box width={1} className="dashboard-content" >
+                <Box className="welcome-header">
+                    <Name/>
+                    <GrazingDate/>
+                </Box>
+        
+      
       </Box>
       <GrazingSideBar sx={{ position: 'fixed', left: 0, top: 0, height: '100vh' }} />
       <Container
