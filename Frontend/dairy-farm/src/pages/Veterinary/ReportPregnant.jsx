@@ -60,7 +60,7 @@ const Userlist = () => {
     const logoHeight = 20; 
     const maxWidth = 290; 
     const textLines = doc.splitTextToSize(
-      `This registry encapsulates crucial data such as individual identification tags, health status, reproductive history, and other pertinent details essential for effective farm management. With meticulous documentation and organization, this registry ensures optimal care and monitoring of the animals, facilitating informed decision-making processes and promoting the overall welfare and productivity of the livestock population.`,
+      `This report encapsulates crucial data such as individual identification tags, health status, reproductive history, and other pertinent details essential for effective farm management. With meticulous documentation and organization, this registry ensures optimal care and monitoring of the animals, facilitating informed decision-making processes and promoting the overall welfare and productivity of the livestock population.`,
       maxWidth
     );
     const textParagraph = textLines.join('\n');
