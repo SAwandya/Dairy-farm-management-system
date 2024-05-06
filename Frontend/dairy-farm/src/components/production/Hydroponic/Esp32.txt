@@ -106,7 +106,7 @@ void loop() {
   
 }
 
-/*pins
+pins
 
 
 #define DHTPIN 2
@@ -114,9 +114,6 @@ void loop() {
 #define FAN 18 // GPIO pin for FAN relay
 #define WATER 19 // GPIO pin for water motor
 const int moistureSensor = 32; // GPIO32 analog input
-
-
-
 
 DHTPIN 2 signal issue - changed to DHTPIN 4
 
@@ -127,11 +124,18 @@ new pin configuration
 #define WATER 19 // GPIO pin for water motor
 const int moistureSensor = 32; // GPIO32 analog input
 
-ext power,
+external power(),
     power 1 for fan
     power 1 for fan relay
 
     power 2 for motor
     power 2 for motor relay
-    
-*/
+
+    fan relay gnd & Com - power 1 gnd
+    motor relay gnd & Com - power 2 gnd
+
+    power 1 gnd - esp32 gnd
+    power 2 gnd - esp32 gnd
+
+    ALL GND - Common reference point (Common gnd)
+
