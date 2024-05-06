@@ -142,14 +142,14 @@ function AllEmployee() {
     <ToastContainer />
             <div style={{ display: 'flex', minWidth: '1036px', overflow: 'hidden' }}>
                 <Esidebar/>
-                <Box sx={{ marginLeft: '11rem', marginTop:'50px' }}>
+                <Box sx={{ marginLeft: '12rem', marginTop:'50px' }}>
                 <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                     Welcome Back,
                 </Typography>
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
-                <Box sx={{ marginLeft: '11rem',marginTop:'-60px' ,width:'86%' }}>
+                <Box sx={{ marginLeft: '10rem',marginTop:'-60px' ,width:'86%' }}>
                 <DateV/>
                 </Box>
                     <Box sx={{ position: 'absolute', top: 0, right: 0, padding: '0rem', zIndex: 999 }}>

@@ -152,14 +152,16 @@ function Task() {
         <div>
         <div style={{ display: 'flex', minWidth: '1036px' }}>
    <Esidebar/>
-        <Box sx={{ marginLeft: '12rem', marginTop:'20px', marginRight: '0rem',width: '86%' }}>
+        <Box sx={{ marginLeft: '12rem', marginTop:'40px', marginRight: '0rem',width: '86%' }}>
         <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                     Welcome Back,
                 </Typography>
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
+                <Box sx={{ marginLeft: '11rem',marginTop:'-60px' ,width:'86%' }}>
                 <DateV/>
+                </Box>
             <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-10rem',marginTop:'10px'}}>
                 <BgCards>
                     <Typography variant="body1" sx={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Poppins' }}>

@@ -130,14 +130,16 @@ function Task() {
         <div style={{ display: 'flex', minWidth: '1036px',overflow: 'hidden'  }}>
    <Esidebar/>
         
-        <Box sx={{ marginLeft: '12rem', marginTop:'20px' }}>
+        <Box sx={{ marginLeft: '12rem', marginTop:'40px' }}>
         <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                     Welcome Back,
                 </Typography>
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
+                <Box sx={{ marginLeft: '11rem',marginTop:'-60px' ,width:'86%' }}>
                 <DateV/>
+                </Box>
                 <div style={{ width: '100%',marginTop:'20px',marginLeft:'1rem' }}>
                         <TextField
                             onChange={(event) => {
