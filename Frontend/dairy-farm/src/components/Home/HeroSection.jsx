@@ -38,7 +38,8 @@ function HeroSection() {
                         marginTop: '60px'
                     }}
                 >
-                    Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular.
+Experience the future of dairy farming with the Nevil Nutri Dairy Farm Management System. Whether you're a small-scale family farm or a large commercial operation, our software solution can help you unlock the full potential of your dairy business. Join the digital revolution and take your farm to new heights with Nevil Nutri.
+
                 </Typography>
                 <Box
                     sx={{
@@ -55,7 +56,12 @@ function HeroSection() {
                             marginRight: '48px',
                             fontFamily: 'Poppins',
                             paddingRight: '30px',
-                            paddingLeft: '30px'
+                            paddingLeft: '30px',
+                            '&:hover': {
+                                backgroundColor: '#fff',
+                                color: '#38775B'
+                                }   
+                        
                         }}
                     >
                         Get Started
@@ -66,7 +72,11 @@ function HeroSection() {
                             border: '1px solid #fff',
                             fontFamily: 'Poppins',
                             paddingRight: '30px',
-                            paddingLeft: '30px'
+                            paddingLeft: '30px',
+                            '&:hover': {
+                                backgroundColor: '#fff',
+                                color: '#38775B'
+                                }   
                         }}
                     >
                         Learn More
