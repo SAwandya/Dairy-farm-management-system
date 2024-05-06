@@ -64,71 +64,81 @@ function CreateEmployee() {
       });
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      // Form is valid, proceed with submission
-      axios.post("http://localhost:3000/api/employee/createEmployee", {
-        employeeId,
-        employeeName,
-        position,
-        contactNumber,
-        email,
-        basicSalary
-      })
-      .then(result => {
-        console.log(result);
-        // Show success message
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Employee added successfully!',
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        });
-        navigate('/allemployee');
-      })
-      .catch(err => {
-        console.log(err);
-        // Show error message
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Failed to add employee!',
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        });
-      });
-    } else {
-      // Form is invalid, show error toast message
+    const validationError = await validateForm();
+    if (validationError) {
+      // Display validation error message
       Swal.fire({
         icon: 'error',
         title: 'Validation Error',
-        text: 'Please fix all validation errors!',
+        text: validationError,
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
       });
+      return; // Stop further execution if there's a validation error
     }
+  
+    // Form is valid, proceed with submission
+    axios.post("http://localhost:3000/api/employee/createEmployee", {
+      employeeId,
+      employeeName,
+      position,
+      contactNumber,
+      email,
+      basicSalary
+    })
+    .then(result => {
+      console.log(result);
+      // Show success message
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Employee added successfully!',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      navigate('/allemployee');
+    })
+    .catch(err => {
+      console.log(err);
+      // Show error message
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Failed to add employee!',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+    });
   };
   
-  const validateForm = () => {
+  
+  const validateForm = async () => {
     let isValid = true;
   
     // Check for individual field validations
     if (!/^[E][M]\d{1,}$/.test(employeeId)) {
-      isValid = false;
+      return 'Invalid employee ID. Format: EMxx';
     }
   
+    // Check if employee ID is already in use
+    const response = await axios.get(`http://localhost:3000/api/employee/checkEmployeeId/${employeeId}`);
+    if (response.data && response.data.exists) {
+      // If employee ID is already in use, return an error message
+      return 'Employee ID already in use';
+    }
+  
+    // Continue with other validations
     if (!employeeName) {
       isValid = false;
     }
@@ -149,9 +159,10 @@ function CreateEmployee() {
       isValid = false;
     }
   
-    return isValid;
+    return isValid ? '' : 'Please fix all validation errors!';
   };
-    
+  
+  
 
   return (
     <div>
