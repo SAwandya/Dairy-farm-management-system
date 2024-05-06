@@ -13,6 +13,16 @@ router.post('/createEmployee', (req, res) => {
         .then(employees => res.json(employees))
         .catch(err => res.json(err));
 });
+// Route to check if an employee ID already exists
+router.get('/checkEmployeeId/:employeeId', async(req, res) => {
+    const { employeeId } = req.params;
+    try {
+        const existingEmployee = await EmployeeModel.findOne({ employeeId });
+        res.json({ exists: !!existingEmployee });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 router.get('/', (req, res) => {
     EmployeeModel.find({})
