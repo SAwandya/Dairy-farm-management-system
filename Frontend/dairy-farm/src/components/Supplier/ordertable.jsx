@@ -278,7 +278,7 @@ const OrderTable = () => {
     <div> 
       <div className={classes.root}>
         <Typography variant="h6">Orders</Typography>
-        <div div className={classes.root}>
+        <div div className={classes.root} style={{ fontFamily: 'Poppins, sans-serif' }}>
           <Button
             variant="contained"
             color="primary"
@@ -311,7 +311,7 @@ const OrderTable = () => {
             </InputLabel>
           </TextField>
         </Toolbar>
-        <Table className={classes.table} aria-label="simple table">
+        <Table className={classes.table} style={{ fontFamily: 'Poppins, sans-serif' }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell style={{ display: "none" }}>ID</TableCell>
