@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, IconButton, Tooltip, Box, Typography } from '@mui/material';
+import { Container, Grid, Button,IconButton, Tooltip, Box, Typography } from '@mui/material';
 import { AddCircleOutline, Edit, Delete } from '@mui/icons-material';
 import Table from '../../components/Grazing/GrazingTable';
 import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
@@ -174,12 +174,14 @@ function SessionPage() {
           <Grid item xs={12}>
             <Grid container justifyContent="flex-end">
               <Tooltip title="Add New Session">
-                <IconButton
-                  onClick={() => setOpenFormDialog(true)}
-                  style={{ marginTop: '1rem', marginRight: '1rem' }}
-                >
-                  <AddCircleOutline color="primary" fontSize="large" />
-                </IconButton>
+              <Button
+            onClick={() => setOpenFormDialog(true)}
+            style={{ marginTop: '1rem', marginRight: '1rem', color: '#1a6952' }}
+            variant="outlined"
+            startIcon={<AddCircleOutline color="primary" fontSize="large" />}
+          >
+            Add New Session
+          </Button>
               </Tooltip>
             </Grid>
           </Grid>
