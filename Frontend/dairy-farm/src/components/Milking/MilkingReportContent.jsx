@@ -23,7 +23,7 @@ function MilkingReportContent() {
                 }}
             >
                 <BarChartContainer selectedOption={selectedOption} />
-                <PieChartContainer />
+                <PieChartContainer selectedOption={selectedOption} />
             </div>
         </Box>
     );
