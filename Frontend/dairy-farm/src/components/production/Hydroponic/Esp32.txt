@@ -109,10 +109,21 @@ void loop() {
 /*pins
 
 
-#define DHTPIN 4
+#define DHTPIN 2
 #define DHTTYPE DHT11
 #define FAN 18 // GPIO pin for FAN relay
 #define WATER 19 // GPIO pin for water motor
 const int moistureSensor = 32; // GPIO32 analog input
 
+
+
+
+DHTPIN 2 signal issue - changed to DHTPIN 4
+
+new pin configuration
+#define DHTPIN 4
+#define DHTTYPE DHT11
+#define FAN 18 // GPIO pin for FAN relay
+#define WATER 19 // GPIO pin for water motor
+const int moistureSensor = 32; // GPIO32 analog input
 */
