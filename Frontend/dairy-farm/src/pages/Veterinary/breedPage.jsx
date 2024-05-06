@@ -29,7 +29,7 @@ function BreedPage() {
                 </div>
                 
                 <h3 style={{ marginTop: 20, marginBottom: '20px' }}>Pregnant Cow List</h3>
-                <div style={{marginLeft:160,width:'80%'}}>
+                <div style={{marginLeft:120,width:'87%'}}>
                     <BreedingCards/>
                 </div>
                
