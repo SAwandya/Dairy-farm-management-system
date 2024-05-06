@@ -12,10 +12,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 function Sidebar() {
- 
-
-
-  
   const location = useLocation();
   const isActive = (path) => {
     return location.pathname === path;
