@@ -45,7 +45,7 @@ From creamy milk to velvety yogurt and artisanal cheeses, Nevil Nutri offers a d
                 <ProductCard 
                     imgSrc="../../../../src/assets/curd-pic.png"
                     title="Curd" 
-                    text="Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. " 
+                    text="Indulge in the creamy perfection of Nevil Nutri's curd, made from the finest milk for a delightful tangy taste." 
                 />
                 <ProductCard 
                     imgSrc="../../../../src/assets/cheese-pic.png" 
