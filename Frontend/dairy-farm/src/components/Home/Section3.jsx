@@ -60,7 +60,7 @@ From creamy milk to velvety yogurt and artisanal cheeses, Nevil Nutri offers a d
                 <ProductCard 
                     imgSrc="../../../../src/assets/yogurt-pic.png" 
                     title="Yogurt" 
-                    text="Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. " 
+                    text="Nourish your body with Nevil Nutri's probiotic-rich yogurt, available in a variety of flavors to suit every taste preference." 
                 />
             </Box>
             <a href='/' className='sales-product-link'>See all products</a>
