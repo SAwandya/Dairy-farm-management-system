@@ -3,10 +3,11 @@ import QRCode from 'qrcode.react';
 import Modal from '@mui/material/Modal';
 import { Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { fontSize } from '@mui/system';
 
 const QRCodeScanner = () => {
   const [open, setOpen] = useState(false);
-
+  const [hovered, setHovered] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -17,9 +18,27 @@ const QRCodeScanner = () => {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
-        Take Your Attendance
-      </Button>
+  <Button
+  
+  onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        
+  onClick={handleOpen}
+  variant="contained"
+  style={{
+    marginTop: '16px',
+    backgroundColor: '#38775B',
+    color: '#ffffff',
+  }}
+
+>
+  Attendance
+</Button>
+
+
+
+
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -45,7 +64,8 @@ const QRCodeScanner = () => {
           </div>
          
           <div style={{ textAlign: 'center' }}>
-          <h2 id="simple-modal-title">Scan the QR code</h2>
+          <h2 id="simple-modal-title" style={{ marginTop: '-30px' }}>Scan the QR code</h2>
+
           <QRCode value="https://forms.gle/48GRhm7DF4e1ioZk8" />
           </div>
         </div>

@@ -12,3 +12,7 @@
 .pie-chart-wrapper {
     margin-top: 20px;
 }
+
+.MuiBox-root.css-1n2mv2k a:hover {
+    color: #38775B;
+}
