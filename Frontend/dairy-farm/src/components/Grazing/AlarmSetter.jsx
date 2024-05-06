@@ -10,9 +10,17 @@ function AlarmSetter({ addAlarm }) {
 
     const now = new Date();
     const alarmTime = new Date(now);
-    alarmTime.setHours(now.getHours() + hours);
-    alarmTime.setMinutes(now.getMinutes() + minutes);
-    alarmTime.setSeconds(now.getSeconds() + seconds);
+    alarmTime.setHours(hours);
+    alarmTime.setMinutes(minutes);
+    alarmTime.setSeconds(seconds);
+
+    const currentTime = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+    const alarmScheduledTime = hours * 3600 + minutes * 60 + seconds;
+
+    if (alarmScheduledTime <= currentTime) {
+      alert("Scheduled time should be in the future.");
+      return;
+    }
 
     addAlarm(alarmTime);
   };
