@@ -44,7 +44,35 @@ function Footer() {
                         marginTop: '20px'
                     }}
                 >
-                    Li Europan lingues es membres del sam familie. Lor separat existentie
+                    Copyright © 2024 Nevil Nutri
+                </Typography>
+                                <Typography
+                    variant='h6'
+                    sx={{
+                        fontFamily: 'Poppins',
+                        fontWeight: '400',
+                        color: '#fff',
+                        textAlign: 'left',
+                        margin: 'auto',
+                        fontSize: '14px',
+                        marginTop: '2px'
+                    }}
+                >
+                    All rights reserved. The content, images, and designs on this website are protected by copyright law.
+                </Typography>
+                                <Typography
+                    variant='h6'
+                    sx={{
+                        fontFamily: 'Poppins',
+                        fontWeight: '400',
+                        color: '#fff',
+                        textAlign: 'left',
+                        margin: 'auto',
+                        fontSize: '14px',
+                        marginTop: '2px'
+                    }}
+                >
+                    Unauthorized use or reproduction is prohibited.
                 </Typography>
                 <img src="../../../../src/assets/social-media.png" alt="social media logos" className='social-media-icons'/>
             </Box>

@@ -31,7 +31,8 @@ function Section3() {
                     marginTop: '20px'
                 }}
             >
-                Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular.
+From creamy milk to velvety yogurt and artisanal cheeses, Nevil Nutri offers a diverse range of dairy delights to suit every taste and preference. Our products are lovingly crafted using fresh, locally-sourced milk from our own herd of happy cows, ensuring unparalleled freshness and flavor in every bite.
+
             </Typography>
             <Box
                 sx={{

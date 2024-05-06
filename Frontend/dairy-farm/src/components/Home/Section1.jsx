@@ -35,7 +35,8 @@ function Section1() {
                         marginTop: '20px'
                     }}
                 >
-                    Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular.
+At Nevil Nutri, we pride ourselves on delivering the finest quality dairy products while upholding the highest standards of animal welfare and environmental sustainability. Nestled amidst the lush greenery of Sri Lanka's picturesque countryside, our farm is a sanctuary where happy, healthy cows roam freely, grazing on nutrient-rich grasslands and basking in the warm tropical sun.
+
                 </Typography>
                 <Button
                     sx={{

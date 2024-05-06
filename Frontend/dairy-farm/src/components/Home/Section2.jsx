@@ -35,7 +35,8 @@ function Section2() {
                     marginTop: '20px'
                 }}
             >
-                Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular.
+Our Dairy Farm Management System is a comprehensive software platform that empowers dairy farmers to efficiently manage every aspect of their operation, from herd health and milk production to inventory management and financial tracking. Developed by our expert IT team with years of industry experience, our system is intuitive, user-friendly, and tailored to meet the unique needs of dairy farmers in Sri Lanka and beyond.
+
             </Typography>
             <Box
                 sx={{
