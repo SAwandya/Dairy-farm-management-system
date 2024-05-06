@@ -78,8 +78,7 @@ function VetDashboard() {
                         <h1>Duvini Ranaweera</h1>
                     </div>
                     <DateV />
-                   
-                    
+                 
                 </div>
                 
                 <h3 style={{ marginTop: 20, marginBottom: '20px' }}>Overview</h3>
