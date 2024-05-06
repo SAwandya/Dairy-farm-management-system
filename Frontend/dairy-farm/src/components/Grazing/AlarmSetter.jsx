@@ -10,9 +10,9 @@ function AlarmSetter({ addAlarm }) {
 
     const now = new Date();
     const alarmTime = new Date(now);
-    alarmTime.setHours(now.getHours() + hours);
-    alarmTime.setMinutes(now.getMinutes() + minutes);
-    alarmTime.setSeconds(now.getSeconds() + seconds);
+    alarmTime.setHours(hours);
+    alarmTime.setMinutes(minutes);
+    alarmTime.setSeconds(seconds);
 
     addAlarm(alarmTime);
   };
