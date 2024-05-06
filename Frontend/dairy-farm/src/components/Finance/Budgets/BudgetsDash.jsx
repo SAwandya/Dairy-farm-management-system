@@ -6,7 +6,7 @@ import '../../../styles/Finance/MainDashboard/DashboardContent.css'
 function BudgetDash() {
     return (
         <Box className="dashboard-content">
-            <WelcomeCard/>
+            <WelcomeCard />
         </Box>
     );
   }

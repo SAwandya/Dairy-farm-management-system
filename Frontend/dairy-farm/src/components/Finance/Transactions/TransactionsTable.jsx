@@ -20,6 +20,7 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  FormHelperText,
   Box,
 } from "@mui/material";
 import axios from "axios";
@@ -30,6 +31,7 @@ import Swal from "sweetalert2";
 import { color } from "@mui/system";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+
 
 
 
@@ -54,7 +56,7 @@ const TransactionsTable = () => {
   const [openAddDialog, setOpenAddDialog] = useState(false);
   const [newTransaction, setNewTransaction] = useState({
     date: new Date().toISOString().split("T")[0],
-    type: "Income",
+    type: "Expense",
     description: "",
     department: "",
     value: "0",
@@ -67,6 +69,8 @@ const TransactionsTable = () => {
   const [toastMessage, setToastMessage] = useState(null);
 const [toastOpen, setToastOpen] = useState(false);
 const [selectedDepartment, setSelectedDepartment] = useState("");
+const [formSubmitted, setFormSubmitted] = useState(false);
+
 
 
 
@@ -116,7 +120,7 @@ const handleAddTransaction = async () => {
     }
   } else {
     // Display error message for incomplete fields
-    handleToastOpen("Please complete all fields." );
+    setFormSubmitted(true);
   }
 };
 
@@ -141,6 +145,7 @@ const handleAddTransaction = async () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#38775B",
       confirmButtonText: "Yes, delete it!"
+      
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -362,7 +367,7 @@ function formatDate(dateString) {
       sx={{ marginRight: 1, flex: 1 }} // Adjust margin and flex as needed
     />
     <FormControl fullWidth sx={{ flex: 1 }}>
-      <InputLabel id="department-filter-label">Filter by Department</InputLabel>
+      <InputLabel id="department-filter-label" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Filter by Department</InputLabel>
       <Select
         labelId="department-filter-label"
         id="department-filter-select"
@@ -370,7 +375,7 @@ function formatDate(dateString) {
         onChange={handleDepartmentChange}
         label="Filter by Department"
       >
-        <MenuItem value="">All Departments</MenuItem>
+        <MenuItem value="" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>All Departments</MenuItem>
         {departments.map((department) => (
           <MenuItem key={department} value={department}>
             {department}
@@ -405,15 +410,16 @@ function formatDate(dateString) {
               color: 'white',
               borderColor: 'green',
               backgroundColor: '#38775B',
+              fontFamily: 'Poppins',
+               fontWeight: 500,
               '&:hover': {
                 backgroundColor: '#45926F',
-                
               },
             }}
           >Add Transaction</Button>
 
         <Dialog open={openAddDialog} onClose={() => setOpenAddDialog(false)}>
-          <DialogTitle>Add New Transaction</DialogTitle>
+          <DialogTitle sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Add New Transaction</DialogTitle>
           <DialogContent>
             <TextField
               name="date"
@@ -428,7 +434,7 @@ function formatDate(dateString) {
               required
             />
                 <FormControl fullWidth sx={{ marginBottom: 2 }} required>
-      <InputLabel id="type-label">Type</InputLabel>
+      <InputLabel id="type-label" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Type</InputLabel>
       <Select
         labelId="type-label"
         id="type-select"
@@ -437,8 +443,8 @@ function formatDate(dateString) {
         onChange={handleNewTransactionChange}
         label="Type"
       >
-        <MenuItem value="Income">Income</MenuItem>
-        <MenuItem value="Expense">Expense</MenuItem>
+        <MenuItem value="Income" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Income</MenuItem>
+        <MenuItem value="Expense" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Expense</MenuItem>
       </Select>
     </FormControl>
             <TextField
@@ -449,9 +455,11 @@ function formatDate(dateString) {
               sx={{ marginBottom: 2 }}
               fullWidth
               required
+               helperText={formSubmitted && !newTransaction.description ? "*Please enter a description" : ""}
+              error={formSubmitted && !newTransaction.description}
             />
             <FormControl fullWidth sx={{ marginBottom: 2 }} required>
-              <InputLabel id="department-label">Department</InputLabel>
+              <InputLabel id="department-label" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Department</InputLabel>
               <Select
                 labelId="department-label"
                 id="department-select"
@@ -466,6 +474,7 @@ function formatDate(dateString) {
                   </MenuItem>
                 ))}
               </Select>
+                {formSubmitted && !newTransaction.department && <FormHelperText sx={{ color: 'red' }}>*Please select a department</FormHelperText>}
             </FormControl>
             <TextField
               name="value"
@@ -476,11 +485,13 @@ function formatDate(dateString) {
               sx={{ marginBottom: 2 }}
               fullWidth
               required
+              helperText={(formSubmitted && newTransaction.value === "0") ? "*Please enter a correct value" : ""}
+              error={formSubmitted && newTransaction.value === "0"}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpenAddDialog(false)}>Cancel</Button>
-            <Button onClick={handleAddTransaction} color="primary">
+            <Button onClick={() => setOpenAddDialog(false)} sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Cancel</Button>
+            <Button onClick={handleAddTransaction} color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>
               Add
             </Button>
           </DialogActions>
@@ -490,7 +501,7 @@ function formatDate(dateString) {
           onClose={handleCloseEditDialog}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle>Edit Transaction</DialogTitle>
+          <DialogTitle sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Edit Transaction</DialogTitle>
           <DialogContent>
             <TextField
               name="date"
@@ -504,7 +515,7 @@ function formatDate(dateString) {
               inputProps={{ max: new Date().toISOString().split("T")[0] }}
             />
             <FormControl fullWidth sx={{ marginBottom: 2 }} required>
-              <InputLabel id="type-label">Type</InputLabel>
+              <InputLabel id="type-label" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Type</InputLabel>
               <Select
                 labelId="type-label"
                 id="type-select"
@@ -513,8 +524,8 @@ function formatDate(dateString) {
                 onChange={handleEditTransactionChange}
                 label="Type"
               >
-                <MenuItem value="Income">Income</MenuItem>
-                <MenuItem value="Expense">Expense</MenuItem>
+                <MenuItem value="Income" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Income</MenuItem>
+                <MenuItem value="Expense" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Expense</MenuItem>
               </Select>
             </FormControl>
             <TextField
@@ -527,7 +538,7 @@ function formatDate(dateString) {
               required
             />
             <FormControl fullWidth sx={{ marginBottom: 2 }} required>
-              <InputLabel id="department-label">Department</InputLabel>
+              <InputLabel id="department-label" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Department</InputLabel>
               <Select
                 labelId="department-label"
                 id="department-select"
@@ -552,11 +563,12 @@ function formatDate(dateString) {
               sx={{ marginBottom: 2 }}
               fullWidth
               required
+              inputProps={{ min: 0 }}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseEditDialog}>Cancel</Button>
-            <Button onClick={handleSaveEdit} color="primary">
+            <Button onClick={handleCloseEditDialog} sx={{ fontFamily: 'Poppins', fontWeight: 500}}>Cancel</Button>
+            <Button onClick={handleSaveEdit} color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>
               Save
             </Button>
           </DialogActions>
@@ -567,12 +579,12 @@ function formatDate(dateString) {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle>{"Are you sure you want to delete this transaction?"}</DialogTitle>
+          <DialogTitle sx={{ fontFamily: 'Poppins', fontWeight: 400}}>{"Are you sure you want to delete this transaction?"}</DialogTitle>
           <DialogActions>
-            <Button onClick={handleCloseDeleteDialog} color="primary">
+            <Button onClick={handleCloseDeleteDialog} color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 500}}>
               Cancel
             </Button>
-            <Button onClick={handleDeleteTransaction} color="error" autoFocus>
+            <Button onClick={handleDeleteTransaction} color="error" autoFocus sx={{ fontFamily: 'Poppins', fontWeight: 500}}>
               Delete
             </Button>
           </DialogActions>
@@ -580,13 +592,13 @@ function formatDate(dateString) {
         <TableContainer component={Paper} className="tableContainer" sx={{ width: "100%", marginTop: 2 }}>
           <Table>
             <TableHead>
-              <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Department</TableCell>
-                <TableCell>Value (LKR)</TableCell>
-                <TableCell>Action</TableCell>
+              <TableRow >
+                <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 600}}>Date</TableCell>
+                <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 600}}>Type</TableCell>
+                <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 600}}>Description</TableCell>
+                <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 600}}>Department</TableCell>
+                <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 600}}>Value (LKR)</TableCell>
+                <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 600}}>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -597,16 +609,16 @@ function formatDate(dateString) {
                 .reverse()
                 .map((transaction) => (
                 <TableRow key={transaction._id}>
-                  <TableCell>{formatDate(transaction.date)}</TableCell>
-                  <TableCell>{transaction.type}</TableCell>
-                  <TableCell>{transaction.description}</TableCell>
-                  <TableCell>{transaction.department}</TableCell>
-                  <TableCell>{`${transaction.value}.00`}</TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleEditTransaction(transaction)}>
+                  <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 400}}>{formatDate(transaction.date)}</TableCell>
+                  <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 400}}>{transaction.type}</TableCell>
+                  <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 400}}>{transaction.description}</TableCell>
+                  <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 400}}>{transaction.department}</TableCell>
+                  <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 400}}>{`${transaction.value}.00`}</TableCell>
+                  <TableCell sx={{ fontFamily: 'Poppins', fontWeight: 400}}>
+                    <Button onClick={() => handleEditTransaction(transaction)}  sx={{ fontFamily: 'Poppins', fontWeight: 500}}>
                       Edit<EditIcon />
                     </Button>
-                    <Button onClick={() => handleDeleteConfirmation(transaction)} color="error">
+                    <Button onClick={() => handleDeleteConfirmation(transaction)} color="error"  sx={{ fontFamily: 'Poppins', fontWeight: 500}}>
                       Delete<DeleteIcon />
                     </Button>
                   </TableCell>

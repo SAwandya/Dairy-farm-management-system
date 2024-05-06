@@ -17,7 +17,7 @@ function FinanceTransactions() {
       <Financesidebar />
       <div style={{ flex: 1 }}>
         <TransactionsDashboard/>
-        <Typography variant="h4" sx={{ textAlign: 'center' , fontWeight: 'bold' }}>Financial Transactions</Typography>
+        <Typography variant="h4" sx={{ textAlign: 'center' ,  fontFamily: 'Poppins', fontWeight: 'bold'}}>Financial Transactions</Typography>
         <TransactionsTable />
       </div>
     </Container>
