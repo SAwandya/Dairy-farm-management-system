@@ -10,7 +10,7 @@ function TemperatureDisplay() {
   const [exceedsLimit, setExceedsLimit] = useState(false);
   const [status, setStatus] = useState('Sensors Inactive!');
   const [alarmTriggered, setAlarmTriggered] = useState(false);
-  const tempLimit =33+6;
+  const tempLimit =33+16;
   useEffect(() => {
     const fetchData = async () => {
       try {

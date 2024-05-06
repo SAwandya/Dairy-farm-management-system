@@ -11,13 +11,19 @@ function TemperatureDisplay() {
   const [exceedsLimit, setExceedsLimit] = useState(false);
   const [status, setStatus] = useState('Sensors Inactive!');
   const [alarmTriggered, setAlarmTriggered] = useState(false);
-  var tempLimit =33+2;
+  var tempLimit =33+18;
+
+  useEffect(() => {
+    const audio = new Audio(alarmSound);
+    audio.load(); // Load the audio file
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/temperatureSendRcv/data');
         const { temperature } = response.data;
-        setTemperature(temperature-2);
+        setTemperature(temperature-4);
         //setTemp(temperature-4)
         setExceedsLimit(temperature> tempLimit); 
         setStatus('Sensors Active');

@@ -24,7 +24,7 @@ function TemperatureDisplay() {
       setExceedsLimit(data.temperature > 31);
       
       // Trigger the alarm if temperature exceeds 31
-      if (data.temperature > 31) {
+      if (data.temperature > 32) {
         setAlarmTriggered(true);
       } else {
         setAlarmTriggered(false);
