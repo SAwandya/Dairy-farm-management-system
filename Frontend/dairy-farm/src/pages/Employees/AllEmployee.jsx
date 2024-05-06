@@ -149,7 +149,9 @@ function AllEmployee() {
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
+                <Box sx={{ marginLeft: '11rem',marginTop:'-60px' ,width:'86%' }}>
                 <DateV/>
+                </Box>
                     <Box sx={{ position: 'absolute', top: 0, right: 0, padding: '0rem', zIndex: 999 }}>
                         <IconButton onClick={() => navigate('/employeedashboard')} color="inherit">
                             <CloseIcon />
