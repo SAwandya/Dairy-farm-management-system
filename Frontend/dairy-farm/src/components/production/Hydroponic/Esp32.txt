@@ -105,3 +105,14 @@ void loop() {
   //}
   
 }
+
+/*pins
+
+
+#define DHTPIN 4
+#define DHTTYPE DHT11
+#define FAN 18 // GPIO pin for FAN relay
+#define WATER 19 // GPIO pin for water motor
+const int moistureSensor = 32; // GPIO32 analog input
+
+*/
