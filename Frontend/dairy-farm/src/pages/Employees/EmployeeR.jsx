@@ -14,17 +14,19 @@ function EmployeeR() {
                 flex: 1,
                 padding: '10px', 
                 margin: '50px ', 
-                marginBottom: '20px', 
+                marginBottom: '10px', 
                 paddingLeft: '130px', 
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-start'
             }}>
+                 <Box sx={{ marginLeft: '2rem',marginTop:'-20px' ,width:'86%' }}>
                 
                 <h4>Welcome Back,</h4>
                 <h1>Disara Methmali</h1>
-                <Box sx={{ marginLeft: '13rem',marginTop:'-60px' ,width:'86%' }}>
+                <Box sx={{ marginLeft: '20rem',marginTop:'-78px' ,width:'86%' }}>
                 <DateV/>
+                </Box>
                 </Box>
                 <div style={{ marginTop:"70px", textAlign: 'center' }}>
                     <BgCard style={{ marginBottom: '20px' }}>
