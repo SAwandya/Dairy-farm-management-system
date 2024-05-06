@@ -565,6 +565,7 @@ function formatDate(dateString) {
               sx={{ marginBottom: 2 }}
               fullWidth
               required
+              inputProps={{ min: 0 }}
             />
           </DialogContent>
           <DialogActions>
