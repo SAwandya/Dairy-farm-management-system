@@ -1,19 +1,26 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PieChart } from '@mui/x-charts';
+import axios from 'axios';
 
-const qualityData = [
-  { day: 'Monday', qualityCheckData: 'Pass' },
-  { day: 'Tuesday', qualityCheckData: 'Pass' },
-  { day: 'Wednesday', qualityCheckData: 'Fail' },
-  { day: 'Thursday', qualityCheckData: 'Pass' },
-  { day: 'Friday', qualityCheckData: 'Pass' },
-  { day: 'Saturday', qualityCheckData: 'Fail' },
-  { day: 'Sunday', qualityCheckData: 'Pass' },
-];
+function MilkingPieChart({ selectedTimePeriod }) {
+  const [qualityData, setQualityData] = useState([]);
 
-function MilkingPieChart() {
-  const passCount = qualityData.filter(item => item.qualityCheckData === 'Pass').length;
-  const failCount = qualityData.filter(item => item.qualityCheckData === 'Fail').length;
+  useEffect(() => {
+    fetchData(selectedTimePeriod);
+  }, [selectedTimePeriod]);
+
+  const fetchData = async (timePeriod) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/milkingData/${timePeriod}`);
+      const milkingData = response.data.data;
+      setQualityData(milkingData);
+    } catch (error) {
+      console.error('Error fetching milking data:', error);
+    }
+  };
+
+  const passCount = qualityData.filter(item => item.qualityCheckResult === 'Pass').length;
+  const failCount = qualityData.filter(item => item.qualityCheckResult === 'Fail').length;
 
   return (
     <PieChart
