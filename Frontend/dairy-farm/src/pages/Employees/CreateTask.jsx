@@ -62,11 +62,20 @@ function CreateTask() {
     e.preventDefault();
 
     // Form validation
-    if (!taskID || !taskinfo || !employeeId || !employeeName || !description || !status) {
+    const validationErrors = [
+      validateField('taskID', taskID),
+      validateField('employeeId', employeeId)
+      // Add more validation checks if needed
+    ];
+
+    // Check if there are any validation errors
+    const hasErrors = validationErrors.some(error => error !== '');
+
+    if (hasErrors || !taskinfo || !employeeName || !description || !status) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'All fields are required!',
+            text: 'Please fix all validation errors and fill in all required fields!',
         });
         return;
     }
