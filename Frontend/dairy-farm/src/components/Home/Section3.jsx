@@ -50,7 +50,7 @@ From creamy milk to velvety yogurt and artisanal cheeses, Nevil Nutri offers a d
                 <ProductCard 
                     imgSrc="../../../../src/assets/cheese-pic.png" 
                     title="Cheese" 
-                    text="Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. " 
+                    text="Savor the rich flavor and velvety texture of Nevil Nutri's artisanal cheeses, meticulously crafted for the ultimate culinary experience. " 
                 />
                 <ProductCard 
                     imgSrc="../../../../src/assets/icecream-pic.png" 
