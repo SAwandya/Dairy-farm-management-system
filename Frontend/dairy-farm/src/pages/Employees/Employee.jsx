@@ -149,7 +149,7 @@ const totalEmployees = dataList.length;
         <div>
         <div style={{ display: 'flex', minWidth: '1036px',overflow: 'hidden'  }}>
             <Esidebar/>
-            <Box sx={{ marginLeft: '11rem',marginTop:'50px' ,overflow: 'hidden',width:'86%' }}>
+            <Box sx={{ marginLeft: '11rem',marginTop:'20px' ,overflow: 'hidden',width:'86%' }}>
             <Typography variant="h4" sx={{ marginLeft: '1rem', fontSize: '14px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                     Welcome Back,
                 </Typography>
