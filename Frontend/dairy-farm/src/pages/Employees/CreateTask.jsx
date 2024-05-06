@@ -73,9 +73,15 @@ function CreateTask() {
 
     if (hasErrors || !taskinfo || !employeeName || !description || !status) {
         Swal.fire({
+         
             icon: 'error',
-            title: 'Oops...',
+            title: 'Validation Error',
             text: 'Please fix all validation errors and fill in all required fields!',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
         });
         return;
     }
@@ -94,6 +100,11 @@ function CreateTask() {
             icon: 'success',
             title: 'Success',
             text: 'Task created successfully!',
+            toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
         }).then(() => {
             navigate('/task');
         });
