@@ -23,7 +23,7 @@ function EmployeeR() {
                  <Box sx={{ marginLeft: '2rem',marginTop:'-20px' ,width:'86%' }}>
                 
                 <h4>Welcome Back,</h4>
-                <h1>Disara Methmali</h1>
+                <h1> Hello Disara </h1>
                 <Box sx={{ marginLeft: '20rem',marginTop:'-78px' ,width:'86%' }}>
                 <DateV/>
                 </Box>
