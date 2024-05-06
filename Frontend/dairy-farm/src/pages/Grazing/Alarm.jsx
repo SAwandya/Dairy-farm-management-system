@@ -6,6 +6,7 @@ import AlarmList from '../../components/Grazing/AlarmList';
 import alarmImage from '../../assets/cow1.png';
 import alarmSound from '../../assets/alarm.mp3';
 import Swal from 'sweetalert2';
+import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
 
 function App() {
   const [alarms, setAlarms] = useState([]);
@@ -41,7 +42,9 @@ function App() {
             <AlarmList alarms={alarms} deleteAlarm={deleteAlarm} />
             </CardContent>
       </Card>
+      <GrazingSideBar/>
     </Box>
+    
   );
 }
 
