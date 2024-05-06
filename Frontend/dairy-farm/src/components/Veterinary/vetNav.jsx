@@ -15,9 +15,7 @@ function Sidebar() {
   const [activeSection, setActiveSection] = useState("vetdashboard");
 
 
-  const handleNavigation = (section) => {
-    setActiveSection(section);
-  };
+  
   const location = useLocation();
   const isActive = (path) => {
     return location.pathname === path;
