@@ -96,30 +96,30 @@ const SupplierTable = () => {
   };
 
   const handleUpdate = () => {
-    if (currentRow.avgDeliveryTime < 0) {
-      handleClose();
-      Swal.fire('Error', 'Average Delivery Time cannot be a negative value', 'error');
-      return;
-    }
-    const errors = validateForm(currentRow);
-    if (Object.values(errors).some((error) => error)) {
-      setValidationErrors(errors);
-      return;
-    }
-  
-    let data = { ...currentRow, __v: undefined };
-  
-    mutate(data, {
-      onSuccess: () => {
-        setOpen(false);
-        Swal.fire('Success', 'Supplier updated successfully', 'success');
-      },
-      onError: (error) => {
-        console.error("An error occurred:", error);
-        Swal.fire('Error', 'An error occurred while updating the supplier', 'error');
-      },
-    });
-  };
+  if (currentRow.avgDeliveryTime < 0) {
+    handleClose();
+    Swal.fire('Error', 'Average Delivery Time cannot be a negative value', 'error');
+    return;
+  }
+  const errors = validateForm(currentRow);
+  if (Object.values(errors).some((error) => error)) {
+    setValidationErrors(errors);
+    return;
+  }
+
+  let data = { ...currentRow, __v: undefined, _id: currentRow._id };
+
+  mutate(data, {
+    onSuccess: () => {
+      setOpen(false);
+      Swal.fire('Success', 'Supplier updated successfully', 'success');
+    },
+    onError: (error) => {
+      console.error("An error occurred:", error);
+      Swal.fire('Error', 'An error occurred while updating the supplier', 'error');
+    },
+  });
+};
 
   const handleDelete = (id) => {
     Swal.fire({
