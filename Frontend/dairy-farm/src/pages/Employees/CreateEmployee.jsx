@@ -108,9 +108,19 @@ function CreateEmployee() {
       });
     } else {
       // Form is invalid, show error toast message
-      console.log('Form validation failed');
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fix all validation errors!',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
     }
   };
+  
   const validateForm = () => {
     let isValid = true;
   
