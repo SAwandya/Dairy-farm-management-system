@@ -316,13 +316,13 @@ function useDeleteItem() {
   });
 }
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
-const ItemsTableWithProviders = () => (
-  <QueryClientProvider client={queryClient}>
-    <ItemsTable />
-  </QueryClientProvider>
-);
+// const ItemsTableWithProviders = () => (
+//   <QueryClientProvider client={queryClient}>
+//     <ItemsTable />
+//   </QueryClientProvider>
+// );
 
 export default ItemsTable;
 
