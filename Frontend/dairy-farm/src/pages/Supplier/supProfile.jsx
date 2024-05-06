@@ -1,16 +1,22 @@
-import React from 'react';
-import { Container, Box, Button, Typography } from '@mui/material';
+import React,{ useState }  from 'react';
+import { Container, Box, Button, Popover, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import duvini from '../../assets/Thusala.jpeg';
 import Sidebar from '../../components/Supplier/SupplierSideBar';
-
+import LeaveForm from "../../components/Employees/leaveform"
+import QRCodeScanner from '../../components/Employees/QRCodeScanner';
 const supProfile = () => {
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null); // State for anchor element of popover
 
-  const handleLeave = () => {
-    // Navigate to the leave form
-    navigate(`/leaveform`);
+  const handleLeave = (event) => {
+    setAnchorEl(event.currentTarget); // Set anchor element when the button is clicked
   };
+
+  const handleClose = () => {
+    setAnchorEl(null); // Close popover
+  };
+  const open = Boolean(anchorEl);
 
   const details = [
     { label: 'Name :', value: 'Thusala Piyarisi' },
@@ -116,7 +122,28 @@ const supProfile = () => {
           >
             Take a Leave
           </Button>
+          <Popover
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Box>
+              <LeaveForm /> {/* Render LeaveForm component inside the Popover */}
+            </Box>
+          </Popover>
+          <div style={{ position: 'fixed', top: '530px', right: '170px' }}>
+  <QRCodeScanner />
+</div>
         </Box>
+
       </Container>
     </div>
   );

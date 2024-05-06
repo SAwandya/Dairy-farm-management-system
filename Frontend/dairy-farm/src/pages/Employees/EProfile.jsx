@@ -5,6 +5,8 @@ import disara from '../../assets/disara.png';
 import Esidebar from "../../components/Employees/esidebar";
 //import LeaveForm from "../../pages/Employees/LeaveForm"; // Import LeaveForm component
 import LeaveForm from "../../components/Employees/leaveform"
+import QRCodeScanner from '../../components/Employees/QRCodeScanner';
+
 const EProfile = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null); // State for anchor element of popover
@@ -140,7 +142,12 @@ const EProfile = () => {
               <LeaveForm /> {/* Render LeaveForm component inside the Popover */}
             </Box>
           </Popover>
+          <div style={{ position: 'fixed', top: '530px', right: '170px' }}>
+  <QRCodeScanner />
+</div>
+
         </Box>
+       
       </Container>
     </div>
   );
