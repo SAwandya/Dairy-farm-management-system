@@ -23,7 +23,16 @@ router.get('/checkEmployeeId/:employeeId', async(req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
+// Route to check if a task ID already exists
+router.get('/checkTaskID/:taskID', (req, res) => {
+    const { taskID } = req.params;
+    TaskModel.findOne({ taskID }) // Query the TaskModel to find a task with the given taskID
+        .then(task => {
+            const exists = !!task; // If task is found, exists will be true, otherwise false
+            res.json({ exists });
+        })
+        .catch(err => res.status(500).json({ error: 'Failed to check task ID', details: err }));
+});
 router.get('/', (req, res) => {
     EmployeeModel.find({})
         .then(employees => res.json(employees))
