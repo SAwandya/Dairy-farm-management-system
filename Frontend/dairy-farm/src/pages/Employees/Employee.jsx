@@ -157,7 +157,7 @@ const totalEmployees = dataList.length;
                 <Typography variant="h5" sx={{ marginLeft: '1rem', fontSize: '30px', fontWeight: 'bold' ,fontFamily: 'Poppins'}}>
                    Hello Disara,
                 </Typography>
-                <Box sx={{ marginLeft: '11rem',marginTop:'-50px' ,width:'86%' }}>
+                <Box sx={{ marginLeft: '11rem',marginTop:'-60px' ,width:'86%' }}>
                 <DateV/>
                 </Box>
                 <Box sx={{ display: 'fixed' ,width:'100px',marginLeft: '-10rem',marginTop:'10px'}}>
