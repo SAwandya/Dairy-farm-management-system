@@ -5,6 +5,7 @@ import DateV from '../../components/Veterinary/DateV';
 import Esidebar from "../../components/Employees/esidebar";
 import EmployeeReport from './Employee_report';
 import Report from './Attendance_R';
+import { Box, Typography } from '@mui/material'; 
 function EmployeeR() {
     return (
         <div style={{ display: 'flex', height: '100vh', fontFamily: 'Poppins, sans-serif' }}>
@@ -19,10 +20,12 @@ function EmployeeR() {
                 flexDirection: 'column',
                 justifyContent: 'flex-start'
             }}>
-                <DateV />
+                
                 <h4>Welcome Back,</h4>
                 <h1>Disara Methmali</h1>
-                
+                <Box sx={{ marginLeft: '13rem',marginTop:'-60px' ,width:'86%' }}>
+                <DateV/>
+                </Box>
                 <div style={{ marginTop:"70px", textAlign: 'center' }}>
                     <BgCard style={{ marginBottom: '20px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
