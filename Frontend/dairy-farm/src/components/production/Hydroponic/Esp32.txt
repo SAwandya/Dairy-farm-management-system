@@ -130,4 +130,8 @@ const int moistureSensor = 32; // GPIO32 analog input
 ext power,
     power 1 for fan
     power 1 for fan relay
+
+    power 2 for motor
+    power 2 for motor relay
+    
 */
