@@ -55,7 +55,7 @@ From creamy milk to velvety yogurt and artisanal cheeses, Nevil Nutri offers a d
                 <ProductCard 
                     imgSrc="../../../../src/assets/icecream-pic.png" 
                     title="Ice Cream" 
-                    text="Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. " 
+                    text="Cool down with Nevil Nutri's irresistible ice cream, made with premium ingredients for a creamy, decadent treat." 
                 />
                 <ProductCard 
                     imgSrc="../../../../src/assets/yogurt-pic.png" 
