@@ -236,9 +236,13 @@ const OrderTable = () => {
   };
 
   const filteredData = orders?.filter((row) =>
-    Object.values(row).some((value) =>
-      value.toString().toLowerCase().includes(search.toLowerCase())
-    )
+    Object.entries(row).some(([key, value]) => {
+      if (key === 'orderType') {
+        const itemType = itemTypes.find((item) => item._id === value);
+        return itemType?.itemName.toLowerCase().includes(search.toLowerCase());
+      }
+      return value.toString().toLowerCase().includes(search.toLowerCase());
+    })
   );
 
   const validateForm = (row) => {

@@ -31,9 +31,21 @@ function SensorDisplay() {
     const { cx, cy, stroke, payload } = props;
 
     return (
-      <svg x={cx - 5} y={cy - 5} width={10} height={10} fill={stroke} viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="12" stroke={stroke} strokeWidth="2" fill={stroke} />
-      </svg>
+     
+      <g>
+      {/* line */}
+      <line x1={cx} y1={cy} x2={cx - 120} y2={cy} stroke={stroke} strokeWidth="2" />
+      {/* Dot */}
+      <circle cx={cx + 5} cy={cy} r={5} fill={stroke} />
+      </g>
+     
+     /*DOT
+       <svg x={cx - 5} y={cy - 5} width={10} height={10} fill={stroke} viewBox="0 0 24 24">
+       <circle cx="12" cy="12" r="12" stroke={stroke} strokeWidth="2" fill={stroke} />
+       </svg> 
+      */
+
+    
     );
   };  
 
@@ -47,7 +59,7 @@ function SensorDisplay() {
         <YAxis domain={[0,100]}/>
         <Tooltip />
         <ReferenceLine y={horizontalLineValue} stroke="black" strokeDasharray="3 3" />
-        <Line type="monotone" dataKey={dataKey} stroke={color} dot={<CustomDot />} />
+        <Line type="monotone" dataKey={dataKey} stroke={color} dot={<CustomDot />} /> 
       </LineChart>
       <Typography align="center" variant="h6" component="h2" sx={{ marginTop: '10px', color }}>
         {title}: {data.length > 0 && data[data.length - 1][dataKey]} {unit}
