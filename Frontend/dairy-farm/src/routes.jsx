@@ -32,6 +32,7 @@ import StorageRoom from "./pages/Production/StorageRoom"
 import ProductInventory from "./pages/Production/ProductInventory";
 import ProductionProfile from "./pages/Production/ProductionProfile";
 import Hydroponic from "./pages/Production/Hydroponic";
+import Reorder from "./pages/Production/Reorder";
 
 
 //Milking Management - Pages
@@ -295,7 +296,9 @@ const router = createBrowserRouter([
   { path: "/ProductInventory", element: <ProductInventory/> },
   { path: "/ProductionProfile", element: <ProductionProfile/>},
   { path: "/Hydroponic", element: <Hydroponic/>},
+  { path: "/Reorder", element: <Reorder/>},
 
+  
 
   {
     path: "/scheduleForm",

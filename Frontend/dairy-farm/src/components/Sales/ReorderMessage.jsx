@@ -13,7 +13,7 @@ const ReorderMessage = () => {
 
   return (
     <>
-      <Typography sx={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: "30px", marginTop: "40px" }}>Production Notifications</Typography>
+      <Typography sx={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: "40px", marginTop: "15px",fontWeight:"bold" }}>Production Notifications</Typography>
       <Container
         sx={{
           maxWidth: 600,
