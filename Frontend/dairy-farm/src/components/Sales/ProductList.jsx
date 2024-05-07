@@ -187,7 +187,7 @@ const ProductList = () => {
         </TableBody>
       </Table>
       {isLoading ? (
-        <Box sx={{ width: 1100 }}>
+        <Box sx={{ width: 1000 }}>
           <Skeleton sx={{ height: 80, marginTop: -1 }} />
           <Skeleton sx={{ height: 80, marginTop: -3 }} animation="wave" />
           <Skeleton sx={{ height: 80, marginTop: -3 }} animation="wave" />
