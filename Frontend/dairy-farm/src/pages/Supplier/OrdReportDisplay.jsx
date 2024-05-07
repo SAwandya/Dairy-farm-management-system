@@ -4,6 +4,7 @@ import BgCard from '../../components/Veterinary/bgCard';
 import DateV from '../../components/Veterinary/DateV';
 import Sidebar from '../../components/Supplier/SupplierSideBar';
 import OrderReport from './OrderReport';
+import Welcome from '../../components/Supplier/Welcome';
 
 function OrdReportDisplay() {
     return (
@@ -19,8 +20,7 @@ function OrdReportDisplay() {
                 flexDirection: 'column',
                 justifyContent: 'flex-start'
             }}>
-                <DateV />
-                <h4>Welcome Back,</h4>
+                <Welcome />
                 <div style={{ marginTop:"70px", textAlign: 'center' }}>
                     <BgCard style={{ marginBottom: '20px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

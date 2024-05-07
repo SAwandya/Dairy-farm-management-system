@@ -136,7 +136,7 @@ const supProfile = () => {
             }}
           >
             <Box>
-              <LeaveForm /> {/* Render LeaveForm component inside the Popover */}
+              <LeaveForm />
             </Box>
           </Popover>
           <div style={{ position: 'fixed', top: '530px', right: '170px' }}>
