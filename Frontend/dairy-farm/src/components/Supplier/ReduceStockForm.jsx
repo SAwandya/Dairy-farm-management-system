@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, TextField, Select, MenuItem, FormControl, InputLabel, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
+import Swal from 'sweetalert2';
 
 const ReduceStockForm = () => {
   const [items, setItems] = useState([]);
@@ -31,6 +32,13 @@ const ReduceStockForm = () => {
     setSelectedItem('');
     setQuantity('');
     setShowForm(false);
+    // Display SweetAlert when stocks are ordered
+    Swal.fire({
+      title: "Stocks Ordered",
+      text: "Stocks have been successfully ordered.",
+      icon: "success",
+      confirmButtonText: "OK"
+    });
   };
 
   const handleClose = () => {
@@ -43,9 +51,9 @@ const ReduceStockForm = () => {
 
   return (
     <>
-          <Button variant="contained" color="primary" onClick={() => setShowForm(true)} style={{ backgroundColor: '#1a6952' }}>
-      Get Stocks
-    </Button>
+      <Button variant="contained" color="primary" onClick={() => setShowForm(true)} style={{ backgroundColor: '#1a6952' }}>
+        Get Stocks
+      </Button>
 
       <Dialog open={showForm} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Get Stocks</DialogTitle>
@@ -75,16 +83,16 @@ const ReduceStockForm = () => {
                 />
               </Grid>
             </Grid>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained" color="primary">
+                Submit
+              </Button>
+            </DialogActions>
           </form>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button type="submit" onClick={handleSubmit} variant="contained" color="primary">
-            Submit
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );
