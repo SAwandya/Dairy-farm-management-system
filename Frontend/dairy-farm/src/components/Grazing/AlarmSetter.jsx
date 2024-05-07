@@ -30,7 +30,7 @@ function AlarmSetter({ addAlarm }) {
       <TextField type="number" name="hours" label="Hours" InputProps={{ inputProps: { min: 0, max: 23 } }} />
       <TextField type="number" name="minutes" label="Minutes" InputProps={{ inputProps: { min: 0, max: 59 } }} />
       <TextField type="number" name="seconds" label="Seconds" InputProps={{ inputProps: { min: 0, max: 59 } }} />
-      <Button type="submit" variant="contained" color="primary">Set Alarm</Button>
+      <Button type="submit" variant="contained" color="primary" >Set Alarm</Button>
     </form>
   );
 }
