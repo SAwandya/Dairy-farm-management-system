@@ -17,7 +17,7 @@ const vetProfile = () => {
   };
 
   const handleClose = () => {
-    setAnchorEl(null); // Close popover
+    setAnchorEl(null);
   };
 
   const open = Boolean(anchorEl); 
@@ -142,7 +142,7 @@ const vetProfile = () => {
             }}
           >
             <Box>
-              <LeaveForm /> {/* Render LeaveForm component inside the Popover */}
+              <LeaveForm /> 
             </Box>
           </Popover>
           <div style={{ position: 'fixed', top: '530px', right: '170px' }}>
