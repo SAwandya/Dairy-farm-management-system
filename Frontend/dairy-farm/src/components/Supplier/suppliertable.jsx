@@ -115,6 +115,7 @@ const SupplierTable = () => {
       Swal.fire('Success', 'Supplier updated successfully', 'success');
     },
     onError: (error) => {
+      handleClose();
       console.error("An error occurred:", error);
       Swal.fire('Error', 'An error occurred while updating the supplier', 'error');
     },
@@ -158,8 +159,9 @@ const SupplierTable = () => {
         Swal.fire('Success', 'Supplier added successfully', 'success');
       },
       onError: (error) => {
+        handleCloseAdd();
         console.error("An error occurred:", error);
-        Swal.fire('Error', 'An error occurred while adding the supplier', 'error');
+        Swal.fire('Error', 'An error occurred while adding the supplier. Enter all the details', 'error');
       },
     });
   };
