@@ -3,7 +3,7 @@ import ProductionSidebar from "../../components/production/productionSidebar"
 import { Container, Box, Typography, Button, Paper } from "@mui/material"
 import Grid2 from "@mui/material/Unstable_Grid2";
 import SensorDisplay from "../../components/production/Hydroponic/SensorDisplay";
-import backgroundImage from "../../assets/hydro3.webp";
+import backgroundImage from "../../assets/hydro8.jpg";
 
 function ProductInventory() {
   return (
