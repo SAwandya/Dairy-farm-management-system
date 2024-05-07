@@ -7,7 +7,6 @@ import companyLogo from '../../assets/sidebar-logo.png';
 import DownloadIcon from '@mui/icons-material/Download';
 import IconButton from '@mui/material/IconButton';
 
-
 const Userlist = () => {
   const location = useLocation();
   const path = location.pathname.split('/')[1];
@@ -89,12 +88,8 @@ const Userlist = () => {
 
     doc.setFontSize(10).text(`Date: ${date}`, margin, margin + 35);
 
-   
     doc.setFontSize(20).setTextColor(56, 119, 91).setFont('helvetica', 'bold').text('Animal Registry Report', margin, 70);
 
-   
-
-    
     doc.setFontSize(10).setFont('helvetica', 'normal').setTextColor(0, 0, 0).text(
       textParagraph,
       margin,
@@ -102,7 +97,7 @@ const Userlist = () => {
       { maxWidth: maxWidth } 
     );
 
- 
+
     doc.autoTable(headers, tableRows, {
       styles: { fontSize: 10 },
       startY: 100,
