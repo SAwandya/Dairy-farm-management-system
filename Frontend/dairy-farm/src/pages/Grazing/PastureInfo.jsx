@@ -56,10 +56,10 @@ function PastureInfo() {
         </Box>
         <container >
         <Box className="dashboard-content">
-                <div align='center'></div>
-                <GrazingDate/>
-                <Name/>
-              <Typography> Information regarding the  pasture maintainence is recorded here</Typography>
+          <Box className="welcome-header">
+              <Name/>
+              <GrazingDate/>
+          </Box>
               
         </Box>
         </container>
@@ -69,10 +69,17 @@ function PastureInfo() {
 
         <Container sx={{ margin: 25,marginTop: '20px'  }}>
 
-        <Box sx={{ textAlign: 'right', marginRight:'25px' }}>
-        <Button variant="contained" style={{ backgroundColor: '#1a6952' }} href="/pasture">
-         Pasture Table
-        </Button>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography
+            sx={{
+              fontFamily: 'Poppins'
+            }}
+          >
+            Information regarding the  pasture maintainence is recorded here
+          </Typography>
+          <Button variant="contained" style={{ backgroundColor: '#1a6952', fontFamily: 'Poppins' }} href="/pasture">
+            Pasture Table
+          </Button>
         </Box>
           <Grid2 container spacing={8} marginTop={4}>
             {pastures.map(pasture => (

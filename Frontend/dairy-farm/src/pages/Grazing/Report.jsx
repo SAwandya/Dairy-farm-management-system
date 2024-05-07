@@ -286,11 +286,17 @@ const Report = () => {
     <div>
       <GrazingSideBar sx={{ position: 'fixed', left: 0, top: 0, height: '100vh' }} />
       <Box className="dashboard-content">
-                <div align='center'></div>
-                <GrazingDate/>
-                <Name/>
+        <Box className="welcome-header">
+            <Name/>
+            <GrazingDate/>
+        </Box>
               
-              <Typography> You can download the detailed reports for analysis from here.</Typography>
+        <Typography
+          sx={{
+            fontFamily: 'Poppins',
+            marginTop: '20px'
+          }}
+        > You can download the detailed reports for analysis from here.</Typography>
               
       </Box>
       <div style={{ marginTop:'70px',display: 'flex', justifyContent: 'center', gap:'70px',alignItems: 'center', flexDirection: 'column' }}>
@@ -300,6 +306,9 @@ const Report = () => {
             onClick={() => generateSessionPDF(sessionDataList)}
             variant="contained"
             className="bg-gray-800 text-center hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer"
+            sx={{
+              fontFamily: 'Poppins'
+            }}
           >
             <DownloadIcon />
             Session Detail Report
@@ -310,6 +319,9 @@ const Report = () => {
             onClick={() => generatePasturePDF(pastureDataList)}
             variant="contained"
             className="bg-gray-800 text-center hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer"
+            sx={{
+              fontFamily: 'Poppins'
+            }}
           >
             <DownloadIcon/>
             Pasture Detail Report
@@ -320,6 +332,9 @@ const Report = () => {
             onClick={() => generateEffluentPDF(effluentDataList)}
             variant="contained"
             className="bg-gray-800 text-center hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer"
+            sx={{
+              fontFamily: 'Poppins'
+            }}
           >
             {isLoading ? <CircularProgress size={24} /> : <DownloadIcon />}
             Effluent Detail Report
