@@ -10,14 +10,14 @@ import QRCodeScanner from '../../components/Employees/QRCodeScanner';
 const vetProfile = () => {
   const navigate = useNavigate();
 
-  const [anchorEl, setAnchorEl] = useState(null); // State for anchor element of popover
+  const [anchorEl, setAnchorEl] = useState(null); 
 
   const handleLeave = (event) => {
-    setAnchorEl(event.currentTarget); // Set anchor element when the button is clicked
+    setAnchorEl(event.currentTarget); 
   };
 
   const handleClose = () => {
-    setAnchorEl(null); // Close popover
+    setAnchorEl(null);
   };
 
   const open = Boolean(anchorEl); 
@@ -142,13 +142,12 @@ const vetProfile = () => {
             }}
           >
             <Box>
-              <LeaveForm /> {/* Render LeaveForm component inside the Popover */}
+              <LeaveForm /> 
             </Box>
           </Popover>
           <div style={{ position: 'fixed', top: '530px', right: '170px' }}>
   <QRCodeScanner />
 </div>
-
         </Box>
 
       </Container>

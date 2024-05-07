@@ -5,6 +5,9 @@ import companyLogo from '../../assets/sidebar-logo.png';
 import DownloadIcon from '@mui/icons-material/Download';
 import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
+import { Button } from '@mui/material';
+
+
 
 
 const OrderReport = () => {
@@ -104,16 +107,15 @@ const OrderReport = () => {
 
 
     return (
-        <div>
-          <IconButton
-            onClick={() => {
-              generatePDF(dataList);
-            }}
-            className="bg-gray-800 text-center hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer lg:mt-0 mt-3"
-          >
-            <DownloadIcon/>
-          </IconButton>
-        </div>
+      <Button
+        onClick={() => {
+          generatePDF(dataList);
+        }}
+        className="bg-gray-800 text-center hover:bg-gray-600 text-white font-bold py-2 px-4 rounded cursor-pointer lg:mt-0 mt-3"
+        startIcon={<DownloadIcon />}
+      >
+        Download
+      </Button>
       );
 };
 

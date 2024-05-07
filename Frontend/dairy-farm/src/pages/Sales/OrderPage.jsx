@@ -85,7 +85,7 @@ const OrderPage = () => {
                       fontWeight: "bold",
                     }}
                   >
-                    {!purchase.approve ? "Processing" : "Approved"}
+                    {!purchase.approve ? "Processing" : "Delivered"}
                   </Typography>
                 </Box>
 
@@ -104,9 +104,9 @@ const OrderPage = () => {
                   </Typography>
                 </Box>
 
-                <AccordionDetails>
+                {/* <AccordionDetails>
                   {purchase.product.description}
-                </AccordionDetails>
+                </AccordionDetails> */}
                 <AccordionActions>
                   {!purchase.approve ? (
                     <Button

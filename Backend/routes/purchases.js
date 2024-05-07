@@ -204,11 +204,11 @@ router.put("/:id", async (req, res) => {
 
   let response = {};
 
-  if (req.body.approve == "approve") {
+  if (req.body.approve == true) {
     response = {
       body: {
         name: purchase.customer.name,
-        intro: "Your oder has approved",
+        intro: "Your oder has delivered",
         table: {
           data: [
             {
@@ -225,7 +225,7 @@ router.put("/:id", async (req, res) => {
     response = {
       body: {
         name: purchase.customer.name,
-        intro: "Your oder has rejected!!!",
+        intro: "Your delivery has been canceled!!!",
         table: {
           data: [
             {

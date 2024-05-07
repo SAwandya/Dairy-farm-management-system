@@ -40,7 +40,7 @@ function FemaleCowTable() {
                 
             }
         } catch (error) {
-            
+            //error
         }
     };
 

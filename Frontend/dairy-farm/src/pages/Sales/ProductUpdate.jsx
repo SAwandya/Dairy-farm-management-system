@@ -159,7 +159,7 @@ const ProductUpdate = () => {
               <Grid item md={6} sm={6}>
                 <InputField
                   id="unitOfMeasurement"
-                  label="Unit Of Measurement"
+                  label="Size"
                   type="text"
                   defaultValue={selectedProductUpdate?.unitOfMeasurement}
                   signup={{

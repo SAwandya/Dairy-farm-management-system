@@ -56,36 +56,36 @@ function PastureCard({ pasture }) {
       </div>
       <div style={detailsContainerStyle}>
         <CardContent>
-          <Typography variant="h6" style={{ marginBottom: '10px', color: '#006400' }}>
+          <Typography variant="h6" style={{ marginBottom: '10px', color: '#006400', fontFamily: 'Poppins' }}>
             {pasture.name}
           </Typography>
           <div style={detailRowStyle}>
-            <Typography variant="body2">
+            <Typography variant="body2" sx={{fontFamily: 'Poppins'}}>
               <strong>Area:</strong> {pasture.area}
             </Typography>
           </div>
           <div style={detailRowStyle}>
-            <Typography variant="body2">
+            <Typography variant="body2" sx={{fontFamily: 'Poppins'}}>
               <strong>Fertilizer Used:</strong> {pasture.fertilizerUsed}
             </Typography>
           </div>
           <div style={detailRowStyle}>
-            <Typography variant="body2">
+            <Typography variant="body2" sx={{fontFamily: 'Poppins'}}>
               <strong>Feeding Capacity:</strong> {pasture.feedingCapacity}
             </Typography>
           </div>
           <div style={detailRowStyle}>
-            <Typography variant="body2">
+            <Typography variant="body2" sx={{fontFamily: 'Poppins'}}>
               <strong>Assigned Employee:</strong> {pasture.assignedEmployee}
             </Typography>
           </div>
           <div style={detailRowStyle}>
-            <Typography variant="body2">
+            <Typography variant="body2" sx={{fontFamily: 'Poppins'}}>
               <strong>Type Of Plants Planted:</strong> {pasture.typeOfPlantsPlanted}
             </Typography>
           </div>
         </CardContent>
-        <Button variant="contained" href="/grazingstock" style={buttonStyle}>
+        <Button variant="contained" href="/grazingstock" style={buttonStyle} sx={{fontFamily: 'Poppins'}}>
              Maintenance
         </Button>
       </div>

@@ -6,6 +6,7 @@ import { Container, Box, Button } from '@mui/material';
 import GrazingSideBar from '../../components/Grazing/GrazingSideBar';
 import Name from '../../components/Grazing/Name';
 import NewTable from '../../components/Grazing/NewTable';
+import GrazingDate from '../../components/Grazing/GrazingDate';
 
 function RotationInfo() {
   const [rotations, setRotations] = React.useState([]);
@@ -25,21 +26,24 @@ function RotationInfo() {
       <GrazingSideBar />
       <Box className="dashboard-content2">
         <Box className="dashboard-content">
-          <Name/>
+          <Box className="welcome-header">
+              <Name/>
+              <GrazingDate/>
+          </Box>
           <Box sx={{ position: 'absolute', top: 100, right: 160 }}>
-          <Button 
-          component={Link} 
-          to="/alarm" 
-          variant="contained" 
-          color="primary" 
-          style={{ backgroundColor: '#1a6952' }}
-        >
-  Set Alarms
-</Button>
+            <Button 
+              component={Link} 
+              to="/alarm" 
+              variant="contained" 
+              color="primary" 
+              style={{ backgroundColor: '#1a6952', margin: '16px 0' }}
+            >
+              Set Alarms
+            </Button>
 
           </Box>
         </Box>
-        <Container sx={{ margin: 16, marginLeft: '250px', marginTop: '20px' }}>
+        <Container sx={{ margin: 16, marginLeft: '250px', marginTop: '100px' }}>
           <RotationCard rotations={rotations} />
         </Container>
         <Container sx={{ margin: 16, marginLeft: '250px', marginTop: '100px' }}>
