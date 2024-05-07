@@ -47,7 +47,7 @@ function GrazingDashboard() {
                                         marginTop: '8px'
                                     }}
                                 >
-                                    Past days
+                                    This month
                                 </Typography>
                                 <WasteTypeBarChart />
                             </Box>

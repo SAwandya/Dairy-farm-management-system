@@ -13,12 +13,23 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
   }, [initialData]);
 
   const validateDate = (date) => {
-    if (!date || new Date(date) < new Date()) {
+    if (!date) {
+      return 'Date is required';
+    }
+    
+    const currentDate = new Date();
+    const inputDate = new Date(date);
+  
+    // Set the time of currentDate to the start of the day (midnight)
+    currentDate.setHours(0, 0, 0, 0);
+  
+    if (inputDate < currentDate) {
       return 'Date must be today or later';
     }
+    
     return '';
   };
-
+  
   const validateTime = (time) => {
     if (!time) {
       return 'Time is required';
@@ -72,10 +83,8 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
       return acc;
     }, {});
 
-    // Set errors for all fields
     setErrors(fieldErrors);
 
-    // Check if there are any errors
     const hasErrors = Object.values(fieldErrors).some(error => error !== '');
 
     if (hasErrors) {
@@ -157,43 +166,40 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
                 </Select>
                 {errors.grazingArea && <FormHelperText>{errors.grazingArea}</FormHelperText>}
               </FormControl>
-
-                      <FormControl fullWidth error={!!errors.cowBatch} margin="normal">
-          <InputLabel id="cowBatch-label">Cow Batch</InputLabel>
-          <Select
-            labelId="cowBatch-label"
-            id="cowBatch"
-            name="cowBatch"
-            value={formData.cowBatch || ''}
-            onChange={handleChange}
-          >
-            <MenuItem value="F001">F001</MenuItem>
-            <MenuItem value="F002">F002</MenuItem>
-            <MenuItem value="M001">M001</MenuItem>
-            <MenuItem value="M002">M002</MenuItem>
-          </Select>
-          {errors.cowBatch && <FormHelperText>{errors.cowBatch}</FormHelperText>}
-        </FormControl>
-
-                  <FormControl fullWidth error={!!errors.assignedEmployee} margin="normal">
-            <InputLabel id="assignedEmployee-label">Assigned Employee</InputLabel>
-            <Select
-              labelId="assignedEmployee-label"
-              id="assignedEmployee"
-              name="assignedEmployee"
-              value={formData.assignedEmployee || ''}
-              onChange={handleChange}
-            >
-              <MenuItem value="EM10">EM10</MenuItem>
-              <MenuItem value="EM11">EM11</MenuItem>
-              <MenuItem value="EM12">EM12</MenuItem>
-              <MenuItem value="EM13">EM13</MenuItem>
-              <MenuItem value="EM14">EM14</MenuItem>
-              <MenuItem value="EM15">EM15</MenuItem>
-            </Select>
-            {errors.assignedEmployee && <FormHelperText>{errors.assignedEmployee}</FormHelperText>}
-          </FormControl>
-
+              <FormControl fullWidth error={!!errors.cowBatch} margin="normal">
+                <InputLabel id="cowBatch-label">Cow Batch</InputLabel>
+                <Select
+                  labelId="cowBatch-label"
+                  id="cowBatch"
+                  name="cowBatch"
+                  value={formData.cowBatch || ''}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="F001">F001</MenuItem>
+                  <MenuItem value="F002">F002</MenuItem>
+                  <MenuItem value="M001">M001</MenuItem>
+                  <MenuItem value="M002">M002</MenuItem>
+                </Select>
+                {errors.cowBatch && <FormHelperText>{errors.cowBatch}</FormHelperText>}
+              </FormControl>
+              <FormControl fullWidth error={!!errors.assignedEmployee} margin="normal">
+                <InputLabel id="assignedEmployee-label">Assigned Employee</InputLabel>
+                <Select
+                  labelId="assignedEmployee-label"
+                  id="assignedEmployee"
+                  name="assignedEmployee"
+                  value={formData.assignedEmployee || ''}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="EM10">EM10</MenuItem>
+                  <MenuItem value="EM11">EM11</MenuItem>
+                  <MenuItem value="EM12">EM12</MenuItem>
+                  <MenuItem value="EM13">EM13</MenuItem>
+                  <MenuItem value="EM14">EM14</MenuItem>
+                  <MenuItem value="EM15">EM15</MenuItem>
+                </Select>
+                {errors.assignedEmployee && <FormHelperText>{errors.assignedEmployee}</FormHelperText>}
+              </FormControl>
               <FormControl fullWidth error={!!errors.grazingDuration} margin="normal">
                 <TextField
                   id="grazingDuration"
@@ -216,7 +222,7 @@ function SessionForm({ open, handleClose, handleSubmit, initialData }) {
               </FormControl>
             </form>
           </Grid>
-      </Grid>
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="secondary">

@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import Typography from '@mui/material/Typography';
 import FormHelperText from '@mui/material/FormHelperText';
 
+
 const ReduceStockForm = () => {
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
@@ -57,13 +58,14 @@ const ReduceStockForm = () => {
     setSelectedItem('');
     setQuantity('');
     setShowForm(false);
-    setError('');
+        setError('');
 
     Swal.fire(
       'Success!',
       'Stock request is placed.',
       'success'
     );
+
   };
 
   const handleClose = () => {
@@ -118,16 +120,16 @@ const ReduceStockForm = () => {
               />
               </Grid>
             </Grid>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained" color="primary">
+                Submit
+              </Button>
+            </DialogActions>
           </form>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button type="submit" onClick={handleSubmit} variant="contained" color="primary">
-            Submit
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );
