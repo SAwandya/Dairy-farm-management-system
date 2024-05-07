@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Card, CardContent, Typography, Button, CardMedia, Box } from '@mui/material';
-import { Facebook, Twitter, Instagram } from '@mui/icons-material';
+import { Facebook, Twitter, Instagram, QrCodeScanner } from '@mui/icons-material';
 import ClippedDrawer from '../components/homeNav';
 import '../styles/home.css'
 import cow from '../assets/grass.jpg';
@@ -14,6 +14,7 @@ import fin from '../assets/fin.jpg';
 import sup from '../assets/sup.jpg';
 import HomeNavigation from '../components/Home/HomeNavigation';
 import Footer from '../components/Home/Footer';
+import QRCodeScanner from '../pages/Employees/QRCodeScanner';
 
 const RootContainer = styled('div')({
   display: 'flex',
@@ -131,6 +132,7 @@ const HomePage = () => {
             </CardContent>
           </StyledCard>
         ))}
+      <QRCodeScanner />
       </RootContainer>
       <Footer/>
     </>
