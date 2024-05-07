@@ -210,39 +210,66 @@ function CreateEmployee() {
                 className="custom-textfield"
                 margin="normal"
               />
-              <CustomTextField
-                id="employeeName"
-                label="Employee Name"
-                variant="outlined"
-                value={employeeName}
-                onBlur={() => handleBlur('employeeName', employeeName)}
-                onChange={(e) => setEmployeeName(e.target.value)}
-                fullWidth
-                className="custom-textfield"
-                margin="normal"
-              />
-              <CustomTextField
-                id="position"
-                label="Position"
-                variant="outlined"
-                value={position}
-                onBlur={() => handleBlur('position', position)}
-                onChange={(e) => setPosition(e.target.value)}
-                fullWidth
-                className="custom-textfield"
-                margin="normal"
-              />
-              <CustomTextField
-                id="contactNumber"
-                label="Contact Number"
-                variant="outlined"
-                value={contactNumber}
-                onBlur={() => handleBlur('contactNumber', contactNumber)}
-                onChange={(e) => setContactNumber(e.target.value)}
-                fullWidth
-                className="custom-textfield"
-                margin="normal"
-              />
+             <CustomTextField
+    id="employeeName"
+    label="Employee Name"
+    variant="outlined"
+    value={employeeName}
+    onBlur={() => handleBlur('employeeName', employeeName)}
+    onChange={(e) => {
+        const input = e.target.value;
+        // Prevent the user from typing numbers
+        if (/\d/.test(input)) {
+            e.preventDefault();
+        } else {
+            setEmployeeName(input);
+        }
+    }}
+    fullWidth
+    className="custom-textfield"
+    margin="normal"
+/>
+
+<CustomTextField
+    id="position"
+    label="Position"
+    variant="outlined"
+    value={position}
+    onBlur={() => handleBlur('position', position)}
+    onChange={(e) => {
+        const input = e.target.value;
+        // Prevent the user from typing numbers
+        if (/\d/.test(input)) {
+            e.preventDefault();
+        } else {
+            setPosition(input);
+        }
+    }}
+    fullWidth
+    className="custom-textfield"
+    margin="normal"
+/>
+
+<CustomTextField
+    id="contactNumber"
+    label="Contact Number"
+    variant="outlined"
+    value={contactNumber}
+    onBlur={() => handleBlur('contactNumber', contactNumber)}
+    onChange={(e) => {
+        const input = e.target.value;
+        // Prevent the user from typing letters
+        if (/[a-zA-Z]/.test(input)) {
+            e.preventDefault();
+        } else {
+            setContactNumber(input);
+        }
+    }}
+    fullWidth
+    className="custom-textfield"
+    margin="normal"
+/>
+
               <CustomTextField
                 id="email"
                 label="Email"
