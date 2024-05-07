@@ -63,6 +63,36 @@ function ProcessCardContainer() {
           //console.log('sch time',scheduleHours,scheduleMinutes);
           console.log('cur time ',currentHours,currentMinutes);
 
+        /*
+        check this in morning A.M
+          if (schDate === currentDate){
+
+            const scheduleDate = new Date(process.scheduleDate);
+            const scheduledTimeParts = process.scheduleTime.split(':');
+            const scheduledHour = parseInt(scheduledTimeParts[0]);
+            const scheduledMinute = parseInt(scheduledTimeParts[1]);
+            const scheduledSecond = parseInt(scheduledTimeParts[2] || 0); // Handle missing seconds
+
+            // Combine date from scheduleDate and time from scheduleTime
+            const scheduledDateTime1 = new Date(
+              scheduleDate.getFullYear(),
+              scheduleDate.getMonth(),
+              scheduleDate.getDate(),
+              scheduledHour,
+              scheduledMinute,
+              scheduledSecond
+            );
+
+              if(scheduledDateTime1 <= currentTime)
+                {
+                 return true; //  scheduled processes in curent date
+                }
+               else
+               {
+                  return false; // Hide other processes
+               }  
+
+          } */
           if ((schDate === currentDate &&
              (currentHours > scheduleHours || 
             ( currentHours === scheduleHours && currentMinutes >= scheduleMinutes))))
@@ -72,9 +102,9 @@ function ProcessCardContainer() {
           else
           {
             return false; // Hide other processes
-          }
+          }  
 
-        }
+        } //end els if
         else{
           return false; // Hide other processes
         }
