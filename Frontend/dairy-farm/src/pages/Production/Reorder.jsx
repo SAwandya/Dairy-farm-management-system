@@ -1,10 +1,5 @@
 import React from "react";import ProductionSidebar from "../../components/production/productionSidebar";
 import { Container,Box,Typography,Button} from "@mui/material"
-import Welcome from "../../components/production/Dashboard/Welcome";
-import MainStatistics from "../../components/production/MainStatistics";
-import ScheduledProcesses from "../../components/production/Dashboard/ScheduledProcesses"
-import MilikingData from "../../components/production/Dashboard/MilkingData"
-import { Link } from "react-router-dom";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import ReorderMessage from "../../components/Sales/ReorderMessage";
 
