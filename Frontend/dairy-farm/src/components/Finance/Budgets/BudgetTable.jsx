@@ -18,7 +18,7 @@ const departments = [
 
 // Define initial budget values
 const initialDepartmentBudgets = {
-  Veterinary: 10000,
+  Veterinary: 6000,
   Milking: 20000,
   Grazing: 15000,
   Production: 30000,
