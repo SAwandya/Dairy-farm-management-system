@@ -148,7 +148,6 @@ const vetProfile = () => {
           <div style={{ position: 'fixed', top: '530px', right: '170px' }}>
   <QRCodeScanner />
 </div>
-
         </Box>
 
       </Container>
