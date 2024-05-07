@@ -16,7 +16,7 @@ function Welcome() {
                 <Date />
             </Box>
             <Box sx={{ml:-4,mt:-2,mr:-9}}>
-            <Link to="/reordernotify" style={{ textDecoration: 'none' }}>
+            <Link to="/Reorder" style={{ textDecoration: 'none' }}>
                     <IconButton color="inherit" aria-label="notifications" sx={{ fontSize: 32 }}> {/* Increase the icon size */}
                         <NotificationsIcon /> {/* Render the Notifications icon */}
                     </IconButton>
