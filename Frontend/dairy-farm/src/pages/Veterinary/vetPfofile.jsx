@@ -10,10 +10,10 @@ import QRCodeScanner from '../../components/Employees/QRCodeScanner';
 const vetProfile = () => {
   const navigate = useNavigate();
 
-  const [anchorEl, setAnchorEl] = useState(null); // State for anchor element of popover
+  const [anchorEl, setAnchorEl] = useState(null); 
 
   const handleLeave = (event) => {
-    setAnchorEl(event.currentTarget); // Set anchor element when the button is clicked
+    setAnchorEl(event.currentTarget); 
   };
 
   const handleClose = () => {
