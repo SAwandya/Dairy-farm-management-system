@@ -120,11 +120,17 @@
     return (
             <div>
                 <Box className="dashboard-content">
-                    <div align='center'></div>
-                    <GrazingDate/>
-                    <Name/>
+                    <Box className="welcome-header">
+                        <Name/>
+                        <GrazingDate/>
+                    </Box>
                 
-                <Typography> Information regarding the  waste management is recorded here</Typography>
+                <Typography
+                    sx={{
+                        fontFamily: 'Poppins',
+                        margin: '16px 0 0 0'
+                    }}
+                >Information regarding the  waste management is recorded here</Typography>
                 
         </Box>
                 

@@ -17,10 +17,16 @@ function OrderStock() {
   return (
     <div>
       <Box className="dashboard-content">
-        <div align='center'></div>
-        <GrazingDate/>
-        <Name/>
-        <Typography> Order stocks for the maintenance of relevant pastures</Typography>
+        <Box className="welcome-header">
+            <Name/>
+            <GrazingDate/>
+        </Box>
+        <Typography
+          sx={{
+            fontFamily: 'Poppins',
+            margin: '16px 0'
+          }}
+        > Order stocks for the maintenance of relevant pastures</Typography>
         
         <Container>
           <Grid container spacing={2}>
@@ -34,7 +40,7 @@ function OrderStock() {
                     alt={`Image ${item}`}
                   />
                   <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component="p" sx={{fontFamily: 'Poppins'}}>
                       ITEM {item}
                     </Typography>
                     <ReduceStockForm />
