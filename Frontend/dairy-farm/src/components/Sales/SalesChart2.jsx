@@ -38,7 +38,7 @@ const SalesChart2 = () => {
 
   const groupedData = {};
   orders?.forEach((order) => {
-    const month = order.orderDate.getMonth(); 
+    const month = order.orderDate.getMonth();
     const year = order.orderDate.getFullYear();
     const productType = order.product.name;
 
@@ -52,8 +52,7 @@ const SalesChart2 = () => {
       groupedData[productType][year][month] = 0;
     }
 
-    groupedData[productType][year][month] +=
-      order.quantity;
+    groupedData[productType][year][month] += order.quantity;
   });
 
   // Step 3: Create the series array
@@ -81,6 +80,7 @@ const SalesChart2 = () => {
     .slice(0, seriesNb)
     .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }));
 
+  
   return (
     <>
       <BarChart
@@ -99,8 +99,7 @@ const SalesChart2 = () => {
             stroke: "#fff",
           },
         }}
-      >
-      </BarChart>
+      ></BarChart>
 
       <Typography
         sx={{ paddingTop: "20px" }}

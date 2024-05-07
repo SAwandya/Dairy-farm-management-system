@@ -153,7 +153,7 @@ const SalesDashboard = () => {
           <Box sx={{ margin: "70px" }}>
             <DateV />
           </Box>
-          <Box sx={{ marginLeft: "150px", marginTop: "-130px" }}>
+          <Box sx={{ marginLeft: "200px", marginTop: "-130px" }}>
             <Name />
           </Box>
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
