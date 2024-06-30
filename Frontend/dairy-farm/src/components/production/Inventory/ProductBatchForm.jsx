@@ -253,6 +253,10 @@ function ProductBatchForm() {
               onChange={(e) => setManufactureTime(e.target.value)}
               error={isTimeInFuture(manufactureDate, manufactureTime )}
               helperText={isTimeInFuture(manufactureDate, manufactureTime) ? 'Please select a past time' : ''}
+             // inputProps={{
+               // min: new Date().toISOString().split('T')[0], // Disable past dates
+                //max: expiryDate, // Disable dates after the expiry date
+              //}}
               InputLabelProps={{
                 shrink: true,
               }}

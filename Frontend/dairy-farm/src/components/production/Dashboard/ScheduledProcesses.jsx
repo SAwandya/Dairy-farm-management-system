@@ -53,8 +53,9 @@ function ScheduledProcesses() {
 
   return (
 
-    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '50vh',minHeight:'30vh', overflow: 'auto', }}>  
+    <Paper sx={{ borderRadius: 5, height: '100%', maxHeight: '50vh',minHeight:'30vh', overflow: 'auto', fontFamily: 'Poppins, sans-serif'}}>  
       <DataGrid
+      sx={{ fontFamily: 'Poppins, sans-serif'}}
         rows={rows}
         columns={columns}
         pageSize={5}

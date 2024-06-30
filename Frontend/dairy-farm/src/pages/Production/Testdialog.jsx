@@ -29,7 +29,13 @@ function NewProcessForm({ onSubmitSuccess }) {
   const [milkQuantityError, setMilkQuantityError] = useState('');
   const [ingredientsError, setIngredientsError] = useState('');
   const maxMilkQuantity = 1200; // Maximum milk quantity limit
-
+  const currentDate = new Date().toISOString().split('T')[0];
+  //const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const currentTime = `${hours}:${minutes}`;
+  
 
 // Function to validate form fields
 const validateForm = () => {
@@ -286,6 +292,11 @@ const isFormValid = () => {
             {isScheduled && (
               <div>
                 <TextField
+              
+              inputProps={{
+                min: currentDate, // Set the minimum selectable date to the current date
+              }}  
+
                   fullWidth
                   margin="normal"
                   label="Schedule Date"
@@ -297,8 +308,14 @@ const isFormValid = () => {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  
                 />
                 <TextField
+
+inputProps={{
+  min: currentTime, // Set the minimum selectable time to the current time
+}}
+
                   fullWidth
                   margin="normal"
                   label="Schedule Time"
@@ -311,6 +328,7 @@ const isFormValid = () => {
                     shrink: true,
                   }}
                 />
+                
               </div>
             )}
           </DialogContent>

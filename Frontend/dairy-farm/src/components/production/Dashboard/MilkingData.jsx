@@ -62,14 +62,14 @@ const MilkingDataTable = () => {
 
   return (
 
-    <Paper style={{ borderRadius: '15px',maxHeight:'50vh',minHeight:'50vh' , width: '100%', margin: 'auto' ,overflow:'hidden'}}>
+    <Paper style={{ borderRadius: '15px',maxHeight:'50vh',minHeight:'50vh' , width: '100%', margin: 'auto' ,overflow:'hidden', fontFamily: 'Poppins, sans-serif'}}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               value={selectedDate}
               onChange={(date) => setSelectedDate(date)}
             />
           </LocalizationProvider>
-      <DataGrid
+      <DataGrid 
         rows={filteredMilkingData}
         columns={[
           { field: 'id', headerName: 'ID', flex: 1 },

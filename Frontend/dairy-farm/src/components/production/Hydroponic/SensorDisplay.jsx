@@ -14,7 +14,7 @@ function SensorDisplay() {
         const response = await axios.get('http://localhost:3000/api/temperatureSendRcv/data');
         const { temperature, humidity, moisture } = response.data;
         setData([...data, { temperature, humidity, moisture }]); // Add new data point
-        setStatus('Sensors Active');
+        setStatus('Sensors Activated');
       } catch (error) {
         setStatus('Sensors Inactive!');
         console.error('Error fetching data:', error);
