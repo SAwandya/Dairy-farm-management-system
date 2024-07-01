@@ -67,7 +67,7 @@ function TemperatureDisplay() {
     }}>
       <CardContent>
         <Typography align="center" variant="h5" component="h2">
-          Storeroom 3
+          Storeroom 1 WS
         </Typography>
         <div
           style={{

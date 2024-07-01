@@ -30,7 +30,7 @@ return (
       <Grid2 container sx={{ width: '100vw', position: 'relative' ,mt:1}}>
         <Grid2 item xs={1} sm={1}></Grid2>
         <Grid2 item xs={1} sm={1}></Grid2>
-       <Grid2 item xs={10} sm={10} md={3} ><TemperatureCard1s/></Grid2> 
+       <Grid2 item xs={10} sm={10} md={3} ><TemperatureCard1/></Grid2> 
         <Grid2 item xs={10} sm={10} md={3}><TemperatureCard2/></Grid2> 
         <Grid2 item xs={10} sm={10} md={3}><TemperatureCard3/></Grid2> 
         <Grid2 item xs={1} sm={1}></Grid2>

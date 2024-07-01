@@ -1,0 +1,108 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <DHT.h>
+
+#define DHTPIN 4
+#define DHTTYPE DHT11
+#define FAN 18 // GPIO pin for FAN relay
+#define WATER 19 // GPIO pin for water motor
+const int moistureSensor = 32; // GPIO32 analog input
+
+const char* ssid = "Dialog 4G 841";
+const char* password = "91cAAaFF";
+const char* serverAddress = "http://192.168.8.187:3000/api/temperatureSendRcv/temperature";
+
+DHT dht(DHTPIN, DHTTYPE);
+float preTemperature = -999;
+
+int   preMoisture = -999;
+float preHumidity = -999;
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+  }
+  Serial.println("WiFi connected");
+
+
+  pinMode(FAN, OUTPUT); // Set fan relay pin as output
+  pinMode(WATER,OUTPUT); // set fan relay pin as output
+  Serial.println("Fan / water test.., will end in 3 sec");
+
+  delay(3000);
+  pinMode(FAN, INPUT);   // Turn off fan
+  pinMode(WATER,INPUT);  // Turn off motor
+  //Serial.println("Fan test end.");
+}
+void loop() {
+  delay(1000);
+  float temperature = dht.readTemperature();
+  float humidity =  dht.readHumidity();
+  int moisturex = analogRead(moistureSensor);
+  float moisture = 100 - (moisturex/4095.0)*100;
+  
+
+  if (isnan(temperature)) {
+    Serial.println("Failed to read temperature from DHT sensor");
+    return;
+  }
+  //Motor controll
+  if (moisturex > 4000){
+    pinMode(WATER,OUTPUT);
+    //Serial.println("Motor On..");
+  } else{
+    pinMode(WATER,INPUT);
+    //Serial.println("Motor Off..");
+  } 
+  //Fan Controll
+ if (temperature > 35) {
+      //digitalWrite(FAN, LOW);
+      pinMode(FAN, OUTPUT);
+      //Serial.println("Fan turned on");
+    } else {
+      //digitalWrite(FAN, HIGH);
+      pinMode(FAN, INPUT);
+      //Serial.println("Fan turned off");
+    }
+  //Data Transmission
+ // if (temperature != preTemperature || humidity != preHumidity || moisture != preMoisture) { 
+    Serial.print("Temperature: ");
+    Serial.print(temperature);
+    Serial.print(" °C");       
+
+    Serial.print(" | Moisture Level: ");
+    Serial.print(moisture);
+
+    Serial.print(" | Humidity: ");
+    Serial.print(humidity);
+    Serial.println("%");
+
+    HTTPClient http;
+    http.begin(serverAddress);
+    http.addHeader("Content-Type", "application/json");
+
+    //String payload = "{\"temperature\": " + String(temperature) + "}";
+    String payload = "{\"temperature\": " + String(temperature) + ", \"humidity\": " + String(humidity) + ", \"moisture\": " + String(moisture) + "}";
+
+    int httpResponseCode = http.POST(payload);
+
+    if (httpResponseCode > 0) {
+      String response = http.getString();
+      Serial.println("HTTP Response Code: " + String(httpResponseCode));
+      Serial.println(response);
+      //preTemperature = temperature;
+      //preMoisture = moisture;
+      //preHumidity = humidity;
+    } 
+    else {
+      Serial.println("Error sending data to server");
+    }
+
+    http.end();
+  //}
+  
+}
