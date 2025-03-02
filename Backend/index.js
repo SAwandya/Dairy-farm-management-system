@@ -22,29 +22,30 @@ const milkingSessions = require("./routes/milkingSessionRoute");
 const milkingData = require("./routes/milkingDataRoute");
 const milkingStorage = require("./routes/storageTankRoute");
 const pdf = require("./routes/pdf");
-const pasture=require("./routes/pastureDetails");
+const pasture = require("./routes/pastureDetails");
 const temperatureSendRcv = require("./routes/temperatureSendRcv");
 const processCrud = require("./routes/processCrud");
 const productBatchCrud = require("./routes/productBatchCrud");
 const payment = require("./routes/payments");
-const session=require("./routes/sessions");
-const waste=require("./routes/effluentRoutes");
+const session = require("./routes/sessions");
+const waste = require("./routes/effluentRoutes");
 const cart = require("./routes/Carts");
 const salesDelivery = require("./routes/salesDelivery");
 const inventory = require("./routes/inventory");
 const transaction = require("./routes/transaction");
 const reorderMessage = require("./routes/reorderNotifications");
+require("dotenv").config();
 
+const mongo_url = process.env.MONGO_URL;
+const jwtPrivateKey = process.env.JWT_PRIVATE_KEY;
 
-if (!config.get("jwtPrivateKey")) {
+if (!jwtPrivateKey) {
   console.log("FATA ERROR: jwtPrivateKey is not defined");
   process.exit(1);
 }
 
 mongoose
-  .connect(
-    "mongodb+srv://sachilaawandya:PvBJDLO7Df1PvBVU@dfms.zgzy5mn.mongodb.net/?retryWrites=true&w=majority&appName=DFMS"
-  )
+  .connect(mongo_url)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err + ", Could not connect to MongoDB"));
 
@@ -66,7 +67,7 @@ app.use("/api/vacAnim", vaccAnim);
 
 app.use("/api/exmAnim", exmAnim);
 
-app.use("/api/pregnantCow",pregnantCow);
+app.use("/api/pregnantCow", pregnantCow);
 
 app.use("/api/messages", messages);
 
@@ -91,14 +92,13 @@ app.use("/api/productBatchCrud", productBatchCrud);
 
 app.use("/api/invoice", pdf);
 
-app.use("/api/pastureDetails",pasture);
+app.use("/api/pastureDetails", pasture);
 
 app.use("/api/payments", payment);
 
 app.use("/api/sessions", session);
 
-app.use("/api/effluentRoutes",waste);
-
+app.use("/api/effluentRoutes", waste);
 
 app.use("/api/carts", cart);
 
@@ -110,7 +110,6 @@ app.use("/api/transaction", transaction);
 
 app.use("/api/reordernotify", reorderMessage);
 
-
 const server = http.createServer(app); // Create an HTTP server using Express app
 
 const wss = new WebSocket.Server({ port: 3030 }); // Create a WebSocket server attached to the HTTP server
@@ -120,7 +119,6 @@ app.locals.wss = wss;
 
 wss.on("connection", function connection(ws) {
   console.log("Client connected");
-
 
   ws.on("message", function incoming(message) {
     console.log("Received: %s", message);
