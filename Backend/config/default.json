@@ -1,3 +1,4 @@
 {
-    "jwtPrivateKey": ""
+    "jwtPrivateKey": "",
+    "MONGO_URI": "mongodb+srv://sachilaawandya:PvBJDLO7Df1PvBVU@dfms.zgzy5mn.mongodb.net/?retryWrites=true&w=majority&appName=DFMS"
 }
